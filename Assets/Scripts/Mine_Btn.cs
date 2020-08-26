@@ -74,6 +74,7 @@ public class Mine_Btn : MonoBehaviour
         collectTime = mine.collectTime;
 
         GameManager.Instance.OnLevelUp += OnLevelUp;
+        ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
         if (mine.unlockLevel > GameManager.Instance.CurrentLevel)
         {
             var lockText = Instantiate(GameManager.Instance.levelLock, transform);
@@ -114,6 +115,11 @@ public class Mine_Btn : MonoBehaviour
 
         incomePerSecond = IncomeAmount / collectTime;
         StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
+    }
+
+    private void OnResourceAmountChanged(object sender, ResourceManager.OnResourceAmountChangedEventArgs e)
+    {
+
     }
 
     private void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
@@ -184,5 +190,10 @@ public class Mine_Btn : MonoBehaviour
     public float IdleEarn(int idleTime)
     {
         return incomePerSecond * idleTime;
+    }
+
+    void SellButton()
+    {
+        ResourceManager.Instance.ConsumeResource(mine.baseResource, ResourceManager.Instance.GetResourceAmount(mine.baseResource));
     }
 }
