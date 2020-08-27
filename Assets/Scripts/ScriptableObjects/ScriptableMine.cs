@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics;
+using UnityEngine;
 
 [CreateAssetMenu(fileName ="New Mine", menuName = "Factory/Mine")]
 public class ScriptableMine : ScriptableObject
@@ -13,6 +14,8 @@ public class ScriptableMine : ScriptableObject
 
     public int outputValue;
 
+    public int pricePerProduct;
+
     public long incomeAmount;
 
     public Sprite backgroundImage;
@@ -20,4 +23,8 @@ public class ScriptableMine : ScriptableObject
     public int unlockLevel;
 
     public int xpAmount = 10;
+
+    public bool isLockedByContract;
+
+    public ContractBase lockedByContract;
 }

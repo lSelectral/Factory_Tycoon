@@ -21,4 +21,8 @@ public class ScriptableCompound : ScriptableObject
     public int unlockLevel;
 
     public int xpAmount = 25;
+
+    public bool isLockedByContract;
+
+    public ContractBase lockedByContract;
 }

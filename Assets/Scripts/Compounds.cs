@@ -78,6 +78,11 @@ public class Compounds : MonoBehaviour
             var lockText = Instantiate(GameManager.Instance.levelLock, transform);
             lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + scriptableCompound.unlockLevel.ToString();
         }
+        else if (scriptableCompound.isLockedByContract)
+        {
+            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
+            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
+        }
 
         inputResources = scriptableCompound.inputResources;
         tempResourceList = scriptableCompound.inputResources.ToList();
@@ -118,8 +123,19 @@ public class Compounds : MonoBehaviour
     {
         if (transform.Find("Level_Lock(Clone)") != null && scriptableCompound.unlockLevel == e.currentLevel)
         {
-            Debug.Log("Unlocked " + scriptableCompound.partName);
             Destroy(transform.Find("Level_Lock(Clone)").gameObject);
+            if (scriptableCompound.isLockedByContract)
+            {
+                var lockText = Instantiate(GameManager.Instance.levelLock, transform);
+                lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
+                scriptableCompound.isLockedByContract = false;
+            }
+        }
+        else if (scriptableCompound.isLockedByContract && scriptableCompound.unlockLevel > e.currentLevel)
+        {
+            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
+            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
+            scriptableCompound.isLockedByContract = false;
         }
     }
 
@@ -134,13 +150,13 @@ public class Compounds : MonoBehaviour
         {
             if (remainedBuildTime > 0)
             {
-                remainedBuildTime -= Time.deltaTime * UpgradeSystem.Instance.productionSpeedMultiplier;
+                remainedBuildTime -= Time.deltaTime * UpgradeSystem.Instance.ProductionSpeedMultiplier;
                 fillBar.fillAmount = ((buildTime - remainedBuildTime) / buildTime);
             }
             else
             {
                 isCharging = false;
-                ResourceManager.Instance.AddResource(product, (long)(outputAmount * UpgradeSystem.Instance.productionYieldMultiplier));
+                ResourceManager.Instance.AddResource(product, (long)(outputAmount * UpgradeSystem.Instance.ProductionYieldMultiplier));
                 tempResourceList = inputResources.ToList();
                 ResourceManager.Instance.Currency += incomeAmount;
                 GameManager.Instance.AddXP(scriptableCompound.xpAmount);
@@ -157,14 +173,14 @@ public class Compounds : MonoBehaviour
             var inputs = inputResources.Zip(inputAmounts, (resource, amount) => (Resource: resource, Amount: amount));
             foreach (var input in inputs)
             {
-                if (ResourceManager.Instance.GetResourceAmount(input.Resource) >= input.Amount / UpgradeSystem.Instance.productionEfficiencyMultiplier && tempResourceList.Contains(input.Resource))
+                if (ResourceManager.Instance.GetResourceAmount(input.Resource) >= input.Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier && tempResourceList.Contains(input.Resource))
                 {
                     Debug.Log(input.Resource + " added to recipe");
                     tempResourceList.Remove(input.Resource);
-                    ResourceManager.Instance.ConsumeResource(input.Resource, (long)(input.Amount / UpgradeSystem.Instance.productionEfficiencyMultiplier));
+                    ResourceManager.Instance.ConsumeResource(input.Resource, (long)(input.Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier));
 
                     if (subResourceIcons != null)
-                        subResourceIcons.GetChild(Array.IndexOf(inputResources, input.Resource)).GetChild(0).gameObject.SetActive(true);
+                        subResourceIcons.GetChild(Array.IndexOf(inputResources, input.Resource)).GetChild(0).GetChild(0).gameObject.SetActive(true);
                 }
                 else if (ResourceManager.Instance.GetResourceAmount(input.Resource) < input.Amount)
                 {
@@ -180,7 +196,7 @@ public class Compounds : MonoBehaviour
 
                 foreach (var input in inputs)
                 {
-                    subResourceIcons.GetChild(Array.IndexOf(inputResources, input.Resource)).GetChild(0).gameObject.SetActive(false);
+                    subResourceIcons.GetChild(Array.IndexOf(inputResources, input.Resource)).GetChild(0).GetChild(0).gameObject.SetActive(false);
                 }
             }
         }

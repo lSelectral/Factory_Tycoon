@@ -122,7 +122,6 @@ public class QuestManager : MonoBehaviour
 
     private void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
     {
-        Debug.Log("Leveled up");
         for (int i = 0; i < questBases.Length; i++)
         {
             // For object produce and collect milestones
@@ -130,7 +129,6 @@ public class QuestManager : MonoBehaviour
             {
                 for (int j = 0; j < questBases[i].intervals.Length; j++)
                 {
-                    Debug.Log(e.currentLevel);
                     if (!questBases[i].completedIntervals.Contains(j) && e.currentLevel == questBases[i].intervals[j])
                     {
                         questBases[i].completedIntervals.Add(j);

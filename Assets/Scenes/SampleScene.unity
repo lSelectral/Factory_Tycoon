@@ -665,7 +665,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &111321330
 MonoBehaviour:
@@ -3012,7 +3012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelObject: {fileID: 1963309050}
-  levelLock: {fileID: 4237457267806017593, guid: db89d6dad17e8b34382efdf1905aec16,
+  levelLock: {fileID: 6141793169601435542, guid: 11146a2122b238443adaeceb3520f7be,
     type: 3}
 --- !u!4 &573611181
 Transform:
@@ -5351,8 +5351,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 573611180}
-        m_MethodName: AddXP
-        m_Mode: 3
+        m_MethodName: ADDXPDEBUG
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7060,9 +7060,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181340993}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1181340995
 MonoBehaviour:
@@ -7791,9 +7791,8 @@ GameObject:
   - component: {fileID: 1254541167}
   - component: {fileID: 1254541166}
   - component: {fileID: 1254541165}
-  - component: {fileID: 1254541168}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7860,7 +7859,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1254541166}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2145356239}
+        m_MethodName: ChangePage
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1254541166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7897,26 +7907,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254541163}
   m_CullTransparentMesh: 0
---- !u!114 &1254541168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1254541163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf08bf2b1e9c9f940a0064d84ba4f6b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pages:
-  - {fileID: 111321325}
-  - {fileID: 486324500}
-  - {fileID: 786984239}
-  - {fileID: 2145819404}
-  - {fileID: 634918854}
-  - {fileID: 1852517263}
-  isRight: 1
 --- !u!1 &1265003381
 GameObject:
   m_ObjectHideFlags: 0
@@ -10992,9 +10982,8 @@ GameObject:
   - component: {fileID: 1907574426}
   - component: {fileID: 1907574425}
   - component: {fileID: 1907574424}
-  - component: {fileID: 1907574427}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11061,7 +11050,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1907574425}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2145356239}
+        m_MethodName: ChangePage
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1907574425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11098,26 +11098,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907574422}
   m_CullTransparentMesh: 0
---- !u!114 &1907574427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907574422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf08bf2b1e9c9f940a0064d84ba4f6b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pages:
-  - {fileID: 111321325}
-  - {fileID: 486324500}
-  - {fileID: 786984239}
-  - {fileID: 2145819404}
-  - {fileID: 634918854}
-  - {fileID: 1852517263}
-  isRight: 0
 --- !u!1 &1950161136
 GameObject:
   m_ObjectHideFlags: 0
@@ -12801,17 +12781,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mines:
+  - {fileID: 11400000, guid: 6532331ee693a0449985a30097ca652f, type: 2}
   - {fileID: 11400000, guid: eceaec80548e82144aa29c8799cce93f, type: 2}
   - {fileID: 11400000, guid: 2c325e052286532438428ac5592c738c, type: 2}
-  - {fileID: 11400000, guid: 6532331ee693a0449985a30097ca652f, type: 2}
-  - {fileID: 11400000, guid: b6e708a2d87deff43a9690ad85989b2f, type: 2}
   - {fileID: 11400000, guid: b73da25184da83e41b9e6b48eab865db, type: 2}
+  - {fileID: 11400000, guid: b6e708a2d87deff43a9690ad85989b2f, type: 2}
   - {fileID: 11400000, guid: 00608d2946446b4478236c7173d32de9, type: 2}
   ingots:
   - {fileID: 11400000, guid: 9c2211641bcb2ff47ba25d6425a1e8de, type: 2}
   - {fileID: 11400000, guid: b259ea63bc7e69f4f827629d9774ffe6, type: 2}
-  - {fileID: 11400000, guid: f500b7902a88c254b83911be60ef3a56, type: 2}
   - {fileID: 11400000, guid: 0eb4a0d42788cc049be2432fd37862e3, type: 2}
+  - {fileID: 11400000, guid: f500b7902a88c254b83911be60ef3a56, type: 2}
   - {fileID: 11400000, guid: 8596f82698e0f274fb1e9f84dce82919, type: 2}
   primitives:
   - {fileID: 11400000, guid: cc5061d9ed106d145bee77b08762ce95, type: 2}
@@ -12827,7 +12807,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6062c64744c69334bbf304fe5beba97f, type: 2}
   T3: []
   mainPanel: {fileID: 1431797051}
-  minePrefab: {fileID: 5288226617541695945, guid: 5fea3919fa652fb42b79e43579190271,
+  minePrefab: {fileID: 7768445557877286118, guid: 0301d0365bca2884585499b9cd055feb,
     type: 3}
   compoundPrefabIngot: {fileID: 4094337456238197816, guid: eddc0de83856b5d42a7cb0359cec3a85,
     type: 3}
@@ -13260,6 +13240,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minePageInfoText: {fileID: 156719235}
+  pages:
+  - {fileID: 111321325}
+  - {fileID: 486324500}
+  - {fileID: 786984239}
+  - {fileID: 2145819404}
+  - {fileID: 634918854}
+  - {fileID: 1852517263}
   index: 0
 --- !u!4 &2145356240
 Transform:

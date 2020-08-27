@@ -87,7 +87,7 @@ public class ResourceManager : Singleton<ResourceManager>
         set
         {
             float newValue;
-            newValue = (value * UpgradeSystem.Instance.earnedCoinMultiplier) - currency;
+            newValue = (value * UpgradeSystem.Instance.EarnedCoinMultiplier) - currency;
             currency += newValue;
             if (!isLoadingFromSaveFile)
             {
@@ -154,7 +154,7 @@ public class ResourceManager : Singleton<ResourceManager>
     #endregion
 
     private readonly string[] suffix = new string[] { "", "K", "M", "G", "T", "P", "E", "AA", "AB", "BA", "BB" , "CA", "CB", "CC"}; // kilo, mega, giga, terra, penta, exa
-    public string CurrencyToString(float valueToConvert)
+    public string CurrencyToString(float valueToConvert, int decimalAmount = 2)
     {
         int scale = 0;
         float v = valueToConvert;
@@ -165,7 +165,11 @@ public class ResourceManager : Singleton<ResourceManager>
             if (scale >= suffix.Length)
                 return valueToConvert.ToString("e2"); // overflow, can't display number, fallback to exponential
         }
-        return v.ToString("0.##") + suffix[scale];
+        if (decimalAmount == 2)
+            return v.ToString("0.##") + suffix[scale];
+        else if (decimalAmount == 0)
+            return v.ToString("0");
+        return "";
     }
 
     /// <summary>
@@ -315,13 +319,13 @@ public class ResourceManager : Singleton<ResourceManager>
     void Update()
     {
         smoothCurrency = Mathf.SmoothDamp(smoothCurrency, (float)currency, ref smoothVelocity, smoothTime);
-        currencyText.text = Mathf.CeilToInt(smoothCurrency).ToString();
+        currencyText.text = CurrencyToString(smoothCurrency);
 
         smoothPremiumCurency = Mathf.SmoothDamp(smoothPremiumCurency, (float)premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
-        premiumCurrencyText.text = Mathf.CeilToInt(smoothPremiumCurency).ToString();
+        premiumCurrencyText.text = CurrencyToString(smoothPremiumCurency);
 
         smoothTotalResource = Mathf.SmoothDamp(smoothTotalResource, totalResource, ref smoothVelocityTotalResource, smoothTime);
-        totalResourceText.text = "Total Resource\n" + CurrencyToString(Mathf.CeilToInt(smoothTotalResource));
+        totalResourceText.text = "Total Resource\n" + CurrencyToString((smoothTotalResource), 0);
     }
 
     public float AddResource(BaseResources resource, long amount)
@@ -338,6 +342,7 @@ public class ResourceManager : Singleton<ResourceManager>
         resourceValueDict[resource] -= amount;
         TotalResource -= amount;
         resourceTextDict[resource].text = CurrencyToString(resourceValueDict[resource]);
+        OnResourceAmountChanged(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
     }
 
     public long GetResourceAmount(BaseResources resource)

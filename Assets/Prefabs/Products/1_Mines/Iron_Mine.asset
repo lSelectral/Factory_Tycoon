@@ -17,5 +17,10 @@ MonoBehaviour:
   baseResource: 1
   collectTime: 2
   outputValue: 5
+  pricePerProduct: 1
   incomeAmount: 200
   backgroundImage: {fileID: 21300000, guid: d15ace5e92f2fce42951b6b4f9777bd6, type: 3}
+  unlockLevel: 0
+  xpAmount: 10
+  isLockedByContract: 0
+  lockedByContract: {fileID: 0}

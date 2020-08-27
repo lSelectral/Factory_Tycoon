@@ -7,7 +7,6 @@ public class ContractBase : ScriptableObject
     public string description;
 
     public long contractReward;
-    public float contractTime; // In seconds
     public ContractRewardType contractRewardType;
     public ScriptableCompound[] compoundsToUnlock;
     public ScriptableMine[] minesToUnlock;

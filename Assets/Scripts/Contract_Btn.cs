@@ -12,7 +12,6 @@ public class Contract_Btn : MonoBehaviour
     private string contractName;
     private string contractDescription;
     private long contractReward;
-    private float contractTime;
     private BaseResources[] requiredResources;
     private int[] requiredResourceAmounts;
     private int unlockLevel;
@@ -27,7 +26,6 @@ public class Contract_Btn : MonoBehaviour
         contractName = contract.contractName;
         contractDescription = contract.description;
         contractReward = contract.contractReward;
-        contractTime = contract.contractTime;
         requiredResources = contract.requiredResources;
         requiredResourceAmounts = contract.requiredResourceAmounts;
         tempResourceList = contract.requiredResources.ToList();

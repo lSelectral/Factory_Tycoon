@@ -15,8 +15,8 @@ public class SaveSystem : Singleton<SaveSystem>
 
     int totalExitTime;
 
-    public List<Mine> mines;
-    public List<Compound> compounds;
+    public List<MineSave> mines;
+    public List<CompoundSave> compounds;
 
     SaveObject saveObject;
 
@@ -31,15 +31,15 @@ public class SaveSystem : Singleton<SaveSystem>
         if (isLoadAtStart)
             Load();
 
-        mines = new List<Mine>();
-        compounds = new List<Compound>();
+        mines = new List<MineSave>();
+        compounds = new List<CompoundSave>();
     }
 
     public void Save()
     {
         foreach (var mine in ProductionManager.Instance.instantiatedMines)
         {
-            var mineSave = new Mine
+            var mineSave = new MineSave
             {
                 incomeAmount = mine.GetComponent<Mine_Btn>().IncomeAmount,
                 isAutomated = mine.GetComponent<Mine_Btn>().IsAutomated,
@@ -52,7 +52,7 @@ public class SaveSystem : Singleton<SaveSystem>
 
         foreach (var compound in ProductionManager.Instance.instantiatedCompounds)
         {
-            var compoundSave = new Compound
+            var compoundSave = new CompoundSave
             {
                 compoundLevel = compound.GetComponent<Compounds>().CompoundLevel,
                 incomeAmount = compound.GetComponent<Compounds>().IncomeAmount,
@@ -205,10 +205,10 @@ public class SaveSystem : Singleton<SaveSystem>
     {
         public DateTime lastExitTime;
 
-        public List<Mine> instantiatedMines;
-        public List<Compound> instantiatedCompounds;
+        public List<MineSave> instantiatedMines;
+        public List<CompoundSave> instantiatedCompounds;
 
-        public long currentXP;
+        public float currentXP;
         public long requiredXPforNextLevel;
         public int currentLevel;
 
@@ -257,7 +257,7 @@ public class SaveSystem : Singleton<SaveSystem>
 }
 
 [Serializable]
-public class Mine
+public class MineSave
 {
     public float remainedChargeTime;
     public float incomeAmount;
@@ -267,7 +267,7 @@ public class Mine
 }
 
 [Serializable]
-public class Compound
+public class CompoundSave
 {
     public float remainedChargeTime;
     public float incomeAmount;

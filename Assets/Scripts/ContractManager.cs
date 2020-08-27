@@ -24,7 +24,14 @@ public class ContractManager : Singleton<ContractManager>
 
     List<ContractBase> activatedContracts;
     List<ContractBase> completedContracts;
-        
+
+    public class OnContractCompleteEventArgs: EventArgs
+    {
+        public ContractBase contract;
+    }
+
+    public event EventHandler<OnContractCompleteEventArgs> OnContractComplete;
+
     private void Awake()
     {
         tempResources = new List<List<BaseResources>>();
@@ -93,7 +100,7 @@ public class ContractManager : Singleton<ContractManager>
     {
         for (int i = 0; i < contracts.Length; i++)
         {
-            if (activatedContracts.Contains(contracts[i]))
+            if (activatedContracts.Contains(contracts[i]) && !completedContracts.Contains(contracts[i]))
             {
                 var requiredResources = contracts[i].requiredResources;
                 var requiredResourceAmounts = contracts[i].requiredResourceAmounts;
@@ -124,7 +131,7 @@ public class ContractManager : Singleton<ContractManager>
                 if (tempResources[i].Count == 0)
                 {
                     completedContracts.Add(contracts[i]);
-
+                    OnContractComplete(this, new OnContractCompleteEventArgs() { contract = contracts[i] });
                     instantiatedContracts[i].GetComponent<Button>().onClick.AddListener(
                     () => PopupManager.Instance.PopupConfirmationPanel("Contract already completed", null, null));
 
@@ -134,17 +141,17 @@ public class ContractManager : Singleton<ContractManager>
                     else if (contracts[i].contractRewardType == ContractRewardType.PremiumCurrency)
                         ResourceManager.Instance.PremiumCurrency += contracts[i].contractReward;
                     else if (contracts[i].contractRewardType == ContractRewardType.incresedCoinEarning)
-                        UpgradeSystem.Instance.earnedCoinMultiplier += contracts[i].contractReward;
+                        UpgradeSystem.Instance.EarnedCoinMultiplier += contracts[i].contractReward;
                     else if (contracts[i].contractRewardType == ContractRewardType.miningSpeedUp)
-                        UpgradeSystem.Instance.miningSpeedMultiplier += contracts[i].contractReward;
+                        UpgradeSystem.Instance.MiningSpeedMultiplier += contracts[i].contractReward;
                     else if (contracts[i].contractRewardType == ContractRewardType.miningYieldUpgrade)
-                        UpgradeSystem.Instance.miningYieldMultiplier += contracts[i].contractReward;
+                        UpgradeSystem.Instance.MiningYieldMultiplier += contracts[i].contractReward;
                     else if (contracts[i].contractRewardType == ContractRewardType.productionEfficiencyUpgrade)
-                        UpgradeSystem.Instance.productionEfficiencyMultiplier += contracts[i].contractReward;
+                        UpgradeSystem.Instance.ProductionEfficiencyMultiplier += contracts[i].contractReward;
                     else if (contracts[i].contractRewardType == ContractRewardType.productionSpeedUp)
-                        UpgradeSystem.Instance.productionSpeedMultiplier += contracts[i].contractReward;
+                        UpgradeSystem.Instance.ProductionSpeedMultiplier += contracts[i].contractReward;
                     else if (contracts[i].contractRewardType == ContractRewardType.productionYieldUpgrade)
-                        UpgradeSystem.Instance.productionYieldMultiplier += contracts[i].contractReward;
+                        UpgradeSystem.Instance.ProductionYieldMultiplier += contracts[i].contractReward;
                     else if (contracts[i].contractRewardType == ContractRewardType.unlockCompound)
                     {
                         foreach (GameObject obj in ProductionManager.Instance.instantiatedCompounds)
@@ -174,7 +181,7 @@ public class ContractManager : Singleton<ContractManager>
 
                     Debug.Log(contracts[i].contractName + " contract completed");
 
-                    OnContractComplete(contracts[i], contracts[i].pageNameToGo);
+                    ShowCompletedContract(contracts[i], contracts[i].pageNameToGo);
                 }
             }
         }
@@ -204,7 +211,7 @@ public class ContractManager : Singleton<ContractManager>
         CheckAvailableResources();
     }
 
-    void OnContractComplete(ContractBase contract, string pageName)
+    void ShowCompletedContract(ContractBase contract, string pageName)
     {
         var panel = contractFinishedInfoPanel.transform;
         panel.Find("Icon").GetComponent<Image>().sprite = contract.icon;

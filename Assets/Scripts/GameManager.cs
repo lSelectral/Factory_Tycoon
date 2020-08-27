@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager>
     public event EventHandler<OnLevelUpEventArgs> OnLevelUp;
 
     private int currentLevel;
-    private long currentXP;
+    private float currentXP;
     private long requiredXPForNextLevel;
 
     public long RequiredXPforNextLevel
@@ -57,7 +57,7 @@ public class GameManager : Singleton<GameManager>
     }
 
 
-    public long CurrentXP
+    public float CurrentXP
     {
         get
         {
@@ -73,6 +73,7 @@ public class GameManager : Singleton<GameManager>
                 currentXP -= requiredXPForNextLevel;
                 CalculateRequiredXPforNextLevel();
                 OnLevelUp(this, new OnLevelUpEventArgs { currentLevel = currentLevel });
+                PopupManager.Instance.PopupPanel("You reached Level " + currentLevel.ToString(), "With unlocking new levels you will be able to build new buildings");
             }
             levelText.text = "LVL " + currentLevel.ToString();
         }
@@ -96,7 +97,9 @@ public class GameManager : Singleton<GameManager>
         fillBar.fillAmount = smoothCurrentXp / requiredXPForNextLevel;
     }
 
-    public void AddXP(long value) { CurrentXP += value; }
+    public void AddXP(float value) { CurrentXP += value; }
+
+    public void ADDXPDEBUG() { CurrentXP += 100; }
 
     private void CalculateRequiredXPforNextLevel()
     {
