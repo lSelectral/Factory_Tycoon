@@ -15,7 +15,6 @@ MonoBehaviour:
   contractName: Smelting Factory
   description: Boss, we need to build a smelting factory for converting ores to ingots.
   contractReward: 50000
-  contractTime: 0
   contractRewardType: 9
   compoundsToUnlock: []
   minesToUnlock:
@@ -24,8 +23,8 @@ MonoBehaviour:
   requiredResourceAmounts: 9001000096000000
   unlockLevel: 3
   icon: {fileID: 21300000, guid: 3e655d82dd35e5d49a9cc168a9221764, type: 3}
-  rewardPanelHeader: <color=red>Congrulations</color>You completed Smelting Factory
-    Contract.
+  rewardPanelHeader: <color=red>Congrulations</color>You completed Assembler Contract.
   rewardPanelDescription: By completing this contract now you are able to produce
     ingots from ores.
   pageNameToGo: Ores
+  xpReward: 0

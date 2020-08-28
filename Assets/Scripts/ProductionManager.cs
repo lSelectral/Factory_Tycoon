@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Mines and factories prefab instantiater class
+/// </summary>
 public class ProductionManager : Singleton<ProductionManager>
 {
     public ScriptableMine[] mines;
@@ -80,4 +83,19 @@ public class ProductionManager : Singleton<ProductionManager>
         //    _t3.GetComponent<Compounds>().scriptableCompound = T3[i];
         //}
     }
+}
+
+/// <summary>
+/// Working Mode for Mines and Factories
+/// </summary>
+public enum WorkingMode
+{
+    /// <summary>
+    /// Use produced materials for further and advanced production
+    /// </summary>
+    production,
+    /// <summary>
+    /// Sell produced products
+    /// </summary>
+    sell,
 }

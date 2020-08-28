@@ -16,8 +16,7 @@ public class ContractBase : ScriptableObject
     public int unlockLevel;
 
     public Sprite icon;
-
-    public string rewardPanelHeader;
+    public string rewardPanelHeader = "<color=red>Congrulations</color>";
 
     public string rewardPanelDescription;
     public string pageNameToGo;

@@ -16,14 +16,15 @@ MonoBehaviour:
   description: We need to build an Assembler as soon as possible for producing more
     advanced materials.
   contractReward: 15000
-  contractTime: 0
   contractRewardType: 8
   compoundsToUnlock: []
+  minesToUnlock: []
   requiredResources: 0600000004000000
   requiredResourceAmounts: b0040000f4010000
-  unlockLevel: 4
+  unlockLevel: 1
   icon: {fileID: 21300000, guid: 4fad2c15499c5cd4994e35041608263c, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>You completed Assembler Contract.
   rewardPanelDescription: By completing this contract, you unlocked the ways of producing
     more advanced materials. Now you can input 2 different material.
   pageNameToGo: Primitives
+  xpReward: 0

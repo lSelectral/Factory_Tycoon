@@ -41,7 +41,6 @@ public class SaveSystem : Singleton<SaveSystem>
         {
             var mineSave = new MineSave
             {
-                incomeAmount = mine.GetComponent<Mine_Btn>().IncomeAmount,
                 isAutomated = mine.GetComponent<Mine_Btn>().IsAutomated,
                 mineLevel = mine.GetComponent<Mine_Btn>().MineLevel,
                 remainedChargeTime = mine.GetComponent<Mine_Btn>().RemainedCollectTime,
@@ -55,7 +54,6 @@ public class SaveSystem : Singleton<SaveSystem>
             var compoundSave = new CompoundSave
             {
                 compoundLevel = compound.GetComponent<Compounds>().CompoundLevel,
-                incomeAmount = compound.GetComponent<Compounds>().IncomeAmount,
                 isAutomated = compound.GetComponent<Compounds>().IsAutomated,
                 remainedChargeTime = compound.GetComponent<Compounds>().RemainedCollectTime,
                 upgradeAmount = compound.GetComponent<Compounds>().UpgradeAmount,
@@ -139,7 +137,6 @@ public class SaveSystem : Singleton<SaveSystem>
                 mine.MineLevel = m.Info.mineLevel;
                 mine.IsAutomated = m.Info.isAutomated;
                 mine.UpgradeAmount = m.Info.upgradeAmount;
-                mine.IncomeAmount = m.Info.incomeAmount;
                 //mine.CalculateValues();
 
                 // Implement idle earning
@@ -259,8 +256,8 @@ public class SaveSystem : Singleton<SaveSystem>
 [Serializable]
 public class MineSave
 {
+    public float chargeTime;
     public float remainedChargeTime;
-    public float incomeAmount;
     public float upgradeAmount;
     public int mineLevel;
     public bool isAutomated;
@@ -270,7 +267,6 @@ public class MineSave
 public class CompoundSave
 {
     public float remainedChargeTime;
-    public float incomeAmount;
     public float upgradeAmount;
     public int compoundLevel;
     public bool isAutomated;

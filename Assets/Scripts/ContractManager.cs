@@ -44,8 +44,22 @@ public class ContractManager : Singleton<ContractManager>
             activatedContracts = new List<ContractBase>();
 
         ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
+        GameManager.Instance.OnLevelUp += OnLevelUp;
     }
 
+    private void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
+    {
+        for (int i = 0; i < instantiatedContracts.Count; i++)
+        {
+            var c = instantiatedContracts[i];
+            if (c.transform.Find("Level_Lock(Clone)") != null && contracts[i].unlockLevel == e.currentLevel)
+            {
+                c.GetComponent<Button>().interactable = true;
+                Destroy(c.transform.Find("Level_Lock(Clone)").gameObject);
+            }
+        }
+        
+    }
 
     private void Start()
     {
@@ -75,9 +89,16 @@ public class ContractManager : Singleton<ContractManager>
             ContractBase contract = contracts[i];
 
             _contract.GetComponent<Button>().onClick.AddListener(
-                () => PopupManager.Instance.PopupConfirmationPanel(("Do you want to activate " + contract.contractName),
+                () => PopupManager.Instance.PopupConfirmationPanel(("Do you want to activate " + contract.contractName + " Contract"),
                 () => ActivateContract(contract), 
                 () => PopupManager.Instance.confirmationPopUpPrefab.transform.parent.gameObject.SetActive(false)));
+
+            if (contracts[i].unlockLevel > GameManager.Instance.CurrentLevel)
+            {
+                _contract.GetComponent<Button>().interactable = false;
+                var lockText = Instantiate(GameManager.Instance.levelLock, _contract.transform);
+                lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + contracts[i].unlockLevel.ToString();
+            }
         }
         if (activatedContracts != null && activatedContracts.Count <= 0)
         {

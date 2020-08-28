@@ -15,7 +15,6 @@ public class Mine_Btn : MonoBehaviour
     float remainedCollectTime;
     bool isCharging;
     bool isReadyToCollect;
-    float incomeAmount;
 
     Sprite backgroundImage;
 
@@ -31,11 +30,14 @@ public class Mine_Btn : MonoBehaviour
     TextMeshProUGUI outputPerSecondText;
     float outputPerSecond;
 
+    float incomeAmount;
     private int mineLevel;
     float upgradeAmount;
     float xpAmount;
 
     float incomePerSecond;
+
+    WorkingMode workingMode;
 
     public float RemainedCollectTime
     {
@@ -110,6 +112,8 @@ public class Mine_Btn : MonoBehaviour
         collectTime = mine.collectTime;
         incomeAmount = mine.incomeAmount;
         backgroundImage = mine.backgroundImage;
+
+        workingMode = WorkingMode.production;
 
         fillBar = transform.Find("GameObject").transform.Find("Outline").transform.Find("Fill").GetComponent<Image>();
         mineNameText = transform.Find("GameObject").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
@@ -228,6 +232,15 @@ public class Mine_Btn : MonoBehaviour
 
     public void AddResourceAndMoney(out float currency, out float resourceAmount)
     {
+        switch (workingMode)
+        {
+            case WorkingMode.production:
+                resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
+                break;
+            case WorkingMode.sell:
+
+                break;
+        }
         resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
         currency = incomeAmount;
         ResourceManager.Instance.Currency += incomeAmount;
@@ -266,5 +279,10 @@ public class Mine_Btn : MonoBehaviour
     {
         ResourceManager.Instance.Currency += (ResourceManager.Instance.GetResourceAmount(mine.baseResource) *1f * (mine.pricePerProduct *1f));
         ResourceManager.Instance.ConsumeResource(mine.baseResource, ResourceManager.Instance.GetResourceAmount(mine.baseResource));
+    }
+
+    void ChangeWorkingMode()
+    {
+        workingMode.Next();
     }
 }

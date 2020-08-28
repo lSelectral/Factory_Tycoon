@@ -12,7 +12,10 @@ public class CustomEditorWindow : EditorWindow
     BaseResources resource = BaseResources.ironOre;
 
     string resourceAmountString = "Add Resource Amount";
-        
+
+    string xpString = "Enter XP value";
+    string premiumCurrencyString = "Enter Premium Currency Amount";
+
     private void OnGUI()
     {
         GUILayout.BeginVertical("Add Resource");
@@ -26,6 +29,22 @@ public class CustomEditorWindow : EditorWindow
             ResourceManager.Instance.AddResource(resource, int.Parse(resourceAmountString));
         }
         GUILayout.EndVertical();
+
+        xpString = EditorGUILayout.TextField("XP Amount", xpString);
+
+        if (GUILayout.Button("Add XP"))
+        {
+            GameManager.Instance.AddXP(float.Parse(xpString));
+        }
+
+        GUILayout.Space(10);
+
+        premiumCurrencyString = EditorGUILayout.TextField("Premium Currency Amount", premiumCurrencyString);
+        if (GUILayout.Button("Add Premium Currency"))
+        {
+            ResourceManager.Instance.PremiumCurrency += float.Parse(premiumCurrencyString);
+        }
+
 
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("SAVE"))

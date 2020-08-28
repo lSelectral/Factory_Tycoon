@@ -10,21 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cab4ef3c6492d74fb327e13a597e0fe, type: 3}
-  m_Name: Factory
+  m_Name: New Contract
   m_EditorClassIdentifier: 
-  contractName: New Factory
-  description: For new factory, construction manager needs 100 Iron screw and 100
-    iron rod
-  contractReward: 350000
+  contractName: 
+  description: 
+  contractReward: 0
   contractRewardType: 0
   compoundsToUnlock: []
-  minesToUnlock:
-  - {fileID: 11400000, guid: b6e708a2d87deff43a9690ad85989b2f, type: 2}
-  requiredResources: 0b00000009000000
-  requiredResourceAmounts: 6400000064000000
+  minesToUnlock: []
+  requiredResources: 
+  requiredResourceAmounts: 
   unlockLevel: 0
-  icon: {fileID: 21300000, guid: 4a66dfc24719f7a4391f5845cc10e80a, type: 3}
-  rewardPanelHeader: 
+  icon: {fileID: 0}
+  rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 
   pageNameToGo: 
   xpReward: 0
