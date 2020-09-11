@@ -15,9 +15,15 @@ MonoBehaviour:
   contractName: New Spaceport
   description: For new spaceport, national space counsil demand 100K ore ingot
   contractReward: 5000
-  contractTime: 300
   contractRewardType: 0
+  compoundsToUnlock: []
+  minesToUnlock: []
   requiredResources: 0b000000010000000f000000
   requiredResourceAmounts: 00127a00a086010064190000
   unlockLevel: 0
   icon: {fileID: 21300000, guid: 01848b1b77996444b81cd6e7d9fa5f39, type: 3}
+  rewardPanelHeader: <color=red>Congrulations</color>
+  rewardPanelDescription: 
+  pageNameToGo: 
+  xpReward: 0
+  isContractCompleted: 0

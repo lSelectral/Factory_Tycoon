@@ -1178,7 +1178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e38a8633a6adbe4d9ca212d9193b414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mine: {fileID: 11400000, guid: eceaec80548e82144aa29c8799cce93f, type: 2}
+  scriptableMine: {fileID: 0}
   isAutomated: 0
   collectTime: 20
 --- !u!1 &7824043669589681105
@@ -1213,10 +1213,10 @@ RectTransform:
   m_Father: {fileID: 6777993804344912025}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0.0521305}
+  m_AnchorMax: {x: 0.37616363, y: 1}
   m_AnchoredPosition: {x: 0.000061035156, y: 0}
-  m_SizeDelta: {x: 414.40002, y: 334.2}
+  m_SizeDelta: {x: 57.400024, y: 43.200012}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1698040984201152911
 CanvasRenderer:

@@ -16,8 +16,6 @@ public class ScriptableMine : ScriptableObject
 
     public int pricePerProduct;
 
-    public long incomeAmount;
-
     public Sprite backgroundImage;
 
     public int unlockLevel;
@@ -25,6 +23,4 @@ public class ScriptableMine : ScriptableObject
     public int xpAmount = 10;
 
     public bool isLockedByContract;
-
-    public ContractBase lockedByContract;
 }

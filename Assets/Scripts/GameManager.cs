@@ -97,12 +97,12 @@ public class GameManager : Singleton<GameManager>
         fillBar.fillAmount = smoothCurrentXp / requiredXPForNextLevel;
     }
 
-    public void AddXP(float value) { CurrentXP += value; }
+    public void AddXP(float value) { CurrentXP += value * UpgradeSystem.Instance.EarnedXPMultiplier; }
 
     public void ADDXPDEBUG() { CurrentXP += 100; }
 
     private void CalculateRequiredXPforNextLevel()
     {
-        requiredXPForNextLevel = Mathf.CeilToInt(requiredXPForNextLevel * Mathf.PI);
+        requiredXPForNextLevel = (long)(requiredXPForNextLevel * Mathf.Exp(1.1f));
     }
 }

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questName: Feeling The Energy
   description: 'Mine '
-  rewardAmount: 0
   rewardType: 0
   questType: 0
   resource: 0
   questAchiveRequirement: 0
   intervals: 
   completedIntervals: 
+  rewardAmounts: 

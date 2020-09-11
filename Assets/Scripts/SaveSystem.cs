@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class SaveSystem : Singleton<SaveSystem>
 {
-    public float totalEarnedCurrency;
-    public float totalEarnedPremiumCurrency;
-    public float totalProducedResource;
-    public float totalSpendedCurrency;
-    public float totalSpendedPremiumCurrency;
-    public float totalConsumedResource;
+    public double totalEarnedCurrency;
+    public double totalEarnedPremiumCurrency;
+    public double totalProducedResource;
+    public double totalSpendedCurrency;
+    public double totalSpendedPremiumCurrency;
+    public double totalConsumedResource;
 
     int totalExitTime;
 
@@ -39,29 +39,33 @@ public class SaveSystem : Singleton<SaveSystem>
     {
         foreach (var mine in ProductionManager.Instance.instantiatedMines)
         {
+            var m = mine.GetComponent<Mine_Btn>();
             var mineSave = new MineSave
             {
-                isAutomated = mine.GetComponent<Mine_Btn>().IsAutomated,
-                mineLevel = mine.GetComponent<Mine_Btn>().MineLevel,
-                remainedChargeTime = mine.GetComponent<Mine_Btn>().RemainedCollectTime,
-                upgradeAmount = mine.GetComponent<Mine_Btn>().UpgradeAmount
+                isAutomated = m.IsAutomated,
+                mineLevel = m.MineLevel,
+                remainedChargeTime = m.RemainedCollectTime,
+                upgradeAmount = m.UpgradeAmount,
+                chargeTime = m.CollectTime,
+                workingMode = m.WorkingMode,
             };
             mines.Add(mineSave);
         }
 
         foreach (var compound in ProductionManager.Instance.instantiatedCompounds)
         {
+            var c = compound.GetComponent<Compounds>();
             var compoundSave = new CompoundSave
             {
-                compoundLevel = compound.GetComponent<Compounds>().CompoundLevel,
-                isAutomated = compound.GetComponent<Compounds>().IsAutomated,
-                remainedChargeTime = compound.GetComponent<Compounds>().RemainedCollectTime,
-                upgradeAmount = compound.GetComponent<Compounds>().UpgradeAmount,
-                requiredResources = compound.GetComponent<Compounds>().RemainedResources
+                compoundLevel = c.CompoundLevel,
+                isAutomated = c.IsAutomated,
+                remainedChargeTime = c.RemainedCollectTime,
+                upgradeAmount = c.UpgradeAmount,
+                requiredResources = c.RemainedResources,
+                workingMode = c.WorkingMode,
             };
             compounds.Add(compoundSave);
         }
-        Debug.Log(DateTime.Now);
         SaveObject saveObject = new SaveObject()
         {
             currentLevel = GameManager.Instance.CurrentLevel,
@@ -112,6 +116,12 @@ public class SaveSystem : Singleton<SaveSystem>
         string saveText = JsonUtility.ToJson(saveObject);
         File.WriteAllText(Application.persistentDataPath + "/SAVES/save.txt", saveText);
         Debug.Log(String.Format("Game data saved to {0}", Application.persistentDataPath + "/SAVES" + "/save.txt"));
+
+        //using (BinaryWriter writer = new BinaryWriter(File.Open(Application.persistentDataPath + "/SAVES/save.data", FileMode.Create)))
+        //{
+        //    writer.Write(saveText);
+        //    writer.Close();
+        //};
     }
 
     public void Load()
@@ -128,35 +138,57 @@ public class SaveSystem : Singleton<SaveSystem>
             float idleEarnedCurrency = 0;
             float idleEarnedResource = 0;
 
+            GameManager.Instance.CurrentXP = saveObject.currentXP;
+            GameManager.Instance.RequiredXPforNextLevel = saveObject.requiredXPforNextLevel;
+            GameManager.Instance.CurrentLevel = saveObject.currentLevel;
+            ResourceManager.Instance.isLoadingFromSaveFile = true;
+            ResourceManager.Instance.Currency = saveObject.currency;
+            ResourceManager.Instance.isLoadingFromSaveFile = true;
+            ResourceManager.Instance.PremiumCurrency = saveObject.premiumCurrency;
+
+            this.totalEarnedCurrency = saveObject.totalEarnedCurrency;
+            this.totalConsumedResource = saveObject.totalConsumedResource;
+            this.totalEarnedPremiumCurrency = saveObject.totalEarnedPremiumCurrency;
+            this.totalProducedResource = saveObject.totalProducedResource;
+            this.totalSpendedCurrency = saveObject.totalSpendedCurrency;
+            this.totalSpendedPremiumCurrency = saveObject.totalSpendedPremiumCurrency;
+
+            ResourceManager.Instance.IronOre += saveObject.ironOre;
+            ResourceManager.Instance.CopperOre += saveObject.copperOre;
+            ResourceManager.Instance.SiliconOre += saveObject.siliconOre;
+
             var savedMineInfos = ProductionManager.Instance.instantiatedMines.Zip(saveObject.instantiatedMines, (mines, infos) => (Mine: mines, Info: infos));
-            var savedCompoundInfos = ProductionManager.Instance.instantiatedCompounds.Zip(saveObject.instantiatedCompounds, (compound, info) => ( Compound: compound, Info: info ));
+            var savedCompoundInfos = ProductionManager.Instance.instantiatedCompounds.Zip(saveObject.instantiatedCompounds, (compound, info) => (Compound: compound, Info: info));
 
             foreach (var m in savedMineInfos)
             {
                 var mine = m.Mine.GetComponent<Mine_Btn>();
                 mine.MineLevel = m.Info.mineLevel;
-                mine.IsAutomated = m.Info.isAutomated;
                 mine.UpgradeAmount = m.Info.upgradeAmount;
-                //mine.CalculateValues();
+                mine.CollectTime = m.Info.chargeTime;
+                mine.WorkingMode = m.Info.workingMode;
 
                 // Implement idle earning
                 for (int i = 0; i < (int)((totalExitTime + m.Info.remainedChargeTime) / (mine.CollectTime)); i++)
                 {
-                    float currency, resource;
-                    mine.AddResourceAndMoney(out currency, out resource);
-                    idleEarnedCurrency += currency;
-                    idleEarnedResource += resource;
+
+                    //float currency, resource;
+                    //mine.AddResourceAndMoney(out currency, out resource);
+                    //idleEarnedCurrency += currency;
+                    //idleEarnedResource += resource;
                 }
 
-                mine.RemainedCollectTime = ((totalExitTime+m.Info.remainedChargeTime)%mine.CollectTime);
+                mine.RemainedCollectTime = ((totalExitTime + m.Info.remainedChargeTime) % mine.CollectTime);
 
                 if (m.Info.remainedChargeTime > 0)
                 {
-                    Debug.Log("Mine collecting");
                     m.Mine.GetComponent<Mine_Btn>().CollectMine();
                 }
+                mine.IsAutomated = m.Info.isAutomated;
+                mine.CollectMine();
             }
-            Debug.Log("Idle earned currency is: " +idleEarnedCurrency);
+            Debug.Log("Idle earned currency is: " + idleEarnedCurrency);
+
             //foreach (var c in savedCompoundInfos)
             //{
             //    c.Compound.GetComponent<Compounds>().RemainedCollectTime = c.Info.remainedChargeTime;
@@ -166,28 +198,6 @@ public class SaveSystem : Singleton<SaveSystem>
             //    c.Compound.GetComponent<Compounds>().IncomeAmount = c.Info.incomeAmount;
             //    c.Compound.GetComponent<Compounds>().RemainedResources = c.Info.requiredResources;
             //}
-
-
-            GameManager.Instance.CurrentXP = saveObject.currentXP;
-            GameManager.Instance.RequiredXPforNextLevel = saveObject.requiredXPforNextLevel;
-            GameManager.Instance.CurrentLevel = saveObject.currentLevel;
-            ResourceManager.Instance.isLoadingFromSaveFile = true;
-            ResourceManager.Instance.Currency = saveObject.currency;
-            ResourceManager.Instance.isLoadingFromSaveFile = true;
-            ResourceManager.Instance.PremiumCurrency = saveObject.premiumCurrency;
-            //ResourceManager.Instance.TotalResource = saveObject.totalResource;
-
-            this.totalEarnedCurrency = saveObject.totalEarnedCurrency;
-            this.totalConsumedResource = saveObject.totalConsumedResource;
-            this.totalEarnedPremiumCurrency = saveObject.totalEarnedPremiumCurrency;
-            this.totalProducedResource = saveObject.totalProducedResource;
-            this.totalSpendedCurrency = saveObject.totalSpendedCurrency;
-            this.totalSpendedPremiumCurrency = saveObject.totalSpendedPremiumCurrency;
-
-            ResourceManager.Instance.IronOre = saveObject.ironOre;
-            ResourceManager.Instance.CopperOre = saveObject.copperOre;
-            ResourceManager.Instance.SiliconOre = saveObject.siliconOre;
-
         }
     }
 
@@ -209,17 +219,17 @@ public class SaveSystem : Singleton<SaveSystem>
         public long requiredXPforNextLevel;
         public int currentLevel;
 
-        public float currency;
-        public float premiumCurrency;
-        public float totalResource;
+        public double currency;
+        public double premiumCurrency;
+        public double totalResource;
 
-        public float totalEarnedCurrency;
-        public float totalEarnedPremiumCurrency;
-        public float totalProducedResource;
+        public double totalEarnedCurrency;
+        public double totalEarnedPremiumCurrency;
+        public double totalProducedResource;
 
-        public float totalSpendedCurrency;
-        public float totalSpendedPremiumCurrency;
-        public float totalConsumedResource;
+        public double totalSpendedCurrency;
+        public double totalSpendedPremiumCurrency;
+        public double totalConsumedResource;
 
         #region Resources
         public long ironOre;
@@ -249,6 +259,8 @@ public class SaveSystem : Singleton<SaveSystem>
         public long circuitBoard;
         public long integrationChip;
         public long aiChip;
+
+
         #endregion
     }
 }
@@ -258,9 +270,10 @@ public class MineSave
 {
     public float chargeTime;
     public float remainedChargeTime;
-    public float upgradeAmount;
+    public double upgradeAmount;
     public int mineLevel;
     public bool isAutomated;
+    public WorkingMode workingMode;
 }
 
 [Serializable]
@@ -271,4 +284,5 @@ public class CompoundSave
     public int compoundLevel;
     public bool isAutomated;
     public List<BaseResources> requiredResources;
+    public WorkingMode workingMode;
 }

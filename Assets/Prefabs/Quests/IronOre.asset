@@ -19,5 +19,5 @@ MonoBehaviour:
   resource: 1
   questAchiveRequirement: 4
   intervals: 000000000000000000000000
-  completedIntervals: 000000000100000002000000
+  completedIntervals: 
   rewardAmounts: 000000000000000000000000000000000000000000000000

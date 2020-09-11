@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Silicon_Wafer
   m_EditorClassIdentifier: 
-  inputResources: 
-  inputAmounts: 
-  product: 0
-  partName: 
-  buildTime: 0
-  outputValue: 0
-  incomeAmount: 0
+  Description: 
+  inputResources: 03000000
+  inputAmounts: 02000000
+  product: 8
+  partName: Silicon Wafer
+  buildTime: 6
+  outputValue: 1
+  incomeAmount: 3
+  unlockLevel: 3
+  xpAmount: 60
+  isLockedByContract: 0
+  lockedByContract: {fileID: 0}

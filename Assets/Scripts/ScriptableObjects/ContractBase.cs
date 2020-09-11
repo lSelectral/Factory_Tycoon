@@ -21,4 +21,6 @@ public class ContractBase : ScriptableObject
     public string rewardPanelDescription;
     public string pageNameToGo;
     public long xpReward;
+
+    public bool isContractCompleted;
 }

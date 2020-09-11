@@ -1,44 +1,55 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
+using System.Runtime.InteropServices.ComTypes;
 
 public class Mine_Btn : MonoBehaviour
 {
-    public ScriptableMine mine;
+    public ScriptableMine scriptableMine;
 
     const float incomeConstant = 1.4f;
     const float upgradeCostConstant = 1.55f;
 
     [SerializeField] private bool isAutomated;
 
+    // Scriptable object class variables
     [SerializeField] float collectTime;
+    string mineName;
+    string resourceName;
+    BaseResources producedResource;
     float remainedCollectTime;
     bool isCharging;
     bool isReadyToCollect;
-
+    int outputValue;
+    int pricePerProduct;
     Sprite backgroundImage;
+    int unlockLevel;
+    float xpAmount;
+    bool isLockedByContract;
+    ContractBase lockedByContract;
 
+    // Attached gameobject transforms
+    Transform infoPanel;
+    Button infoBtn;
     Image fillBar;
     TextMeshProUGUI mineNameText;
-    Button btn;
+    Button mainBtn;
     Button upgradeBtn;
-    Button sellBtn;
+    Button workModeBtn;
     TextMeshProUGUI upgradeAmountText;
     TextMeshProUGUI mineLevelText;
-    TextMeshProUGUI sellAmountText;
-    TextMeshProUGUI availableResourceAmountText;
+    TextMeshProUGUI workModeText;
     TextMeshProUGUI outputPerSecondText;
+    RectTransform tool;
     float outputPerSecond;
 
-    float incomeAmount;
     private int mineLevel;
-    float upgradeAmount;
-    float xpAmount;
-
+    double upgradeAmount;
     float incomePerSecond;
-
     WorkingMode workingMode;
 
+    #region Properties
     public float RemainedCollectTime
     {
         get { return remainedCollectTime; }
@@ -56,16 +67,10 @@ public class Mine_Btn : MonoBehaviour
         set { mineLevel = value; mineLevelText.text = "LEVEL " + mineLevel.ToString(); }
     }
 
-    public float UpgradeAmount
+    public double UpgradeAmount
     {
         get { return upgradeAmount; }
-        set { upgradeAmount = value; }
-    }
-
-    public float IncomeAmount
-    {
-        get { return incomeAmount; }
-        set { incomeAmount = value; }
+        set { upgradeAmount = value; upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeAmount); }
     }
 
     public bool IsAutomated
@@ -77,7 +82,7 @@ public class Mine_Btn : MonoBehaviour
     public float OutputPerSecond
     {
         get { return outputPerSecond; }
-        set { outputPerSecond = value; outputPerSecondText.text = string.Format("+{0} {1}", (mine.outputValue / collectTime)* UpgradeSystem.Instance.MiningYieldMultiplier, mine.resourceName) + "/Sec"; }
+        set { outputPerSecond = value; outputPerSecondText.text = string.Format("+{0} {1}", (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec"; }
     }
 
     public float XPAmount
@@ -85,6 +90,26 @@ public class Mine_Btn : MonoBehaviour
         get { return xpAmount; }
         set { xpAmount = value; }
     }
+
+    public int PricePerProduct
+    {
+        get { return pricePerProduct; }
+        set { pricePerProduct = value; }
+    }
+
+    public bool IsLockedByContract
+    {
+        get { return isLockedByContract; }
+        set { isLockedByContract = value; }
+    }
+
+    public WorkingMode WorkingMode
+    {
+        get { return workingMode; }
+        set { workingMode = value; workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString()); }
+    }
+    #endregion
+
 
     void Start()
     {
@@ -95,43 +120,52 @@ public class Mine_Btn : MonoBehaviour
         UpgradeSystem.Instance.OnMiningYieldChanged += Instance_OnMiningYieldChanged;
         UpgradeSystem.Instance.OnEarnedCoinMultiplierChanged += Instance_OnEarnedCoinMultiplierChanged;
         UpgradeSystem.Instance.OnEarnedXpMultiplierChanged += Instance_OnEarnedXpMultiplierChanged;
-        ContractManager.Instance.OnContractComplete += OnContractComplete;
+        //ContractManager.Instance.OnContractComplete += OnContractComplete;
 
-        // Set lock text
-        if (mine.unlockLevel > GameManager.Instance.CurrentLevel)
-        {
-            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
-            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + mine.unlockLevel.ToString();
-        }
-        else if (mine.isLockedByContract)
-        {
-            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
-            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + mine.lockedByContract.contractName + " Contract";
-        }
-
-        collectTime = mine.collectTime;
-        incomeAmount = mine.incomeAmount;
-        backgroundImage = mine.backgroundImage;
+        collectTime = scriptableMine.collectTime;
+        mineName = scriptableMine.Name;
+        resourceName = scriptableMine.resourceName;
+        producedResource = scriptableMine.baseResource;
+        outputValue = scriptableMine.outputValue;
+        pricePerProduct = scriptableMine.pricePerProduct;
+        backgroundImage = scriptableMine.backgroundImage;
+        unlockLevel = scriptableMine.unlockLevel;
+        xpAmount = scriptableMine.xpAmount* 1f;
+        isLockedByContract = scriptableMine.isLockedByContract;
 
         workingMode = WorkingMode.production;
 
+        // Set lock text
+        if (unlockLevel > GameManager.Instance.CurrentLevel)
+        {
+            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
+            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + unlockLevel.ToString();
+        }
+        else if (isLockedByContract)
+        {
+            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
+            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + lockedByContract.contractName + " Contract";
+        }
+
+        // Set gameobject hierarchy
         fillBar = transform.Find("GameObject").transform.Find("Outline").transform.Find("Fill").GetComponent<Image>();
         mineNameText = transform.Find("GameObject").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
-        btn = transform.Find("Button").GetComponent<Button>();
-        outputPerSecondText = btn.GetComponentInChildren<TextMeshProUGUI>();
-        outputPerSecondText.text = string.Format("+{0} {1}", (mine.outputValue/collectTime)* UpgradeSystem.Instance.MiningYieldMultiplier, mine.resourceName) + "/Sec";
+        mineNameText.text = mineName;
+        mainBtn = transform.Find("Button").GetComponent<Button>();
+        outputPerSecondText = mainBtn.GetComponentInChildren<TextMeshProUGUI>();
+        outputPerSecondText.text = string.Format("+{0} {1}", (outputValue/collectTime)* UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec";
         upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
         upgradeAmountText = transform.Find("Upgrade_Btn").Find("upgradeText").GetComponent<TextMeshProUGUI>();
         mineLevelText = transform.Find("LevelText").GetComponent<TextMeshProUGUI>();
-        sellBtn = transform.Find("Sell_Btn").GetComponent<Button>();
-        sellBtn.onClick.AddListener(() => SellButton());
-        sellAmountText = sellBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-
-        if (backgroundImage != null)
-            transform.Find("Button").GetComponent<Image>().sprite = backgroundImage;
-
-        transform.Find("GameObject").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(mine.baseResource);
-
+        workModeBtn = transform.Find("Sell_Btn").GetComponent<Button>();
+        workModeBtn.onClick.AddListener(() => ChangeWorkingMode());
+        workModeText = workModeBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        transform.Find("Button").GetComponent<Image>().sprite = backgroundImage;
+        tool = transform.Find("GameObject").Find("Tool").GetComponent<RectTransform>();
+        transform.Find("GameObject").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(producedResource);
+        infoPanel = transform.Find("InfoPanel");
+        infoBtn = transform.Find("Info_Btn").GetComponent<Button>();
+        infoBtn.onClick.AddListener(() => { TweenAnimation.Instance.ShowHideElement(infoPanel.gameObject); infoBtn.transform.SetAsLastSibling(); });
         if (remainedCollectTime >0)
         {
             fillBar.fillAmount = ((collectTime - remainedCollectTime) / collectTime);
@@ -140,24 +174,18 @@ public class Mine_Btn : MonoBehaviour
         {
             fillBar.fillAmount = 0;
         }
-        mineNameText.text = mine.Name;
-        btn.onClick.AddListener(() => CollectMine());
-        btn.onClick.AddListener(() => { if (isCharging) remainedCollectTime -= .35f; });
+        mainBtn.onClick.AddListener(() => CollectMine());
+        mainBtn.onClick.AddListener(() => { if (isCharging) remainedCollectTime -= .35f; });
         upgradeBtn.onClick.AddListener(() => UpgradeMine());
         upgradeAmount = 15f;
-        xpAmount = mine.xpAmount;
         upgradeAmountText.text = "$0";
         mineLevelText.text = "Level 0";
-        sellAmountText.text = "SELL => 0";
+        workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString());
 
-        incomePerSecond = (IncomeAmount / collectTime) * UpgradeSystem.Instance.EarnedCoinMultiplier;
+        incomePerSecond = (outputPerSecond*pricePerProduct) * UpgradeSystem.Instance.EarnedCoinMultiplier;
         StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
-    }
 
-    private void OnContractComplete(object sender, ContractManager.OnContractCompleteEventArgs e)
-    {
-        if (mine.lockedByContract == e.contract)
-            mine.isLockedByContract = false;
+        IsAutomated = true;
     }
 
     private void Instance_OnEarnedXpMultiplierChanged(object sender, UpgradeSystem.OnEarnedXpMultiplierChangedEventArgs e)
@@ -167,7 +195,6 @@ public class Mine_Btn : MonoBehaviour
 
     private void Instance_OnEarnedCoinMultiplierChanged(object sender, UpgradeSystem.OnEarnedCoinMultiplierChangedEventArgs e)
     {
-        sellAmountText.text = "SELL => " + (mine.pricePerProduct * (ResourceManager.Instance.GetResourceAmount(mine.baseResource) * UpgradeSystem.Instance.EarnedCoinMultiplier)).ToString();
     }
 
     private void Instance_OnMiningYieldChanged(object sender, UpgradeSystem.OnMiningYieldChangedEventArgs e)
@@ -182,75 +209,78 @@ public class Mine_Btn : MonoBehaviour
 
     private void OnResourceAmountChanged(object sender, ResourceManager.OnResourceAmountChangedEventArgs e)
     {
-        sellAmountText.text = "SELL => " + (mine.pricePerProduct * (ResourceManager.Instance.GetResourceAmount(mine.baseResource) * UpgradeSystem.Instance.EarnedCoinMultiplier)).ToString();
     }
 
     private void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
     {
-        if (transform.Find("Level_Lock(Clone)") != null && mine.unlockLevel == e.currentLevel)
+        if (transform.Find("Level_Lock(Clone)") != null && unlockLevel == e.currentLevel)
         {
             Destroy(transform.Find("Level_Lock(Clone)").gameObject);
-            if (mine.isLockedByContract)
+            if (isLockedByContract)
             {
                 var lockText = Instantiate(GameManager.Instance.levelLock, transform);
-                lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + mine.lockedByContract.contractName + " Contract";
+                lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + lockedByContract.contractName + " Contract";
             }
-        }
-        else if (mine.isLockedByContract && mine.unlockLevel > e.currentLevel)
-        {
-            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
-            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + mine.lockedByContract.contractName + " Contract";
-            mine.isLockedByContract = false;
         }
     }
 
     void Update()
     {
-        if (isAutomated)
+        if (unlockLevel <= GameManager.Instance.CurrentLevel && !isLockedByContract)
         {
-            CollectMine();
-        }
-
-        if (isCharging)
-        {
-            if (remainedCollectTime > 0)
+            if (isAutomated)
             {
-                remainedCollectTime -= Time.deltaTime * UpgradeSystem.Instance.MiningSpeedMultiplier;
-                fillBar.fillAmount = ((collectTime - remainedCollectTime) / collectTime);
+                CollectMine();
             }
-            else
+
+            if (isCharging)
             {
-                float currency;
-                float resource;
-                AddResourceAndMoney(out currency, out resource) ;
-                isCharging = false;
-                remainedCollectTime = 0;
-                fillBar.fillAmount = 0;
+                if (remainedCollectTime > 0)
+                {
+                    remainedCollectTime -= Time.deltaTime * UpgradeSystem.Instance.MiningSpeedMultiplier;
+                    fillBar.fillAmount = ((collectTime - remainedCollectTime) / collectTime);
+                }
+                else
+                {
+                    //float currency;
+                    //float resource;
+                    AddResourceAndMoney(/*out currency, out resource*/);
+                    isCharging = false;
+                    remainedCollectTime = 0;
+                    fillBar.fillAmount = 0;
+                }
             }
         }
     }
 
-    public void AddResourceAndMoney(out float currency, out float resourceAmount)
+    void AddResourceAndMoney(/*out float currency, out float resourceAmount*/)
     {
         switch (workingMode)
         {
             case WorkingMode.production:
-                resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
+                /*resourceAmount = */ResourceManager.Instance.AddResource(producedResource, (long)(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
                 break;
             case WorkingMode.sell:
-
+                ResourceManager.Instance.AddResource(producedResource, (long)(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
+                Sell();
                 break;
         }
-        resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
-        currency = incomeAmount;
-        ResourceManager.Instance.Currency += incomeAmount;
-        GameManager.Instance.AddXP(XPAmount* UpgradeSystem.Instance.EarnedXPMultiplier);
+        //resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
+        //currency = incomeAmount;
+        //ResourceManager.Instance.Currency += incomeAmount;
+        GameManager.Instance.AddXP(XPAmount);
+    }
+
+    public float IdleEarn(int idleTime)
+    {
+        return incomePerSecond * idleTime * UpgradeSystem.Instance.EarnedCoinMultiplier;
     }
 
     public void CollectMine()
     {
         if (!isCharging)
         {
+            TweenAnimation.Instance.MoveTool(tool.gameObject);
             isCharging = true;
             if (remainedCollectTime == 0)
                 remainedCollectTime = collectTime;
@@ -265,24 +295,31 @@ public class Mine_Btn : MonoBehaviour
         if (mineLevel % 10 == 0)
             collectTime -= collectTime / 10;
         upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeAmount);
-        incomePerSecond = IncomeAmount / collectTime;
+        incomePerSecond = OutputPerSecond*pricePerProduct;
         StatSystem.Instance.CurrencyPerSecond+= incomePerSecond;
-        outputPerSecondText.text = string.Format("+{0:0.#} {1}", (mine.outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, mine.resourceName) + "/Sec";
+        outputPerSecondText.text = string.Format("+{0:0.#} {1}", (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec";
     }
 
-    public float IdleEarn(int idleTime)
+    void Sell()
     {
-        return incomePerSecond * idleTime;
-    }
-
-    void SellButton()
-    {
-        ResourceManager.Instance.Currency += (ResourceManager.Instance.GetResourceAmount(mine.baseResource) *1f * (mine.pricePerProduct *1f));
-        ResourceManager.Instance.ConsumeResource(mine.baseResource, ResourceManager.Instance.GetResourceAmount(mine.baseResource));
+        ResourceManager.Instance.Currency += outputValue * 1f * (pricePerProduct *1f);
+        ResourceManager.Instance.ConsumeResource(producedResource, outputValue);
     }
 
     void ChangeWorkingMode()
     {
-        workingMode.Next();
+        Array a = Enum.GetValues(typeof(WorkingMode));
+        int j = 0;
+        for (int i = 0; i < a.Length; i++)
+        {
+            j = i + 1;
+            if ((WorkingMode)(a.GetValue(i)) == workingMode)
+                break;
+        }
+        if (j < a.Length)
+            workingMode = (WorkingMode)a.GetValue(j);
+        else
+            workingMode = (WorkingMode)a.GetValue(j - a.Length);
+        workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString());
     }
 }

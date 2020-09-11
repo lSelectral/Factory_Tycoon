@@ -20,4 +20,7 @@ MonoBehaviour:
   buildTime: 15
   outputValue: 1
   incomeAmount: 150
-  unlockLevel: 0
+  unlockLevel: 3
+  xpAmount: 25
+  isLockedByContract: 0
+  lockedByContract: {fileID: 0}

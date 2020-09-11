@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questName: 
   description: 
-  rewardAmount: 0
   rewardType: 0
   questType: 0
   resource: 0
+  questAchiveRequirement: 0
   intervals: 
   completedIntervals: 
+  rewardAmounts: 

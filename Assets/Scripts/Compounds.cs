@@ -13,16 +13,15 @@ public class Compounds : MonoBehaviour
 
     private BaseResources[] inputResources;
     private int[] inputAmounts;
-
     private List<BaseResources> tempResourceList;
-
     private string partName;
     private int outputAmount;
     private float buildTime;
     private float remainedBuildTime;
     private BaseResources product;
-    private float incomeAmount;
     private bool isCharging;
+    private WorkingMode workingMode;
+    private bool isLockedByContract;
 
     int compoundLevel;
     float compoundUpgradeAmount;
@@ -51,16 +50,22 @@ public class Compounds : MonoBehaviour
         set { compoundUpgradeAmount = value; }
     }
 
-    public float IncomeAmount
-    {
-        get { return incomeAmount; }
-        set { incomeAmount = value; }
-    }
-
     public bool IsAutomated
     {
         get { return isAutomated; }
         set { isAutomated = value; }
+    }
+
+    public bool IsLockedByContract
+    {
+        get { return isLockedByContract; }
+        set { isLockedByContract = value; }
+    }
+
+    public WorkingMode WorkingMode
+    {
+        get { return workingMode; }
+        set { workingMode = value; }
     }
 
     Image fillBar;
@@ -72,8 +77,13 @@ public class Compounds : MonoBehaviour
 
     void Start()
     {
+        IsAutomated = false;
         GameManager.Instance.OnLevelUp += OnLevelUp;
-        if (scriptableCompound.unlockLevel < GameManager.Instance.CurrentLevel)
+        UpgradeSystem.Instance.OnProductionEfficiencyChanged += OnProductionEfficiencyChanged;
+        UpgradeSystem.Instance.OnProductionSpeedChanged += OnProductionSpeedChanged;
+        UpgradeSystem.Instance.OnProductionYieldChanged += OnProductionYieldChanged;
+
+        if (scriptableCompound.unlockLevel > GameManager.Instance.CurrentLevel)
         {
             var lockText = Instantiate(GameManager.Instance.levelLock, transform);
             lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + scriptableCompound.unlockLevel.ToString();
@@ -91,7 +101,7 @@ public class Compounds : MonoBehaviour
         outputAmount = scriptableCompound.outputValue;
         buildTime = scriptableCompound.buildTime;
         product = scriptableCompound.product;
-        incomeAmount = scriptableCompound.incomeAmount;
+        isLockedByContract = scriptableCompound.isLockedByContract;
 
         fillBar = transform.Find("Main_Panel").transform.Find("FillBar").transform.Find("Fill").GetComponent<Image>();
         mineNameText = transform.Find("Main_Panel").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
@@ -119,6 +129,21 @@ public class Compounds : MonoBehaviour
         btn.onClick.AddListener(() => Produce());
     }
 
+    private void OnProductionYieldChanged(object sender, UpgradeSystem.OnProductionYieldChangedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnProductionSpeedChanged(object sender, UpgradeSystem.OnProductionSpeedChangedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnProductionEfficiencyChanged(object sender, UpgradeSystem.OnProductionEfficiencyChangedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
     private void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
     {
         if (transform.Find("Level_Lock(Clone)") != null && scriptableCompound.unlockLevel == e.currentLevel)
@@ -130,12 +155,6 @@ public class Compounds : MonoBehaviour
                 lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
                 scriptableCompound.isLockedByContract = false;
             }
-        }
-        else if (scriptableCompound.isLockedByContract && scriptableCompound.unlockLevel > e.currentLevel)
-        {
-            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
-            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
-            scriptableCompound.isLockedByContract = false;
         }
     }
 
@@ -158,7 +177,6 @@ public class Compounds : MonoBehaviour
                 isCharging = false;
                 ResourceManager.Instance.AddResource(product, (long)(outputAmount * UpgradeSystem.Instance.ProductionYieldMultiplier));
                 tempResourceList = inputResources.ToList();
-                ResourceManager.Instance.Currency += incomeAmount;
                 GameManager.Instance.AddXP(scriptableCompound.xpAmount);
                 remainedBuildTime = 0;
                 fillBar.fillAmount = 0;
@@ -175,7 +193,7 @@ public class Compounds : MonoBehaviour
             {
                 if (ResourceManager.Instance.GetResourceAmount(input.Resource) >= input.Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier && tempResourceList.Contains(input.Resource))
                 {
-                    Debug.Log(input.Resource + " added to recipe");
+                    //Debug.Log(input.Resource + " added to recipe");
                     tempResourceList.Remove(input.Resource);
                     ResourceManager.Instance.ConsumeResource(input.Resource, (long)(input.Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier));
 
@@ -184,13 +202,13 @@ public class Compounds : MonoBehaviour
                 }
                 else if (ResourceManager.Instance.GetResourceAmount(input.Resource) < input.Amount)
                 {
-                    Debug.Log("Not enough " + input.Resource    );
+                    //Debug.Log("Not enough " + input.Resource    );
                 }
             }
 
             if (tempResourceList.Count == 0)
             {   
-                Debug.Log(partName + " recipe completed");
+                //Debug.Log(partName + " recipe completed");
                 isCharging = true;
                 remainedBuildTime = buildTime;
 

@@ -5,6 +5,7 @@ using UnityEngineInternal;
 using System;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.Internal;
 
 public class ResourceManager : Singleton<ResourceManager>
 {
@@ -20,8 +21,8 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public class OnCurrencyChangedEventArgs: EventArgs
     {
-        public float currency;
-        public float premiumCurrency;
+        public double currency;
+        public double premiumCurrency;
     }
 
     public event EventHandler<OnCurrencyChangedEventArgs> OnCurrencyChanged;
@@ -35,10 +36,11 @@ public class ResourceManager : Singleton<ResourceManager>
 
     [SerializeField] private GameObject resourcePanel;
     [SerializeField] private GameObject resourcePrefab;
-    private float totalResource, currency, premiumCurrency;
-    private float smoothCurrency, smoothPremiumCurency, smoothTotalResource;
-    private float smoothVelocity, smoothVelocityPremiumCurrency, smoothVelocityTotalResource;
+    double currency,totalResource, premiumCurrency;
+    double smoothCurrency,smoothPremiumCurency, smoothTotalResource;
+    double smoothVelocity,smoothVelocityPremiumCurrency, smoothVelocityTotalResource;
     public float smoothTime;
+    public double currencySmoothTime;
 
     private long ironOre, copperOre, siliconOre, coal, oil;
     private long reactorComponent, solarCell, powerCell, thrusterComponent, superConductor;
@@ -62,7 +64,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
     #region Properties
 
-    public float TotalResource
+    public double TotalResource
     {
         get
         {
@@ -78,7 +80,7 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public float Currency
+    public double Currency
     {
         get
         {
@@ -86,7 +88,7 @@ public class ResourceManager : Singleton<ResourceManager>
         }
         set
         {
-            float newValue;
+            double newValue;
             newValue = (value * UpgradeSystem.Instance.EarnedCoinMultiplier) - currency;
             currency += newValue;
             if (!isLoadingFromSaveFile)
@@ -98,7 +100,7 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public float PremiumCurrency
+    public double PremiumCurrency
     {
         get
         {
@@ -172,11 +174,68 @@ public class ResourceManager : Singleton<ResourceManager>
         return "";
     }
 
+    public string CurrencyToString(double valueToConvert, int decimalAmount = 2)
+    {
+        int scale = 0;
+        double v = valueToConvert;
+        while (v >= 1000f)
+        {
+            v /= 1000f;
+            scale++;
+            if (scale >= suffix.Length)
+                return valueToConvert.ToString("e2"); // overflow, can't display number, fallback to exponential
+        }
+        if (decimalAmount == 2)
+            return v.ToString("0.##") + suffix[scale];
+        else if (decimalAmount == 0)
+            return v.ToString("0");
+        return "";
+    }
+
     /// <summary>
     /// Convert variable name to human readable seperated name
     /// </summary>
     /// <param name="oldString">Previous variable name</param>
     /// <returns></returns>
+    //public string GetValidName(string oldString)
+    //{
+    //    List<int> upperCaseIndexes = new List<int>();
+
+    //    string returnString = "";
+    //    int seperatorIndex = 1;
+
+    //    foreach (char ch in oldString.ToCharArray())
+    //    {
+    //        if (char.IsUpper(ch))
+    //        {
+    //            var firstLetter = 'a';
+    //            if (oldString[0] != 'i')
+    //                firstLetter = oldString[0];
+    //            else
+    //                firstLetter = 'ı';
+
+    //            upperCaseIndexes.Add(Array.IndexOf(oldString.ToCharArray(), ch));
+    //            //returnString =  char.ToUpper(firstLetter) + oldString.Substring(1,index-1) + " " + oldString.Substring(index);
+    //            //return returnString;
+    //        }
+    //    }
+    //    //return char.ToUpper(oldString[0]) + oldString.Substring(1, oldString.Length-1);
+
+    //    for (int i = 0; i < upperCaseIndexes.Count; i++)
+    //    {
+    //        if (i == 0)
+    //        {
+    //            returnString += oldString.Substring(seperatorIndex, upperCaseIndexes[i] - 1) + " ";
+    //        }
+    //        else
+    //        {
+    //            returnString += char.ToUpper(oldString[seperatorIndex]) + oldString.Substring(seperatorIndex+1, upperCaseIndexes[i] -2) + " ";
+    //        }
+    //        seperatorIndex = upperCaseIndexes[i];
+    //    }
+    //    return returnString;
+    //}
+
     public string GetValidName(string oldString)
     {
         bool q = oldString.Any(char.IsLower);
@@ -195,7 +254,7 @@ public class ResourceManager : Singleton<ResourceManager>
                 else
                     firstLetter = 'ı';
 
-                returnString =  char.ToUpper(firstLetter) + oldString.Substring(1,index-1) + " " + oldString.Substring(index);
+                returnString = char.ToUpper(firstLetter) + oldString.Substring(1, index - 1) + " " + oldString.Substring(index);
 
                 return returnString;
             }
@@ -203,11 +262,12 @@ public class ResourceManager : Singleton<ResourceManager>
         }
         if (returnString == "")
         {
-            return char.ToUpper(oldString[0]) + oldString.Substring(1, oldString.Length-1);
+            return char.ToUpper(oldString[0]) + oldString.Substring(1, oldString.Length - 1);
         }
 
         return "";
     }
+
 
     private void Awake()
     {
@@ -318,13 +378,13 @@ public class ResourceManager : Singleton<ResourceManager>
 
     void Update()
     {
-        smoothCurrency = Mathf.SmoothDamp(smoothCurrency, (float)currency, ref smoothVelocity, smoothTime);
+        smoothCurrency = SmoothDamp(smoothCurrency, currency, ref smoothVelocity, currencySmoothTime);
         currencyText.text = CurrencyToString(smoothCurrency);
 
-        smoothPremiumCurency = Mathf.SmoothDamp(smoothPremiumCurency, (float)premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
+        smoothPremiumCurency = SmoothDamp(smoothPremiumCurency, premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
         premiumCurrencyText.text = CurrencyToString(smoothPremiumCurency);
 
-        smoothTotalResource = Mathf.SmoothDamp(smoothTotalResource, totalResource, ref smoothVelocityTotalResource, smoothTime);
+        smoothTotalResource = SmoothDamp(smoothTotalResource, totalResource, ref smoothVelocityTotalResource, smoothTime);
         totalResourceText.text = "Total Resource\n" + CurrencyToString((smoothTotalResource), 0);
     }
 
@@ -430,12 +490,51 @@ public class ResourceManager : Singleton<ResourceManager>
     public void ADD_ROD() { AddResource(BaseResources.ironRod, 20); }
     public void ADD_IronOre() { AddResource(BaseResources.ironOre ,20000); }
     public void ADD_HardenedPlate() { AddResource(BaseResources.hardenedPlate, 20); }
+
+    public static double SmoothDamp(double current, double target, ref double currentVelocity, double smoothTime, double maxSpeed= Mathf.Infinity)
+    {
+        var deltaTime = Time.deltaTime;
+        //smoothTime = Mathf.Max(0.0001f, smoothTime);
+        double num = 2f / smoothTime;
+        double num2 = num * deltaTime;
+        double num3 = 1f / (1f + num2 + 0.48f * num2 * num2 + 0.235f * num2 * num2 * num2);
+        double num4 = current - target;
+        double num5 = target;
+        double num6 = maxSpeed * smoothTime;
+
+        num4 = ClampDouble(num4, -num6, num6);
+        target = current - num4;
+        double num7 = (currentVelocity + num * num4) * deltaTime;
+        currentVelocity = (currentVelocity - num * num7) * num3;
+        double num8 = target + (num4 + num7) * num3;
+        if (num5 - current > 0f == num8 > num5)
+        {
+            num8 = num5;
+            currentVelocity = (num8 - num5) / deltaTime;
+        }
+        return num8;
+    }
+
+    public static double ClampDouble(double value, double min, double max)
+    {
+        if (value < min)
+        {
+            value = min;
+        }
+        else
+        {
+            if (value > max)
+            {
+                value = max;
+            }
+        }
+        return value;
+    }
 }
-
-
 
 public enum BaseResources
 {
+    /*--- MINES ---*/
     ironOre = 1,
     copperOre = 2,
     siliconOre = 3,
@@ -443,12 +542,13 @@ public enum BaseResources
     oil = 5,
     goldOre = 120,
 
+    /*--- Ingots ---*/
     ironIngot = 6,
     copperIngot = 7,
     siliconWafer = 8,
     goldIngot = 99,
 
-    // Created from only iron
+    /*--- T1 ---*/
     ironRod = 9,
     ironPlate = 10,
     ironScrew = 11,

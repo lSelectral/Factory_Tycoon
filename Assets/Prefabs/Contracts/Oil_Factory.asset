@@ -16,7 +16,7 @@ MonoBehaviour:
   description: For new factory, construction manager needs 100 Iron screw and 100
     iron rod
   contractReward: 350000
-  contractRewardType: 0
+  contractRewardType: 9
   compoundsToUnlock: []
   minesToUnlock:
   - {fileID: 11400000, guid: b6e708a2d87deff43a9690ad85989b2f, type: 2}
@@ -30,3 +30,4 @@ MonoBehaviour:
     oil from oil refinery.
   pageNameToGo: Ores
   xpReward: 12000
+  isContractCompleted: 0

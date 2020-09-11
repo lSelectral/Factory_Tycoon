@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Part", menuName = "Factory/Compound")]
 public class ScriptableCompound : ScriptableObject

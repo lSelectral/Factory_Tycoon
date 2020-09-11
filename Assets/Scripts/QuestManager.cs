@@ -18,10 +18,10 @@ public class QuestManager : MonoBehaviour
         if (questList == null)
             questList = new List<GameObject>();
         // FOR DEBUG
-        for (int i = 0; i < questBases.Length; i++)
-        {
-            questBases[i].OnAfterDeSerialize();
-        }
+        //for (int i = 0; i < questBases.Length; i++)
+        //{
+        //    questBases[i].OnAfterDeSerialize();
+        //}
 
         ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
         ResourceManager.Instance.OnCurrencyChanged += OnCurrencyChanged;

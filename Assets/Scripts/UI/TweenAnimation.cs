@@ -13,8 +13,8 @@ public class TweenAnimation : Singleton<TweenAnimation>
     /// <param name="obj">Object to control</param>
     public void ShowHideElement(GameObject obj)
     {
-        if (openPanel != null && openPanel != obj)
-            OnDeActivate(openPanel);
+        //if (openPanel != null && openPanel != obj)
+        //    OnDeActivate(openPanel);
         if (obj.activeInHierarchy)
         {
             OnDeActivate(obj);
@@ -78,5 +78,12 @@ public class TweenAnimation : Singleton<TweenAnimation>
     public void SmoothHide(GameObject obj)
     {
         LeanTween.alpha(obj.GetComponent<RectTransform>(), 0f, 1.2f).setOnComplete(() => { LeanTween.alpha(obj.GetComponent<RectTransform>(), 1f, 1f); });
+    }
+
+    public LTDescr MoveTool(GameObject obj, float startAngle = 70f, float endAngle = -20f, float time = 1f)
+    {
+        LeanTween.rotateZ(obj, startAngle, 0);
+        var t = LeanTween.rotateZ(obj, endAngle, time).setOnComplete(() => LeanTween.rotateZ(obj,startAngle, 0)).setLoopPingPong();
+        return t;
     }
 }
