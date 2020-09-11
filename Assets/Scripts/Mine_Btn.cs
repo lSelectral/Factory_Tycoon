@@ -49,6 +49,8 @@ public class Mine_Btn : MonoBehaviour
     float incomePerSecond;
     WorkingMode workingMode;
 
+    LTDescr miningAnimation;
+
     #region Properties
     public float RemainedCollectTime
     {
@@ -160,8 +162,8 @@ public class Mine_Btn : MonoBehaviour
         workModeBtn = transform.Find("Sell_Btn").GetComponent<Button>();
         workModeBtn.onClick.AddListener(() => ChangeWorkingMode());
         workModeText = workModeBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        transform.Find("Button").GetComponent<Image>().sprite = backgroundImage;
-        tool = transform.Find("GameObject").Find("Tool").GetComponent<RectTransform>();
+        transform.Find("Button").Find("Image").GetComponent<Image>().sprite = backgroundImage;
+        tool = transform.Find("Button").Find("Tool").GetComponent<RectTransform>();
         transform.Find("GameObject").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(producedResource);
         infoPanel = transform.Find("InfoPanel");
         infoBtn = transform.Find("Info_Btn").GetComponent<Button>();
@@ -185,7 +187,7 @@ public class Mine_Btn : MonoBehaviour
         incomePerSecond = (outputPerSecond*pricePerProduct) * UpgradeSystem.Instance.EarnedCoinMultiplier;
         StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
 
-        IsAutomated = true;
+        //IsAutomated = true;
     }
 
     private void Instance_OnEarnedXpMultiplierChanged(object sender, UpgradeSystem.OnEarnedXpMultiplierChangedEventArgs e)
@@ -248,6 +250,7 @@ public class Mine_Btn : MonoBehaviour
                     isCharging = false;
                     remainedCollectTime = 0;
                     fillBar.fillAmount = 0;
+                    LeanTween.cancel(tool.gameObject);
                 }
             }
         }
@@ -280,7 +283,7 @@ public class Mine_Btn : MonoBehaviour
     {
         if (!isCharging)
         {
-            TweenAnimation.Instance.MoveTool(tool.gameObject);
+            miningAnimation = TweenAnimation.Instance.MoveTool(tool.gameObject);
             isCharging = true;
             if (remainedCollectTime == 0)
                 remainedCollectTime = collectTime;

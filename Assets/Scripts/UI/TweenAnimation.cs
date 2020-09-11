@@ -49,7 +49,6 @@ public class TweenAnimation : Singleton<TweenAnimation>
 
     public void PopUpFromLeft(GameObject obj)
     {
-        
         LeanTween.moveX(obj, 4f, 1f);
     }
 
@@ -80,10 +79,12 @@ public class TweenAnimation : Singleton<TweenAnimation>
         LeanTween.alpha(obj.GetComponent<RectTransform>(), 0f, 1.2f).setOnComplete(() => { LeanTween.alpha(obj.GetComponent<RectTransform>(), 1f, 1f); });
     }
 
-    public LTDescr MoveTool(GameObject obj, float startAngle = 70f, float endAngle = -20f, float time = 1f)
+    public LTDescr MoveTool(GameObject obj, Vector3? startAngle = null, Vector3? endAngle = null, float time = 1f)
     {
-        LeanTween.rotateZ(obj, startAngle, 0);
-        var t = LeanTween.rotateZ(obj, endAngle, time).setOnComplete(() => LeanTween.rotateZ(obj,startAngle, 0)).setLoopPingPong();
+        startAngle = new Vector3(0,0,-15);
+        endAngle = new Vector3(0, 0, 70);
+        LeanTween.rotate(obj, startAngle.Value, 0f);
+        var t = LeanTween.rotate(obj, endAngle.Value, time).setOnComplete(() => LeanTween.rotate(obj,startAngle.Value, 0f)).setLoopPingPong();
         return t;
     }
 }

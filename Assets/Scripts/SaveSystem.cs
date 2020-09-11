@@ -103,6 +103,15 @@ public class SaveSystem : Singleton<SaveSystem>
             steelRod = ResourceManager.Instance.SteelTube,
             steelScrew = ResourceManager.Instance.SteelScrew,
             wire = ResourceManager.Instance.Wire,
+            goldIngot = ResourceManager.Instance.GoldIngot,
+            goldOre = ResourceManager.Instance.GoldOre,
+            metalGrid = ResourceManager.Instance.MetalGrid,
+            powerCell = ResourceManager.Instance.PowerCell,
+            reactorComponent = ResourceManager.Instance.ReactorComponent,
+            solarCell = ResourceManager.Instance.SolarCell,
+            steelTube = ResourceManager.Instance.SteelTube,
+            superConductor = ResourceManager.Instance.SuperConductor,
+            thrusterComponent = ResourceManager.Instance.ThrusterComponent,
             totalResource = ResourceManager.Instance.TotalResource,
 
             totalEarnedCurrency = this.totalEarnedCurrency,
@@ -116,12 +125,6 @@ public class SaveSystem : Singleton<SaveSystem>
         string saveText = JsonUtility.ToJson(saveObject);
         File.WriteAllText(Application.persistentDataPath + "/SAVES/save.txt", saveText);
         Debug.Log(String.Format("Game data saved to {0}", Application.persistentDataPath + "/SAVES" + "/save.txt"));
-
-        //using (BinaryWriter writer = new BinaryWriter(File.Open(Application.persistentDataPath + "/SAVES/save.data", FileMode.Create)))
-        //{
-        //    writer.Write(saveText);
-        //    writer.Close();
-        //};
     }
 
     public void Load()
@@ -156,6 +159,35 @@ public class SaveSystem : Singleton<SaveSystem>
             ResourceManager.Instance.IronOre += saveObject.ironOre;
             ResourceManager.Instance.CopperOre += saveObject.copperOre;
             ResourceManager.Instance.SiliconOre += saveObject.siliconOre;
+            ResourceManager.Instance.Coal += saveObject.coal;
+            ResourceManager.Instance.Oil += saveObject.oil;
+            ResourceManager.Instance.GoldOre += saveObject.goldOre;
+            ResourceManager.Instance.IronIngot += saveObject.ironIngot;
+            ResourceManager.Instance.CopperIngot += saveObject.copperIngot;
+            ResourceManager.Instance.SiliconWafer += saveObject.siliconWafer;
+            ResourceManager.Instance.GoldIngot += saveObject.goldIngot;
+            ResourceManager.Instance.Wire += saveObject.wire;
+            ResourceManager.Instance.HardenedPlate += saveObject.hardenedPlate;
+            ResourceManager.Instance.Rotor += saveObject.rotor;
+            ResourceManager.Instance.SteelIngot += saveObject.steelIngot;
+            ResourceManager.Instance.SteelPlate += saveObject.steelPlate;
+            ResourceManager.Instance.SteelTube += saveObject.steelTube;
+            ResourceManager.Instance.SteelScrew += saveObject.steelScrew;
+            ResourceManager.Instance.SteelBeam += saveObject.steelBeam;
+            ResourceManager.Instance.MetalGrid += saveObject.metalGrid;
+            ResourceManager.Instance.ReactorComponent += saveObject.reactorComponent;
+            ResourceManager.Instance.ThrusterComponent += saveObject.thrusterComponent;
+            ResourceManager.Instance.SolarCell += saveObject.solarCell;
+            ResourceManager.Instance.SuperConductor += saveObject.superConductor;
+            ResourceManager.Instance.PowerCell += saveObject.powerCell;
+            ResourceManager.Instance.Rubber += saveObject.rubber;
+            ResourceManager.Instance.Stator += saveObject.stator;
+            ResourceManager.Instance.Motor += saveObject.motor;
+            ResourceManager.Instance.FiberOpticCable += saveObject.fiberOpticCable;
+            ResourceManager.Instance.CircuitBoard += saveObject.circuitBoard;
+            ResourceManager.Instance.IntegrationChip += saveObject.integrationChip;
+            ResourceManager.Instance.AiChip += saveObject.aiChip;
+            ResourceManager.Instance.TotalResource = saveObject.totalResource;
 
             var savedMineInfos = ProductionManager.Instance.instantiatedMines.Zip(saveObject.instantiatedMines, (mines, infos) => (Mine: mines, Info: infos));
             var savedCompoundInfos = ProductionManager.Instance.instantiatedCompounds.Zip(saveObject.instantiatedCompounds, (compound, info) => (Compound: compound, Info: info));
@@ -237,12 +269,22 @@ public class SaveSystem : Singleton<SaveSystem>
         public long siliconOre;
         public long coal;
         public long oil;
+        public long goldOre;
 
         public long ironIngot;
         public long copperIngot;
+        public long goldIngot;
         public long siliconWafer;
         public long ironRod;
         public long ironScrew;
+
+        public long metalGrid;
+        public long steelTube;
+        public long reactorComponent;
+        public long thrusterComponent;
+        public long solarCell;
+        public long superConductor;
+        public long powerCell;
 
         public long wire;
         public long hardenedPlate;
@@ -259,8 +301,6 @@ public class SaveSystem : Singleton<SaveSystem>
         public long circuitBoard;
         public long integrationChip;
         public long aiChip;
-
-
         #endregion
     }
 }

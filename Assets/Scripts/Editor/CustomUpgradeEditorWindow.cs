@@ -21,5 +21,10 @@ public class CustomUpgradeEditorWindow: EditorWindow
         {
             UpgradeSystem.Instance.MiningYieldMultiplier *= float.Parse(valueString);
         }
+
+        if (GUILayout.Button("Mining Speed 30 second"))
+        {
+            AdOfferManager.Instance.DEBUGMININGSPEED();
+        }
     }
 }
