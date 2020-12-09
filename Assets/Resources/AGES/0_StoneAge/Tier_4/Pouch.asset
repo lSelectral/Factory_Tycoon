@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: Pouch
+  m_EditorClassIdentifier: 
+  Description: Thirst for more storage
+  inputResources: 00000000
+  inputAmounts: 1e000000
+  product: 17
+  partName: Pouch
+  buildTime: 25
+  outputValue: 4
+  pricePerProduct: 31213
+  unlockLevel: 7
+  xpAmount: 25
+  isLockedByContract: 0
+  lockedByContract: {fileID: 0}
+  icon: {fileID: 21300000, guid: ed5222fee6b0aa846aef7746c9886126, type: 3}
+  ageBelongsTo: 0
+  tier: 3
+  isUnlocked: 0

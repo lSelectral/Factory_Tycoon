@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,18 +9,18 @@ using UnityEngine.UI;
 /// </summary>
 public class ProductionManager : Singleton<ProductionManager>
 {
-    public GameObject mineInfoPrefab;
-    public ScriptableMine[] mines;
+    public ScriptableMine[] minesForAges;
+    public ScriptableCompound[] compoundsForAges;
 
-    public ScriptableCompound[] ingots;
-
-    public ScriptableCompound[] primitives;
-    public ScriptableCompound[] advanced;
-    public ScriptableCompound[] T1;
-    public ScriptableCompound[] T2;
-    public ScriptableCompound[] T3;
+    public List<ScriptableMine> mineList;
+    public List<ScriptableCompound> compoundList;
 
     public GameObject mainPanel;
+    // Hide objects on screen but still work on background
+    public Transform temporaryMovementPanel;
+    public Transform contentHolderPrefab;
+
+    public GameObject collapsablePanelPrefab;
 
     public GameObject minePrefab;
     public GameObject compoundPrefab;
@@ -26,91 +28,134 @@ public class ProductionManager : Singleton<ProductionManager>
     public List<GameObject> instantiatedMines;
     public List<GameObject> instantiatedCompounds;
 
-    public List<GameObject> instantiatedIngots;
-    public List<GameObject> instantiatedPrimitives;
-    public List<GameObject> instantiatedAdvanceds;
-    public List<GameObject> instantiatedT1;
-    public List<GameObject> instantiatedT2;
-    public List<GameObject> instantiatedT3;
-
     public Sprite smelterSprite;
     public Sprite assemblerSprite;
     public Sprite manufacturerSprite;
 
-    const string minePanel = "Ores";
-    const string ingotPanel = "Ingots";
-    const string primitivesPanel = "Primitives";
-    const string secondariesPanel = "Secondaries";
-    const string AdvancedPanel = "Advanced";
+    /// <summary>
+    /// Instantiate mine prefab and create expand and collapse button for tier groups
+    /// </summary>
+    /// <param name="mine"></param>
+    void InstantiateMine(ScriptableMine mine)
+    {
+        var _contentHolder = mainPanel.transform.Find(mine.ageBelongsTo.ToString()).GetChild(0);
+
+        Transform tierSeperatedContainer = null;
+
+
+        if (_contentHolder.Find(mine.tier.ToString()) == null)
+        {
+            var collapsablePanel = Instantiate(collapsablePanelPrefab, _contentHolder);
+            collapsablePanel.GetComponentInChildren<TextMeshProUGUI>().text = "Tier " + mine.tier.ToString().Substring(mine.tier.ToString().Length - 1);
+            collapsablePanel.name = mine.tier.ToString();
+
+            tierSeperatedContainer = Instantiate(contentHolderPrefab, _contentHolder).transform;
+            tierSeperatedContainer.gameObject.name = "container_" + mine.tier;
+        }
+        else
+            tierSeperatedContainer = _contentHolder.transform.GetChild(_contentHolder.Find(mine.tier.ToString()).GetSiblingIndex() + 1);
+
+        var _mine = Instantiate(minePrefab, tierSeperatedContainer);
+        _mine.GetComponent<Mine_Btn>().scriptableMine = mine;
+        instantiatedMines.Add(_mine);
+
+        var expandBtn = _contentHolder.Find(mine.tier.ToString()).Find("Image").Find("ExpandBtn").GetComponent<Button>();
+        var collapseBtn = _contentHolder.Find(mine.tier.ToString()).Find("Image").Find("CollapseBtn").GetComponent<Button>();
+
+        expandBtn.onClick.RemoveAllListeners();
+        expandBtn.onClick.AddListener(() => 
+        { 
+            temporaryMovementPanel.Find("container_"+mine.tier).SetParent(_contentHolder);
+            tierSeperatedContainer.SetSiblingIndex(_contentHolder.Find(mine.tier.ToString()).GetSiblingIndex()+1);
+        });
+
+        collapseBtn.onClick.RemoveAllListeners();
+        collapseBtn.onClick.AddListener(() => 
+        {
+            _contentHolder.transform.Find("container_" + mine.tier).SetParent(temporaryMovementPanel);
+        });
+    }
+
+    void InstantiateCompound(ScriptableCompound compound)
+    {
+        var _contentHolder = mainPanel.transform.Find(compound.ageBelongsTo.ToString()).GetChild(0);
+
+        Transform tierSeperatedContainer = null;
+
+
+        if (_contentHolder.Find(compound.tier.ToString()) == null)
+        {
+            var collapsablePanel = Instantiate(collapsablePanelPrefab, _contentHolder);
+            collapsablePanel.GetComponentInChildren<TextMeshProUGUI>().text = "Tier " + compound.tier.ToString().Substring(compound.tier.ToString().Length - 1);
+            collapsablePanel.name = compound.tier.ToString();
+
+            tierSeperatedContainer = Instantiate(contentHolderPrefab, _contentHolder).transform;
+            tierSeperatedContainer.gameObject.name = "container_" + compound.tier;
+        }
+        else
+            tierSeperatedContainer = _contentHolder.transform.GetChild(_contentHolder.Find(compound.tier.ToString()).GetSiblingIndex() + 1);
+
+        var _compound = Instantiate(compoundPrefab, tierSeperatedContainer);
+        _compound.GetComponent<Compounds>().scriptableCompound = compound;
+        instantiatedCompounds.Add(_compound);
+
+        var expandBtn = _contentHolder.Find(compound.tier.ToString()).Find("Image").Find("ExpandBtn").GetComponent<Button>();
+        var collapseBtn = _contentHolder.Find(compound.tier.ToString()).Find("Image").Find("CollapseBtn").GetComponent<Button>();
+
+        expandBtn.onClick.RemoveAllListeners();
+        expandBtn.onClick.AddListener(() =>
+        {
+            temporaryMovementPanel.Find("container_" + compound.tier).SetParent(_contentHolder);
+            tierSeperatedContainer.SetSiblingIndex(_contentHolder.Find(compound.tier.ToString()).GetSiblingIndex() + 1);
+        });
+
+        collapseBtn.onClick.RemoveAllListeners();
+        collapseBtn.onClick.AddListener(() =>
+        {
+            _contentHolder.transform.Find("container_" + compound.tier).SetParent(temporaryMovementPanel);
+        });
+    }
 
     private void Awake()
     {
-        for (int i = 0; i < mines.Length; i++)
+        mineList = new List<ScriptableMine>();
+        compoundList = new List<ScriptableCompound>();
+
+        var assets = Resources.LoadAll("AGES");
+
+        for (int i = 0; i < assets.Length; i++)
         {
-            var _mine = Instantiate(minePrefab, mainPanel.transform.Find("Ores").GetChild(0));
-            _mine.GetComponent<Mine_Btn>().scriptableMine = mines[i];
-            instantiatedMines.Add(_mine);
+            var asset = assets[i];
+            
+            if (asset as ScriptableObject != null)
+            {
+                var sc = asset as ScriptableObject;
+                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_stoneAge)
+                    mineList.Add(sc as ScriptableMine);
+                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_stoneAge)
+                    compoundList.Add(sc as ScriptableCompound);
+            }
+        }
+        Debug.Log("Mine count is: " + mineList.Count);
+        Debug.Log("Compound count is: " + compoundList.Count);
+
+
+        for (int i = 0; i < mineList.Count; i++)
+        {
+            InstantiateMine(mineList[i]);
         }
 
-        for (int i = 0; i < ingots.Length; i++)
+        for (int j = 0; j < compoundList.Count; j++)
         {
-            var _ingots = Instantiate(compoundPrefab, mainPanel.transform.Find("Ingots").GetChild(0));
-            _ingots.GetComponent<Compounds>().scriptableCompound = ingots[i];
-            _ingots.transform.Find("Building").GetComponent<Image>().sprite = smelterSprite;
-            instantiatedIngots.Add(_ingots);
-            instantiatedCompounds.Add(_ingots);
+            InstantiateCompound(compoundList[j]);
         }
-
-        for (int i = 0; i < primitives.Length; i++)
-        {
-            var _primitive = Instantiate(compoundPrefab, mainPanel.transform.Find("Primitives").GetChild(0));
-            _primitive.GetComponent<Compounds>().scriptableCompound = primitives[i];
-            _primitive.transform.Find("Building").GetComponent<Image>().sprite = assemblerSprite;
-            instantiatedPrimitives.Add(_primitive);
-            instantiatedCompounds.Add(_primitive);
-        }
-
-        for (int i = 0; i < advanced.Length; i++)
-        {
-            var _advanced = Instantiate(compoundPrefab, mainPanel.transform.Find("Secondaries").GetChild(0));
-            _advanced.GetComponent<Compounds>().scriptableCompound = advanced[i];
-            _advanced.transform.Find("Building").GetComponent<Image>().sprite = assemblerSprite;
-            instantiatedAdvanceds.Add(_advanced);
-            instantiatedCompounds.Add(_advanced);
-        }
-
-        for (int i = 0; i < T1.Length; i++)
-        {
-            var _t1 = Instantiate(compoundPrefab, mainPanel.transform.Find("Advanced").GetChild(0));
-            _t1.GetComponent<Compounds>().scriptableCompound = T1[i];
-            _t1.transform.Find("Building").GetComponent<Image>().sprite = manufacturerSprite;
-            instantiatedT1.Add(_t1);
-            instantiatedCompounds.Add(_t1);
-        }
-
-        for (int i = 0; i < T2.Length; i++)
-        {
-            var _t2 = Instantiate(compoundPrefab, mainPanel.transform.Find("ADQ").GetChild(0));
-            _t2.GetComponent<Compounds>().scriptableCompound = T2[i];
-            _t2.transform.Find("Building").GetComponent<Image>().sprite = manufacturerSprite;
-            instantiatedT2.Add(_t2);
-            instantiatedCompounds.Add(_t2);
-        }
-
-        //for (int i = 0; i < T3.Length; i++)
-        //{
-        //    var _t3 = Instantiate(compoundPrefabComplex, mainPanel.transform.Find("").GetChild(0));
-        //    _t3.GetComponent<Compounds>().scriptableCompound = T3[i];
-        //    instantiatedT3.Add(_t3);
-
-        //}
     }
 }
 
 /// <summary>
 /// Working Mode for Mines and Factories
 /// </summary>
-public enum WorkingMode
+public enum MineWorkingMode
 {
     /// <summary>
     /// Use produced materials for further and advanced production
@@ -120,4 +165,46 @@ public enum WorkingMode
     /// Sell produced products
     /// </summary>
     sell = 2,
+}
+
+/// <summary>
+/// Working Mode for Mines and Factories
+/// </summary>
+public enum CompoundWorkingMode
+{
+    /// <summary>
+    /// Use produced materials for further and advanced production
+    /// </summary>
+    production = 1,
+    /// <summary>
+    /// Sell produced products
+    /// </summary>
+    sell = 2,
+    /// <summary>
+    /// Stop the production for recipes that require another resource
+    /// so this recipe will not consume any resource if player not wants it.
+    /// </summary>
+    stopProduction = 3,
+}
+
+public enum Age
+{
+    _0_stoneAge = 0,
+    _1_ironAge = 1,
+    _2_goldenAge = 2,
+    _3_warAge = 3,
+    _4_factoryAge = 4,
+    _5_spaceAge = 5,
+    _6_modernAge = 6,
+    _7_roboticAge = 7,
+    _8_intergalacticAge = 8,
+    _9_galacticWarAge = 9,
+}
+
+public enum Tier
+{
+    tier1,
+    tier2,
+    tier3,
+    tier4,
 }

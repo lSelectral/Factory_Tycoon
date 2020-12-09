@@ -3,10 +3,9 @@ using UnityEngine;
 
 public class TabGroup : MonoBehaviour
 {
-    [SerializeField]
-    private List<TabButton> tabButtons;
+    public List<TabButton> tabButtons;
 
-    private TabButton selectedTab;
+    public TabButton selectedTab;
 
     [SerializeField]
     private List<GameObject> panels;

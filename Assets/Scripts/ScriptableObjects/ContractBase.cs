@@ -23,4 +23,6 @@ public class ContractBase : ScriptableObject
     public long xpReward;
 
     public bool isContractCompleted;
+
+    public float expirationTime;
 }

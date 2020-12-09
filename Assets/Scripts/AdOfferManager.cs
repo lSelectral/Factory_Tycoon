@@ -8,7 +8,7 @@ public class AdOfferManager : Singleton<AdOfferManager>
 
     bool isMiningYieldBoostActive;
     float remainedMYBoostTime;
-    float miningYield;
+    int miningYield;
 
     bool isProductionSpeedBoostActive;
     float remainedPSBoostTime;
@@ -16,7 +16,7 @@ public class AdOfferManager : Singleton<AdOfferManager>
 
     bool isProductionYieldBoostActive;
     float remainedPYBoostTime;
-    float productionYield;
+    int productionYield;
 
     bool isProductionEfficiencyBoostActive;
     float remainedPEBoostTime;
@@ -83,7 +83,7 @@ public class AdOfferManager : Singleton<AdOfferManager>
         isMiningSpeedBoostActive = true;
         miningSpeed = speed;
     }
-    void IncrementMiningYield(float yield, float time)
+    void IncrementMiningYield(int yield, float time)
     {
         UpgradeSystem.Instance.MiningYieldMultiplier += yield;
         remainedMYBoostTime += time;
@@ -97,7 +97,7 @@ public class AdOfferManager : Singleton<AdOfferManager>
         isProductionSpeedBoostActive = true;
         productionSpeed = speed;
     }
-    void IncrementProductionYield(float yield, float time)
+    void IncrementProductionYield(int yield, float time)
     {
         UpgradeSystem.Instance.ProductionYieldMultiplier += yield;
         remainedPYBoostTime += time;

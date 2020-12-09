@@ -15,7 +15,7 @@ public class ScriptableCompound : ScriptableObject
 
     public int outputValue;
 
-    public long incomeAmount;
+    public int pricePerProduct;
 
     public int unlockLevel;
 
@@ -24,4 +24,12 @@ public class ScriptableCompound : ScriptableObject
     public bool isLockedByContract;
 
     public ContractBase lockedByContract;
+
+    public Sprite icon;
+
+    public Age ageBelongsTo;
+
+    public Tier tier;
+
+    public bool isUnlocked;
 }

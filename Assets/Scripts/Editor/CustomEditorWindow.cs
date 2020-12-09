@@ -9,7 +9,7 @@ public class CustomEditorWindow : EditorWindow
         GetWindow<CustomEditorWindow>("DebugWindow");
     }
 
-    BaseResources resource = BaseResources.ironOre;
+    BaseResources resource = BaseResources._0_stone;
 
     string resourceAmountString = "Add Resource Amount";
 
@@ -20,7 +20,7 @@ public class CustomEditorWindow : EditorWindow
     {
         GUILayout.BeginVertical("Add Resource");
         resourceAmountString = EditorGUILayout.TextField("Resource Amout", resourceAmountString);
-        GUILayout.Label("Add Iron Ore", EditorStyles.boldLabel);
+        GUILayout.Label("Add Resource", EditorStyles.boldLabel);
 
         resource = (BaseResources)EditorGUI.EnumPopup(new Rect(5, 80, 380, 20), "Select Resource", resource);
 
@@ -49,7 +49,7 @@ public class CustomEditorWindow : EditorWindow
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("SAVE"))
         {
-            SaveSystem.Instance.Save();
+            PrestigeSystem.Instance.ResetGame();
         }
         if (GUILayout.Button("LOAD"))
         {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -9,6 +10,12 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerClick(PointerEventData eventData)
     {
         tabGroup.OnTabSelected(this);
+        foreach (TabButton btn in tabGroup.tabButtons)
+        {
+            if (btn != this)
+                btn.GetComponent<Image>().color = Color.white;
+            GetComponent<Image>().color = Color.red;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -28,13 +35,8 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         if (transform.GetSiblingIndex() == 0)
         {
+            GetComponent<Image>().color = Color.red;
             tabGroup.OnTabSelected(this);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

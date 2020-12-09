@@ -6,9 +6,10 @@ public class PageManager : Singleton<PageManager>
     public TextMeshProUGUI minePageInfoText;
     [SerializeField] private GameObject[] pages;
 
+    Touch touch;
     public int index = 0;
-
     Vector3 touchStart;
+    TouchPhase touchPhase;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class PageManager : Singleton<PageManager>
 
     private void Update()
     {
+#if UNITY_EDITOR
+
         if (Input.GetMouseButtonDown(0))
         {
             touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -37,6 +40,33 @@ public class PageManager : Singleton<PageManager>
                 }
             }
         }
+
+#endif
+
+//#if UNITY_ANDROID
+//        if (Input.touchCount == 1)
+//        {
+//            touch = Input.GetTouch(0);
+//            touchStart = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+//            touch.phase = TouchPhase.Began;
+//        }
+
+//        if (touch.phase == TouchPhase.Moved)
+//        {
+//            Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+//            if (Mathf.Abs(direction.x) > 2)
+//            {
+//                if (direction.x > 0)
+//                {
+//                    ChangePage(true);
+//                }
+//                else
+//                {
+//                    ChangePage(false);
+//                }
+//            }
+//        }
+//        #endif
     }
 
     public void ChangePage(bool isRight)
@@ -71,6 +101,8 @@ public class PageManager : Singleton<PageManager>
                 pages[i].GetComponent<CanvasGroup>().blocksRaycasts = false;
             }
         }
-        minePageInfoText.text = pages[index].name;
+
+        string pageName = ResourceManager.Instance.GetValidName((pages[index].name).Substring(3));
+        minePageInfoText.text = pageName;
     }
 }

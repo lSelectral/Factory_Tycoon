@@ -33,6 +33,12 @@ public class ResourceManager : Singleton<ResourceManager>
     
     public Dictionary<BaseResources, long> resourceValueDict;
     public Dictionary<BaseResources, TextMeshProUGUI> resourceTextDict;
+    public Dictionary<BaseResources, ScriptableMine> resourceMineDict;
+    public Dictionary<BaseResources, ScriptableCompound> resourceCompoundDict;
+
+    [SerializeField] ScriptableMine _stone, _berry, _stick, _leaf;
+    [SerializeField] ScriptableCompound _hut, _spear, _torch, _axe, _fire,
+        _leaf_cloth, _pickaxe, _rope, _bonefire, _hammer, _animal_trap, _pouch, _leather_cloth, _wheel, _arrow, _bow;
 
     [SerializeField] private GameObject resourcePanel;
     [SerializeField] private GameObject resourcePrefab;
@@ -45,20 +51,26 @@ public class ResourceManager : Singleton<ResourceManager>
     private long ironOre, copperOre, siliconOre, coal, oil;
     private long reactorComponent, solarCell, powerCell, thrusterComponent, superConductor;
     private long ironIngot, copperIngot, siliconWafer, ironRod, ironPlate, ironScrew, wire, hardenedPlate;
-    private long aiChip, circuitBoard, fiberOpticCable, integrationChip, motor, rotor, steelScrew, steelTube, steelPlate, steelIngot, steelBeam, stator, rubber, goldOre, goldIngot, metalGrid;
+    private long aiChip, circuitBoard, fiberOpticCable, integrationChip, motor, rotor, steelScrew, steelTube, 
+        steelPlate, steelIngot, steelBeam, stator, rubber, goldOre, goldIngot, metalGrid;
     [SerializeField] private TextMeshProUGUI copperOreText, siliconOreText, coalText, oilText, totalResourceText, currencyText, premiumCurrencyText;
-    TextMeshProUGUI ironOreText, wireText, steelTubeTExt, steelIngotText, steelPlateText, aiChipText, circuitBoardText, ironIngotText, integrationChipText, hardenedPlateText, fiberOpticCableText, metalGridText, copperIngotText = new TextMeshProUGUI();
-    TextMeshProUGUI steelScrewText, steelBeamText, statorText, rotorText, siliconWaferText, rubberText, motorText, ironScrewText, ironRodText, ironPlateText, goldIngotText, goldOreText, thrusterComponentText, superConductorText, reactorComponentText
-        , solarCellText, powerCellText = new TextMeshProUGUI();
+    TextMeshProUGUI ironOreText, wireText, steelTubeTExt, steelIngotText, steelPlateText, aiChipText, circuitBoardText;
+    TextMeshProUGUI ironIngotText, integrationChipText, hardenedPlateText, fiberOpticCableText, metalGridText, copperIngotText = new TextMeshProUGUI();
+    TextMeshProUGUI steelScrewText, steelBeamText, statorText, rotorText, siliconWaferText, rubberText, motorText, ironScrewText, ironRodText, ironPlateText, goldIngotText, 
+        goldOreText, thrusterComponentText, superConductorText, reactorComponentText, solarCellText, powerCellText = new TextMeshProUGUI();
 
-    private float smoothIronOre;
+    #region Stone Age Resources
+
+    long stone, berry, stick, leaf, hut, spear, torch, axe, fire, leaf_cloth, pickaxe, rope, bonefire, hammer, animal_trap, pouch, leather_cloth, wheel, arrow, bow;
+
+    TextMeshProUGUI stoneText, berryText, stickText, leafText, hutText, spearText, torchText, axeText, fireText, 
+        leaf_clothText, pickaxeText, ropeText, bonefireText, bowText, arrowText, hammerText, animal_trapText, pouchText, leather_clothText, wheelText;
+
+    #endregion
 
     public GameObject resourceIconPrefab;
     public GameObject resourceAmountTextPrefab;
     public GameObject iconPrefab;
-
-    public Sprite ironOreSprite, copperOreSprite, siliconOreSprite, oilSprite, coalSprite, ironRodSprite, ironPlateSprite, ironScrewSprite, wireSprite, hardenedPlateSprite, ironIngotSprite, copperIngotSprite, siliconWaferSprite, goldOreSprite, reactorComponentSprite, solarCellSprite, powerCellSprite ,goldIngotSprite;
-    public Sprite rotorSprite, motorSprite, statorSprite, metalGridSprite, circuitBoardSprite, steelIngotSprite, steelTubeSprite, steelBeamSprite, steelPlateSprite, rubberSprite, thrusterComponentSprite, superConductorSprite, steelScrewSprite, integrationChipSprite, aiChipSprite, fiberOpticCableSprite;
 
     IEnumerable<BaseResources> resources;
 
@@ -118,40 +130,65 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public long IronOre { get => ironOre; set => ironOre = value; }
-    public long CopperOre { get => copperOre; set => copperOre = value; }
-    public long SiliconOre { get => siliconOre; set => siliconOre = value; }
-    public long Coal { get => coal; set => coal = value; }
-    public long Oil { get => oil; set => oil = value; }
-    public long IronIngot { get => ironIngot; set => ironIngot = value; }
-    public long CopperIngot { get => copperIngot; set => copperIngot = value; }
-    public long SiliconWafer { get => siliconWafer; set => siliconWafer = value; }
-    public long IronRod { get => ironRod; set => ironRod = value; }
-    public long IronPlate { get => ironPlate; set => ironPlate = value; }
-    public long IronScrew { get => ironScrew; set => ironScrew = value; }
-    public long Wire { get => wire; set => wire = value; }
-    public long HardenedPlate { get => hardenedPlate; set => hardenedPlate = value; }
-    public long AiChip { get => aiChip; set => aiChip = value; }
-    public long CircuitBoard { get => circuitBoard; set => circuitBoard = value; }
-    public long FiberOpticCable { get => fiberOpticCable; set => fiberOpticCable = value; }
-    public long IntegrationChip { get => integrationChip; set => integrationChip = value; }
-    public long Motor { get => motor; set => motor = value; }
-    public long Rotor { get => rotor; set => rotor = value; }
-    public long SteelScrew { get => steelScrew; set => steelScrew = value; }
-    public long SteelTube { get => steelTube; set => steelTube = value; }
-    public long SteelPlate { get => steelPlate; set => steelPlate = value; }
-    public long SteelIngot { get => steelIngot; set => steelIngot = value; }
-    public long SteelBeam { get => steelBeam; set => steelBeam = value; }
-    public long Stator { get => stator; set => stator = value; }
-    public long Rubber { get => rubber; set => rubber = value; }
-    public long GoldOre { get => goldOre; set => goldOre = value; }
-    public long GoldIngot { get => goldIngot; set => goldIngot = value; }
-    public long MetalGrid { get => metalGrid; set => metalGrid = value; }
-    public long ReactorComponent { get => reactorComponent; set => reactorComponent = value; }
-    public long SolarCell { get => solarCell; set => solarCell = value; }
-    public long PowerCell { get => powerCell; set => powerCell = value; }
-    public long ThrusterComponent { get => thrusterComponent; set => thrusterComponent = value; }
-    public long SuperConductor { get => superConductor; set => superConductor = value; }
+    //public long IronOre { get => ironOre; set { ironOre = value; resourceTextDict[BaseResources.ironOre].text = ironOre.ToString(); } }
+    //public long CopperOre { get => copperOre; set { copperOre = value; resourceTextDict[BaseResources.copperOre].text = copperOre.ToString(); } }
+    //public long SiliconOre { get => siliconOre; set { siliconOre = value; resourceTextDict[BaseResources.siliconOre].text = siliconOre.ToString(); } }
+    //public long Coal { get => coal; set { coal = value; resourceTextDict[BaseResources.coal].text = coal.ToString(); } }
+    //public long Oil { get => oil; set { oil = value; resourceTextDict[BaseResources.oil].text = oil.ToString(); } }
+    //public long IronIngot { get => ironIngot; set { ironIngot = value; resourceTextDict[BaseResources.ironIngot].text = ironIngot.ToString(); } }
+    //public long CopperIngot { get => copperIngot; set { copperIngot = value; resourceTextDict[BaseResources.copperIngot].text = copperIngot.ToString(); } }
+    //public long SiliconWafer { get => siliconWafer; set { siliconWafer = value; resourceTextDict[BaseResources.siliconWafer].text = siliconWafer.ToString(); } }
+    //public long IronRod { get => ironRod; set { ironRod = value; resourceTextDict[BaseResources.ironRod].text = ironRod.ToString(); } }
+    //public long IronPlate { get => ironPlate; set { ironPlate = value; resourceTextDict[BaseResources.ironPlate].text = ironPlate.ToString(); } }
+    //public long IronScrew { get => ironScrew; set { ironScrew = value; resourceTextDict[BaseResources.ironScrew].text = ironScrew.ToString(); } }
+    //public long Wire { get => wire; set { wire = value; resourceTextDict[BaseResources.wire].text = wire.ToString(); } }
+    //public long HardenedPlate { get => hardenedPlate; set { hardenedPlate = value; resourceTextDict[BaseResources.hardenedPlate].text = hardenedPlate.ToString(); } }
+    //public long AiChip { get => aiChip; set { aiChip = value; resourceTextDict[BaseResources.aiChip].text = aiChip.ToString(); } }
+    //public long CircuitBoard { get => circuitBoard; set { circuitBoard = value; resourceTextDict[BaseResources.circuitBoard].text = circuitBoard.ToString(); } }
+    //public long FiberOpticCable { get => fiberOpticCable; set { fiberOpticCable = value; resourceTextDict[BaseResources.fiberOpticCable].text = fiberOpticCable.ToString(); } }
+    //public long IntegrationChip { get => integrationChip; set { integrationChip = value; resourceTextDict[BaseResources.integrationChip].text = integrationChip.ToString(); } }
+    //public long Motor { get => motor; set { motor = value; resourceTextDict[BaseResources.motor].text = motor.ToString(); } }
+    //public long Rotor { get => rotor; set { rotor = value; resourceTextDict[BaseResources.rotor].text = rotor.ToString(); } }
+    //public long SteelScrew { get => steelScrew; set { steelScrew = value; resourceTextDict[BaseResources.steelScrew].text = steelScrew.ToString(); } }
+    //public long SteelTube { get => steelTube; set { steelTube = value; resourceTextDict[BaseResources.steelTube].text = steelTube.ToString(); } }
+    //public long SteelPlate { get => steelPlate; set { steelPlate = value; resourceTextDict[BaseResources.steelPlate].text = steelPlate.ToString(); } }
+    //public long SteelIngot { get => steelIngot; set { steelIngot = value; resourceTextDict[BaseResources.steelIngot].text = steelIngot.ToString(); } }
+    //public long SteelBeam { get => steelBeam; set { steelBeam = value; resourceTextDict[BaseResources.steelBeam].text = steelBeam.ToString(); } }
+    //public long Stator { get => stator; set { stator = value; resourceTextDict[BaseResources.stator].text = stator.ToString(); } }
+    //public long Rubber { get => rubber; set { rubber = value; resourceTextDict[BaseResources.rubber].text = rubber.ToString(); } }
+    //public long GoldOre { get => goldOre; set { goldOre = value; resourceTextDict[BaseResources.goldOre].text = goldOre.ToString(); } }
+    //public long GoldIngot { get => goldIngot; set { goldIngot = value; resourceTextDict[BaseResources.goldIngot].text = goldIngot.ToString(); } }
+    //public long MetalGrid { get => metalGrid; set { metalGrid = value; resourceTextDict[BaseResources.metalGrid].text = metalGrid.ToString(); } }
+    //public long ReactorComponent { get => reactorComponent; set { reactorComponent = value; resourceTextDict[BaseResources.reactorComponent].text = reactorComponent.ToString(); } }
+    //public long SolarCell { get => solarCell; set { solarCell = value; resourceTextDict[BaseResources.solarCell].text = solarCell.ToString(); } }
+    //public long PowerCell { get => powerCell; set { powerCell = value; resourceTextDict[BaseResources.powerCell].text = powerCell.ToString(); } }
+    //public long ThrusterComponent { get => thrusterComponent; set { thrusterComponent = value; resourceTextDict[BaseResources.thrusterComponent].text = thrusterComponent.ToString(); } }
+    //public long SuperConductor { get => superConductor; set { superConductor = value; resourceTextDict[BaseResources.superConductor].text = superConductor.ToString(); } }
+
+    #region Stone Age Properties
+
+    public long Stone { get => stone; set { stone = value; resourceTextDict[BaseResources._0_stone].text = stone.ToString(); } }
+    public long Berry { get => berry; set { berry = value; resourceTextDict[BaseResources._0_berry].text = berry.ToString(); } }
+    public long Stick { get => stick; set { stick = value; resourceTextDict[BaseResources._0_stick].text = stick.ToString(); } }
+    public long Leaf { get => leaf; set { leaf = value; resourceTextDict[BaseResources._0_leaf].text = leaf.ToString(); } }
+    public long Hut { get => hut; set { hut = value; resourceTextDict[BaseResources._0_hut].text = hut.ToString(); } }
+    public long Spear { get => spear; set { spear = value; resourceTextDict[BaseResources._0_spear].text = spear.ToString(); } }
+    public long Torch { get => torch; set { torch = value; resourceTextDict[BaseResources._0_torch].text = torch.ToString(); } }
+    public long Axe { get => axe; set { axe = value; resourceTextDict[BaseResources._0_axe].text = axe.ToString(); } }
+    public long Fire { get => fire; set { fire = value; resourceTextDict[BaseResources._0_fire].text = fire.ToString(); } }
+    public long Leaf_cloth { get => leaf_cloth; set { leaf_cloth = value; resourceTextDict[BaseResources._0_leaf_cloth].text = leaf_cloth.ToString(); } }
+    public long Pickaxe { get => pickaxe; set { pickaxe = value; resourceTextDict[BaseResources._0_pickaxe].text = pickaxe.ToString(); } }
+    public long Rope { get => rope; set { rope = value; resourceTextDict[BaseResources._0_rope].text = rope.ToString(); } }
+    public long Bonefire { get => bonefire; set { bonefire = value; resourceTextDict[BaseResources._0_bonefire].text = bonefire.ToString(); } }
+    public long Hammer { get => hammer; set { hammer = value; resourceTextDict[BaseResources._0_hammer].text = hammer.ToString(); } }
+    public long Animal_trap { get => animal_trap; set { animal_trap = value; resourceTextDict[BaseResources._0_animal_trap].text = animal_trap.ToString(); } }
+    public long Pouch { get => pouch; set { pouch = value; resourceTextDict[BaseResources._0_pouch].text = pouch.ToString(); } }
+    public long Leather_cloth { get => leather_cloth; set { leather_cloth = value; resourceTextDict[BaseResources._0_leather_cloth].text = leather_cloth.ToString(); } }
+    public long Wheel { get => wheel; set { wheel = value; resourceTextDict[BaseResources._0_wheel].text = wheel.ToString(); } }
+    public long Arrow { get => arrow; set { arrow = value; resourceTextDict[BaseResources._0_arrow].text = arrow.ToString(); } }
+    public long Bow { get => bow; set { bow = value; resourceTextDict[BaseResources._0_bow].text = bow.ToString(); } }
+
+    #endregion
 
     #endregion
 
@@ -275,80 +312,162 @@ public class ResourceManager : Singleton<ResourceManager>
 
         resourceValueDict = new Dictionary<BaseResources, long>
         {
-            {BaseResources.coal, coal },
-            {BaseResources.copperIngot, copperIngot},
-            {BaseResources.ironOre, ironOre },
-            {BaseResources.ironIngot, ironIngot },
-            {BaseResources.ironPlate, ironPlate },
-            {BaseResources.hardenedPlate, hardenedPlate },
-            {BaseResources.copperOre, copperOre },
-            {BaseResources.ironRod, ironRod },
-            {BaseResources.ironScrew, ironScrew },
-            {BaseResources.oil, oil },
-            {BaseResources.siliconOre, siliconOre },
-            {BaseResources.siliconWafer, siliconWafer },
-            {BaseResources.wire, wire },
-            {BaseResources.aiChip, aiChip },
-            {BaseResources.circuitBoard, circuitBoard },
-            {BaseResources.fiberOpticCable, fiberOpticCable },
-            {BaseResources.integrationChip, integrationChip },
-            {BaseResources.motor, motor },
-            {BaseResources.rubber, rubber },
-            {BaseResources.rotor, rotor },
-            {BaseResources.stator, stator },
-            {BaseResources.steelBeam, steelBeam },
-            {BaseResources.steelIngot, steelIngot },
-            {BaseResources.steelPlate, steelPlate },
-            {BaseResources.steelTube, steelTube },
-            {BaseResources.steelScrew, steelScrew },
-            {BaseResources.goldOre, goldOre },
-            {BaseResources.goldIngot, goldIngot },
-            {BaseResources.metalGrid, metalGrid },
-            {BaseResources.reactorComponent, reactorComponent },
-            {BaseResources.solarCell, solarCell },
-            {BaseResources.superConductor, superConductor },
-            {BaseResources.thrusterComponent, thrusterComponent },
-            {BaseResources.powerCell, powerCell },
+            //{BaseResources.coal, coal },
+            //{BaseResources.copperIngot, copperIngot},
+            //{BaseResources.ironOre, ironOre },
+            //{BaseResources.ironIngot, ironIngot },
+            //{BaseResources.ironPlate, ironPlate },
+            //{BaseResources.hardenedPlate, hardenedPlate },
+            //{BaseResources.copperOre, copperOre },
+            //{BaseResources.ironRod, ironRod },
+            //{BaseResources.ironScrew, ironScrew },
+            //{BaseResources.oil, oil },
+            //{BaseResources.siliconOre, siliconOre },
+            //{BaseResources.siliconWafer, siliconWafer },
+            //{BaseResources.wire, wire },
+            //{BaseResources.aiChip, aiChip },
+            //{BaseResources.circuitBoard, circuitBoard },
+            //{BaseResources.fiberOpticCable, fiberOpticCable },
+            //{BaseResources.integrationChip, integrationChip },
+            //{BaseResources.motor, motor },
+            //{BaseResources.rubber, rubber },
+            //{BaseResources.rotor, rotor },
+            //{BaseResources.stator, stator },
+            //{BaseResources.steelBeam, steelBeam },
+            //{BaseResources.steelIngot, steelIngot },
+            //{BaseResources.steelPlate, steelPlate },
+            //{BaseResources.steelTube, steelTube },
+            //{BaseResources.steelScrew, steelScrew },
+            //{BaseResources.goldOre, goldOre },
+            //{BaseResources.goldIngot, goldIngot },
+            //{BaseResources.metalGrid, metalGrid },
+            //{BaseResources.reactorComponent, reactorComponent },
+            //{BaseResources.solarCell, solarCell },
+            //{BaseResources.superConductor, superConductor },
+            //{BaseResources.thrusterComponent, thrusterComponent },
+            //{BaseResources.powerCell, powerCell },
 
+            {BaseResources._0_berry, berry},    
+            {BaseResources._0_stick, stick },
+            {BaseResources._0_leaf, leaf },
+            {BaseResources._0_hut, hut },
+            {BaseResources._0_stone, stone },
+            {BaseResources._0_spear, spear },
+            {BaseResources._0_torch, torch },
+            {BaseResources._0_axe, axe },
+            {BaseResources._0_fire, fire },
+            {BaseResources._0_leaf_cloth, leaf_cloth },
+            {BaseResources._0_pickaxe, pickaxe },
+            {BaseResources._0_rope, rope },
+            {BaseResources._0_bonefire, bonefire },
+            {BaseResources._0_arrow, arrow },
+            {BaseResources._0_bow, bow },
+            {BaseResources._0_hammer, hammer },
+            {BaseResources._0_animal_trap, animal_trap },
+            {BaseResources._0_pouch, pouch },
+            {BaseResources._0_leather_cloth, leather_cloth },
+            {BaseResources._0_wheel, wheel },
         };
 
         resourceTextDict = new Dictionary<BaseResources, TextMeshProUGUI>
         {
-            {BaseResources.coal, coalText },
-            {BaseResources.copperIngot, copperIngotText},
-            {BaseResources.ironOre, ironOreText },
-            {BaseResources.ironIngot, ironIngotText },
-            {BaseResources.ironPlate, ironPlateText },
-            {BaseResources.hardenedPlate, hardenedPlateText },
-            {BaseResources.copperOre, copperOreText },
-            {BaseResources.ironRod, ironRodText },
-            {BaseResources.ironScrew, ironScrewText },
-            {BaseResources.oil, oilText },
-            {BaseResources.siliconOre, siliconOreText },
-            {BaseResources.siliconWafer, siliconWaferText },
-            {BaseResources.wire, wireText },
-            {BaseResources.aiChip, aiChipText },
-            {BaseResources.circuitBoard, circuitBoardText },
-            {BaseResources.fiberOpticCable, fiberOpticCableText },
-            {BaseResources.integrationChip, integrationChipText },
-            {BaseResources.motor, motorText },
-            {BaseResources.rubber, rubberText },
-            {BaseResources.rotor, rotorText },
-            {BaseResources.stator, statorText },
-            {BaseResources.steelBeam, steelBeamText },
-            {BaseResources.steelIngot, steelIngotText },
-            {BaseResources.steelPlate, steelPlateText },
-            {BaseResources.steelTube, steelTubeTExt },
-            {BaseResources.steelScrew, steelScrewText },
-            {BaseResources.goldIngot, goldIngotText },
-            {BaseResources.goldOre, goldOreText },
-            {BaseResources.metalGrid, metalGridText },
-            {BaseResources.reactorComponent, reactorComponentText },
-            {BaseResources.solarCell, solarCellText },
-            {BaseResources.superConductor, superConductorText },
-            {BaseResources.thrusterComponent, thrusterComponentText },
-            {BaseResources.powerCell, powerCellText },
+            //{BaseResources.coal, coalText },
+            //{BaseResources.copperIngot, copperIngotText},
+            //{BaseResources.ironOre, ironOreText },
+            //{BaseResources.ironIngot, ironIngotText },
+            //{BaseResources.ironPlate, ironPlateText },
+            //{BaseResources.hardenedPlate, hardenedPlateText },
+            //{BaseResources.copperOre, copperOreText },
+            //{BaseResources.ironRod, ironRodText },
+            //{BaseResources.ironScrew, ironScrewText },
+            //{BaseResources.oil, oilText },
+            //{BaseResources.siliconOre, siliconOreText },
+            //{BaseResources.siliconWafer, siliconWaferText },
+            //{BaseResources.wire, wireText },
+            //{BaseResources.aiChip, aiChipText },
+            //{BaseResources.circuitBoard, circuitBoardText },
+            //{BaseResources.fiberOpticCable, fiberOpticCableText },
+            //{BaseResources.integrationChip, integrationChipText },
+            //{BaseResources.motor, motorText },
+            //{BaseResources.rubber, rubberText },
+            //{BaseResources.rotor, rotorText },
+            //{BaseResources.stator, statorText },
+            //{BaseResources.steelBeam, steelBeamText },
+            //{BaseResources.steelIngot, steelIngotText },
+            //{BaseResources.steelPlate, steelPlateText },
+            //{BaseResources.steelTube, steelTubeTExt },
+            //{BaseResources.steelScrew, steelScrewText },
+            //{BaseResources.goldIngot, goldIngotText },
+            //{BaseResources.goldOre, goldOreText },
+            //{BaseResources.metalGrid, metalGridText },
+            //{BaseResources.reactorComponent, reactorComponentText },
+            //{BaseResources.solarCell, solarCellText },
+            //{BaseResources.superConductor, superConductorText },
+            //{BaseResources.thrusterComponent, thrusterComponentText },
+            //{BaseResources.powerCell, powerCellText },
+
+            #region Stone Age Resources Text
+            {BaseResources._0_berry, berryText},
+            {BaseResources._0_stick, stickText },
+            {BaseResources._0_leaf, leafText },
+            {BaseResources._0_stone, stoneText },
+            {BaseResources._0_hut, hutText },
+            {BaseResources._0_spear, spearText },
+            {BaseResources._0_torch, torchText },
+            {BaseResources._0_axe, axeText },
+            {BaseResources._0_fire, fireText },
+            {BaseResources._0_leaf_cloth, leaf_clothText },
+            {BaseResources._0_pickaxe, pickaxeText },
+            {BaseResources._0_rope, ropeText },
+            {BaseResources._0_bonefire, bonefireText },
+            {BaseResources._0_bow, bowText },
+            {BaseResources._0_arrow, arrowText },
+            {BaseResources._0_hammer, hammerText },
+            {BaseResources._0_animal_trap, animal_trapText},
+            {BaseResources._0_pouch, pouchText },
+            {BaseResources._0_leather_cloth, leather_clothText},
+            {BaseResources._0_wheel, wheelText },
+
+            #endregion
         };
+
+        #region Scriptable Mine Dictionary
+        resourceMineDict = new Dictionary<BaseResources, ScriptableMine>()
+        {
+            
+
+            {BaseResources._0_berry, _berry},
+            {BaseResources._0_stick, _stick },
+            {BaseResources._0_leaf, _leaf },
+            {BaseResources._0_stone, _stone }
+
+	        
+        };
+        #endregion
+
+        #region Scriptable Compound Dictionary
+
+        resourceCompoundDict = new Dictionary<BaseResources, ScriptableCompound>()
+        {
+            {BaseResources._0_hut, _hut },
+            {BaseResources._0_spear, _spear },
+            {BaseResources._0_torch, _torch },
+            {BaseResources._0_axe, _axe },
+            {BaseResources._0_fire, _fire },
+            {BaseResources._0_leaf_cloth, _leaf_cloth },
+            {BaseResources._0_pickaxe, _pickaxe },
+            {BaseResources._0_rope, _rope },
+            {BaseResources._0_bonefire, _bonefire },
+            {BaseResources._0_bow, _bow },
+            {BaseResources._0_arrow, _arrow },
+            {BaseResources._0_hammer, _hammer },
+            {BaseResources._0_animal_trap, _animal_trap },
+            {BaseResources._0_pouch, _pouch },
+            {BaseResources._0_leather_cloth, _leather_cloth },
+            {BaseResources._0_wheel, _wheel },
+        };
+
+        #endregion
 
         resources = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>();
 
@@ -363,12 +482,19 @@ public class ResourceManager : Singleton<ResourceManager>
 
             var text = resourceInfo.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();
             text.text = "1";
-            resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
-            resourceInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GetValidName(resource.ToString());
 
-            
-            resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() => { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
-            resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() => { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
+            var resourceName = resourceInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            if (resourceMineDict.ContainsKey(resource))
+                resourceName.text = resourceMineDict[resource].resourceName;
+            else if (resourceCompoundDict.ContainsKey(resource))
+                resourceName.text = resourceCompoundDict[resource].partName;
+
+            resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
+
+            resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() => 
+            { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
+            resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() => 
+            { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
 
             resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, resourceIncrementArray[arrayCounter]); });
             resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
@@ -392,7 +518,7 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         resourceValueDict[resource] += amount;
         TotalResource += amount;
-        OnResourceAmountChanged(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
+        OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
         resourceTextDict[resource].text = CurrencyToString(resourceValueDict[resource]);
         return amount;
     }
@@ -402,7 +528,7 @@ public class ResourceManager : Singleton<ResourceManager>
         resourceValueDict[resource] -= amount;
         TotalResource -= amount;
         resourceTextDict[resource].text = CurrencyToString(resourceValueDict[resource]);
-        OnResourceAmountChanged(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
+        OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
     }
 
     public long GetResourceAmount(BaseResources resource)
@@ -412,84 +538,16 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public Sprite GetSpriteFromResource(BaseResources resource)
     {
-        switch (resource)
+        if (resourceMineDict.ContainsKey(resource))
+            return resourceMineDict[resource].icon;
+        else if (resourceCompoundDict.ContainsKey(resource))
+            return resourceCompoundDict[resource].icon;
+        else
         {
-            case BaseResources.ironOre:
-                return ironOreSprite;
-            case BaseResources.copperOre:
-                return copperOreSprite;
-            case BaseResources.siliconOre:
-                return siliconOreSprite;
-            case BaseResources.coal:
-                return coalSprite;
-            case BaseResources.oil:
-                return oilSprite;
-            case BaseResources.ironIngot:
-                return ironIngotSprite;
-            case BaseResources.copperIngot:
-                return copperIngotSprite;
-            case BaseResources.siliconWafer:
-                return siliconWaferSprite;
-            case BaseResources.ironRod:
-                return ironRodSprite;
-            case BaseResources.ironPlate:
-                return ironPlateSprite;
-            case BaseResources.ironScrew:
-                return ironScrewSprite;
-            case BaseResources.wire:
-                return wireSprite;
-            case BaseResources.hardenedPlate:
-                return hardenedPlateSprite;
-            case BaseResources.rotor:
-                return rotorSprite;
-            case BaseResources.steelIngot:
-                return steelIngotSprite;
-            case BaseResources.steelPlate:
-                return steelPlateSprite;
-            case BaseResources.steelTube:
-                return steelTubeSprite;
-            case BaseResources.steelScrew:
-                return steelScrewSprite;
-            case BaseResources.steelBeam:
-                return steelBeamSprite;
-            case BaseResources.rubber:
-                return rubberSprite;
-            case BaseResources.stator:
-                return statorSprite;
-            case BaseResources.motor:
-                return motorSprite;
-            case BaseResources.fiberOpticCable:
-                return fiberOpticCableSprite;
-            case BaseResources.circuitBoard:
-                return circuitBoardSprite;
-            case BaseResources.integrationChip:
-                return integrationChipSprite;
-            case BaseResources.aiChip:
-                return aiChipSprite;
-            case BaseResources.goldOre:
-                return goldOreSprite;
-            case BaseResources.goldIngot:
-                return goldIngotSprite;
-            case BaseResources.metalGrid:
-                return metalGridSprite;
-            case BaseResources.powerCell:
-                return powerCellSprite;
-            case BaseResources.reactorComponent:
-                return reactorComponentSprite;
-            case BaseResources.thrusterComponent:
-                return thrusterComponentSprite;
-            case BaseResources.solarCell:
-                return solarCellSprite;
-            case BaseResources.superConductor:
-                return superConductorSprite;
+            Debug.LogError(resource + " sprite not found");
+            return null;
         }
-        return null;
     }
-
-    public void ADD_SCREW() { AddResource(BaseResources.ironScrew,20); }
-    public void ADD_ROD() { AddResource(BaseResources.ironRod, 20); }
-    public void ADD_IronOre() { AddResource(BaseResources.ironOre ,20000); }
-    public void ADD_HardenedPlate() { AddResource(BaseResources.hardenedPlate, 20); }
 
     public static double SmoothDamp(double current, double target, ref double currentVelocity, double smoothTime, double maxSpeed= Mathf.Infinity)
     {
@@ -534,70 +592,94 @@ public class ResourceManager : Singleton<ResourceManager>
 
 public enum BaseResources
 {
-    /*--- MINES ---*/
-    ironOre = 1,
-    copperOre = 2,
-    siliconOre = 3,
-    coal = 4,
-    oil = 5,
-    goldOre = 120,
-
-    /*--- Ingots ---*/
-    ironIngot = 6,
-    copperIngot = 7,
-    siliconWafer = 8,
-    goldIngot = 99,
-
-    /*--- T1 ---*/
-    ironRod = 9,
-    ironPlate = 10,
-    ironScrew = 11,
-
-    // Created from copper
-    wire = 12,
-
-    // 2 iron rod and 8 screw
-    hardenedPlate = 15,
-
-    // 6 iron rod and 30 wire
-    rotor,
-
-    // 2 iron ore and 2 coal
-    steelIngot,
-
-    // Created from steel
-    steelPlate,
-    steelTube,
-    steelScrew,
-    steelBeam,
-
-    metalGrid,
-
-    reactorComponent,
-    thrusterComponent,
-    solarCell,
-    superConductor,
-    powerCell,
+    #region Stone Age Resources
+    _0_berry,
+    _0_stone,
+    _0_stick,
+    _0_leaf,
+    _0_hut,
+    _0_spear,
+    _0_torch,
+    _0_axe,
+    _0_fire,
+    _0_leaf_cloth,
+    _0_pickaxe,
+    _0_rope,
+    _0_bonefire,
+    _0_arrow,
+    _0_bow,
+    _0_hammer,
+    _0_animal_trap,
+    _0_pouch,
+    _0_leather_cloth,
+    _0_wheel,
+    #endregion
 
 
-    // created from 4 oil
-    rubber,
+    ///*--- MINES ---*/
+    //ironOre = 1,
+    //copperOre = 2,
+    //siliconOre = 3,
+    //coal = 4,
+    //oil = 5,
+    //goldOre = 120,
 
-    // Made from iron rod and wire
-    stator,
+    ///*--- Ingots ---*/
+    //ironIngot = 6,
+    //copperIngot = 7,
+    //siliconWafer = 8,
+    //goldIngot = 99,
 
-    // Made from stator, rotor, 
-    motor,
+    ///*--- T1 ---*/
+    //ironRod = 9,
+    //ironPlate = 10,
+    //ironScrew = 11,
 
-    // Made from caterium and steel alloy
-    fiberOpticCable,
+    //// Created from copper
+    //wire = 12,
 
-    // Made from plastic, wire and steel ingot
-    circuitBoard,
+    //// 2 iron rod and 8 screw
+    //hardenedPlate = 15,
 
-    // Made from plastic, caterium, fiber optic cable
-    integrationChip,
+    //// 6 iron rod and 30 wire
+    //rotor,
 
-    // 100000000 researchPoint
-    aiChip,
+    //// 2 iron ore and 2 coal
+    //steelIngot,
+
+    //// Created from steel
+    //steelPlate,
+    //steelTube,
+    //steelScrew,
+    //steelBeam,
+
+    //metalGrid,
+
+    //reactorComponent,
+    //thrusterComponent,
+    //solarCell,
+    //superConductor,
+    //powerCell,
+
+
+    //// created from 4 oil
+    //rubber,
+
+    //// Made from iron rod and wire
+    //stator,
+
+    //// Made from stator, rotor, 
+    //motor,
+
+    //// Made from caterium and steel alloy
+    //fiberOpticCable,
+
+    //// Made from plastic, wire and steel ingot
+    //circuitBoard,
+
+    //// Made from plastic, caterium, fiber optic cable
+    //integrationChip,
+
+    //// 100000000 researchPoint
+    //aiChip,
 }

@@ -54,6 +54,7 @@ public class QuestManager : MonoBehaviour
                 {
                     if (!questBases[i].completedIntervals.Contains(j) && SaveSystem.Instance.totalEarnedCurrency >= questBases[i].intervals[j])
                     {
+                        OnQuestCompleted(questBases[i],j);
                         questBases[i].completedIntervals.Add(j);
                         Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
                         PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
@@ -74,6 +75,7 @@ public class QuestManager : MonoBehaviour
                 {
                     if (!questBases[i].completedIntervals.Contains(j) && SaveSystem.Instance.totalEarnedPremiumCurrency >= questBases[i].intervals[j])
                     {
+                        OnQuestCompleted(questBases[i],j);
                         questBases[i].completedIntervals.Add(j);
                         Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
                         PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
@@ -102,6 +104,7 @@ public class QuestManager : MonoBehaviour
                 {
                     if (!questBases[i].completedIntervals.Contains(j) && e.resourceAmount >= questBases[i].intervals[j])
                     {
+                        OnQuestCompleted(questBases[i],j);
                         questBases[i].completedIntervals.Add(j);
                         Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
                         PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
@@ -131,12 +134,29 @@ public class QuestManager : MonoBehaviour
                 {
                     if (!questBases[i].completedIntervals.Contains(j) && e.currentLevel == questBases[i].intervals[j])
                     {
+                        OnQuestCompleted(questBases[i],j);
                         questBases[i].completedIntervals.Add(j);
                         Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
                         PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
                     }
                 }
             }
+        }
+    }
+
+    void OnQuestCompleted(QuestBase quest, int completedQuestInterval)
+    {
+        switch (quest.rewardType)
+        {
+            case RewardType.Currency:
+                ResourceManager.Instance.Currency += quest.rewardAmounts[completedQuestInterval];
+                break;
+            case RewardType.PremiumCurrency:
+                ResourceManager.Instance.PremiumCurrency += quest.rewardAmounts[completedQuestInterval];
+                break;
+            case RewardType.Multiplier:
+                UpgradeSystem.Instance.EarnedCoinMultiplier += quest.rewardAmounts[completedQuestInterval];
+                break;
         }
     }
 }

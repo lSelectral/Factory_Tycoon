@@ -20,11 +20,18 @@ public class Compounds : MonoBehaviour
     private float remainedBuildTime;
     private BaseResources product;
     private bool isCharging;
-    private WorkingMode workingMode;
+    private CompoundWorkingMode workingMode;
     private bool isLockedByContract;
+    int pricePerProduct;
 
     int compoundLevel;
     float compoundUpgradeAmount;
+
+    public int PricePerProduct
+    {
+        get { return pricePerProduct; }
+        set { pricePerProduct = value; }
+    }
 
     public List<BaseResources> RemainedResources
     {
@@ -62,10 +69,10 @@ public class Compounds : MonoBehaviour
         set { isLockedByContract = value; }
     }
 
-    public WorkingMode WorkingMode
+    public CompoundWorkingMode WorkingMode
     {
         get { return workingMode; }
-        set { workingMode = value; }
+        set { workingMode = value; workingModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString()); }
     }
 
     Image fillBar;
@@ -74,6 +81,8 @@ public class Compounds : MonoBehaviour
     Button btn;
     Transform subResourceIcons;
     Button upgradeBtn;
+    Button workingModeBtn;
+    TextMeshProUGUI workingModeText;
 
     void Start()
     {
@@ -83,16 +92,17 @@ public class Compounds : MonoBehaviour
         UpgradeSystem.Instance.OnProductionSpeedChanged += OnProductionSpeedChanged;
         UpgradeSystem.Instance.OnProductionYieldChanged += OnProductionYieldChanged;
 
-        if (scriptableCompound.unlockLevel > GameManager.Instance.CurrentLevel)
-        {
-            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
-            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + scriptableCompound.unlockLevel.ToString();
-        }
-        else if (scriptableCompound.isLockedByContract)
+        if (scriptableCompound.isLockedByContract)
         {
             var lockText = Instantiate(GameManager.Instance.levelLock, transform);
             lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
         }
+        else if (scriptableCompound.unlockLevel > GameManager.Instance.CurrentLevel)
+        {
+            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
+            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + scriptableCompound.unlockLevel.ToString();
+        }
+        
 
         inputResources = scriptableCompound.inputResources;
         tempResourceList = scriptableCompound.inputResources.ToList();
@@ -102,6 +112,7 @@ public class Compounds : MonoBehaviour
         buildTime = scriptableCompound.buildTime;
         product = scriptableCompound.product;
         isLockedByContract = scriptableCompound.isLockedByContract;
+        pricePerProduct = scriptableCompound.pricePerProduct;
 
         fillBar = transform.Find("Main_Panel").transform.Find("FillBar").transform.Find("Fill").GetComponent<Image>();
         mineNameText = transform.Find("Main_Panel").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
@@ -109,7 +120,7 @@ public class Compounds : MonoBehaviour
         btn = transform.Find("Button").GetComponent<Button>();
         upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
 
-        icon.sprite = ResourceManager.Instance.GetSpriteFromResource(product);
+        icon.sprite = scriptableCompound.icon;
 
         subResourceIcons = transform.Find("Main_Panel").Find("Sub_Resource_Icons");
 
@@ -127,6 +138,11 @@ public class Compounds : MonoBehaviour
         mineNameText.text = partName;
         btn.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("+{0} {1}", outputAmount, partName);
         btn.onClick.AddListener(() => Produce());
+        workingModeBtn = transform.Find("WorkingModeBtn").GetComponent<Button>();
+        workingModeText = workingModeBtn.GetComponentInChildren<TextMeshProUGUI>();
+        workingModeBtn.onClick.AddListener(() => ChangeWorkingMode());
+
+        SetWorkModeColor();
     }
 
     private void OnProductionYieldChanged(object sender, UpgradeSystem.OnProductionYieldChangedEventArgs e)
@@ -175,7 +191,12 @@ public class Compounds : MonoBehaviour
             else
             {
                 isCharging = false;
-                ResourceManager.Instance.AddResource(product, (long)(outputAmount * UpgradeSystem.Instance.ProductionYieldMultiplier));
+
+                if (workingMode == CompoundWorkingMode.production)
+                    ResourceManager.Instance.AddResource(product, (long)(outputAmount * UpgradeSystem.Instance.ProductionYieldMultiplier));
+                else if (workingMode == CompoundWorkingMode.sell)
+                    ResourceManager.Instance.Currency += outputAmount * 1f * UpgradeSystem.Instance.ProductionYieldMultiplier* (pricePerProduct * 1f);
+
                 tempResourceList = inputResources.ToList();
                 GameManager.Instance.AddXP(scriptableCompound.xpAmount);
                 remainedBuildTime = 0;
@@ -186,7 +207,7 @@ public class Compounds : MonoBehaviour
 
     void Produce()
     { 
-        if (!isCharging)
+        if (!isCharging && workingMode != CompoundWorkingMode.stopProduction)
         {
             var inputs = inputResources.Zip(inputAmounts, (resource, amount) => (Resource: resource, Amount: amount));
             foreach (var input in inputs)
@@ -218,6 +239,34 @@ public class Compounds : MonoBehaviour
                 }
             }
         }
+    }
+
+    void ChangeWorkingMode()
+    {
+        Array a = Enum.GetValues(typeof(CompoundWorkingMode));
+        int j = 0;
+        for (int i = 0; i < a.Length; i++)
+        {
+            j = i + 1;
+            if ((CompoundWorkingMode)(a.GetValue(i)) == workingMode)
+                break;
+        }
+        if (j < a.Length)
+            workingMode = (CompoundWorkingMode)a.GetValue(j);
+        else
+            workingMode = (CompoundWorkingMode)a.GetValue(j - a.Length);
+        workingModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString());
+        SetWorkModeColor();
+    }
+
+    void SetWorkModeColor()
+    {
+        if (workingMode == CompoundWorkingMode.production)
+            workingModeBtn.GetComponent<Image>().color = Color.green;
+        else if (workingMode == CompoundWorkingMode.sell)
+            workingModeBtn.GetComponent<Image>().color = Color.blue;
+        else if (workingMode == CompoundWorkingMode.stopProduction)
+            workingModeBtn.GetComponent<Image>().color = Color.red;
     }
 
     void Upgrade()

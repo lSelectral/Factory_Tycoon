@@ -60,44 +60,7 @@ public class ContractManager : Singleton<ContractManager>
         for (int i = 0; i < contracts.Length; i++)
         {
             ContractBase contract = contracts[i];
-            tempResources.Add(contracts[i].requiredResources.ToList());
-
-            var _contract = Instantiate(contractPrefab, contractPanel.transform);
-            _contract.transform.Find("Texts").Find("Header").GetComponent<TextMeshProUGUI>().text = contract.contractName;
-            _contract.transform.Find("Texts").Find("Description").GetComponent<TextMeshProUGUI>().text = contract.description;
-            _contract.transform.Find("Texts").Find("Reward").GetComponent<TextMeshProUGUI>().text = contract.contractReward.ToString();
-            _contract.transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount = 0;
-            _contract.transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text = "Progress: %0";
-
-            if (contract.icon != null)
-                _contract.transform.Find("Icon").GetComponent<Image>().sprite = contract.icon;
-
-            for (int j = 0; j < contracts[i].requiredResources.Length; j++)
-            {
-                var icon = Instantiate(ResourceManager.Instance.iconPrefab, _contract.transform.Find("Required_Resource"));
-                icon.transform.Find("Image").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(contracts[i].requiredResources[j]);
-                icon.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(contracts[i].requiredResourceAmounts[j]);
-            }
-            instantiatedContracts.Add(_contract);
-
-            if (!contract.isContractCompleted)
-            {
-                _contract.GetComponent<Button>().onClick.AddListener(
-                () => PopupManager.Instance.PopupConfirmationPanel(("Do you want to activate " + contract.contractName + " Contract"),
-                () => ActivateContract(contract),
-                () => PopupManager.Instance.confirmationPopUpPrefab.transform.parent.gameObject.SetActive(false)));
-
-                if (contract.unlockLevel > GameManager.Instance.CurrentLevel)
-                {
-                    _contract.GetComponent<Button>().interactable = false;
-                    var lockText = Instantiate(GameManager.Instance.levelLock, _contract.transform);
-                    lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + contract.unlockLevel.ToString();
-                }
-            }
-            else
-            {
-                _contract.transform.SetParent(completedContractPanel.transform);
-            }
+            CreateContract(contract);        
         }
         if (activatedContracts != null && activatedContracts.Count <= 0)
         {
@@ -108,6 +71,47 @@ public class ContractManager : Singleton<ContractManager>
         {
             activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
             activeContractCounter.SetActive(true);
+        }
+    }
+
+    void CreateContract(ContractBase contract)
+    {
+        var _contract = Instantiate(contractPrefab, contractPanel.transform);
+        _contract.transform.Find("Texts").Find("Header").GetComponent<TextMeshProUGUI>().text = contract.contractName;
+        _contract.transform.Find("Texts").Find("Description").GetComponent<TextMeshProUGUI>().text = contract.description;
+        _contract.transform.Find("Texts").Find("Reward").GetComponent<TextMeshProUGUI>().text = contract.contractReward.ToString();
+        _contract.transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount = 0;
+        _contract.transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text = "Progress: %0";
+        tempResources.Add(contract.requiredResources.ToList());
+
+        if (contract.icon != null)
+            _contract.transform.Find("Icon").GetComponent<Image>().sprite = contract.icon;
+
+        for (int i = 0; i < contract.requiredResources.Length; i++)
+        {
+            var icon = Instantiate(ResourceManager.Instance.iconPrefab, _contract.transform.Find("Required_Resource"));
+            icon.transform.Find("Image").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(contract.requiredResources[i]);
+            icon.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(contract.requiredResourceAmounts[i]);
+        }
+        instantiatedContracts.Add(_contract);
+
+        if (!contract.isContractCompleted)
+        {
+            _contract.GetComponent<Button>().onClick.AddListener(
+            () => PopupManager.Instance.PopupConfirmationPanel(("Do you want to activate " + contract.contractName + " Contract"),
+            () => ActivateContract(contract),
+            () => PopupManager.Instance.confirmationPopUpPrefab.transform.parent.gameObject.SetActive(false)));
+
+            if (contract.unlockLevel > GameManager.Instance.CurrentLevel)
+            {
+                _contract.GetComponent<Button>().interactable = false;
+                var lockText = Instantiate(GameManager.Instance.levelLock, _contract.transform);
+                lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + contract.unlockLevel.ToString();
+            }
+        }
+        else
+        {
+            _contract.transform.SetParent(completedContractPanel.transform);
         }
     }
 
@@ -208,26 +212,29 @@ public class ContractManager : Singleton<ContractManager>
 
     public void ActivateContract(ContractBase contract)
     {
-        activatedContracts.Add(contract);
-
-
-        for (int i = 0; i < instantiatedContracts.Count; i++)
+        if (!activatedContracts.Contains(contract))
         {
-            if (contracts[i] == contract)
+            activatedContracts.Add(contract);
+
+
+            for (int i = 0; i < instantiatedContracts.Count; i++)
             {
-                instantiatedContracts[i].GetComponent<Image>().color = new Color(11 / 256f, 253 / 256f, 54 / 256f);
-                instantiatedContracts[i].transform.SetAsFirstSibling();
+                if (contracts[i] == contract)
+                {
+                    instantiatedContracts[i].GetComponent<Image>().color = new Color(11 / 256f, 253 / 256f, 54 / 256f);
+                    instantiatedContracts[i].transform.SetAsFirstSibling();
+                }
             }
-        }
 
-        Debug.Log(contract.contractName + " contract activated");
+            Debug.Log(contract.contractName + " contract activated");
 
-        if (activatedContracts != null && activatedContracts.Count > 0)
-        {
-            activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
-            activeContractCounter.SetActive(true);
+            if (activatedContracts != null && activatedContracts.Count > 0)
+            {
+                activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
+                activeContractCounter.SetActive(true);
+            }
+            CheckAvailableResources();
         }
-        CheckAvailableResources();
     }
 
     void ShowCompletedContract(ContractBase contract, string pageName)
@@ -271,6 +278,17 @@ public class ContractManager : Singleton<ContractManager>
             }
         }
         PageManager.Instance.minePageInfoText.text = pageName;
+    }
+
+    void OnContractExpired(ContractBase contract)
+    {
+        for (int i = 0; i < contractPanel.transform.childCount; i++)
+        {
+            if (contractPanel.transform.GetChild(i).GetComponent<ContractBase>() == contract)
+            {
+                Destroy(contractPanel.transform.GetChild(i).gameObject);
+            }
+        }
     }
 }
 

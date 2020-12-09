@@ -19,7 +19,7 @@ public class CustomUpgradeEditorWindow: EditorWindow
         GUILayout.Label("Mining Yield");
         if (GUILayout.Button("Set Mining Yield"))
         {
-            UpgradeSystem.Instance.MiningYieldMultiplier *= float.Parse(valueString);
+            UpgradeSystem.Instance.MiningYieldMultiplier *= long.Parse(valueString);
         }
 
         if (GUILayout.Button("Mining Speed 30 second"))

@@ -2,16 +2,32 @@
 using TMPro;
 using UnityEngine.UI;
 using System;
-using System.Runtime.InteropServices.ComTypes;
+using UnityEngine.EventSystems;
 
-public class Mine_Btn : MonoBehaviour
+public class Mine_Btn : MonoBehaviour, IPointerClickHandler
 {
+    #region Class Variables
+
     public ScriptableMine scriptableMine;
 
-    const float incomeConstant = 1.4f;
-    const float upgradeCostConstant = 1.55f;
+    float miningSpeedUpgrade;
+    float miningEfficiencyUpgrade;
 
     [SerializeField] private bool isAutomated;
+
+    #region CONSTANTS
+
+    const float PRICE_PER_PRODUCT_MULTIPLER_LOW_50 = 3.18f;
+
+    const float UPGRADE_POWER_MULTIPLIER_LOW_50 = 1.003f;
+
+    const float PRICE_PER_PRODUCT_MULTIPLIR_HIGH_50 = 3.7f;
+
+    const float UPGRADE_POWER_MULTIPLIER_HIGH_50 = 1f;
+
+    const float UPGRADE_BASE_MULTIPLIER = 1.63f;
+
+    #endregion
 
     // Scriptable object class variables
     [SerializeField] float collectTime;
@@ -21,8 +37,8 @@ public class Mine_Btn : MonoBehaviour
     float remainedCollectTime;
     bool isCharging;
     bool isReadyToCollect;
-    int outputValue;
-    int pricePerProduct;
+    long outputValue;
+    float pricePerProduct;
     Sprite backgroundImage;
     int unlockLevel;
     float xpAmount;
@@ -34,7 +50,7 @@ public class Mine_Btn : MonoBehaviour
     Button infoBtn;
     Image fillBar;
     TextMeshProUGUI mineNameText;
-    Button mainBtn;
+    Transform mainBtn;
     Button upgradeBtn;
     Button workModeBtn;
     TextMeshProUGUI upgradeAmountText;
@@ -45,11 +61,13 @@ public class Mine_Btn : MonoBehaviour
     float outputPerSecond;
 
     private int mineLevel;
-    double upgradeAmount;
+    double upgradeCost;
     float incomePerSecond;
-    WorkingMode workingMode;
+    MineWorkingMode workingMode;
 
     LTDescr miningAnimation;
+
+    #endregion
 
     #region Properties
     public float RemainedCollectTime
@@ -60,19 +78,19 @@ public class Mine_Btn : MonoBehaviour
     public float CollectTime
     {
         get { return collectTime; }
-        set { collectTime = value; }
+        set { collectTime = value; UpdateInfoPanel(); OutputPerSecond = OutputPerSecond; UpdateInfoPanel(); }
     }
 
     public int MineLevel
     {
         get { return mineLevel; }
-        set { mineLevel = value; mineLevelText.text = "LEVEL " + mineLevel.ToString(); }
+        set { mineLevel = value; mineLevelText.text = "LEVEL " + mineLevel.ToString(); UpdateInfoPanel(); }
     }
 
-    public double UpgradeAmount
+    public double UpgradeCost
     {
-        get { return upgradeAmount; }
-        set { upgradeAmount = value; upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeAmount); }
+        get { return upgradeCost; }
+        set { upgradeCost = value; upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost); UpdateInfoPanel(); }
     }
 
     public bool IsAutomated
@@ -84,19 +102,24 @@ public class Mine_Btn : MonoBehaviour
     public float OutputPerSecond
     {
         get { return outputPerSecond; }
-        set { outputPerSecond = value; outputPerSecondText.text = string.Format("+{0} {1}", (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec"; }
+        set 
+        { 
+            outputPerSecond = value;
+            outputPerSecondText.text = string.Format("+{0} {1}", (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec";
+            UpdateInfoPanel();
+        }
     }
 
     public float XPAmount
     {
         get { return xpAmount; }
-        set { xpAmount = value; }
+        set { xpAmount = value; UpdateInfoPanel(); }
     }
 
-    public int PricePerProduct
+    public float PricePerProduct
     {
         get { return pricePerProduct; }
-        set { pricePerProduct = value; }
+        set { pricePerProduct = value; UpdateInfoPanel(); }
     }
 
     public bool IsLockedByContract
@@ -105,13 +128,14 @@ public class Mine_Btn : MonoBehaviour
         set { isLockedByContract = value; }
     }
 
-    public WorkingMode WorkingMode
+    public MineWorkingMode WorkingMode
     {
         get { return workingMode; }
         set { workingMode = value; workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString()); }
     }
-    #endregion
 
+    public long OutputValue { get => outputValue; set { outputValue = value; OutputPerSecond = OutputPerSecond; UpdateInfoPanel(); } }
+    #endregion
 
     void Start()
     {
@@ -122,7 +146,6 @@ public class Mine_Btn : MonoBehaviour
         UpgradeSystem.Instance.OnMiningYieldChanged += Instance_OnMiningYieldChanged;
         UpgradeSystem.Instance.OnEarnedCoinMultiplierChanged += Instance_OnEarnedCoinMultiplierChanged;
         UpgradeSystem.Instance.OnEarnedXpMultiplierChanged += Instance_OnEarnedXpMultiplierChanged;
-        //ContractManager.Instance.OnContractComplete += OnContractComplete;
 
         collectTime = scriptableMine.collectTime;
         mineName = scriptableMine.Name;
@@ -135,7 +158,9 @@ public class Mine_Btn : MonoBehaviour
         xpAmount = scriptableMine.xpAmount* 1f;
         isLockedByContract = scriptableMine.isLockedByContract;
 
-        workingMode = WorkingMode.production;
+        outputPerSecond = outputValue * 1f / collectTime;
+
+        workingMode = MineWorkingMode.production;
 
         // Set lock text
         if (unlockLevel > GameManager.Instance.CurrentLevel)
@@ -153,7 +178,7 @@ public class Mine_Btn : MonoBehaviour
         fillBar = transform.Find("GameObject").transform.Find("Outline").transform.Find("Fill").GetComponent<Image>();
         mineNameText = transform.Find("GameObject").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
         mineNameText.text = mineName;
-        mainBtn = transform.Find("Button").GetComponent<Button>();
+        mainBtn = transform.Find("Button");
         outputPerSecondText = mainBtn.GetComponentInChildren<TextMeshProUGUI>();
         outputPerSecondText.text = string.Format("+{0} {1}", (outputValue/collectTime)* UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec";
         upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
@@ -164,10 +189,12 @@ public class Mine_Btn : MonoBehaviour
         workModeText = workModeBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         transform.Find("Button").Find("Image").GetComponent<Image>().sprite = backgroundImage;
         tool = transform.Find("Button").Find("Tool").GetComponent<RectTransform>();
-        transform.Find("GameObject").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(producedResource);
+        transform.Find("GameObject").Find("Icon").GetComponent<Image>().sprite = scriptableMine.icon;
+        //transform.Find("GameObject").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(producedResource);
         infoPanel = transform.Find("InfoPanel");
         infoBtn = transform.Find("Info_Btn").GetComponent<Button>();
         infoBtn.onClick.AddListener(() => { TweenAnimation.Instance.ShowHideElement(infoPanel.gameObject); infoBtn.transform.SetAsLastSibling(); });
+        UpdateInfoPanel();
         if (remainedCollectTime >0)
         {
             fillBar.fillAmount = ((collectTime - remainedCollectTime) / collectTime);
@@ -176,37 +203,46 @@ public class Mine_Btn : MonoBehaviour
         {
             fillBar.fillAmount = 0;
         }
-        mainBtn.onClick.AddListener(() => CollectMine());
-        mainBtn.onClick.AddListener(() => { if (isCharging) remainedCollectTime -= .35f; });
+        //mainBtn.onClick.AddListener(() => CollectMine());
+        //mainBtn.onClick.AddListener(() => { if (isCharging) remainedCollectTime -= .35f; });
         upgradeBtn.onClick.AddListener(() => UpgradeMine());
-        upgradeAmount = 15f;
-        upgradeAmountText.text = "$0";
+        workingMode = MineWorkingMode.sell;
         mineLevelText.text = "Level 0";
         workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString());
+
+        SetWorkModeColor();
 
         incomePerSecond = (outputPerSecond*pricePerProduct) * UpgradeSystem.Instance.EarnedCoinMultiplier;
         StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
 
         //IsAutomated = true;
+
+        if (upgradeCost == 0)
+            upgradeCost = 50;
+        upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost);
     }
+
+    #region Event Methods
 
     private void Instance_OnEarnedXpMultiplierChanged(object sender, UpgradeSystem.OnEarnedXpMultiplierChangedEventArgs e)
     {
-        xpAmount *= e.earnedXpMultiplier;
+        XPAmount *= e.earnedXpMultiplier;
     }
 
     private void Instance_OnEarnedCoinMultiplierChanged(object sender, UpgradeSystem.OnEarnedCoinMultiplierChangedEventArgs e)
     {
+        PricePerProduct *= e.earnedCoinMultiplier;
     }
 
     private void Instance_OnMiningYieldChanged(object sender, UpgradeSystem.OnMiningYieldChangedEventArgs e)
     {
-        OutputPerSecond *= e.miningYield;
+        OutputValue *= e.miningYield;
+        UpdateInfoPanel();
     }
 
     private void Instance_OnMiningSpeedChanged(object sender, UpgradeSystem.OnMiningSpeedChangedEventArgs e)
     {
-        OutputPerSecond *= e.miningSpeed;
+        CollectTime /= e.miningSpeed;
     }
 
     private void OnResourceAmountChanged(object sender, ResourceManager.OnResourceAmountChangedEventArgs e)
@@ -225,6 +261,8 @@ public class Mine_Btn : MonoBehaviour
             }
         }
     }
+
+    #endregion
 
     void Update()
     {
@@ -247,10 +285,22 @@ public class Mine_Btn : MonoBehaviour
                     //float currency;
                     //float resource;
                     AddResourceAndMoney(/*out currency, out resource*/);
+                    
+                    //var text = new TextMeshProUGUI();
+                    
+                    ////text.transform.parent.SetParent(mainBtn.transform);
+                    //text.text = string.Format("+{0} {1}", outputValue, ResourceManager.Instance.GetValidName(resourceName));
+                    //text.raycastTarget = false;
+                    //text.fontSize = 20;
+                    ////text.enableAutoSizing = true;
+                    //text.alignment = TextAlignmentOptions.Midline;
+                    //text.autoSizeTextContainer = true;
+
                     isCharging = false;
                     remainedCollectTime = 0;
                     fillBar.fillAmount = 0;
                     LeanTween.cancel(tool.gameObject);
+                    UpdateInfoPanel();
                 }
             }
         }
@@ -260,12 +310,12 @@ public class Mine_Btn : MonoBehaviour
     {
         switch (workingMode)
         {
-            case WorkingMode.production:
+            case MineWorkingMode.production:
                 /*resourceAmount = */ResourceManager.Instance.AddResource(producedResource, (long)(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
                 break;
-            case WorkingMode.sell:
+            case MineWorkingMode.sell:
                 ResourceManager.Instance.AddResource(producedResource, (long)(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
-                Sell();
+                SellResource();
                 break;
         }
         //resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
@@ -292,18 +342,42 @@ public class Mine_Btn : MonoBehaviour
 
     void UpgradeMine()
     {
-        StatSystem.Instance.CurrencyPerSecond-= incomePerSecond;
-        MineLevel += 1;
-        upgradeAmount *= (Mathf.Pow(upgradeCostConstant,mineLevel+1));
-        if (mineLevel % 10 == 0)
-            collectTime -= collectTime / 10;
-        upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeAmount);
-        incomePerSecond = OutputPerSecond*pricePerProduct;
-        StatSystem.Instance.CurrencyPerSecond+= incomePerSecond;
-        outputPerSecondText.text = string.Format("+{0:0.#} {1}", (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec";
+        if (ResourceManager.Instance.Currency >= upgradeCost)
+        {
+            //StatSystem.Instance.CurrencyPerSecond -= incomePerSecond;
+
+            //outputValue += 2;
+            //OutputPerSecond = (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier;
+            //
+            //incomePerSecond = OutputPerSecond * pricePerProduct;
+            //StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
+            //outputPerSecondText.text = string.Format("+{0:0.#} {1}", (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec";
+
+            MineLevel += 1;
+            ResourceManager.Instance.Currency -= upgradeCost;
+
+            collectTime -= collectTime / 100;
+            if (mineLevel % 2 == 0)
+                outputValue++;
+            if (mineLevel % 3 == 0)
+                if (mineLevel <= 50)
+                    pricePerProduct *= PRICE_PER_PRODUCT_MULTIPLER_LOW_50;
+                else
+                    pricePerProduct *= PRICE_PER_PRODUCT_MULTIPLIR_HIGH_50;
+
+            
+            UpgradeCost = upgradeCost * 2 * Mathf.Pow(1.007f, mineLevel);
+            if (mineLevel <= 50)
+                upgradeCost = upgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_LOW_50, mineLevel);
+            else
+                upgradeCost = upgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_HIGH_50, mineLevel);
+
+            upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost);
+            UpdateInfoPanel();
+        }
     }
 
-    void Sell()
+    void SellResource()
     {
         ResourceManager.Instance.Currency += outputValue * 1f * (pricePerProduct *1f);
         ResourceManager.Instance.ConsumeResource(producedResource, outputValue);
@@ -311,18 +385,48 @@ public class Mine_Btn : MonoBehaviour
 
     void ChangeWorkingMode()
     {
-        Array a = Enum.GetValues(typeof(WorkingMode));
-        int j = 0;
-        for (int i = 0; i < a.Length; i++)
+        if (GameManager.Instance.CurrentLevel >= 0)
         {
-            j = i + 1;
-            if ((WorkingMode)(a.GetValue(i)) == workingMode)
-                break;
+            Array a = Enum.GetValues(typeof(MineWorkingMode));
+            int j = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                j = i + 1;
+                if ((MineWorkingMode)(a.GetValue(i)) == workingMode)
+                    break;
+            }
+            if (j < a.Length)
+                workingMode = (MineWorkingMode)a.GetValue(j);
+            else
+                workingMode = (MineWorkingMode)a.GetValue(j - a.Length);
+            workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString());
+            SetWorkModeColor();
         }
-        if (j < a.Length)
-            workingMode = (WorkingMode)a.GetValue(j);
-        else
-            workingMode = (WorkingMode)a.GetValue(j - a.Length);
-        workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString());
     }
-}
+
+    /// <summary>
+    /// When player change work mode
+    /// button color change according to that
+    /// </summary>
+    void SetWorkModeColor()
+    {
+        if (workingMode == MineWorkingMode.production)
+            workModeBtn.GetComponent<Image>().color = Color.green;
+        else if (workingMode == MineWorkingMode.sell)
+            workModeBtn.GetComponent<Image>().color = Color.red;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        CollectMine();
+        if (isCharging) remainedCollectTime -= .35f;
+    }
+
+    void UpdateInfoPanel()
+    {
+        infoPanel.Find("Top").Find("IronAmount").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(ResourceManager.Instance.GetResourceAmount(scriptableMine.baseResource));
+        infoPanel.Find("Top").Find("PerProductPrice").GetComponentInChildren<TextMeshProUGUI>().text = "$"+pricePerProduct.ToString("F2");
+        infoPanel.Find("Bottom").Find("ProductionAmountPerSec").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(OutputPerSecond)+"/Sec";
+        infoPanel.Find("Bottom").Find("MineLevel").GetComponentInChildren<TextMeshProUGUI>().text = "Level " + mineLevel.ToString();
+    }
+}   

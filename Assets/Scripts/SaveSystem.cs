@@ -45,7 +45,7 @@ public class SaveSystem : Singleton<SaveSystem>
                 isAutomated = m.IsAutomated,
                 mineLevel = m.MineLevel,
                 remainedChargeTime = m.RemainedCollectTime,
-                upgradeAmount = m.UpgradeAmount,
+                upgradeAmount = m.UpgradeCost,
                 chargeTime = m.CollectTime,
                 workingMode = m.WorkingMode,
             };
@@ -75,43 +75,43 @@ public class SaveSystem : Singleton<SaveSystem>
             instantiatedCompounds = compounds,
             instantiatedMines = mines,
             
-            aiChip = ResourceManager.Instance.AiChip,
-            circuitBoard = ResourceManager.Instance.CircuitBoard,
-            coal = ResourceManager.Instance.Coal,
-            copperIngot = ResourceManager.Instance.CopperIngot,
-            copperOre = ResourceManager.Instance.CopperOre,
-            currency = ResourceManager.Instance.Currency,
-            fiberOpticCable = ResourceManager.Instance.FiberOpticCable,
-            hardenedPlate = ResourceManager.Instance.HardenedPlate,
-            integrationChip = ResourceManager.Instance.IntegrationChip,
-            ironIngot = ResourceManager.Instance.IronIngot,
-            ironOre = ResourceManager.Instance.IronOre,
-            ironRod = ResourceManager.Instance.IronRod,
-            ironScrew = ResourceManager.Instance.IronScrew,
-            lastExitTime = DateTime.Now,
-            motor = ResourceManager.Instance.Motor,
-            oil = ResourceManager.Instance.Oil,
-            premiumCurrency = ResourceManager.Instance.PremiumCurrency,
-            rotor = ResourceManager.Instance.Rotor,
-            rubber = ResourceManager.Instance.Rubber,
-            siliconOre = ResourceManager.Instance.SiliconOre,
-            siliconWafer = ResourceManager.Instance.SiliconWafer,
-            stator = ResourceManager.Instance.Stator,
-            steelBeam = ResourceManager.Instance.SteelBeam,
-            steelIngot = ResourceManager.Instance.SteelIngot,
-            steelPlate = ResourceManager.Instance.SteelPlate,
-            steelRod = ResourceManager.Instance.SteelTube,
-            steelScrew = ResourceManager.Instance.SteelScrew,
-            wire = ResourceManager.Instance.Wire,
-            goldIngot = ResourceManager.Instance.GoldIngot,
-            goldOre = ResourceManager.Instance.GoldOre,
-            metalGrid = ResourceManager.Instance.MetalGrid,
-            powerCell = ResourceManager.Instance.PowerCell,
-            reactorComponent = ResourceManager.Instance.ReactorComponent,
-            solarCell = ResourceManager.Instance.SolarCell,
-            steelTube = ResourceManager.Instance.SteelTube,
-            superConductor = ResourceManager.Instance.SuperConductor,
-            thrusterComponent = ResourceManager.Instance.ThrusterComponent,
+            //aiChip = ResourceManager.Instance.AiChip,
+            //circuitBoard = ResourceManager.Instance.CircuitBoard,
+            //coal = ResourceManager.Instance.Coal,
+            //copperIngot = ResourceManager.Instance.CopperIngot,
+            //copperOre = ResourceManager.Instance.CopperOre,
+            //currency = ResourceManager.Instance.Currency,
+            //fiberOpticCable = ResourceManager.Instance.FiberOpticCable,
+            //hardenedPlate = ResourceManager.Instance.HardenedPlate,
+            //integrationChip = ResourceManager.Instance.IntegrationChip,
+            //ironIngot = ResourceManager.Instance.IronIngot,
+            //ironOre = ResourceManager.Instance.IronOre,
+            //ironRod = ResourceManager.Instance.IronRod,
+            //ironScrew = ResourceManager.Instance.IronScrew,
+            //lastExitTime = DateTime.Now,
+            //motor = ResourceManager.Instance.Motor,
+            //oil = ResourceManager.Instance.Oil,
+            //premiumCurrency = ResourceManager.Instance.PremiumCurrency,
+            //rotor = ResourceManager.Instance.Rotor,
+            //rubber = ResourceManager.Instance.Rubber,
+            //siliconOre = ResourceManager.Instance.SiliconOre,
+            //siliconWafer = ResourceManager.Instance.SiliconWafer,
+            //stator = ResourceManager.Instance.Stator,
+            //steelBeam = ResourceManager.Instance.SteelBeam,
+            //steelIngot = ResourceManager.Instance.SteelIngot,
+            //steelPlate = ResourceManager.Instance.SteelPlate,
+            //steelRod = ResourceManager.Instance.SteelTube,
+            //steelScrew = ResourceManager.Instance.SteelScrew,
+            //wire = ResourceManager.Instance.Wire,
+            //goldIngot = ResourceManager.Instance.GoldIngot,
+            //goldOre = ResourceManager.Instance.GoldOre,
+            //metalGrid = ResourceManager.Instance.MetalGrid,
+            //powerCell = ResourceManager.Instance.PowerCell,
+            //reactorComponent = ResourceManager.Instance.ReactorComponent,
+            //solarCell = ResourceManager.Instance.SolarCell,
+            //steelTube = ResourceManager.Instance.SteelTube,
+            //superConductor = ResourceManager.Instance.SuperConductor,
+            //thrusterComponent = ResourceManager.Instance.ThrusterComponent,
             totalResource = ResourceManager.Instance.TotalResource,
 
             totalEarnedCurrency = this.totalEarnedCurrency,
@@ -156,37 +156,37 @@ public class SaveSystem : Singleton<SaveSystem>
             this.totalSpendedCurrency = saveObject.totalSpendedCurrency;
             this.totalSpendedPremiumCurrency = saveObject.totalSpendedPremiumCurrency;
 
-            ResourceManager.Instance.IronOre += saveObject.ironOre;
-            ResourceManager.Instance.CopperOre += saveObject.copperOre;
-            ResourceManager.Instance.SiliconOre += saveObject.siliconOre;
-            ResourceManager.Instance.Coal += saveObject.coal;
-            ResourceManager.Instance.Oil += saveObject.oil;
-            ResourceManager.Instance.GoldOre += saveObject.goldOre;
-            ResourceManager.Instance.IronIngot += saveObject.ironIngot;
-            ResourceManager.Instance.CopperIngot += saveObject.copperIngot;
-            ResourceManager.Instance.SiliconWafer += saveObject.siliconWafer;
-            ResourceManager.Instance.GoldIngot += saveObject.goldIngot;
-            ResourceManager.Instance.Wire += saveObject.wire;
-            ResourceManager.Instance.HardenedPlate += saveObject.hardenedPlate;
-            ResourceManager.Instance.Rotor += saveObject.rotor;
-            ResourceManager.Instance.SteelIngot += saveObject.steelIngot;
-            ResourceManager.Instance.SteelPlate += saveObject.steelPlate;
-            ResourceManager.Instance.SteelTube += saveObject.steelTube;
-            ResourceManager.Instance.SteelScrew += saveObject.steelScrew;
-            ResourceManager.Instance.SteelBeam += saveObject.steelBeam;
-            ResourceManager.Instance.MetalGrid += saveObject.metalGrid;
-            ResourceManager.Instance.ReactorComponent += saveObject.reactorComponent;
-            ResourceManager.Instance.ThrusterComponent += saveObject.thrusterComponent;
-            ResourceManager.Instance.SolarCell += saveObject.solarCell;
-            ResourceManager.Instance.SuperConductor += saveObject.superConductor;
-            ResourceManager.Instance.PowerCell += saveObject.powerCell;
-            ResourceManager.Instance.Rubber += saveObject.rubber;
-            ResourceManager.Instance.Stator += saveObject.stator;
-            ResourceManager.Instance.Motor += saveObject.motor;
-            ResourceManager.Instance.FiberOpticCable += saveObject.fiberOpticCable;
-            ResourceManager.Instance.CircuitBoard += saveObject.circuitBoard;
-            ResourceManager.Instance.IntegrationChip += saveObject.integrationChip;
-            ResourceManager.Instance.AiChip += saveObject.aiChip;
+            //ResourceManager.Instance.IronOre += saveObject.ironOre;
+            //ResourceManager.Instance.CopperOre += saveObject.copperOre;
+            //ResourceManager.Instance.SiliconOre += saveObject.siliconOre;
+            //ResourceManager.Instance.Coal += saveObject.coal;
+            //ResourceManager.Instance.Oil += saveObject.oil;
+            //ResourceManager.Instance.GoldOre += saveObject.goldOre;
+            //ResourceManager.Instance.IronIngot += saveObject.ironIngot;
+            //ResourceManager.Instance.CopperIngot += saveObject.copperIngot;
+            //ResourceManager.Instance.SiliconWafer += saveObject.siliconWafer;
+            //ResourceManager.Instance.GoldIngot += saveObject.goldIngot;
+            //ResourceManager.Instance.Wire += saveObject.wire;
+            //ResourceManager.Instance.HardenedPlate += saveObject.hardenedPlate;
+            //ResourceManager.Instance.Rotor += saveObject.rotor;
+            //ResourceManager.Instance.SteelIngot += saveObject.steelIngot;
+            //ResourceManager.Instance.SteelPlate += saveObject.steelPlate;
+            //ResourceManager.Instance.SteelTube += saveObject.steelTube;
+            //ResourceManager.Instance.SteelScrew += saveObject.steelScrew;
+            //ResourceManager.Instance.SteelBeam += saveObject.steelBeam;
+            //ResourceManager.Instance.MetalGrid += saveObject.metalGrid;
+            //ResourceManager.Instance.ReactorComponent += saveObject.reactorComponent;
+            //ResourceManager.Instance.ThrusterComponent += saveObject.thrusterComponent;
+            //ResourceManager.Instance.SolarCell += saveObject.solarCell;
+            //ResourceManager.Instance.SuperConductor += saveObject.superConductor;
+            //ResourceManager.Instance.PowerCell += saveObject.powerCell;
+            //ResourceManager.Instance.Rubber += saveObject.rubber;
+            //ResourceManager.Instance.Stator += saveObject.stator;
+            //ResourceManager.Instance.Motor += saveObject.motor;
+            //ResourceManager.Instance.FiberOpticCable += saveObject.fiberOpticCable;
+            //ResourceManager.Instance.CircuitBoard += saveObject.circuitBoard;
+            //ResourceManager.Instance.IntegrationChip += saveObject.integrationChip;
+            //ResourceManager.Instance.AiChip += saveObject.aiChip;
             ResourceManager.Instance.TotalResource = saveObject.totalResource;
 
             var savedMineInfos = ProductionManager.Instance.instantiatedMines.Zip(saveObject.instantiatedMines, (mines, infos) => (Mine: mines, Info: infos));
@@ -196,7 +196,7 @@ public class SaveSystem : Singleton<SaveSystem>
             {
                 var mine = m.Mine.GetComponent<Mine_Btn>();
                 mine.MineLevel = m.Info.mineLevel;
-                mine.UpgradeAmount = m.Info.upgradeAmount;
+                mine.UpgradeCost = m.Info.upgradeAmount;
                 mine.CollectTime = m.Info.chargeTime;
                 mine.WorkingMode = m.Info.workingMode;
 
@@ -313,7 +313,7 @@ public class MineSave
     public double upgradeAmount;
     public int mineLevel;
     public bool isAutomated;
-    public WorkingMode workingMode;
+    public MineWorkingMode workingMode;
 }
 
 [Serializable]
@@ -324,5 +324,5 @@ public class CompoundSave
     public int compoundLevel;
     public bool isAutomated;
     public List<BaseResources> requiredResources;
-    public WorkingMode workingMode;
+    public CompoundWorkingMode workingMode;
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// UI Animator Class
@@ -81,10 +82,24 @@ public class TweenAnimation : Singleton<TweenAnimation>
 
     public LTDescr MoveTool(GameObject obj, Vector3? startAngle = null, Vector3? endAngle = null, float time = 1f)
     {
-        startAngle = new Vector3(0,0,-15);
-        endAngle = new Vector3(0, 0, 70);
+        startAngle = new Vector3(0,0,35);
+        endAngle = new Vector3(0, 0, -45);
         LeanTween.rotate(obj, startAngle.Value, 0f);
-        var t = LeanTween.rotate(obj, endAngle.Value, time).setOnComplete(() => LeanTween.rotate(obj,startAngle.Value, 0f)).setLoopPingPong();
+        var t = LeanTween.rotate(obj, endAngle.Value-startAngle.Value, time).setOnComplete(() => LeanTween.rotate(obj, startAngle.Value-endAngle.Value, 0f)).setLoopPingPong();
         return t;
     }
+
+    public void SinkingEffect(GameObject obj)
+    {
+        if (obj.GetComponent<RectTransform>().localScale == Vector3.one)
+            LeanTween.scale(obj, Vector3.zero, .5f);
+        else
+            LeanTween.scale(obj, Vector3.one, .5f);
+    }
+
+    //public void ChangeColor(GameObject obj)
+    //{
+    //    LeanTween.color(obj.GetComponent<RectTransform>(), Color.red, 1f).setOnComplete(() => LeanTween.color(obj.GetComponent<RectTransform>(), Color.black, 1f));
+    //    LeanTween.scale(obj, new Vector3(1.12f, 1.12f, 1), 1f).setOnComplete(() => LeanTween.scale(obj, Vector3.one, 1f)); ;
+    //}
 }

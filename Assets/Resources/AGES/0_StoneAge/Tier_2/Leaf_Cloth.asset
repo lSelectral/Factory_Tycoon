@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: Leaf_Cloth
+  m_EditorClassIdentifier: 
+  Description: Increase Protection, keep warm, also give a bit of sense of fashion
+  inputResources: 03000000
+  inputAmounts: 0c000000
+  product: 9
+  partName: Leaf Cloth
+  buildTime: 20
+  outputValue: 1
+  pricePerProduct: 250
+  unlockLevel: 2
+  xpAmount: 90
+  isLockedByContract: 0
+  lockedByContract: {fileID: 0}
+  icon: {fileID: 21300000, guid: 32d4fcafcc4d5aa45bab1d659a144271, type: 3}
+  ageBelongsTo: 0
+  tier: 1
+  isUnlocked: 0

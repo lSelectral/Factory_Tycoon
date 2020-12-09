@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: Iron_Plate
+  m_EditorClassIdentifier: 
+  Description: Basic iron plate. Use for exterior covering of building and vehicles.
+  inputResources: 06000000
+  inputAmounts: 02000000
+  product: 10
+  partName: Iron Plate
+  buildTime: 5
+  outputValue: 1
+  pricePerProduct: 0
+  unlockLevel: 0
+  xpAmount: 25
+  isLockedByContract: 0
+  lockedByContract: {fileID: 0}
+  icon: {fileID: 0}
+  ageBelongsTo: 6
+  tier: 0
+  isUnlocked: 0

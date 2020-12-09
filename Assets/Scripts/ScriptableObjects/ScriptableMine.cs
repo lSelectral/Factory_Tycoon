@@ -18,9 +18,17 @@ public class ScriptableMine : ScriptableObject
 
     public Sprite backgroundImage;
 
+    public Sprite icon;
+
     public int unlockLevel;
 
     public int xpAmount = 10;
 
     public bool isLockedByContract;
+
+    public Age ageBelongsTo;
+
+    public Tier tier;
+
+    public bool isUnlocked;
 }
