@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class Mine_Btn : MonoBehaviour, IPointerClickHandler
 {
@@ -14,6 +15,8 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
     float miningEfficiencyUpgrade;
 
     [SerializeField] private bool isAutomated;
+
+    bool isUpgradePanelActive;
 
     #region CONSTANTS
 
@@ -135,6 +138,12 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
     }
 
     public long OutputValue { get => outputValue; set { outputValue = value; OutputPerSecond = OutputPerSecond; UpdateInfoPanel(); } }
+
+    public bool IsUpgradePanelActive
+    {
+        get { return isUpgradePanelActive; }
+        set { isUpgradePanelActive = value; }
+    }
     #endregion
 
     void Start()
@@ -142,6 +151,7 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         // Custom Events
         GameManager.Instance.OnLevelUp += OnLevelUp;
         ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
+        ResourceManager.Instance.OnCurrencyChanged += OnCurrencyChanged;
         UpgradeSystem.Instance.OnMiningSpeedChanged += Instance_OnMiningSpeedChanged;
         UpgradeSystem.Instance.OnMiningYieldChanged += Instance_OnMiningYieldChanged;
         UpgradeSystem.Instance.OnEarnedCoinMultiplierChanged += Instance_OnEarnedCoinMultiplierChanged;
@@ -155,6 +165,7 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         pricePerProduct = scriptableMine.pricePerProduct;
         backgroundImage = scriptableMine.backgroundImage;
         unlockLevel = scriptableMine.unlockLevel;
+        mineLevel = scriptableMine.level;
         xpAmount = scriptableMine.xpAmount* 1f;
         isLockedByContract = scriptableMine.isLockedByContract;
 
@@ -205,9 +216,9 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         }
         //mainBtn.onClick.AddListener(() => CollectMine());
         //mainBtn.onClick.AddListener(() => { if (isCharging) remainedCollectTime -= .35f; });
-        upgradeBtn.onClick.AddListener(() => UpgradeMine());
+        upgradeBtn.onClick.AddListener(() => ShowUpgradePanel());
         workingMode = MineWorkingMode.sell;
-        mineLevelText.text = "Level 0";
+        mineLevelText.text = "Level " + mineLevel.ToString();
         workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString());
 
         SetWorkModeColor();
@@ -218,8 +229,19 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         //IsAutomated = true;
 
         if (upgradeCost == 0)
-            upgradeCost = 50;
+            upgradeCost = outputValue*pricePerProduct*25;
         upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost);
+    }
+
+    private void OnCurrencyChanged(object sender, ResourceManager.OnCurrencyChangedEventArgs e)
+    {
+        if (IsUpgradePanelActive)
+        {
+            var q = UpgradeSystem.Instance.upgradeMultiplier;
+            if (q != 1 && q != 5 && q != 20)
+                UpgradeSystem.Instance.GetMaximumUpgradeAmount(UpgradeCost, MineLevel);
+            SetUpgradePanel(UpgradeSystem.Instance.upgradeMultiplier);
+        }
     }
 
     #region Event Methods
@@ -340,43 +362,6 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    void UpgradeMine()
-    {
-        if (ResourceManager.Instance.Currency >= upgradeCost)
-        {
-            //StatSystem.Instance.CurrencyPerSecond -= incomePerSecond;
-
-            //outputValue += 2;
-            //OutputPerSecond = (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier;
-            //
-            //incomePerSecond = OutputPerSecond * pricePerProduct;
-            //StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
-            //outputPerSecondText.text = string.Format("+{0:0.#} {1}", (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec";
-
-            MineLevel += 1;
-            ResourceManager.Instance.Currency -= upgradeCost;
-
-            collectTime -= collectTime / 100;
-            if (mineLevel % 2 == 0)
-                outputValue++;
-            if (mineLevel % 3 == 0)
-                if (mineLevel <= 50)
-                    pricePerProduct *= PRICE_PER_PRODUCT_MULTIPLER_LOW_50;
-                else
-                    pricePerProduct *= PRICE_PER_PRODUCT_MULTIPLIR_HIGH_50;
-
-            
-            UpgradeCost = upgradeCost * 2 * Mathf.Pow(1.007f, mineLevel);
-            if (mineLevel <= 50)
-                upgradeCost = upgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_LOW_50, mineLevel);
-            else
-                upgradeCost = upgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_HIGH_50, mineLevel);
-
-            upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost);
-            UpdateInfoPanel();
-        }
-    }
-
     void SellResource()
     {
         ResourceManager.Instance.Currency += outputValue * 1f * (pricePerProduct *1f);
@@ -429,4 +414,139 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         infoPanel.Find("Bottom").Find("ProductionAmountPerSec").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(OutputPerSecond)+"/Sec";
         infoPanel.Find("Bottom").Find("MineLevel").GetComponentInChildren<TextMeshProUGUI>().text = "Level " + mineLevel.ToString();
     }
-}   
+
+    //void UpgradeMine()
+    //{
+    //    if (ResourceManager.Instance.Currency >= upgradeCost)
+    //    {
+    //        //StatSystem.Instance.CurrencyPerSecond -= incomePerSecond;
+
+    //        //outputValue += 2;
+    //        //OutputPerSecond = (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier;
+    //        //
+    //        //incomePerSecond = OutputPerSecond * pricePerProduct;
+    //        //StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
+    //        //outputPerSecondText.text = string.Format("+{0:0.#} {1}", (outputValue / collectTime) * UpgradeSystem.Instance.MiningYieldMultiplier, resourceName) + "/Sec";
+
+    //        MineLevel += 1;
+    //        ResourceManager.Instance.Currency -= upgradeCost;
+
+    //        collectTime -= collectTime / 100;
+    //        if (mineLevel % 10 == 0)
+    //            outputValue++;
+    //        if (mineLevel % 3 == 0)
+    //            if (mineLevel <= 50)
+    //                pricePerProduct *= PRICE_PER_PRODUCT_MULTIPLER_LOW_50;
+    //            else
+    //                pricePerProduct *= PRICE_PER_PRODUCT_MULTIPLIR_HIGH_50;
+
+
+    //        if (mineLevel <= 50)
+    //            UpgradeCost = upgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_LOW_50, mineLevel);
+    //        else
+    //            UpgradeCost = upgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_HIGH_50, mineLevel);
+
+    //        upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost);
+    //        UpdateInfoPanel();
+    //    }
+    //}
+
+    void ShowUpgradePanel()
+    {
+        isUpgradePanelActive = true;
+        var panel = UpgradeSystem.Instance.upgradePanel;
+        panel.transform.Find("CloseBtn").GetComponent<Button>().onClick.AddListener(() => IsUpgradePanelActive = false);
+        panel.SetActive(true);
+        UpgradeSystem.Instance.upgradeMultiplier = 1;
+        SetUpgradePanel(1);
+
+        var multiplierPanel = panel.transform.Find("Multiplier_Panel");
+
+        var btn1 = multiplierPanel.GetChild(0).GetComponent<Button>();
+        var btn2 = multiplierPanel.GetChild(1).GetComponent<Button>();
+        var btn3 = multiplierPanel.GetChild(2).GetComponent<Button>();
+        var btn4 = multiplierPanel.GetChild(3).GetComponent<Button>();
+
+        btn1.onClick.AddListener(() => { SetUpgradePanel(1);  });
+        btn2.onClick.AddListener(() => { SetUpgradePanel(5); });
+        btn3.onClick.AddListener(() => { SetUpgradePanel(20); });
+        // 0 is specify the maximum
+        btn4.onClick.AddListener(() => { SetUpgradePanel(UpgradeSystem.Instance.GetMaximumUpgradeAmount(UpgradeCost, MineLevel)); });
+
+        panel.transform.Find("BuyBtn").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            UpgradeMine();
+            SetUpgradePanel(UpgradeSystem.Instance.upgradeMultiplier);
+        });
+    }
+
+    /// <summary>
+    /// Setup the upgrade panel infos according to upgrade multiplier
+    /// </summary>
+    /// <param name="levelUpgradeMultiplier">How many level will be upgraded. If 0 max upgrade will be applied</param>
+    void SetUpgradePanel(int levelUpgradeMultiplier)
+    {
+        var newLevel = mineLevel + levelUpgradeMultiplier;
+        var newOutputValue = UpgradeSystem.Instance.GetNewOutputAmount(levelUpgradeMultiplier, OutputValue, mineLevel) ;
+        var newCollectTime = UpgradeSystem.Instance.GetNewCollectTime(levelUpgradeMultiplier, collectTime) ;
+        var newPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(levelUpgradeMultiplier, pricePerProduct, mineLevel);
+        var newUpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(levelUpgradeMultiplier, UpgradeCost, mineLevel);
+
+        var panel = UpgradeSystem.Instance.upgradePanel.transform;
+        panel.Find("Header").GetComponent<TextMeshProUGUI>().text = string.Format("<color=red>{0}</color> Level {1}", mineName, MineLevel);
+        var levelUpText = panel.Find("LevelUp_Text").GetComponent<TextMeshProUGUI>();
+
+        panel.transform.Find("BuyBtn").GetComponentInChildren<TextMeshProUGUI>().text = string.Format("BUY ${0}", ResourceManager.Instance.CurrencyToString(newUpgradeCost));
+
+        if (newUpgradeCost > ResourceManager.Instance.Currency)
+            panel.transform.Find("BuyBtn").GetComponent<Button>().interactable = false;
+        else
+            panel.transform.Find("BuyBtn").GetComponent<Button>().interactable = true;
+
+        if (newLevel % 10 == 0)
+            levelUpText.text = "Output amount will increase";
+        else if (newLevel % 3 == 0)
+            levelUpText.text = "Price per product will increase";
+        else if (newLevel % 5 == 0)
+            levelUpText.text = "New contract will be offered";
+
+        var propertiesPanel = panel.Find("Properties");
+        // We don't need bottom panel for mine objects
+       (propertiesPanel.Find("Bottom")).gameObject.SetActive(false);
+
+        propertiesPanel.Find("Top").Find("Level").GetComponentInChildren<TextMeshProUGUI>().text = 
+            string.Format("MINE LEVEL\n{0} <color=green>--> {1}</color>", MineLevel,newLevel);
+
+        propertiesPanel.Find("Top").Find("Output_Amount").GetComponentInChildren<TextMeshProUGUI>().text = 
+            string.Format("Output\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(outputValue), ResourceManager.Instance.CurrencyToString(newOutputValue));
+
+        propertiesPanel.Find("Mid").Find("CollectTime").GetComponentInChildren<TextMeshProUGUI>().text = 
+            string.Format("Collect Time\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(collectTime), ResourceManager.Instance.CurrencyToString(newCollectTime));
+
+        propertiesPanel.Find("Mid").Find("PricePerProduct").GetComponentInChildren<TextMeshProUGUI>().text = 
+            string.Format("Price Per Product\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(pricePerProduct), ResourceManager.Instance.CurrencyToString(newPricePerProduct));
+    }
+
+    void UpgradeMine()
+    {
+        var upgradeMultiplier = UpgradeSystem.Instance.upgradeMultiplier;
+        var newLevel = mineLevel + upgradeMultiplier;
+        var newOutputValue = UpgradeSystem.Instance.GetNewOutputAmount(upgradeMultiplier, OutputValue, mineLevel);
+        var newCollectTime = UpgradeSystem.Instance.GetNewCollectTime(upgradeMultiplier, collectTime);
+        var newPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(upgradeMultiplier, pricePerProduct, mineLevel);
+        var newUpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(upgradeMultiplier, UpgradeCost, mineLevel);
+
+        if (ResourceManager.Instance.Currency >= newUpgradeCost)
+        {
+            ResourceManager.Instance.Currency -= newUpgradeCost;
+
+            MineLevel = newLevel;
+            OutputValue = newOutputValue;
+            CollectTime = newCollectTime;
+            PricePerProduct = newPricePerProduct;
+            UpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(1, newUpgradeCost, MineLevel);
+            SetUpgradePanel(upgradeMultiplier);
+            UpdateInfoPanel();
+        }
+    }
+}

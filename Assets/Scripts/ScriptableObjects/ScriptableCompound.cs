@@ -32,4 +32,6 @@ public class ScriptableCompound : ScriptableObject
     public Tier tier;
 
     public bool isUnlocked;
+
+    public int level = 1;
 }

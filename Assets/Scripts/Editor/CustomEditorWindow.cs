@@ -14,7 +14,7 @@ public class CustomEditorWindow : EditorWindow
     string resourceAmountString = "Add Resource Amount";
 
     string xpString = "Enter XP value";
-    string premiumCurrencyString = "Enter Premium Currency Amount";
+    string currencyString = "Enter Currency Amount";
 
     private void OnGUI()
     {
@@ -39,10 +39,10 @@ public class CustomEditorWindow : EditorWindow
 
         GUILayout.Space(10);
 
-        premiumCurrencyString = EditorGUILayout.TextField("Premium Currency Amount", premiumCurrencyString);
-        if (GUILayout.Button("Add Premium Currency"))
+        currencyString = EditorGUILayout.TextField("Currency Amount", currencyString);
+        if (GUILayout.Button("Add Currency"))
         {
-            ResourceManager.Instance.PremiumCurrency += float.Parse(premiumCurrencyString);
+            ResourceManager.Instance.Currency += float.Parse(currencyString);
         }
 
 

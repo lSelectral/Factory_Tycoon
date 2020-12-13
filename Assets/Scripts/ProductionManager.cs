@@ -136,8 +136,8 @@ public class ProductionManager : Singleton<ProductionManager>
                     compoundList.Add(sc as ScriptableCompound);
             }
         }
-        Debug.Log("Mine count is: " + mineList.Count);
-        Debug.Log("Compound count is: " + compoundList.Count);
+        //Debug.Log("Mine count is: " + mineList.Count);
+        //Debug.Log("Compound count is: " + compoundList.Count);
 
 
         for (int i = 0; i < mineList.Count; i++)
