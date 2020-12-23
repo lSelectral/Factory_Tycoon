@@ -33,12 +33,9 @@ public class ResourceManager : Singleton<ResourceManager>
     
     public Dictionary<BaseResources, long> resourceValueDict;
     public Dictionary<BaseResources, TextMeshProUGUI> resourceTextDict;
-    public Dictionary<BaseResources, ScriptableMine> resourceMineDict;
-    public Dictionary<BaseResources, ScriptableCompound> resourceCompoundDict;
 
-    [SerializeField] ScriptableMine _stone, _berry, _stick, _leaf;
-    [SerializeField] ScriptableCompound _hut, _spear, _torch, _axe, _fire,
-        _leaf_cloth, _pickaxe, _rope, _bonefire, _hammer, _animal_trap, _pouch, _leather_cloth, _wheel, _arrow, _bow;
+    public List<ScriptableMine> scriptableMines;
+    public List<ScriptableCompound> scriptableCompounds;
 
     [SerializeField] private GameObject resourcePanel;
     [SerializeField] private GameObject resourcePrefab;
@@ -53,7 +50,7 @@ public class ResourceManager : Singleton<ResourceManager>
     private long ironIngot, copperIngot, siliconWafer, ironRod, ironPlate, ironScrew, wire, hardenedPlate;
     private long aiChip, circuitBoard, fiberOpticCable, integrationChip, motor, rotor, steelScrew, steelTube, 
         steelPlate, steelIngot, steelBeam, stator, rubber, goldOre, goldIngot, metalGrid;
-    [SerializeField] private TextMeshProUGUI copperOreText, siliconOreText, coalText, oilText, totalResourceText, currencyText, premiumCurrencyText;
+    [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText;
     TextMeshProUGUI ironOreText, wireText, steelTubeTExt, steelIngotText, steelPlateText, aiChipText, circuitBoardText;
     TextMeshProUGUI ironIngotText, integrationChipText, hardenedPlateText, fiberOpticCableText, metalGridText, copperIngotText = new TextMeshProUGUI();
     TextMeshProUGUI steelScrewText, steelBeamText, statorText, rotorText, siliconWaferText, rubberText, motorText, ironScrewText, ironRodText, ironPlateText, goldIngotText, 
@@ -229,50 +226,6 @@ public class ResourceManager : Singleton<ResourceManager>
         return "";
     }
 
-    /// <summary>
-    /// Convert variable name to human readable seperated name
-    /// </summary>
-    /// <param name="oldString">Previous variable name</param>
-    /// <returns></returns>
-    //public string GetValidName(string oldString)
-    //{
-    //    List<int> upperCaseIndexes = new List<int>();
-
-    //    string returnString = "";
-    //    int seperatorIndex = 1;
-
-    //    foreach (char ch in oldString.ToCharArray())
-    //    {
-    //        if (char.IsUpper(ch))
-    //        {
-    //            var firstLetter = 'a';
-    //            if (oldString[0] != 'i')
-    //                firstLetter = oldString[0];
-    //            else
-    //                firstLetter = 'ı';
-
-    //            upperCaseIndexes.Add(Array.IndexOf(oldString.ToCharArray(), ch));
-    //            //returnString =  char.ToUpper(firstLetter) + oldString.Substring(1,index-1) + " " + oldString.Substring(index);
-    //            //return returnString;
-    //        }
-    //    }
-    //    //return char.ToUpper(oldString[0]) + oldString.Substring(1, oldString.Length-1);
-
-    //    for (int i = 0; i < upperCaseIndexes.Count; i++)
-    //    {
-    //        if (i == 0)
-    //        {
-    //            returnString += oldString.Substring(seperatorIndex, upperCaseIndexes[i] - 1) + " ";
-    //        }
-    //        else
-    //        {
-    //            returnString += char.ToUpper(oldString[seperatorIndex]) + oldString.Substring(seperatorIndex+1, upperCaseIndexes[i] -2) + " ";
-    //        }
-    //        seperatorIndex = upperCaseIndexes[i];
-    //    }
-    //    return returnString;
-    //}
-
     public string GetValidName(string oldString)
     {
         bool q = oldString.Any(char.IsLower);
@@ -305,10 +258,31 @@ public class ResourceManager : Singleton<ResourceManager>
         return "";
     }
 
+    public string GetValidNameForResource(BaseResources res)
+    {
+        return char.ToUpper(res.ToString().Substring(3).ToCharArray()[0]) + res.ToString().Substring(4);
+    }
 
     private void Awake()
     {
-        totalResourceText.text = totalResource.ToString();
+        scriptableMines = new List<ScriptableMine>();
+        scriptableCompounds = new List<ScriptableCompound>();
+
+        for (int i = 0; i < ProductionManager.Instance.Assets.Length; i++)
+        {
+            var asset = ProductionManager.Instance.Assets[i];
+
+            if (asset as ScriptableObject != null)
+            {
+                var sc = asset as ScriptableObject;
+                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_stoneAge)
+                    scriptableMines.Add(sc as ScriptableMine);
+                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_stoneAge)
+                    scriptableCompounds.Add(sc as ScriptableCompound);
+            }
+        }
+
+        //totalResourceText.text = totalResource.ToString();
 
         resourceValueDict = new Dictionary<BaseResources, long>
         {
@@ -431,44 +405,6 @@ public class ResourceManager : Singleton<ResourceManager>
             #endregion
         };
 
-        #region Scriptable Mine Dictionary
-        resourceMineDict = new Dictionary<BaseResources, ScriptableMine>()
-        {
-            
-
-            {BaseResources._0_berry, _berry},
-            {BaseResources._0_stick, _stick },
-            {BaseResources._0_leaf, _leaf },
-            {BaseResources._0_stone, _stone }
-
-	        
-        };
-        #endregion
-
-        #region Scriptable Compound Dictionary
-
-        resourceCompoundDict = new Dictionary<BaseResources, ScriptableCompound>()
-        {
-            {BaseResources._0_hut, _hut },
-            {BaseResources._0_spear, _spear },
-            {BaseResources._0_torch, _torch },
-            {BaseResources._0_axe, _axe },
-            {BaseResources._0_fire, _fire },
-            {BaseResources._0_leaf_cloth, _leaf_cloth },
-            {BaseResources._0_pickaxe, _pickaxe },
-            {BaseResources._0_rope, _rope },
-            {BaseResources._0_bonefire, _bonefire },
-            {BaseResources._0_bow, _bow },
-            {BaseResources._0_arrow, _arrow },
-            {BaseResources._0_hammer, _hammer },
-            {BaseResources._0_animal_trap, _animal_trap },
-            {BaseResources._0_pouch, _pouch },
-            {BaseResources._0_leather_cloth, _leather_cloth },
-            {BaseResources._0_wheel, _wheel },
-        };
-
-        #endregion
-
         resources = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>();
 
         int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
@@ -484,10 +420,17 @@ public class ResourceManager : Singleton<ResourceManager>
             text.text = "1";
 
             var resourceName = resourceInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-            if (resourceMineDict.ContainsKey(resource))
-                resourceName.text = resourceMineDict[resource].resourceName;
-            else if (resourceCompoundDict.ContainsKey(resource))
-                resourceName.text = resourceCompoundDict[resource].partName;
+
+            for (int i = 0; i < scriptableMines.Count; i++)
+            {
+                if (scriptableMines[i].baseResource == resource)
+                    resourceName.text = scriptableMines[i].resourceName;
+            }
+            for (int i = 0; i < scriptableCompounds.Count; i++)
+            {
+                if (scriptableCompounds[i].product == resource)
+                    resourceName.text = scriptableCompounds[i].partName;
+            }
 
             resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
 
@@ -510,16 +453,18 @@ public class ResourceManager : Singleton<ResourceManager>
         smoothPremiumCurency = SmoothDamp(smoothPremiumCurency, premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
         premiumCurrencyText.text = CurrencyToString(smoothPremiumCurency);
 
-        smoothTotalResource = SmoothDamp(smoothTotalResource, totalResource, ref smoothVelocityTotalResource, smoothTime);
-        totalResourceText.text = "Total Resource\n" + CurrencyToString((smoothTotalResource), 0);
+        //smoothTotalResource = SmoothDamp(smoothTotalResource, totalResource, ref smoothVelocityTotalResource, smoothTime);
+        //totalResourceText.text = "Total Resource\n" + CurrencyToString((smoothTotalResource), 0);
     }
 
-    public float AddResource(BaseResources resource, long amount)
+    public float AddResource(BaseResources resource, long amount, bool isLoadingFromSave = false)
     {
         resourceValueDict[resource] += amount;
-        TotalResource += amount;
+        if (!isLoadingFromSave)
+            TotalResource += amount;
         OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
         resourceTextDict[resource].text = CurrencyToString(resourceValueDict[resource]);
+
         return amount;
     }
 
@@ -538,15 +483,17 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public Sprite GetSpriteFromResource(BaseResources resource)
     {
-        if (resourceMineDict.ContainsKey(resource))
-            return resourceMineDict[resource].icon;
-        else if (resourceCompoundDict.ContainsKey(resource))
-            return resourceCompoundDict[resource].icon;
-        else
+        for (int i = 0; i < scriptableMines.Count; i++)
         {
-            Debug.LogError(resource + " sprite not found");
-            return null;
+            if (scriptableMines[i].baseResource == resource)
+                return scriptableMines[i].icon;
         }
+        for (int i = 0; i < scriptableCompounds.Count; i++)
+        {
+            if (scriptableCompounds[i].product == resource)
+                return scriptableCompounds[i].icon;
+        }
+        return null;
     }
 
     public static double SmoothDamp(double current, double target, ref double currentVelocity, double smoothTime, double maxSpeed= Mathf.Infinity)
@@ -616,70 +563,4 @@ public enum BaseResources
     #endregion
 
 
-    ///*--- MINES ---*/
-    //ironOre = 1,
-    //copperOre = 2,
-    //siliconOre = 3,
-    //coal = 4,
-    //oil = 5,
-    //goldOre = 120,
-
-    ///*--- Ingots ---*/
-    //ironIngot = 6,
-    //copperIngot = 7,
-    //siliconWafer = 8,
-    //goldIngot = 99,
-
-    ///*--- T1 ---*/
-    //ironRod = 9,
-    //ironPlate = 10,
-    //ironScrew = 11,
-
-    //// Created from copper
-    //wire = 12,
-
-    //// 2 iron rod and 8 screw
-    //hardenedPlate = 15,
-
-    //// 6 iron rod and 30 wire
-    //rotor,
-
-    //// 2 iron ore and 2 coal
-    //steelIngot,
-
-    //// Created from steel
-    //steelPlate,
-    //steelTube,
-    //steelScrew,
-    //steelBeam,
-
-    //metalGrid,
-
-    //reactorComponent,
-    //thrusterComponent,
-    //solarCell,
-    //superConductor,
-    //powerCell,
-
-
-    //// created from 4 oil
-    //rubber,
-
-    //// Made from iron rod and wire
-    //stator,
-
-    //// Made from stator, rotor, 
-    //motor,
-
-    //// Made from caterium and steel alloy
-    //fiberOpticCable,
-
-    //// Made from plastic, wire and steel ingot
-    //circuitBoard,
-
-    //// Made from plastic, caterium, fiber optic cable
-    //integrationChip,
-
-    //// 100000000 researchPoint
-    //aiChip,
 }

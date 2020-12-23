@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: Arrow
   m_EditorClassIdentifier: 
   Description: bow tool for hunting and war
-  inputResources: 02000000
-  inputAmounts: 02000000
+  inputResources: 0200000001000000
+  inputAmounts: 0400000003000000
   product: 13
   partName: Arrow
   buildTime: 4
-  outputValue: 4
-  pricePerProduct: 35
+  outputValue: 3
+  basePricePerProduct: 2500
   unlockLevel: 4
   xpAmount: 120
-  isLockedByContract: 1
+  isLockedByContract: 0
   lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
-  icon: {fileID: 21300000, guid: 6eb6a45af78e61d41a2ecdf39ce63ba6, type: 3}
+  icon: {fileID: 21300000, guid: ec6ea7954af38004f96753bea523ad98, type: 3}
   ageBelongsTo: 0
   tier: 2
-  isUnlocked: 0
+  pricePerProduct: 2,6K
+  incomePerSecond: 1,95K

@@ -15,14 +15,15 @@ MonoBehaviour:
   Name: Leaf
   resourceName: Leaf
   baseResource: 3
-  collectTime: 2.9
-  outputValue: 4
-  pricePerProduct: 2
+  collectTime: 3.1
+  outputValue: 2
+  pricePerProduct: 6.5
   backgroundImage: {fileID: 21300000, guid: b9f6b9a85e0141c419af6e39f393435b, type: 3}
-  icon: {fileID: 21300000, guid: 0c99c08fb2785eb4da2a6de83d8a7e03, type: 3}
-  unlockLevel: 0
+  icon: {fileID: 21300000, guid: 18f5c124190bbb8489cbe177e7be7915, type: 3}
+  unlockLevel: 2
   xpAmount: 8
   isLockedByContract: 0
   ageBelongsTo: 0
   tier: 0
   isUnlocked: 0
+  incomePerSecond: 4,19

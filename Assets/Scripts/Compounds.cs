@@ -4,8 +4,9 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine.EventSystems;
 
-public class Compounds : MonoBehaviour
+public class Compounds : MonoBehaviour, IPointerClickHandler
 {
     public ScriptableCompound scriptableCompound;
 
@@ -13,21 +14,23 @@ public class Compounds : MonoBehaviour
 
     private BaseResources[] inputResources;
     private int[] inputAmounts;
-    private List<BaseResources> tempResourceList;
+    [SerializeField] private List<BaseResources> tempResourceList;
     private string partName;
-    private int outputAmount;
+    private long outputValue;
     private float buildTime;
     private float remainedBuildTime;
     private BaseResources product;
     private bool isCharging;
     private CompoundWorkingMode workingMode;
     private bool isLockedByContract;
-    int pricePerProduct;
+    float pricePerProduct;
 
-    int compoundLevel;
-    float compoundUpgradeAmount;
+    int compoundLevel = 1;
+    double upgradeCost;
 
-    public int PricePerProduct
+    bool isUpgradePanelActive;
+
+    public float PricePerProduct
     {
         get { return pricePerProduct; }
         set { pricePerProduct = value; }
@@ -39,10 +42,22 @@ public class Compounds : MonoBehaviour
         set { tempResourceList = value; }
     }
 
-    public float RemainedCollectTime
+    public float RemainedBuildTime
     {
         get { return remainedBuildTime; }
         set { remainedBuildTime = value; }
+    }
+
+    public float BuildTime
+    {
+        get { return buildTime; }
+        set { buildTime = value; }
+    }
+
+    public long OutputValue
+    {
+        get { return outputValue; }
+        set { outputValue = value; }
     }
 
     public int CompoundLevel
@@ -51,10 +66,10 @@ public class Compounds : MonoBehaviour
         set { compoundLevel = value; }
     }
 
-    public float UpgradeAmount
+    public double UpgradeCost
     {
-        get { return compoundUpgradeAmount; }
-        set { compoundUpgradeAmount = value; }
+        get { return upgradeCost; }
+        set { upgradeCost = value; }
     }
 
     public bool IsAutomated
@@ -92,33 +107,37 @@ public class Compounds : MonoBehaviour
         UpgradeSystem.Instance.OnProductionSpeedChanged += OnProductionSpeedChanged;
         UpgradeSystem.Instance.OnProductionYieldChanged += OnProductionYieldChanged;
 
-        if (scriptableCompound.isLockedByContract)
-        {
-            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
-            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
-        }
-        else if (scriptableCompound.unlockLevel > GameManager.Instance.CurrentLevel)
+        if (scriptableCompound.unlockLevel > GameManager.Instance.CurrentLevel)
         {
             var lockText = Instantiate(GameManager.Instance.levelLock, transform);
             lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + scriptableCompound.unlockLevel.ToString();
         }
+        else if (scriptableCompound.isLockedByContract)
+        {
+            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
+            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
+        }
         
-
         inputResources = scriptableCompound.inputResources;
         tempResourceList = scriptableCompound.inputResources.ToList();
         inputAmounts = scriptableCompound.inputAmounts;
         partName = scriptableCompound.partName;
-        outputAmount = scriptableCompound.outputValue;
+        outputValue = scriptableCompound.outputValue;
         buildTime = scriptableCompound.buildTime;
         product = scriptableCompound.product;
         isLockedByContract = scriptableCompound.isLockedByContract;
-        pricePerProduct = scriptableCompound.pricePerProduct;
 
-        fillBar = transform.Find("Main_Panel").transform.Find("FillBar").transform.Find("Fill").GetComponent<Image>();
+        pricePerProduct = ProductionManager.Instance.GetPricePerProductForCompound(inputResources,inputAmounts,BuildTime) + scriptableCompound.basePricePerProduct;  
+        workingMode = CompoundWorkingMode.sell;
+
+        fillBar = transform.Find("FillBar").transform.Find("Fill").GetComponent<Image>();
         mineNameText = transform.Find("Main_Panel").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
         icon = transform.Find("Main_Panel").Find("Icon").GetComponent<Image>();
         btn = transform.Find("Button").GetComponent<Button>();
         upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
+        upgradeBtn.onClick.AddListener(() => ShowUpgradePanel());
+
+        UpgradeCost = outputValue * pricePerProduct * 25;
 
         icon.sprite = scriptableCompound.icon;
 
@@ -136,8 +155,6 @@ public class Compounds : MonoBehaviour
         }
 
         mineNameText.text = partName;
-        btn.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("+{0} {1}", outputAmount, partName);
-        btn.onClick.AddListener(() => Produce());
         workingModeBtn = transform.Find("WorkingModeBtn").GetComponent<Button>();
         workingModeText = workingModeBtn.GetComponentInChildren<TextMeshProUGUI>();
         workingModeBtn.onClick.AddListener(() => ChangeWorkingMode());
@@ -171,6 +188,17 @@ public class Compounds : MonoBehaviour
                 lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + scriptableCompound.lockedByContract.contractName + " Contract";
                 scriptableCompound.isLockedByContract = false;
             }
+            else
+            {
+                var contracts = ContractManager.Instance.contracts;
+                for (int i = 0; i < contracts.Length; i++)
+                {
+                    if (contracts[i].contractRewardType == ContractRewardType.automate && contracts[i].compoundsToUnlock[0] == scriptableCompound)
+                    {
+                        ContractManager.Instance.CreateContract(contracts[i]);
+                    }
+                }
+            }
         }
     }
 
@@ -193,9 +221,15 @@ public class Compounds : MonoBehaviour
                 isCharging = false;
 
                 if (workingMode == CompoundWorkingMode.production)
-                    ResourceManager.Instance.AddResource(product, (long)(outputAmount * UpgradeSystem.Instance.ProductionYieldMultiplier));
+                {
+                    ResourceManager.Instance.AddResource(product, (long)(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier));
+                    StatSystem.Instance.PopupText(transform, outputValue, partName);
+                }
                 else if (workingMode == CompoundWorkingMode.sell)
-                    ResourceManager.Instance.Currency += outputAmount * 1f * UpgradeSystem.Instance.ProductionYieldMultiplier* (pricePerProduct * 1f);
+                {
+                    ResourceManager.Instance.Currency += outputValue * 1f * UpgradeSystem.Instance.ProductionYieldMultiplier* (pricePerProduct * 1f);
+                    StatSystem.Instance.PopupText(transform, PricePerProduct, "Gold");
+                }
 
                 tempResourceList = inputResources.ToList();
                 GameManager.Instance.AddXP(scriptableCompound.xpAmount);
@@ -206,15 +240,17 @@ public class Compounds : MonoBehaviour
     }
 
     void Produce()
-    { 
-        if (!isCharging && workingMode != CompoundWorkingMode.stopProduction)
+    {
+        PricePerProduct = ProductionManager.Instance.GetPricePerProductForCompound(inputResources, inputAmounts, BuildTime);
+        if (!isCharging && workingMode != CompoundWorkingMode.stopProduction && transform.Find("Level_Lock(Clone)") == null)
         {
             var inputs = inputResources.Zip(inputAmounts, (resource, amount) => (Resource: resource, Amount: amount));
             foreach (var input in inputs)
             {
                 if (ResourceManager.Instance.GetResourceAmount(input.Resource) >= input.Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier && tempResourceList.Contains(input.Resource))
                 {
-                    //Debug.Log(input.Resource + " added to recipe");
+                    Debug.Log(string.Format("{0} added to {1} recipe", input.Resource, product));
+                    Debug.Log(input.Resource + " added to recipe");
                     tempResourceList.Remove(input.Resource);
                     ResourceManager.Instance.ConsumeResource(input.Resource, (long)(input.Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier));
 
@@ -223,13 +259,13 @@ public class Compounds : MonoBehaviour
                 }
                 else if (ResourceManager.Instance.GetResourceAmount(input.Resource) < input.Amount)
                 {
-                    //Debug.Log("Not enough " + input.Resource    );
+                    Debug.Log("Not enough " + input.Resource);
                 }
             }
 
             if (tempResourceList.Count == 0)
-            {   
-                //Debug.Log(partName + " recipe completed");
+            {
+                Debug.Log(partName + " recipe completed");
                 isCharging = true;
                 remainedBuildTime = buildTime;
 
@@ -243,6 +279,7 @@ public class Compounds : MonoBehaviour
 
     void ChangeWorkingMode()
     {
+        PricePerProduct = ProductionManager.Instance.GetPricePerProductForCompound(inputResources, inputAmounts, BuildTime);
         Array a = Enum.GetValues(typeof(CompoundWorkingMode));
         int j = 0;
         for (int i = 0; i < a.Length; i++)
@@ -264,13 +301,50 @@ public class Compounds : MonoBehaviour
         if (workingMode == CompoundWorkingMode.production)
             workingModeBtn.GetComponent<Image>().color = Color.green;
         else if (workingMode == CompoundWorkingMode.sell)
-            workingModeBtn.GetComponent<Image>().color = Color.blue;
+            workingModeBtn.GetComponent<Image>().color = Color.white;
         else if (workingMode == CompoundWorkingMode.stopProduction)
             workingModeBtn.GetComponent<Image>().color = Color.red;
     }
 
     void Upgrade()
     {
+        PricePerProduct = ProductionManager.Instance.GetPricePerProductForCompound(inputResources, inputAmounts, BuildTime);
+        var upgradeMultiplier = UpgradeSystem.Instance.upgradeMultiplier;
+        var newLevel = CompoundLevel + upgradeMultiplier;
+        var newOutputValue = UpgradeSystem.Instance.GetNewOutputAmount(upgradeMultiplier, OutputValue, CompoundLevel);
+        var newBuildTime = UpgradeSystem.Instance.GetNewCollectTime(upgradeMultiplier, BuildTime);
+        var newPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(upgradeMultiplier, pricePerProduct, CompoundLevel);
+        var newUpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(upgradeMultiplier, UpgradeCost, CompoundLevel);
 
+        if (ResourceManager.Instance.Currency >= newUpgradeCost)
+        {
+            ResourceManager.Instance.Currency -= newUpgradeCost;
+
+            CompoundLevel = newLevel;
+            OutputValue = newOutputValue;
+            BuildTime = newBuildTime;
+            PricePerProduct = newPricePerProduct;
+            UpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(1, newUpgradeCost, CompoundLevel);
+            SetUpgradePanel(upgradeMultiplier);
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        PricePerProduct = ProductionManager.Instance.GetPricePerProductForCompound(inputResources, inputAmounts, BuildTime);
+        Produce();
+        if (isCharging) RemainedBuildTime -= .35f;
+    }
+
+    void ShowUpgradePanel()
+    {
+        PricePerProduct = ProductionManager.Instance.GetPricePerProductForCompound(inputResources, inputAmounts, BuildTime);
+        UpgradeSystem.Instance.ShowUpgradePanel(SetUpgradePanel, Upgrade, isUpgradePanelActive, UpgradeCost, CompoundLevel);
+    }
+
+    void SetUpgradePanel(int levelUpgradeMultiplier)
+    {
+        PricePerProduct = ProductionManager.Instance.GetPricePerProductForCompound(inputResources, inputAmounts, BuildTime);
+        UpgradeSystem.Instance.SetUpgradePanel(levelUpgradeMultiplier, outputValue, CompoundLevel, BuildTime, PricePerProduct, UpgradeCost, partName, false);
     }
 }

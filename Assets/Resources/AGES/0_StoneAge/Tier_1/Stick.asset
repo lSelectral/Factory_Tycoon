@@ -16,13 +16,14 @@ MonoBehaviour:
   resourceName: Stick
   baseResource: 2
   collectTime: 3
-  outputValue: 3
-  pricePerProduct: 4
-  backgroundImage: {fileID: 21300000, guid: ce2a0e797f26a0c47b4c28d80103ea03, type: 3}
+  outputValue: 1
+  pricePerProduct: 28
+  backgroundImage: {fileID: 21300000, guid: 43a7d98bd4222b64e933596512dc09ad, type: 3}
   icon: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
-  unlockLevel: 0
+  unlockLevel: 2
   xpAmount: 15
   isLockedByContract: 0
   ageBelongsTo: 0
   tier: 0
   isUnlocked: 0
+  incomePerSecond: 9,33

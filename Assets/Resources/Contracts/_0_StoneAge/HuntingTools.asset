@@ -20,13 +20,14 @@ MonoBehaviour:
   compoundsToUnlock:
   - {fileID: 11400000, guid: 843f65c223f0ac44d9cd649ef1095fa7, type: 2}
   - {fileID: 11400000, guid: c25acf41a1d3bae4ca2bbc30ee1e1b88, type: 2}
+  - {fileID: 11400000, guid: c0df6623d6d1d7e48ad779549dd7310d, type: 2}
   minesToUnlock: []
   requiredResources: 000000000200000003000000
   requiredResourceAmounts: c8000000960000002c010000
   unlockLevel: 0
   icon: {fileID: 21300000, guid: 312991b311b8ccc49adec5703787cb1b, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>
-  rewardPanelDescription: 
+  rewardPanelDescription: Your civilization are able to hunt down animals more efficiently.
   pageNameToGo: _0_stoneAge
   xpReward: 5000
   isContractCompleted: 0

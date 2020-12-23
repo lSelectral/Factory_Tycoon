@@ -16,11 +16,11 @@ public class QuestBase : ScriptableObject
 
     public QuestAchiveRequirement questAchiveRequirement;
 
-    public int[] intervals;
+    public int[] intervals = { 100, 1000, 10000, 100000, 1000000 };
 
     public List<int> completedIntervals;
 
-    public long[] rewardAmounts;
+    public long[] rewardAmounts = { 25, 100, 200, 300, 500 };
 
     public void OnAfterDeSerialize()
     {

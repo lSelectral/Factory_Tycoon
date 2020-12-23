@@ -14,17 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: Multi purpose connection tool
   inputResources: 03000000
-  inputAmounts: 04000000
+  inputAmounts: 06000000
   product: 11
   partName: Rope
-  buildTime: 5
+  buildTime: 4
   outputValue: 2
-  pricePerProduct: 30
-  unlockLevel: 2
+  basePricePerProduct: 1100
+  unlockLevel: 4
   xpAmount: 25
   isLockedByContract: 0
   lockedByContract: {fileID: 0}
   icon: {fileID: 21300000, guid: f74ba21a6de374342ae8f87bb1f48fe0, type: 3}
   ageBelongsTo: 0
   tier: 1
-  isUnlocked: 0
+  pricePerProduct: 1,12K
+  incomePerSecond: 559,37

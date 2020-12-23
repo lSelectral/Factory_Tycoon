@@ -19,7 +19,7 @@ MonoBehaviour:
   partName: Leather Cloth
   buildTime: 0
   outputValue: 0
-  pricePerProduct: 0
+  basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
   isLockedByContract: 0
@@ -27,4 +27,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4ae599e6474df1340bbad9e3e8671a8d, type: 3}
   ageBelongsTo: 0
   tier: 3
-  isUnlocked: 0
+  pricePerProduct: 0
+  incomePerSecond: 

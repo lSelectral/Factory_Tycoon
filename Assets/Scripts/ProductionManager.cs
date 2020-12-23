@@ -9,9 +9,6 @@ using UnityEngine.UI;
 /// </summary>
 public class ProductionManager : Singleton<ProductionManager>
 {
-    public ScriptableMine[] minesForAges;
-    public ScriptableCompound[] compoundsForAges;
-
     public List<ScriptableMine> mineList;
     public List<ScriptableCompound> compoundList;
 
@@ -31,6 +28,13 @@ public class ProductionManager : Singleton<ProductionManager>
     public Sprite smelterSprite;
     public Sprite assemblerSprite;
     public Sprite manufacturerSprite;
+
+    UnityEngine.Object[] assets;
+
+    public UnityEngine.Object[] Assets
+    {
+        get { return assets; }
+    }
 
     /// <summary>
     /// Instantiate mine prefab and create expand and collapse button for tier groups
@@ -121,7 +125,7 @@ public class ProductionManager : Singleton<ProductionManager>
         mineList = new List<ScriptableMine>();
         compoundList = new List<ScriptableCompound>();
 
-        var assets = Resources.LoadAll("AGES");
+        assets = Resources.LoadAll("AGES");
 
         for (int i = 0; i < assets.Length; i++)
         {
@@ -149,6 +153,101 @@ public class ProductionManager : Singleton<ProductionManager>
         {
             InstantiateCompound(compoundList[j]);
         }
+    }
+
+    // Formula is => ( (A1*O+A2*O+...+An*C) * COMPOUND_PRICE_MULTIPLIER ) / C
+    // Where A is every sub product delta price and O is output amount and C is production time of compound
+    // Delta price is net income per second => Price Per Product * Output Amount / Collect Time
+    public float GetPricePerProductForCompound(BaseResources[] resources, int[] inputAmounts, float collectTime)
+    {
+        float pricePerProduct = 0f;
+        foreach (BaseResources res in resources)
+        {
+            foreach (GameObject _mine in instantiatedMines)
+            {
+                var mine = _mine.GetComponent<Mine_Btn>();
+                if (mine.scriptableMine.baseResource == res)
+                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * mine.PricePerProduct * collectTime / mine.CollectTime);
+            }
+            foreach (GameObject _compound in instantiatedCompounds)
+            {
+                var compound = _compound.GetComponent<Compounds>();
+                if (compound.scriptableCompound.product == res)
+                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * compound.PricePerProduct * collectTime / compound.BuildTime);
+            }
+        }
+        return pricePerProduct * UpgradeSystem.COMPOUND_PRICE_MULTIPLIER / collectTime;
+    }
+
+    public float GetPricePerProductForEDITOR(BaseResources[] resources, int[] inputAmounts, float collectTime)
+    {
+        var assets = Resources.LoadAll("AGES");
+
+        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
+        List<ScriptableMine> mineList = new List<ScriptableMine>();
+
+        for (int i = 0; i < assets.Length; i++)
+        {
+            var asset = assets[i];
+
+            if (asset as ScriptableObject != null)
+            {
+                var sc = asset as ScriptableObject;
+                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_stoneAge)
+                    mineList.Add(sc as ScriptableMine);
+                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_stoneAge)
+                    compoundList.Add(sc as ScriptableCompound);
+            }
+        }
+
+        float pricePerProduct = 0f;
+        foreach (BaseResources res in resources)
+        {
+            foreach (ScriptableMine _mine in mineList)
+            {
+                if (_mine.baseResource == res)
+                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _mine.pricePerProduct * collectTime / _mine.collectTime);
+            }
+            foreach (ScriptableCompound _compound in compoundList)
+            {
+                if (_compound.product == res)
+                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * 
+                        GetPricePerProductForSubCompoundEditor(_compound.inputResources,_compound.inputAmounts,_compound.buildTime) * collectTime / _compound.buildTime);
+            }
+        }
+        return pricePerProduct * UpgradeSystem.COMPOUND_PRICE_MULTIPLIER / collectTime;
+    }
+
+    float GetPricePerProductForSubCompoundEditor(BaseResources[] resources, int[] inputAmounts, float collectTime)
+    {
+        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
+        List<ScriptableMine> mineList = new List<ScriptableMine>();
+        var assets = Resources.LoadAll("AGES");
+
+        for (int i = 0; i < assets.Length; i++)
+        {
+            var asset = assets[i];
+
+            if (asset as ScriptableObject != null)
+            {
+                var sc = asset as ScriptableObject;
+                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_stoneAge)
+                    mineList.Add(sc as ScriptableMine);
+                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_stoneAge)
+                    compoundList.Add(sc as ScriptableCompound);
+            }
+        }
+
+        float pricePerProduct = 0f;
+        foreach (BaseResources res in resources)
+        {
+            foreach (ScriptableMine _mine in mineList)
+            {
+                if (_mine.baseResource == res)
+                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _mine.pricePerProduct * collectTime / _mine.collectTime);
+            }
+        }
+        return pricePerProduct * UpgradeSystem.COMPOUND_PRICE_MULTIPLIER / collectTime;
     }
 }
 
@@ -193,9 +292,9 @@ public enum Age
     _1_ironAge = 1,
     _2_goldenAge = 2,
     _3_warAge = 3,
-    _4_factoryAge = 4,
-    _5_spaceAge = 5,
-    _6_modernAge = 6,
+    _4_industryAge = 4,
+    _5_modernAge = 5,
+    _6_spaceAge = 6,
     _7_roboticAge = 7,
     _8_intergalacticAge = 8,
     _9_galacticWarAge = 9,

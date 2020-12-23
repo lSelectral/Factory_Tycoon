@@ -16,13 +16,14 @@ MonoBehaviour:
   resourceName: Stone
   baseResource: 1
   collectTime: 5
-  outputValue: 4
-  pricePerProduct: 6
+  outputValue: 2
+  pricePerProduct: 48
   backgroundImage: {fileID: 21300000, guid: 43a7d98bd4222b64e933596512dc09ad, type: 3}
   icon: {fileID: 21300000, guid: 14a2710916f32c9479082b1bc6a5cb5b, type: 3}
-  unlockLevel: 0
-  xpAmount: 10
+  unlockLevel: 2
+  xpAmount: 20
   isLockedByContract: 0
   ageBelongsTo: 0
-  tier: 1
+  tier: 0
   isUnlocked: 0
+  incomePerSecond: 19,2

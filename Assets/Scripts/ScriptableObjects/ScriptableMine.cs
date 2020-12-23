@@ -14,7 +14,7 @@ public class ScriptableMine : ScriptableObject
 
     public int outputValue;
 
-    public int pricePerProduct;
+    public float pricePerProduct;
 
     public Sprite backgroundImage;
 
@@ -32,5 +32,10 @@ public class ScriptableMine : ScriptableObject
 
     public bool isUnlocked;
 
-    public int level = 1;
+    public string incomePerSecond;
+
+    private void OnValidate()
+    {
+        //incomePerSecond = ResourceManager.Instance.CurrencyToString(outputValue * pricePerProduct / collectTime);
+    }
 }

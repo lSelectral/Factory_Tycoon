@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cab4ef3c6492d74fb327e13a597e0fe, type: 3}
+  m_Name: Stick_automation
+  m_EditorClassIdentifier: 
+  contractName: Stick
+  description: Stick will automatically collected
+  contractReward: 0
+  contractRewardType: 10
+  compoundsToUnlock: []
+  minesToUnlock:
+  - {fileID: 11400000, guid: 9f01f4bd5ba1bc9498e7a3843e8a6023, type: 2}
+  requiredResources: 02000000
+  requiredResourceAmounts: f4010000
+  unlockLevel: 2
+  icon: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
+  rewardPanelHeader: 
+  rewardPanelDescription: 
+  pageNameToGo: _0_stoneAge
+  xpReward: 225
+  isContractCompleted: 0
+  expirationTime: 0

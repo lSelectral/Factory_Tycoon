@@ -19,12 +19,13 @@ MonoBehaviour:
   partName: Pickaxe
   buildTime: 15
   outputValue: 1
-  pricePerProduct: 600
-  unlockLevel: 2
+  basePricePerProduct: 3200
+  unlockLevel: 4
   xpAmount: 130
   isLockedByContract: 0
   lockedByContract: {fileID: 0}
-  icon: {fileID: 21300000, guid: ac24a84316b0aab4187725970cbdaee2, type: 3}
+  icon: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
   ageBelongsTo: 0
   tier: 1
-  isUnlocked: 0
+  pricePerProduct: 3,3K
+  incomePerSecond: 219,96

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cab4ef3c6492d74fb327e13a597e0fe, type: 3}
+  m_Name: Pickaxe_automation
+  m_EditorClassIdentifier: 
+  contractName: Pickaxe
+  description: Pickaxe will automatically collected
+  contractReward: 0
+  contractRewardType: 10
+  compoundsToUnlock:
+  - {fileID: 11400000, guid: 6461e2b9c7ca9494c94b230ae60b2866, type: 2}
+  minesToUnlock: []
+  requiredResources: 0a000000
+  requiredResourceAmounts: f4010000
+  unlockLevel: 2
+  icon: {fileID: 21300000, guid: ac24a84316b0aab4187725970cbdaee2, type: 3}
+  rewardPanelHeader: 
+  rewardPanelDescription: 
+  pageNameToGo: _0_stoneAge
+  xpReward: 1950
+  isContractCompleted: 0
+  expirationTime: 0

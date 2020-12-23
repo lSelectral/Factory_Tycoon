@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   Description: bow tool for hunting and war
-  inputResources: 020000000b000000
-  inputAmounts: 0600000003000000
+  inputResources: 020000000b0000000d000000
+  inputAmounts: 0a0000000800000019000000
   product: 14
   partName: Bow
-  buildTime: 4
-  outputValue: 4
-  pricePerProduct: 35
+  buildTime: 15
+  outputValue: 1
+  basePricePerProduct: 70000
   unlockLevel: 4
   xpAmount: 120
-  isLockedByContract: 1
+  isLockedByContract: 0
   lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
-  icon: {fileID: 21300000, guid: 6eb6a45af78e61d41a2ecdf39ce63ba6, type: 3}
+  icon: {fileID: 21300000, guid: 848c5226927b69148825ba61d21eacce, type: 3}
   ageBelongsTo: 0
   tier: 2
-  isUnlocked: 0
+  pricePerProduct: 71,11K
+  incomePerSecond: 4,74K

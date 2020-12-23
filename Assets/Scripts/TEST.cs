@@ -1,50 +1,78 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.EventSystems;
 
-public class TEST : MonoBehaviour
+public class TEST : MonoBehaviour, IPointerDownHandler
 {
-    Dictionary<BaseResources, long> resourceDict;
-
-
-    long stone, berry, stick, leaf, hut, spear, torch, axe, fire, leaf_cloth, pickaxe, rope, bonefire, hammer, animal_trap, pouch, leather_cloth, wheel, arrow, bow;
-
-    void Start()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        resourceDict = new Dictionary<BaseResources, long>()
-        {
-            {BaseResources._0_berry, berry},
-            {BaseResources._0_stick, stick },
-            {BaseResources._0_leaf, leaf },
-            {BaseResources._0_hut, hut },
-            {BaseResources._0_stone, stone },
-            {BaseResources._0_spear, spear },
-            {BaseResources._0_torch, torch },
-            {BaseResources._0_axe, axe },
-            {BaseResources._0_fire, fire },
-            {BaseResources._0_leaf_cloth, leaf_cloth },
-            {BaseResources._0_pickaxe, pickaxe },
-            {BaseResources._0_rope, rope },
-            {BaseResources._0_bonefire, bonefire },
-            {BaseResources._0_arrow, arrow },
-            {BaseResources._0_bow, bow },
-            {BaseResources._0_hammer, hammer },
-            {BaseResources._0_animal_trap, animal_trap },
-            {BaseResources._0_pouch, pouch },
-            {BaseResources._0_leather_cloth, leather_cloth },
-            {BaseResources._0_wheel, wheel },
-        };
-        
+        //Vector2 localCursor;
+        //if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out localCursor))
+        //    return;
+
+        //Debug.Log(image.sprite.texture.GetPixel((int)localCursor.x,(int)localCursor.y));
+
+        //Vector2 localCursor;
+        //var rect1 = GetComponent<RectTransform>();
+        //var pos1 = eventData.position;
+        //if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rect1, pos1,
+        //    null, out localCursor))
+        //    return;
+
+        //int xpos = (int)(localCursor.x);
+        //int ypos = (int)(localCursor.y);
+
+        //if (xpos < 0) xpos = xpos + (int)rect1.rect.width / 2;
+        //else xpos += (int)rect1.rect.width / 2;
+
+        //if (ypos > 0) ypos = ypos + (int)rect1.rect.height / 2;
+        //else ypos += (int)rect1.rect.height / 2;
+
+        //Debug.Log(image.sprite.texture.GetPixel(xpos, ypos));
+        //image.sprite.texture.SetPixel(xpos, ypos, Color.green);
+
+        //image.sprite.texture.Apply();
+
+        ////var q = Instantiate(ResourceManager.Instance.resourceIconPrefab, new Vector3(xpos, ypos, 0), Quaternion.identity);
+        ////q.transform.SetParent(transform);
+        //Debug.Log("Correct Cursor Pos: " + xpos + " " + ypos);
+
     }
 
-    void Update()
+    private void Start()
     {
-        //Debug.Log("Stick callback is: " + resourceDict[BaseResources._0_stick]);
-        ResourceManager.Instance.AddResource(BaseResources._0_stick, 100);
     }
 
-    public void AddResource(BaseResources res, long amount)
+    private void Update()
     {
-        resourceDict[res] += amount;
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    SaveSystem.Instance.Save();
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    SaveSystem.Instance.Load();
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.F4))
+        //{
+        //    foreach (var _mine in ProductionManager.Instance.mineList)
+        //    {
+
+        //    }
+
+        //    foreach (var comp in ProductionManager.Instance.compoundList)
+        //    {
+
+        //    }
+        //}
     }
 }

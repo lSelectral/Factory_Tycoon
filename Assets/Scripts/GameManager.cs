@@ -66,16 +66,15 @@ public class GameManager : Singleton<GameManager>
         set
         {
             this.currentXP = value;
-
-            if (currentXP >= requiredXPForNextLevel)
+            while (currentXP >= requiredXPForNextLevel)
             {
-                CurrentLevel += 1;
+                CurrentLevel++;
                 currentXP -= requiredXPForNextLevel;
                 CalculateRequiredXPforNextLevel();
                 OnLevelUp(this, new OnLevelUpEventArgs { currentLevel = currentLevel });
                 PopupManager.Instance.PopupPanel("You reached Level " + currentLevel.ToString(), "With unlocking new levels you will be able to build new buildings");
+                levelText.text = "LVL " + currentLevel.ToString();
             }
-            levelText.text = "LVL " + currentLevel.ToString();
         }
     }
 
@@ -84,7 +83,7 @@ public class GameManager : Singleton<GameManager>
         Input.multiTouchEnabled = false;
         requiredXPForNextLevel = 500;
         fillBar = LevelObject.transform.Find("Outline").Find("Fill").GetComponent<Image>();
-        levelText = LevelObject.transform.Find("Image").Find("LevelText").GetComponent<TextMeshProUGUI>();
+        levelText = LevelObject.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -94,7 +93,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        smoothCurrentXp = Mathf.SmoothDamp(smoothCurrentXp, (float)currentXP, ref smoothCurrentXpVelocity, .5f);
+        smoothCurrentXp = Mathf.SmoothDamp(smoothCurrentXp, currentXP, ref smoothCurrentXpVelocity, .5f);
         fillBar.fillAmount = smoothCurrentXp / requiredXPForNextLevel;
     }
 
@@ -104,6 +103,6 @@ public class GameManager : Singleton<GameManager>
 
     private void CalculateRequiredXPforNextLevel()
     {
-        requiredXPForNextLevel = (long)(requiredXPForNextLevel * Mathf.Exp(1.1f));
+        requiredXPForNextLevel = (long)(requiredXPForNextLevel * Mathf.Exp(1.063f));
     }
 }

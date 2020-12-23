@@ -15,7 +15,9 @@ public class ScriptableCompound : ScriptableObject
 
     public int outputValue;
 
-    public int pricePerProduct;
+    public float basePricePerProduct;
+
+    //public float pricePerProduct;
 
     public int unlockLevel;
 
@@ -31,7 +33,22 @@ public class ScriptableCompound : ScriptableObject
 
     public Tier tier;
 
-    public bool isUnlocked;
+    public string pricePerProduct;
 
-    public int level = 1;
+    public string incomePerSecond;
+
+    private void OnValidate()
+    {
+        // Debug price per product
+        //if (buildTime > 0 && outputValue > 0 && basePricePerProduct > 0 && inputAmounts.Length > 0 && inputResources.Length > 0)
+        //{
+        //    var _pricePerProduct = ResourceManager.Instance.CurrencyToString(ProductionManager.Instance.GetPricePerProductForEDITOR(inputResources, inputAmounts, buildTime) + basePricePerProduct);
+        //    Debug.Log(string.Format("{0} price per product is: <b><color=blue>{1}</color></b>",partName, (_pricePerProduct)));
+        //    pricePerProduct = (_pricePerProduct);
+
+        //    var _incomePerSecond = ResourceManager.Instance.CurrencyToString((ProductionManager.Instance.GetPricePerProductForEDITOR(inputResources, inputAmounts, buildTime) + basePricePerProduct) * outputValue / buildTime);
+        //    Debug.Log(string.Format("{0} income per second is: <b><color=red>{1}</color></b>",partName, (_incomePerSecond)));
+        //    incomePerSecond = (_incomePerSecond);
+        //}
+    }
 }

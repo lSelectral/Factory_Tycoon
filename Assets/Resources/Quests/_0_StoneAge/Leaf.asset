@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04b44623e7cd0d48a7bdbade850ccd0, type: 3}
+  m_Name: Leaf
+  m_EditorClassIdentifier: 
+  questName: All Piled Up!
+  description: Collect all leafs. Time to clean up the around. Maybe you can create
+    nice things with it.
+  rewardType: 2
+  questType: 2
+  resource: 3
+  questAchiveRequirement: 4
+  intervals: 64000000e803000010270000a086010040420f00
+  completedIntervals: 
+  rewardAmounts: 32000000000000007800000000000000c8000000000000002c01000000000000c201000000000000

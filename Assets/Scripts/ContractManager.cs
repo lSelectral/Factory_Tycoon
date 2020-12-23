@@ -5,14 +5,23 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/*
+ * Contracts will appear according to resource that can produced and
+ * story requirements. 
+ * 
+ * 
+ */
+
+
 public class ContractManager : Singleton<ContractManager>
 {
     public GameObject contactAgreePrefab;
     [SerializeField] private GameObject contractPrefab;
-    [SerializeField] private ContractBase[] contracts;
+
+    /* All Contracts available in game */ public ContractBase[] contracts;
     [SerializeField] private GameObject contractPanel;
-    [SerializeField] private GameObject completedContractPanel;
-    [SerializeField] private GameObject activeContractCounter;
+    /* Completed contracts will moved to this panel */ [SerializeField] private GameObject completedContractPanel;
+    /* Show number of activated contracts in contract panel */ [SerializeField] private GameObject activeContractCounter;
 
     [SerializeField] private GameObject contractFinishedInfoPanel;
 
@@ -21,10 +30,12 @@ public class ContractManager : Singleton<ContractManager>
 
     private List<GameObject> instantiatedContracts;
 
-    private List<List<BaseResources>> tempResources;
+    public List<List<BaseResources>> tempResources;
 
-    List<ContractBase> activatedContracts;
-    List<ContractBase> completedContracts;
+    public List<ContractBase> activatedContracts;
+    public List<ContractBase> completedContracts;
+
+    UnityEngine.Object[] assets;
 
     private void Awake()
     {
@@ -46,22 +57,30 @@ public class ContractManager : Singleton<ContractManager>
         for (int i = 0; i < instantiatedContracts.Count; i++)
         {
             var c = instantiatedContracts[i];
-            if (c.transform.Find("Level_Lock(Clone)") != null && contracts[i].unlockLevel == e.currentLevel)
+            if (c.transform.Find("Level_Lock(Clone)") != null && contracts.Length > 0 && contracts[i].unlockLevel == e.currentLevel)
             {
                 c.GetComponent<Button>().interactable = true;
                 Destroy(c.transform.Find("Level_Lock(Clone)").gameObject);
             }
         }
-        
     }
 
     private void Start()
     {
-        for (int i = 0; i < contracts.Length; i++)
+        assets = Resources.LoadAll("Contracts");
+
+        for (int i = 0; i < assets.Length; i++)
         {
-            ContractBase contract = contracts[i];
-            CreateContract(contract);        
+            var asset = assets[i];
+
+            if (asset as ScriptableObject != null)
+            {
+                var sc = asset as ScriptableObject;
+                if (sc.GetType() == typeof(ContractBase))
+                    CreateContract(sc as ContractBase);
+            }
         }
+
         if (activatedContracts != null && activatedContracts.Count <= 0)
         {
             activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = "0";
@@ -74,8 +93,79 @@ public class ContractManager : Singleton<ContractManager>
         }
     }
 
-    void CreateContract(ContractBase contract)
+    /// <summary>
+    /// Not for rungame. Used in editor play for creating automation assets automatically.
+    /// Used frome editor script CustomEditorWindow.cs
+    /// </summary>
+    /// <returns>List of contracts for automation of production</returns>
+    /// <seealso cref="Assets\Scripts\Editor\CustomEditorWindow.cs"/>
+    public List<ContractBase> CreateAutomationContracts()
     {
+        List<ContractBase> automationContracts = new List<ContractBase>();
+        foreach (BaseResources resource in Enum.GetValues(typeof(BaseResources)))
+        {
+            ScriptableMine mine = null;
+            ScriptableCompound compound = null;
+            foreach (var _mine in ResourceManager.Instance.scriptableMines)
+            {
+                if (_mine.baseResource == resource)
+                    mine = _mine;
+            }
+            foreach (var _compound in ResourceManager.Instance.scriptableCompounds)
+            {
+                if (_compound.product == resource)
+                    compound = _compound;
+            }
+
+            ScriptableMine[] mineArray = null;
+            ScriptableCompound[] compoundArray = null;
+            BaseResources[] requiredResources = { resource };
+            int[] requiredResourceAmounts = { 500 };
+
+            string pageNameToGo = "";
+            int unlockLevel = 2;
+            long xpReward = 100;
+
+            if (mine != null)
+            {
+                mineArray = new ScriptableMine[] { mine };
+                pageNameToGo = mine.ageBelongsTo.ToString();
+                unlockLevel = mine.unlockLevel++;
+                xpReward = mine.xpAmount * 15;
+            }
+            else if (compound != null)
+            {
+                compoundArray = new ScriptableCompound[] { compound };
+                pageNameToGo = compound.ageBelongsTo.ToString();
+                unlockLevel = compound.unlockLevel++;
+                xpReward = compound.xpAmount * 15;
+            }
+
+            ContractBase contract = new ContractBase()
+            {
+                contractName = ResourceManager.Instance.GetValidNameForResource(resource),
+                contractReward = 0,
+                compoundsToUnlock = compoundArray,
+                contractRewardType = ContractRewardType.automate,
+                description = ResourceManager.Instance.GetValidNameForResource(resource) + " will automatically collected",
+                icon = ResourceManager.Instance.GetSpriteFromResource(resource),
+                minesToUnlock = mineArray,
+                pageNameToGo = pageNameToGo,
+                unlockLevel = unlockLevel,
+                rewardPanelHeader = string.Format("<color=red>Congrulations!</color> for Automating {0}", ResourceManager.Instance.GetValidNameForResource(resource)),
+                rewardPanelDescription = string.Format("{0} will automatically processed.",ResourceManager.Instance.GetValidNameForResource(resource)),
+                xpReward = xpReward,
+                requiredResources = requiredResources,
+                requiredResourceAmounts = requiredResourceAmounts,
+            };
+            automationContracts.Add(contract);
+        }
+        return automationContracts;
+    }
+
+    public void CreateContract(ContractBase contract)
+    {
+        // Instantiate prefab and enter information from scriptable object
         var _contract = Instantiate(contractPrefab, contractPanel.transform);
         _contract.transform.Find("Texts").Find("Header").GetComponent<TextMeshProUGUI>().text = contract.contractName;
         _contract.transform.Find("Texts").Find("Description").GetComponent<TextMeshProUGUI>().text = contract.description;
@@ -95,7 +185,7 @@ public class ContractManager : Singleton<ContractManager>
         }
         instantiatedContracts.Add(_contract);
 
-        if (!contract.isContractCompleted)
+        if (!completedContracts.Contains(contract))
         {
             _contract.GetComponent<Button>().onClick.AddListener(
             () => PopupManager.Instance.PopupConfirmationPanel(("Do you want to activate " + contract.contractName + " Contract"),
@@ -124,7 +214,7 @@ public class ContractManager : Singleton<ContractManager>
     {
         for (int i = 0; i < contracts.Length; i++)
         {
-            if (activatedContracts.Contains(contracts[i]) && !completedContracts.Contains(contracts[i]) && !contracts[i].isContractCompleted)
+            if (activatedContracts.Contains(contracts[i]) && !completedContracts.Contains(contracts[i]) && !completedContracts.Contains(contracts[i]))
             {
                 var requiredResources = contracts[i].requiredResources;
                 var requiredResourceAmounts = contracts[i].requiredResourceAmounts;
@@ -143,7 +233,8 @@ public class ContractManager : Singleton<ContractManager>
                         tempResources[i].Remove(input.Resource);
                         ResourceManager.Instance.ConsumeResource(input.Resource, input.Amount);
                         instantiatedContracts[i].transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount += (input.Amount * 1f / totalResourceAmount);
-                        instantiatedContracts[i].transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text = "Progress: %" + ((instantiatedContracts[i].transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount).ToString("F2"));
+                        instantiatedContracts[i].transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text =
+                            "Progress: %" + (instantiatedContracts[i].transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount).ToString("F2");
                         instantiatedContracts[i].transform.Find("Required_Resource").GetChild(Array.IndexOf(requiredResources, input.Resource)).GetChild(0).GetChild(0).gameObject.SetActive(true);
                     }
                     else if (ResourceManager.Instance.GetResourceAmount(input.Resource) < input.Amount)
@@ -182,6 +273,8 @@ public class ContractManager : Singleton<ContractManager>
                             var compound = obj.GetComponent<Compounds>();
                             if (contracts[i].compoundsToUnlock.Contains(compound.scriptableCompound))
                             {
+                                compound.IsLockedByContract = false;
+                                compound.scriptableCompound.isLockedByContract = false;
                                 // Destroy lock to unlock this element
                                 Destroy(obj.transform.Find("Level_Lock(Clone)").gameObject);
                             }
@@ -201,10 +294,22 @@ public class ContractManager : Singleton<ContractManager>
                             }
                         }
                     }
+                    else if (contracts[i].contractRewardType == ContractRewardType.automate)
+                    {
+                        var mineAndCompounds = ProductionManager.Instance.instantiatedMines.Zip(ProductionManager.Instance.instantiatedCompounds, (mine, compound) => (Mine: mine, Compound: compound));
+
+                        foreach (var obj in mineAndCompounds)
+                        {
+                            if (obj.Mine != null && contracts[i].minesToUnlock.Contains(obj.Mine.GetComponent<Mine_Btn>().scriptableMine))
+                                obj.Mine.GetComponent<Mine_Btn>().IsAutomated = true;
+                            else if (obj.Compound != null && contracts[i].compoundsToUnlock.Contains(obj.Mine.GetComponent<Compounds>().scriptableCompound))
+                                obj.Compound.GetComponent<Compounds>().IsAutomated = true;
+                        }
+                    }
+
                     GameManager.Instance.AddXP(contracts[i].xpReward);
                     ShowCompletedContract(contracts[i], contracts[i].pageNameToGo);
                     instantiatedContracts[i].transform.SetParent(completedContractPanel.transform);
-                    contracts[i].isContractCompleted = true;
                 }
             }
         }
@@ -304,6 +409,7 @@ public enum ContractRewardType
     incresedCoinEarning,
     unlockCompound,
     unlockMine,
+    automate,
 }
 
 public enum ContractActivationType

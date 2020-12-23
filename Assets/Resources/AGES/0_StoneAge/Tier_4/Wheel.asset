@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Wheel
   m_EditorClassIdentifier: 
-  Description: 
-  inputResources: 
-  inputAmounts: 
+  Description: First pinnacle of human history
+  inputResources: 02000000010000000b000000
+  inputAmounts: 030000000500000005000000
   product: 19
   partName: Wheel
-  buildTime: 0
-  outputValue: 0
-  pricePerProduct: 0
+  buildTime: 40
+  outputValue: 10
+  basePricePerProduct: 120000
   unlockLevel: 0
   xpAmount: 25
   isLockedByContract: 0
@@ -27,4 +27,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: e85b1ad766159684f98b9338b2f0acfe, type: 3}
   ageBelongsTo: 0
   tier: 3
-  isUnlocked: 0
+  pricePerProduct: 120,15K
+  incomePerSecond: 30,04K

@@ -19,12 +19,13 @@ MonoBehaviour:
   partName: Hut
   buildTime: 10
   outputValue: 1
-  pricePerProduct: 400
-  unlockLevel: 5
+  basePricePerProduct: 15000
+  unlockLevel: 4
   xpAmount: 25
   isLockedByContract: 0
   lockedByContract: {fileID: 0}
-  icon: {fileID: 21300000, guid: 8fc8d4c91aada9741ac406056815c903, type: 3}
+  icon: {fileID: 21300000, guid: 993a1cd6dfe6f4c48856ef47f6e0a18c, type: 3}
   ageBelongsTo: 0
   tier: 2
-  isUnlocked: 0
+  pricePerProduct: 15,2K
+  incomePerSecond: 1,52K
