@@ -33,6 +33,8 @@ public class ScriptableCompound : ScriptableObject
 
     public Tier tier;
 
+    public ItemType itemType;
+
     public string pricePerProduct;
 
     public string incomePerSecond;

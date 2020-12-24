@@ -222,7 +222,7 @@ public class Compounds : MonoBehaviour, IPointerClickHandler
 
                 if (workingMode == CompoundWorkingMode.production)
                 {
-                    ResourceManager.Instance.AddResource(product, (long)(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier));
+                    ResourceManager.Instance.AddResource(product, (outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier));
                     StatSystem.Instance.PopupText(transform, outputValue, partName);
                 }
                 else if (workingMode == CompoundWorkingMode.sell)

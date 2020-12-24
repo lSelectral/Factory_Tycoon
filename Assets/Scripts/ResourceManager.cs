@@ -537,6 +537,14 @@ public class ResourceManager : Singleton<ResourceManager>
     }
 }
 
+public enum ItemType
+{
+    craftingItem,
+    tradeGoods,
+    warItem,
+    food,
+}
+
 public enum BaseResources
 {
     #region Stone Age Resources
@@ -561,6 +569,4 @@ public enum BaseResources
     _0_leather_cloth,
     _0_wheel,
     #endregion
-
-
 }
