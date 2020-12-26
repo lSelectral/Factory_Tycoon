@@ -32,6 +32,7 @@ public class ResourceManager : Singleton<ResourceManager>
     public bool isLoadingFromSaveFile;
     
     public Dictionary<BaseResources, long> resourceValueDict;
+    public Dictionary<BaseResources, long> emptyResourceValueDict;
     public Dictionary<BaseResources, TextMeshProUGUI> resourceTextDict;
 
     public List<ScriptableMine> scriptableMines;
@@ -43,7 +44,7 @@ public class ResourceManager : Singleton<ResourceManager>
     double smoothCurrency,smoothPremiumCurency, smoothTotalResource;
     double smoothVelocity,smoothVelocityPremiumCurrency, smoothVelocityTotalResource;
     public float smoothTime;
-    public double currencySmoothTime;
+    public float currencySmoothTime;
 
     private long ironOre, copperOre, siliconOre, coal, oil;
     private long reactorComponent, solarCell, powerCell, thrusterComponent, superConductor;
@@ -496,10 +497,10 @@ public class ResourceManager : Singleton<ResourceManager>
         return null;
     }
 
-    public static double SmoothDamp(double current, double target, ref double currentVelocity, double smoothTime, double maxSpeed= Mathf.Infinity)
+    public static double SmoothDamp(double current, double target, ref double currentVelocity, float smoothTime, double maxSpeed= Mathf.Infinity)
     {
         var deltaTime = Time.deltaTime;
-        //smoothTime = Mathf.Max(0.0001f, smoothTime);
+        smoothTime = Mathf.Max(0.0001f, smoothTime);
         double num = 2f / smoothTime;
         double num2 = num * deltaTime;
         double num3 = 1f / (1f + num2 + 0.48f * num2 * num2 + 0.235f * num2 * num2 * num2);

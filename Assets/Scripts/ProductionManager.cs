@@ -155,9 +155,17 @@ public class ProductionManager : Singleton<ProductionManager>
         }
     }
 
-    // Formula is => ( (A1*O+A2*O+...+An*C) * COMPOUND_PRICE_MULTIPLIER ) / C
-    // Where A is every sub product delta price and O is output amount and C is production time of compound
-    // Delta price is net income per second => Price Per Product * Output Amount / Collect Time
+    /// <summary>
+    /// // Formula is => ( (A1*O+A2*O+...+An*C) * COMPOUND_PRICE_MULTIPLIER ) / C    ***  IN COMPOUND CLASS, there is base price per product too. This formula + base price  ***
+    /// Where A is every sub product delta price and O is output amount and C is production time of compound
+    /// Delta price is net income per second => Price Per Product * Output Amount / Collect Time
+    /// </summary>
+    /// <param name="resources"></param>
+    /// <param name="inputAmounts"></param>
+    /// <param name="collectTime"></param>
+    /// <returns></returns>
+    /// <see cref="Compounds"/>
+    /// <see cref="ScriptableCompound"/>
     public float GetPricePerProductForCompound(BaseResources[] resources, int[] inputAmounts, float collectTime)
     {
         float pricePerProduct = 0f;
