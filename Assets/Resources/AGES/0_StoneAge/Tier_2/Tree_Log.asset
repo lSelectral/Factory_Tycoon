@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Tree Log
   resourceName: Tree Log
-  baseResource: 0
+  baseResource: 9
   collectTime: 20
   outputValue: 5
   pricePerProduct: 7000
@@ -24,6 +24,6 @@ MonoBehaviour:
   xpAmount: 150
   isLockedByContract: 0
   ageBelongsTo: 0
-  tier: 0
+  tier: 1
   isUnlocked: 0
   incomePerSecond: 1,75K

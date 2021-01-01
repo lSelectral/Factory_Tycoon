@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   resourceName: 
-  baseResource: 0
-  collectTime: 0
-  outputValue: 0
-  pricePerProduct: 0
-  backgroundImage: {fileID: 0}
-  icon: {fileID: 0}
+  baseResource: 14
+  collectTime: 15
+  outputValue: 10
+  pricePerProduct: 8000
+  backgroundImage: {fileID: 21300000, guid: 0f5d4b4459da917479af62504277218e, type: 3}
+  icon: {fileID: 21300000, guid: b6c7d27f0d59fc044b552da7076847a6, type: 3}
   unlockLevel: 8
   xpAmount: 10
   isLockedByContract: 0
   ageBelongsTo: 0
-  tier: 0
+  tier: 3
   isUnlocked: 0
-  incomePerSecond: NaN
+  incomePerSecond: 5,33K

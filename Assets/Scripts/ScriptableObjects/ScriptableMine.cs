@@ -36,6 +36,6 @@ public class ScriptableMine : ScriptableObject
 
     private void OnValidate()
     {
-        //incomePerSecond = ResourceManager.Instance.CurrencyToString(outputValue * pricePerProduct / collectTime);
+        incomePerSecond = ResourceManager.Instance.CurrencyToString(outputValue * pricePerProduct / collectTime);
     }
 }

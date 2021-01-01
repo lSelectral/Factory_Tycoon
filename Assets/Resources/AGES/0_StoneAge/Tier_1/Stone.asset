@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Stone
   resourceName: Stone
-  baseResource: 1
+  baseResource: 3
   collectTime: 5
   outputValue: 2
   pricePerProduct: 48

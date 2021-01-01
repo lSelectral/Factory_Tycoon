@@ -41,7 +41,7 @@ public class StatSystem : Singleton<StatSystem>
 
         obj.transform.SetParent(_transform);
         obj.transform.SetAsLastSibling();
-        text.text = string.Format("+{0} {1}", outputValue, resourceName);
+        text.text = string.Format("+{0} {1}", ResourceManager.Instance.CurrencyToString(outputValue), resourceName);
         text.raycastTarget = false;
         obj.transform.localScale = new Vector3(1, 1, 1);
         text.fontSize = 80;

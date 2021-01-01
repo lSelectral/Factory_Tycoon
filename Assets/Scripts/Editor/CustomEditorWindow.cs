@@ -68,18 +68,16 @@ public class CustomEditorWindow : EditorWindow
             }
         }
 
-        if (GUILayout.Button("Create Multiple Image"))
+        if (GUILayout.Button("Create Multiple UI Image"))
         {
-            CreateImage();
+            CreateUiImage();
         }
 
-        if (GUILayout.Button("Set Map Anchors"))
-        {
-            SetAnchorsToTransformPoints();
-        }
+        if (GUILayout.Button("Set Pixel Size of Maps"))
+            SetPixelSizeAmount();
     }
 
-    void CreateImage()
+    void CreateUiImage()
     {
         var assets = Resources.LoadAll("MAP_2");
 
@@ -100,27 +98,22 @@ public class CustomEditorWindow : EditorWindow
         }
     }
 
-    void SetAnchorsToTransformPoints()
+
+    void SetPixelSizeAmount()
     {
+        int pixelSize = 0;
         for (int i = 0; i < MapManager.Instance.mapTransform.childCount; i++)
         {
             Transform m = MapManager.Instance.mapTransform.GetChild(i);
-            var rect = m.GetComponent<RectTransform>().rect;
 
-            var xMin = (m.position.x - rect.x) / rect.width;
-            var xMax = (m.position.x + rect.x) / rect.width;
-            var yMin = (m.position.y - rect.y) / rect.height;
-            var yMax = (m.position.y + rect.y) / rect.height;
-
-            m.GetComponent<RectTransform>().anchorMin = new Vector2(xMin,yMin);
-            m.GetComponent<RectTransform>().anchorMax = new Vector2(xMax,yMax);
+            var pixels = m.GetComponent<Image>().sprite.texture.GetPixels32();
+            foreach (var pixel in pixels)
+            {
+                if (pixel.a > 1)
+                    pixelSize++;
+            }
+            m.GetComponent<Map_Part>().pixelSize = pixelSize;
+            pixelSize = 0;
         }
     }
-}
-
-public enum OPTIONS
-{
-    Position = 0,
-    Rotation = 1,
-    Scale = 2,
 }

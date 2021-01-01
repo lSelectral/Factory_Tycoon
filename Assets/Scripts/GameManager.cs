@@ -81,7 +81,7 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         Input.multiTouchEnabled = false;
-        requiredXPForNextLevel = 500;
+        requiredXPForNextLevel = 100;
         fillBar = LevelObject.transform.Find("Outline").Find("Fill").GetComponent<Image>();
         levelText = LevelObject.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
     }

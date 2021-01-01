@@ -41,16 +41,15 @@ public class ScriptableCompound : ScriptableObject
 
     private void OnValidate()
     {
-        // Debug price per product
-        //if (buildTime > 0 && outputValue > 0 && basePricePerProduct > 0 && inputAmounts.Length > 0 && inputResources.Length > 0)
-        //{
-        //    var _pricePerProduct = ResourceManager.Instance.CurrencyToString(ProductionManager.Instance.GetPricePerProductForEDITOR(inputResources, inputAmounts, buildTime) + basePricePerProduct);
-        //    Debug.Log(string.Format("{0} price per product is: <b><color=blue>{1}</color></b>",partName, (_pricePerProduct)));
-        //    pricePerProduct = (_pricePerProduct);
+        if (buildTime > 0 && outputValue > 0 && basePricePerProduct > 0 && inputAmounts.Length > 0 && inputResources.Length > 0)
+        {
+            var _pricePerProduct = ResourceManager.Instance.CurrencyToString(ProductionManager.Instance.GetPricePerProductForEDITOR(inputResources, inputAmounts, buildTime) + basePricePerProduct);
+            //Debug.Log(string.Format("{0} price per product is: <b><color=blue>{1}</color></b>", partName, (_pricePerProduct)));
+            pricePerProduct = (_pricePerProduct);
 
-        //    var _incomePerSecond = ResourceManager.Instance.CurrencyToString((ProductionManager.Instance.GetPricePerProductForEDITOR(inputResources, inputAmounts, buildTime) + basePricePerProduct) * outputValue / buildTime);
-        //    Debug.Log(string.Format("{0} income per second is: <b><color=red>{1}</color></b>",partName, (_incomePerSecond)));
-        //    incomePerSecond = (_incomePerSecond);
-        //}
+            var _incomePerSecond = ResourceManager.Instance.CurrencyToString((ProductionManager.Instance.GetPricePerProductForEDITOR(inputResources, inputAmounts, buildTime) + basePricePerProduct) * outputValue / buildTime);
+            //Debug.Log(string.Format("{0} income per second is: <b><color=red>{1}</color></b>", partName, (_incomePerSecond)));
+            incomePerSecond = (_incomePerSecond);
+        }
     }
 }

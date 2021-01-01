@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Egg
   resourceName: Egg
-  baseResource: 17
+  baseResource: 12
   collectTime: 15
   outputValue: 4
   pricePerProduct: 6000

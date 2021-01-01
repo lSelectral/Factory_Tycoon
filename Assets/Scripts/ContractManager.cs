@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 
 /*
- * Contracts will appear according to resource that can produced and
+ * Contracts will appear according to resource that can produced resource and
  * story requirements. 
  * 
  * 

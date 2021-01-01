@@ -117,7 +117,11 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         /// </summary>
         public const float COMPOUND_PRICE_MULTIPLIER = 1.49f;
 
-        #endregion
+        public const float MINE_STARTING_UPGRADE_COST_MULTIPLIER = 15f;
+
+        public const float COMPOUND_STARTING_UPGRADE_COST_MULTIPLIER = 15f;
+
+    #endregion
 
     public double GetNewUpgradeCost(double oldUpgradeCost, int currentLevel)
     {
@@ -319,7 +323,6 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         btn1.onClick.AddListener(() => { tempAction(1); });
         btn2.onClick.AddListener(() => { tempAction(5); });
         btn3.onClick.AddListener(() => { tempAction(20); });
-        // 0 is specify the maximum
         btn4.onClick.AddListener(() => { tempAction(GetMaximumUpgradeAmount(upgradeCost, level)); });
 
         panel.transform.Find("BuyBtn").GetComponent<Button>().onClick.AddListener(() =>

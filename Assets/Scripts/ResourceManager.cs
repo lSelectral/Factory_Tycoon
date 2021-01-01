@@ -59,10 +59,10 @@ public class ResourceManager : Singleton<ResourceManager>
 
     #region Stone Age Resources
 
-    long stone, berry, stick, leaf, hut, spear, torch, axe, fire, leaf_cloth, pickaxe, rope, bonefire, hammer, animal_trap, pouch, leather_cloth, wheel, arrow, bow;
+    long stone, berry, stick, leaf, hut, spear, treeLog, axe, fire, pickaxe, rope, leather_cloth, wheel, arrow, bow, leather, egg, apple;
 
-    TextMeshProUGUI stoneText, berryText, stickText, leafText, hutText, spearText, torchText, axeText, fireText, 
-        leaf_clothText, pickaxeText, ropeText, bonefireText, bowText, arrowText, hammerText, animal_trapText, pouchText, leather_clothText, wheelText;
+    TextMeshProUGUI stoneText, berryText, stickText, leafText, hutText, spearText, axeText, fireText, appleText, 
+        pickaxeText, ropeText, bowText, arrowText, leather_clothText, wheelText, treeLogText, leatherText, eggText;
 
     #endregion
 
@@ -171,20 +171,18 @@ public class ResourceManager : Singleton<ResourceManager>
     public long Leaf { get => leaf; set { leaf = value; resourceTextDict[BaseResources._0_leaf].text = leaf.ToString(); } }
     public long Hut { get => hut; set { hut = value; resourceTextDict[BaseResources._0_hut].text = hut.ToString(); } }
     public long Spear { get => spear; set { spear = value; resourceTextDict[BaseResources._0_spear].text = spear.ToString(); } }
-    public long Torch { get => torch; set { torch = value; resourceTextDict[BaseResources._0_torch].text = torch.ToString(); } }
     public long Axe { get => axe; set { axe = value; resourceTextDict[BaseResources._0_axe].text = axe.ToString(); } }
     public long Fire { get => fire; set { fire = value; resourceTextDict[BaseResources._0_fire].text = fire.ToString(); } }
-    public long Leaf_cloth { get => leaf_cloth; set { leaf_cloth = value; resourceTextDict[BaseResources._0_leaf_cloth].text = leaf_cloth.ToString(); } }
     public long Pickaxe { get => pickaxe; set { pickaxe = value; resourceTextDict[BaseResources._0_pickaxe].text = pickaxe.ToString(); } }
     public long Rope { get => rope; set { rope = value; resourceTextDict[BaseResources._0_rope].text = rope.ToString(); } }
-    public long Bonefire { get => bonefire; set { bonefire = value; resourceTextDict[BaseResources._0_bonefire].text = bonefire.ToString(); } }
-    public long Hammer { get => hammer; set { hammer = value; resourceTextDict[BaseResources._0_hammer].text = hammer.ToString(); } }
-    public long Animal_trap { get => animal_trap; set { animal_trap = value; resourceTextDict[BaseResources._0_animal_trap].text = animal_trap.ToString(); } }
-    public long Pouch { get => pouch; set { pouch = value; resourceTextDict[BaseResources._0_pouch].text = pouch.ToString(); } }
     public long Leather_cloth { get => leather_cloth; set { leather_cloth = value; resourceTextDict[BaseResources._0_leather_cloth].text = leather_cloth.ToString(); } }
     public long Wheel { get => wheel; set { wheel = value; resourceTextDict[BaseResources._0_wheel].text = wheel.ToString(); } }
     public long Arrow { get => arrow; set { arrow = value; resourceTextDict[BaseResources._0_arrow].text = arrow.ToString(); } }
     public long Bow { get => bow; set { bow = value; resourceTextDict[BaseResources._0_bow].text = bow.ToString(); } }
+    public long Apple { get => apple; set { apple = value; resourceTextDict[BaseResources._0_apple].text = apple.ToString(); } }
+    public long Egg { get => egg; set { egg = value; resourceTextDict[BaseResources._0_egg].text = egg.ToString(); } }
+    public long Leather { get => leather; set { leather = value; resourceTextDict[BaseResources._0_leather].text = leather.ToString(); } }
+    public long TreeLog { get => treeLog; set { treeLog = value; resourceTextDict[BaseResources._0_tree_log].text = treeLog.ToString(); } }
 
     #endregion
 
@@ -323,23 +321,24 @@ public class ResourceManager : Singleton<ResourceManager>
             //{BaseResources.powerCell, powerCell },
 
             {BaseResources._0_berry, berry},    
-            {BaseResources._0_stick, stick },
             {BaseResources._0_leaf, leaf },
-            {BaseResources._0_hut, hut },
+            {BaseResources._0_stick, stick },
             {BaseResources._0_stone, stone },
-            {BaseResources._0_spear, spear },
-            {BaseResources._0_torch, torch },
+
             {BaseResources._0_axe, axe },
             {BaseResources._0_fire, fire },
-            {BaseResources._0_leaf_cloth, leaf_cloth },
             {BaseResources._0_pickaxe, pickaxe },
             {BaseResources._0_rope, rope },
-            {BaseResources._0_bonefire, bonefire },
+            {BaseResources._0_spear, spear },
+            {BaseResources._0_tree_log, treeLog },
+
             {BaseResources._0_arrow, arrow },
             {BaseResources._0_bow, bow },
-            {BaseResources._0_hammer, hammer },
-            {BaseResources._0_animal_trap, animal_trap },
-            {BaseResources._0_pouch, pouch },
+            {BaseResources._0_egg, egg },
+            {BaseResources._0_leather, leather },
+
+            {BaseResources._0_apple, apple },
+            {BaseResources._0_hut, hut },
             {BaseResources._0_leather_cloth, leather_cloth },
             {BaseResources._0_wheel, wheel },
         };
@@ -383,23 +382,24 @@ public class ResourceManager : Singleton<ResourceManager>
 
             #region Stone Age Resources Text
             {BaseResources._0_berry, berryText},
-            {BaseResources._0_stick, stickText },
             {BaseResources._0_leaf, leafText },
+            {BaseResources._0_stick, stickText },
             {BaseResources._0_stone, stoneText },
-            {BaseResources._0_hut, hutText },
-            {BaseResources._0_spear, spearText },
-            {BaseResources._0_torch, torchText },
+
             {BaseResources._0_axe, axeText },
             {BaseResources._0_fire, fireText },
-            {BaseResources._0_leaf_cloth, leaf_clothText },
             {BaseResources._0_pickaxe, pickaxeText },
             {BaseResources._0_rope, ropeText },
-            {BaseResources._0_bonefire, bonefireText },
-            {BaseResources._0_bow, bowText },
+            {BaseResources._0_spear, spearText },
+            {BaseResources._0_tree_log, treeLogText },
+
             {BaseResources._0_arrow, arrowText },
-            {BaseResources._0_hammer, hammerText },
-            {BaseResources._0_animal_trap, animal_trapText},
-            {BaseResources._0_pouch, pouchText },
+            {BaseResources._0_bow, bowText },
+            {BaseResources._0_egg, eggText },
+            {BaseResources._0_leather, leatherText },
+
+            {BaseResources._0_apple, appleText },
+            {BaseResources._0_hut, hutText },
             {BaseResources._0_leather_cloth, leather_clothText},
             {BaseResources._0_wheel, wheelText },
 
@@ -550,23 +550,21 @@ public enum BaseResources
 {
     #region Stone Age Resources
     _0_berry,
-    _0_stone,
-    _0_stick,
     _0_leaf,
-    _0_hut,
-    _0_spear,
-    _0_torch,
+    _0_stick,
+    _0_stone,
     _0_axe,
     _0_fire,
-    _0_leaf_cloth,
     _0_pickaxe,
     _0_rope,
-    _0_bonefire,
+    _0_spear,
+    _0_tree_log,
     _0_arrow,
     _0_bow,
-    _0_hammer,
-    _0_animal_trap,
-    _0_pouch,
+    _0_egg,
+    _0_leather,
+    _0_apple,
+    _0_hut,
     _0_leather_cloth,
     _0_wheel,
     #endregion

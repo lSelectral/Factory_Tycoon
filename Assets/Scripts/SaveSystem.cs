@@ -11,8 +11,8 @@ using UnityEngine;
 /// <remarks>
 /// --------------------------------------------------------
 ///        ---THINGS SHOULD BE SAVED---
-///             -BaseResources ( DONE programmatically )
-///             -Mine and Compound State ( DONE programmatically )
+///             -BaseResources ( DONE as List )
+///             -Mine and Compound State ( DONE as Class )
 ///             -Total earned and spended values (Currency and Resource)
 ///             -State of contracts
 ///             -State of quests
@@ -103,12 +103,30 @@ public class SaveSystem : Singleton<SaveSystem>
             resourceList.Add(res.Value);
         }
 
+        List<MapSave> savedMaps = new List<MapSave>();
+        foreach (var map in MapManager.Instance.allMaps)
+        {
+            var mapSave = new MapSave()
+            {
+                attackPower = map.AttackPower,
+                countryLevel = map.CountryLevel,
+                currentAgeOfNation = map.CurrentAgeOfNation,
+                currentLives = map.CombatLives,
+                defensePower = map.DefensePower,
+                foodAmount = map.FoodAmount,
+                moneyAmount = map.MoneyAmount,
+                resourceAmounts = map.ResourceValueDict.Values.ToList()
+            };
+            savedMaps.Add(mapSave);
+        }
+
         // Save all game values as one single object for later json conversion
         SaveObject saveObject = new SaveObject()
         {
             instantiatedCompounds = compounds,
             instantiatedMines = mines,
             resourceList = resourceList,
+            mapSaves = savedMaps,
 
             // Save Contract Manager Values
             contractManagerSave = new ContractManagerSave()
@@ -263,6 +281,8 @@ public class SaveSystem : Singleton<SaveSystem>
         public List<MineSave> instantiatedMines;
         public List<CompoundSave> instantiatedCompounds;
 
+        public List<MapSave> mapSaves;
+
         public List<ContractSave> savedContracts;
 
         public ContractManagerSave contractManagerSave;
@@ -309,6 +329,19 @@ public class CompoundSave
     public List<BaseResources> requiredResources;
     public CompoundWorkingMode workingMode;
     public bool isLockedByContract;
+}
+
+[Serializable]
+public class MapSave
+{
+    public int countryLevel;
+    public Age currentAgeOfNation;
+    public long attackPower;
+    public long defensePower;
+    public long foodAmount;
+    public double moneyAmount;
+    public int currentLives;
+    public List<long> resourceAmounts;
 }
 
 [Serializable]

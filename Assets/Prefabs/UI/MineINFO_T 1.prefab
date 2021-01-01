@@ -966,7 +966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e38a8633a6adbe4d9ca212d9193b414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableMine: {fileID: 11400000, guid: 6532331ee693a0449985a30097ca652f, type: 2}
+  scriptableMine: {fileID: 0}
   isAutomated: 0
   collectTime: 2
 --- !u!1 &3129573143187186785
@@ -1735,7 +1735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8113683319237022025}
   - component: {fileID: 4349186186934638934}
-  - component: {fileID: 1186136455334367132}
+  - component: {fileID: 5575273986743998956}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1773,7 +1773,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6561511797392925266}
   m_CullTransparentMesh: 0
---- !u!114 &1186136455334367132
+--- !u!114 &5575273986743998956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1786,7 +1786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.019607844}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

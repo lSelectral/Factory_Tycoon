@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Arrow
   m_EditorClassIdentifier: 
   Description: bow tool for hunting and war
-  inputResources: 0200000001000000
+  inputResources: 0200000003000000
   inputAmounts: 0400000003000000
-  product: 13
+  product: 10
   partName: Arrow
   buildTime: 4
   outputValue: 3
@@ -27,5 +27,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: ec6ea7954af38004f96753bea523ad98, type: 3}
   ageBelongsTo: 0
   tier: 2
+  itemType: 0
   pricePerProduct: 2,6K
   incomePerSecond: 1,95K

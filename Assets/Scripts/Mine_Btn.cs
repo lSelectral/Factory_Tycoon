@@ -229,7 +229,7 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
 
         if (upgradeCost == 0)
-            upgradeCost = outputValue*pricePerProduct*25;
+            upgradeCost = outputValue*pricePerProduct*15;
         upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost);
     }
 

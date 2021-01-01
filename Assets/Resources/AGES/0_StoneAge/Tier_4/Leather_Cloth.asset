@@ -13,19 +13,20 @@ MonoBehaviour:
   m_Name: Leather_Cloth
   m_EditorClassIdentifier: 
   Description: 
-  inputResources: 
-  inputAmounts: 
-  product: 18
+  inputResources: 070000000d000000
+  inputAmounts: 080000000c000000
+  product: 16
   partName: Leather Cloth
-  buildTime: 0
-  outputValue: 0
-  basePricePerProduct: 0
-  unlockLevel: 0
+  buildTime: 60
+  outputValue: 1
+  basePricePerProduct: 250000
+  unlockLevel: 12
   xpAmount: 25
   isLockedByContract: 0
   lockedByContract: {fileID: 0}
-  icon: {fileID: 21300000, guid: 4ae599e6474df1340bbad9e3e8671a8d, type: 3}
+  icon: {fileID: 21300000, guid: 143130a3c014b5e44a31e4519625068a, type: 3}
   ageBelongsTo: 0
   tier: 3
-  pricePerProduct: 0
-  incomePerSecond: 
+  itemType: 0
+  pricePerProduct: 251,17K
+  incomePerSecond: 4,19K

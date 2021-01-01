@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Leaf
   resourceName: Leaf
-  baseResource: 3
+  baseResource: 1
   collectTime: 3.1
   outputValue: 2
   pricePerProduct: 6.5
