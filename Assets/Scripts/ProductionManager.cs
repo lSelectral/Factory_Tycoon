@@ -134,9 +134,9 @@ public class ProductionManager : Singleton<ProductionManager>
             if (asset as ScriptableObject != null)
             {
                 var sc = asset as ScriptableObject;
-                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_stoneAge)
+                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_StoneAge)
                     mineList.Add(sc as ScriptableMine);
-                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_stoneAge)
+                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_StoneAge)
                     compoundList.Add(sc as ScriptableCompound);
             }
         }
@@ -184,29 +184,15 @@ public class ProductionManager : Singleton<ProductionManager>
                     pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * compound.PricePerProduct * collectTime / compound.BuildTime);
             }
         }
-        return pricePerProduct * UpgradeSystem.COMPOUND_PRICE_MULTIPLIER / collectTime;
+        return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER / collectTime;
     }
 
-    public float GetPricePerProductForEDITOR(BaseResources[] resources, int[] inputAmounts, float collectTime)
+    public float GetPricePerProductForEDITOR(BaseResources[] resources, int[] inputAmounts)
     {
-        var assets = Resources.LoadAll("AGES");
-
         List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
         List<ScriptableMine> mineList = new List<ScriptableMine>();
 
-        for (int i = 0; i < assets.Length; i++)
-        {
-            var asset = assets[i];
-
-            if (asset as ScriptableObject != null)
-            {
-                var sc = asset as ScriptableObject;
-                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_stoneAge)
-                    mineList.Add(sc as ScriptableMine);
-                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_stoneAge)
-                    compoundList.Add(sc as ScriptableCompound);
-            }
-        }
+        InitializeMineAndCompoundList(out mineList, out compoundList);
 
         float pricePerProduct = 0f;
         foreach (BaseResources res in resources)
@@ -214,23 +200,44 @@ public class ProductionManager : Singleton<ProductionManager>
             foreach (ScriptableMine _mine in mineList)
             {
                 if (_mine.baseResource == res)
-                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _mine.pricePerProduct * collectTime / _mine.collectTime);
+                    pricePerProduct += _mine.pricePerProduct * (inputAmounts[Array.IndexOf(resources,res)]);
             }
             foreach (ScriptableCompound _compound in compoundList)
             {
                 if (_compound.product == res)
-                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * 
-                        GetPricePerProductForSubCompoundEditor(_compound.inputResources,_compound.inputAmounts,_compound.buildTime) * collectTime / _compound.buildTime);
+                {
+                    //pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * 
+                    //    GetPricePerProductForSubCompoundEditor(_compound.inputResources,_compound.inputAmounts, mineList, compoundList));
+                    pricePerProduct += inputAmounts[Array.IndexOf(resources,res)] * (_compound._pricePerProduct+_compound.basePricePerProduct);                }
             }
         }
-        return pricePerProduct * UpgradeSystem.COMPOUND_PRICE_MULTIPLIER / collectTime;
+        return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
     }
 
-    float GetPricePerProductForSubCompoundEditor(BaseResources[] resources, int[] inputAmounts, float collectTime)
+    //float GetPricePerProductForSubCompoundEditor(BaseResources[] resources, int[] inputAmounts, List<ScriptableMine> mineList, List<ScriptableCompound> compoundList)
+    //{
+    //    float pricePerProduct = 0f;
+    //    foreach (BaseResources res in resources)
+    //    {
+    //        foreach (ScriptableMine _mine in mineList)
+    //        {
+    //            if (_mine.baseResource == res)
+    //                pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _mine.pricePerProduct);
+    //        }
+    //        foreach (ScriptableCompound _compound in compoundList)
+    //        {
+    //            if (_compound.product == res)
+    //                pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _compound._pricePerProduct);
+    //        }
+    //    }
+    //    return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
+    //}
+
+    public float GetIncomePerSecondForEDITOR(BaseResources[] resources, int[] inputAmounts)
     {
+        var assets = Resources.LoadAll("AGES");
         List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
         List<ScriptableMine> mineList = new List<ScriptableMine>();
-        var assets = Resources.LoadAll("AGES");
 
         for (int i = 0; i < assets.Length; i++)
         {
@@ -239,23 +246,74 @@ public class ProductionManager : Singleton<ProductionManager>
             if (asset as ScriptableObject != null)
             {
                 var sc = asset as ScriptableObject;
-                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_stoneAge)
+                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_StoneAge)
                     mineList.Add(sc as ScriptableMine);
-                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_stoneAge)
+                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_StoneAge)
                     compoundList.Add(sc as ScriptableCompound);
             }
         }
 
-        float pricePerProduct = 0f;
+        float incomePerSecond = 0f;
         foreach (BaseResources res in resources)
         {
             foreach (ScriptableMine _mine in mineList)
             {
                 if (_mine.baseResource == res)
-                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _mine.pricePerProduct * collectTime / _mine.collectTime);
+                    incomePerSecond += _mine._incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
+            }
+            foreach (ScriptableCompound _compound in compoundList)
+            {
+                if (_compound.product == res)
+                {
+                    incomePerSecond += _compound.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
+                    //incomePerSecond += GetIncomePerSecond(_compound.inputResources, inputAmounts, mineList, compoundList) * inputAmounts[Array.IndexOf(resources, res)];
+                }
             }
         }
-        return pricePerProduct * UpgradeSystem.COMPOUND_PRICE_MULTIPLIER / collectTime;
+        return incomePerSecond * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
+    }
+
+    //float GetIncomePerSecond(BaseResources[] resources, int[] inputAmounts, List<ScriptableMine> mineList, List<ScriptableCompound> compoundList)
+    //{
+    //    float incomePerSecond = 0f;
+
+    //    foreach (BaseResources res in resources)
+    //    {
+    //        foreach (ScriptableMine _mine in mineList)
+    //        {
+    //            if (_mine.baseResource == res)
+    //                incomePerSecond += _mine._incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
+    //        }
+    //        foreach (ScriptableCompound _compound in compoundList)
+    //        {
+    //            if (_compound.product == res)
+    //                incomePerSecond += _compound.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
+    //        }
+    //    }
+    //    return incomePerSecond;
+    //}
+
+    void InitializeMineAndCompoundList(out List<ScriptableMine> _mineList, out List<ScriptableCompound> _compoundList)
+    {
+        var assets = Resources.LoadAll("AGES");
+        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
+        List<ScriptableMine> mineList = new List<ScriptableMine>();
+
+        for (int i = 0; i < assets.Length; i++)
+        {
+            var asset = assets[i];
+
+            if (asset as ScriptableObject != null)
+            {
+                var sc = asset as ScriptableObject;
+                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_StoneAge)
+                    mineList.Add(sc as ScriptableMine);
+                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_StoneAge)
+                    compoundList.Add(sc as ScriptableCompound);
+            }
+        }
+        _mineList = mineList;
+        _compoundList = compoundList;
     }
 }
 
@@ -296,22 +354,23 @@ public enum CompoundWorkingMode
 
 public enum Age
 {
-    _0_stoneAge = 0,
-    _1_ironAge = 1,
-    _2_goldenAge = 2,
-    _3_warAge = 3,
-    _4_industryAge = 4,
-    _5_modernAge = 5,
-    _6_spaceAge = 6,
-    _7_roboticAge = 7,
-    _8_intergalacticAge = 8,
-    _9_galacticWarAge = 9,
+    _0_StoneAge = 0,
+    _1_BronzeAge = 1,
+    _2_IronAge = 2,
+    _3_MiddleAge = 3,
+    _4_IndustrialAge = 4,
+    _5_ModernAge = 5,
+    _6_SpaceAge = 6,
+    _7_RoboticAge = 7,
+    _8_IntergalacticAge = 8,
+    _9_GalacticWarAge = 9,
 }
 
 public enum Tier
 {
-    tier1,
-    tier2,
-    tier3,
-    tier4,
+    Tier_1,
+    Tier_2,
+    Tier_3,
+    Tier_4,
+    Tier_5,
 }

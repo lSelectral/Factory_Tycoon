@@ -28,7 +28,7 @@ public class ContractManager : Singleton<ContractManager>
     [SerializeField] private GameObject productionPanel;
     [SerializeField] private GameObject ProductionPanelBtn;
 
-    private List<GameObject> instantiatedContracts;
+    public List<GameObject> instantiatedContracts;
 
     public List<List<BaseResources>> tempResources;
 
@@ -68,7 +68,7 @@ public class ContractManager : Singleton<ContractManager>
     private void Start()
     {
         assets = Resources.LoadAll("Contracts");
-
+        List<ContractBase> tempContracts = new List<ContractBase>();
         for (int i = 0; i < assets.Length; i++)
         {
             var asset = assets[i];
@@ -76,10 +76,14 @@ public class ContractManager : Singleton<ContractManager>
             if (asset as ScriptableObject != null)
             {
                 var sc = asset as ScriptableObject;
-                if (sc.GetType() == typeof(ContractBase))
+                if (sc.GetType() == typeof(ContractBase) && (sc as ContractBase).contractName != "")
+                {
+                    tempContracts.Add(sc as ContractBase);
                     CreateContract(sc as ContractBase);
+                }
             }
         }
+        contracts = tempContracts.ToArray();
 
         if (activatedContracts != null && activatedContracts.Count <= 0)
         {
@@ -246,6 +250,7 @@ public class ContractManager : Singleton<ContractManager>
                 if (tempResources[i].Count == 0)
                 {
                     completedContracts.Add(contracts[i]);
+                    instantiatedContracts[i].GetComponent<Button>().onClick.RemoveAllListeners();
                     instantiatedContracts[i].GetComponent<Button>().onClick.AddListener(
                     () => PopupManager.Instance.PopupConfirmationPanel("Contract already completed", null, null));
 
@@ -328,6 +333,8 @@ public class ContractManager : Singleton<ContractManager>
                 {
                     instantiatedContracts[i].GetComponent<Image>().color = new Color(11 / 256f, 253 / 256f, 54 / 256f);
                     instantiatedContracts[i].transform.SetAsFirstSibling();
+
+                    instantiatedContracts[i].GetComponent<Button>().onClick.RemoveAllListeners();
                 }
             }
 

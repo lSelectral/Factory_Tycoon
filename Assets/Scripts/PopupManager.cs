@@ -32,27 +32,39 @@ public class PopupManager : Singleton<PopupManager>
         animator.SetTrigger("Fall");
     }
 
-    public void PopupConfirmationPanel(string body, UnityAction action1, UnityAction action2)
+    public void PopupConfirmationPanel(string body, UnityAction action1, UnityAction action2, ContractBase cb = null)
     {
-        confirmationPopUpPrefab.transform.Find("AcceptBtn").GetComponent<Button>().onClick.RemoveAllListeners();
-        confirmationPopUpPrefab.transform.Find("CancelBtn").GetComponent<Button>().onClick.RemoveAllListeners();
+        Transform acceptBtn = confirmationPopUpPrefab.transform.Find("AcceptBtn");
+        Transform cancelBtn = confirmationPopUpPrefab.transform.Find("CancelBtn");
 
-
-        confirmationPopUpPrefab.transform.parent.gameObject.SetActive(true);
-        confirmationPopUpPrefab.transform.parent.SetAsLastSibling();
+        acceptBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+        cancelBtn.GetComponent<Button>().onClick.RemoveAllListeners();
 
         confirmationPopUpPrefab.transform.Find("BODY").GetComponent<TextMeshProUGUI>().text = body;
-        confirmationPopUpPrefab.transform.Find("AcceptBtn").GetComponent<Button>().onClick.AddListener(action1);
-        confirmationPopUpPrefab.transform.Find("AcceptBtn").GetComponent<Button>().onClick.AddListener(() => confirmationPopUpPrefab.transform.parent.gameObject.SetActive(false));
+        acceptBtn.GetComponent<Button>().onClick.AddListener(action1);
+        acceptBtn.GetComponent<Button>().onClick.AddListener(() => TweenAnimation.Instance.ShowHideElement(confirmationPopUpPrefab.transform.parent.gameObject));
+        cancelBtn.GetComponent<Button>().onClick.AddListener(() => confirmationPopUpPrefab.transform.parent.gameObject.SetActive(false));
         confirmationPopUpPrefab.transform.Find("CancelBtn").GetComponent<Button>().onClick.AddListener(action2);
 
+        // Activate panel and set foremost
+        TweenAnimation.Instance.ShowHideElement(confirmationPopUpPrefab.transform.parent.gameObject);
+        //confirmationPopUpPrefab.transform.parent.gameObject.SetActive(true);
+        confirmationPopUpPrefab.transform.parent.SetAsLastSibling();
+
+
         if (action1 == null)
-            Destroy(confirmationPopUpPrefab.transform.Find("AcceptBtn").gameObject);
+            acceptBtn.gameObject.SetActive(false);
+        else
+            acceptBtn.gameObject.SetActive(true);
         if (action2 == null)
-            Destroy(confirmationPopUpPrefab.transform.Find("CancelBtn").gameObject);
+            cancelBtn.gameObject.SetActive(false);
+        else
+            cancelBtn.gameObject.SetActive(true);
+
+        //if (action1 == null && action2 == null)
+        //TweenAnimation.Instance.SmoothHide(confirmationPopUpPrefab);
 
         if (action1 == null && action2 == null)
-            TweenAnimation.Instance.SmoothHide(confirmationPopUpPrefab);
-            
+            TweenAnimation.Instance.ShowHideElement(confirmationPopUpPrefab.transform.parent.gameObject);
     }
 }

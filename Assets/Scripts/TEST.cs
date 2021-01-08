@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -10,41 +11,23 @@ public class TEST : MonoBehaviour, IPointerDownHandler
 {
     public void OnPointerDown(PointerEventData eventData)
     {
-        //Vector2 localCursor;
-        //if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out localCursor))
-        //    return;
 
-        //Debug.Log(image.sprite.texture.GetPixel((int)localCursor.x,(int)localCursor.y));
-
-        //Vector2 localCursor;
-        //var rect1 = GetComponent<RectTransform>();
-        //var pos1 = eventData.position;
-        //if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rect1, pos1,
-        //    null, out localCursor))
-        //    return;
-
-        //int xpos = (int)(localCursor.x);
-        //int ypos = (int)(localCursor.y);
-
-        //if (xpos < 0) xpos = xpos + (int)rect1.rect.width / 2;
-        //else xpos += (int)rect1.rect.width / 2;
-
-        //if (ypos > 0) ypos = ypos + (int)rect1.rect.height / 2;
-        //else ypos += (int)rect1.rect.height / 2;
-
-        //Debug.Log(image.sprite.texture.GetPixel(xpos, ypos));
-        //image.sprite.texture.SetPixel(xpos, ypos, Color.green);
-
-        //image.sprite.texture.Apply();
-
-        ////var q = Instantiate(ResourceManager.Instance.resourceIconPrefab, new Vector3(xpos, ypos, 0), Quaternion.identity);
-        ////q.transform.SetParent(transform);
-        //Debug.Log("Correct Cursor Pos: " + xpos + " " + ypos);
 
     }
 
     private void Start()
     {
+        //BNum bNum = new BNum(100,1);
+        //Debug.Log(bNum.ToString("sym"));
+        //Debug.Log(bNum);
+
+        //BNum bNum2 = new BNum(10000, 1);
+        //Debug.Log(bNum.ToString("sym"));
+        //Debug.Log(bNum2);
+
+        //BNum bNum3 = new BNum(10000, 2);
+        //Debug.Log(bNum.ToString("sym"));
+        //Debug.Log(bNum3);
     }
 
     private void Update()
@@ -60,19 +43,6 @@ public class TEST : MonoBehaviour, IPointerDownHandler
         //if (Input.GetKeyDown(KeyCode.Alpha3))
         //{
 
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.F4))
-        //{
-        //    foreach (var _mine in ProductionManager.Instance.mineList)
-        //    {
-
-        //    }
-
-        //    foreach (var comp in ProductionManager.Instance.compoundList)
-        //    {
-
-        //    }
         //}
     }
 }

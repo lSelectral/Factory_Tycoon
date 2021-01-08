@@ -13,8 +13,8 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         foreach (TabButton btn in tabGroup.tabButtons)
         {
             if (btn != this)
-                btn.GetComponent<Image>().color = Color.white;
-            GetComponent<Image>().color = Color.red;
+                btn.transform.Find("selectionImage").gameObject.SetActive(false);
+            transform.Find("selectionImage").gameObject.SetActive(true);
         }
     }
 
@@ -28,14 +28,13 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         tabGroup.OnTabExit(this);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         tabGroup.Subscribe(this);
 
         if (transform.GetSiblingIndex() == 0)
         {
-            GetComponent<Image>().color = Color.red;
+            transform.Find("selectionImage").gameObject.SetActive(true);
             tabGroup.OnTabSelected(this);
         }
     }

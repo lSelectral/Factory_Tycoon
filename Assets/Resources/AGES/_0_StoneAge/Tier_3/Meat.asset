@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: Meat
+  m_EditorClassIdentifier: 
+  Description: Meat is one of the first food that humanity explored. It is very nutritous
+    and delicious.
+  inputResources: 08000000
+  inputAmounts: 03000000
+  product: 13
+  partName: Meat
+  buildTime: 30
+  outputValue: 8
+  basePricePerProduct: 350000
+  unlockLevel: 4
+  xpAmount: 40
+  isLockedByContract: 0
+  lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
+  icon: {fileID: 21300000, guid: 90d1fe8195b84c9479d9b2b1af71a5e2, type: 3}
+  ageBelongsTo: 0
+  tier: 2
+  itemType: 0000000003000000
+  pricePerProductText: 365,28K
+  _pricePerProduct: 365282.8
+  incomePerSecondText: 190,74K
+  incomePerSecond: 190742.08
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

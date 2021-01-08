@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: Leather_armor
+  m_EditorClassIdentifier: 
+  Description: 
+  inputResources: 070000000d000000
+  inputAmounts: 080000000c000000
+  product: 16
+  partName: Leather Armor
+  buildTime: 60
+  outputValue: 1
+  basePricePerProduct: 250000
+  unlockLevel: 12
+  xpAmount: 25
+  isLockedByContract: 0
+  lockedByContract: {fileID: 0}
+  icon: {fileID: 21300000, guid: 143130a3c014b5e44a31e4519625068a, type: 3}
+  ageBelongsTo: 0
+  tier: 3
+  itemType: 0100000002000000
+  pricePerProduct: 424,24K
+  incomePerSecond: 7,07K
+  _pricePerProduct: 424236.16

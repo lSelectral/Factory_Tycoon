@@ -75,6 +75,9 @@ public class CustomEditorWindow : EditorWindow
 
         if (GUILayout.Button("Set Pixel Size of Maps"))
             SetPixelSizeAmount();
+
+        if (GUILayout.Button("Increase Combat Power"))
+            UpgradeSystem.Instance.CombatPowerMultiplier *= 2;
     }
 
     void CreateUiImage()

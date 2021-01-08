@@ -102,7 +102,7 @@ public class PageManager : Singleton<PageManager>
             }
         }
 
-        string pageName = ResourceManager.Instance.GetValidName((pages[index].name).Substring(3));
+        string pageName = /*ResourceManager.Instance.GetValidName*/((pages[index].name).Substring(3));
         minePageInfoText.text = pageName;
     }
 }

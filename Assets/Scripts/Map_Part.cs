@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -43,13 +42,13 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     public ScriptableMap scriptableMap;
 
     public string CountryName { get => countryName; set => countryName = value; }
-    public int CountryLevel { get => countryLevel; set => countryLevel = value; }
+    public int CountryLevel { get => countryLevel; set { countryLevel = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); } }
     public Age CurrentAgeOfNation { get => currentAgeOfNation; set => currentAgeOfNation = value; }
-    public long AttackPower { get => attackPower; set => attackPower = value; }
+    public long AttackPower { get => attackPower; set { attackPower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); } }
     public long FoodAmount { get => foodAmount; set => foodAmount = value; }
     public double MoneyAmount { get => moneyAmount; set => moneyAmount = value; }
-    public long DefensePower { get => defensePower; set => defensePower = value; }
-    public int CombatLives { get => combatLives; set => combatLives = value; }
+    public long DefensePower { get => defensePower; set { defensePower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); }}
+    public int CombatLives { get => combatLives; set { combatLives = Mathf.Clamp(value,0,3); } }
     public Dictionary<BaseResources, long> ResourceValueDict { get => resourceValueDict; set => resourceValueDict = value; }
     public Map_Part[] ConnectedMapParts { get => connectedMapParts; set => connectedMapParts = value; }
     public bool IsPlayerOwned { get => isPlayerOwned; set => isPlayerOwned = value; }
@@ -118,16 +117,54 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
         {
             countryName = "SELECTRA";
             countryLevel = 133;
-            currentAgeOfNation = Age._3_warAge;
+            currentAgeOfNation = Age._5_ModernAge;
             attackPower = countryLevel * 15 * Random.Range(4, 24);
             defensePower = countryLevel * 10 * Random.Range(4, 14);
             foodAmount = countryLevel * 9 * Random.Range(8, 45);
             moneyAmount = Mathf.Pow(countryLevel, Random.Range(1, 9));
             combatLives = 3;
             connectedMapParts = new Map_Part[] { this };
-            resourceValueDict = ResourceManager.Instance.resourceValueDict;
+            //resourceValueDict = ResourceManager.Instance.resourceValueDict;
+            resourceValueDict = new Dictionary<BaseResources, long>();
+            var scriptableMines = ProductionManager.Instance.mineList;
+            var scriptableCompounds = ProductionManager.Instance.compoundList;
+            for (int i = 0; i < scriptableMines.Count; i++)
+            {
+                if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
+                {
+                    if (!resourceValueDict.ContainsKey(scriptableMines[i].baseResource))
+                        resourceValueDict.Add(scriptableMines[i].baseResource, 100);
+                }
+            }
+            for (int i = 0; i < scriptableCompounds.Count; i++)
+            {
+                if (scriptableCompounds[i].ageBelongsTo == currentAgeOfNation)
+                {
+                    if (!resourceValueDict.ContainsKey(scriptableCompounds[i].product))
+                        resourceValueDict.Add(scriptableCompounds[i].product, 100);
+                }
+            }
             image = GetComponent<Image>();
             image.alphaHitTestMinimumThreshold = alphaSlider;
+        }
+
+        UpgradeSystem.Instance.OnCombatPowerMultiplierChanged += OnCombatPowerMultiplierChanged;
+        UpgradeSystem.Instance.OnDefensePowerMultiplierChanged += OnDefensePowerMultiplierChanged;
+    }
+
+    private void OnDefensePowerMultiplierChanged(object sender, UpgradeSystem.OnDefensePowerMultiplierChangedEventArgs e)
+    {
+        if (isPlayerOwned)
+        {
+            DefensePower = (long)(defensePower * e.defensePowerMultiplier);
+        }
+    }
+
+    private void OnCombatPowerMultiplierChanged(object sender, UpgradeSystem.OnCombatPowerMultiplierChangedEventArgs e)
+    {
+        if (isPlayerOwned)
+        {
+            AttackPower = (long)(attackPower * e.combatPowerMultiplier);
         }
     }
 

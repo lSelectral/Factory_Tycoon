@@ -7,13 +7,19 @@ using UnityEngine.UI;
 
 public class UpgradeSystem : Singleton<UpgradeSystem>
 {
+    [Range(1, 10)] public float timeSlider;
     public GameObject upgradePanel;
+
+    private void Update()
+    {
+        Time.timeScale = timeSlider;
+    }
 
     public int upgradeMultiplier;
 
     #region Events
 
-    public class OnMiningSpeedChangedEventArgs: EventArgs
+    public class OnMiningSpeedChangedEventArgs : EventArgs
     {
         public float miningSpeed;
     }
@@ -62,7 +68,19 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
     public event EventHandler<OnEarnedXpMultiplierChangedEventArgs> OnEarnedXpMultiplierChanged;
 
-    
+    public class OnCombatPowerMultiplierChangedEventArgs : EventArgs
+    {
+        public float combatPowerMultiplier;
+    }
+
+    public event EventHandler<OnCombatPowerMultiplierChangedEventArgs> OnCombatPowerMultiplierChanged;
+
+    public class OnDefensePowerMultiplierChangedEventArgs : EventArgs
+    {
+        public float defensePowerMultiplier;
+    }
+
+    public event EventHandler<OnDefensePowerMultiplierChangedEventArgs> OnDefensePowerMultiplierChanged;
 
     [SerializeField] private float miningSpeedMultiplier = 1;
     [SerializeField] private long miningYieldMultiplier = 1;
@@ -72,54 +90,65 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     [SerializeField] private float earnedCoinMultiplier = 1;
     [SerializeField] private float earnedXPMultiplier = 1;
 
+    [SerializeField] float combatPowerMultiplier = 1;
+    [SerializeField] float defensePowerMultiplier = 1;
+
     // Set events
-    public float MiningSpeedMultiplier { get => miningSpeedMultiplier; 
-        set { miningSpeedMultiplier = value; 
+    public float MiningSpeedMultiplier { get => miningSpeedMultiplier;
+        set { miningSpeedMultiplier = value;
             OnMiningSpeedChanged(this, new OnMiningSpeedChangedEventArgs() { miningSpeed = miningSpeedMultiplier }); } }
-    public long MiningYieldMultiplier { get => miningYieldMultiplier; 
-        set { miningYieldMultiplier = value; 
+    public long MiningYieldMultiplier { get => miningYieldMultiplier;
+        set { miningYieldMultiplier = value;
             OnMiningYieldChanged(this, new OnMiningYieldChangedEventArgs() { miningYield = miningYieldMultiplier }); } }
-    public float ProductionSpeedMultiplier { get => productionSpeedMultiplier; 
-        set { productionSpeedMultiplier = value; 
+    public float ProductionSpeedMultiplier { get => productionSpeedMultiplier;
+        set { productionSpeedMultiplier = value;
             OnProductionSpeedChanged(this, new OnProductionSpeedChangedEventArgs() { productionSpeed = productionSpeedMultiplier }); } }
-    public long ProductionYieldMultiplier { get => productionYieldMultiplier; 
-        set { productionYieldMultiplier = value; 
+    public long ProductionYieldMultiplier { get => productionYieldMultiplier;
+        set { productionYieldMultiplier = value;
             OnProductionYieldChanged(this, new OnProductionYieldChangedEventArgs() { productionYield = productionYieldMultiplier }); } }
-    public float ProductionEfficiencyMultiplier { get => productionEfficiencyMultiplier; 
-        set { productionEfficiencyMultiplier = value; 
+    public float ProductionEfficiencyMultiplier { get => productionEfficiencyMultiplier;
+        set { productionEfficiencyMultiplier = value;
             OnProductionEfficiencyChanged(this, new OnProductionEfficiencyChangedEventArgs() { productionEfficiency = productionEfficiencyMultiplier }); } }
-    public float EarnedCoinMultiplier { get => earnedCoinMultiplier; 
-        set { earnedCoinMultiplier = value; 
+    public float EarnedCoinMultiplier { get => earnedCoinMultiplier;
+        set { earnedCoinMultiplier = value;
             OnEarnedCoinMultiplierChanged(this, new OnEarnedCoinMultiplierChangedEventArgs() { earnedCoinMultiplier = earnedCoinMultiplier }); } }
-    public float EarnedXPMultiplier { get => earnedXPMultiplier; 
-        set { earnedXPMultiplier = value; 
+    public float EarnedXPMultiplier { get => earnedXPMultiplier;
+        set { earnedXPMultiplier = value;
             OnEarnedXpMultiplierChanged(this, new OnEarnedXpMultiplierChangedEventArgs() { earnedXpMultiplier = earnedXPMultiplier }); }
     }
-    #endregion
 
+    public float CombatPowerMultiplier { get => combatPowerMultiplier;
+        set { combatPowerMultiplier = value;
+            OnCombatPowerMultiplierChanged(this, new OnCombatPowerMultiplierChangedEventArgs() { combatPowerMultiplier = combatPowerMultiplier }); } }
+
+    public float DefensePowerMultiplier { get => defensePowerMultiplier;
+        set { defensePowerMultiplier = value;
+            OnDefensePowerMultiplierChanged(this, new OnDefensePowerMultiplierChangedEventArgs() { defensePowerMultiplier = defensePowerMultiplier }); } }
+
+    #endregion
 
     #region UPGRADE FORMULAS AND METHODS
 
-        #region CONSTANTS
+    #region CONSTANTS
 
-        const float PRICE_PER_PRODUCT_MULTIPLER_LOW_50 = 3.18f;
+    const float PRICE_PER_PRODUCT_MULTIPLER_LOW_50 = 1.57f;
 
-        const float UPGRADE_POWER_MULTIPLIER_LOW_50 = 1.003f;
+        const float UPGRADE_POWER_MULTIPLIER_LOW_50 = 1.007f;
 
         const float PRICE_PER_PRODUCT_MULTIPLIR_HIGH_50 = 3.7f;
 
         const float UPGRADE_POWER_MULTIPLIER_HIGH_50 = 1f;
 
-        const float UPGRADE_BASE_MULTIPLIER = 1.63f;
+        const float UPGRADE_BASE_MULTIPLIER = 1.522f;
 
         /// <summary>
         /// Constant used when calculating compounds price for per product.
         /// </summary>
-        public const float COMPOUND_PRICE_MULTIPLIER = 1.49f;
+        public float COMPOUND_PRICE_MULTIPLIER = 1.4f;
 
-        public const float MINE_STARTING_UPGRADE_COST_MULTIPLIER = 15f;
+        public const float MINE_STARTING_UPGRADE_COST_MULTIPLIER = 25f;
 
-        public const float COMPOUND_STARTING_UPGRADE_COST_MULTIPLIER = 15f;
+        public const float COMPOUND_STARTING_UPGRADE_COST_MULTIPLIER = 25f;
 
     #endregion
 
@@ -146,7 +175,12 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         for (int i = 0; i < upgradeCount; i++)
         {
             newLevel++;
-            if (newLevel % 3 == 0)
+
+            if (newLevel <= 50)
+            {
+                newPricePerProduct = GetNewPricePerProduct(newPricePerProduct, newLevel);
+            }
+            else if (newLevel % 3 == 0)
                 newPricePerProduct = GetNewPricePerProduct(newPricePerProduct, newLevel);
         }
         return newPricePerProduct;
@@ -308,6 +342,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
         isUpgradePanelActive = true;
         var panel = UpgradeSystem.Instance.upgradePanel;
+        panel.transform.Find("CloseBtn").GetComponent<Button>().onClick.RemoveAllListeners();
         panel.transform.Find("CloseBtn").GetComponent<Button>().onClick.AddListener(() => isUpgradePanelActive = false);
         panel.SetActive(true);
         UpgradeSystem.Instance.upgradeMultiplier = 1;
@@ -319,6 +354,11 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         var btn2 = multiplierPanel.GetChild(1).GetComponent<Button>();
         var btn3 = multiplierPanel.GetChild(2).GetComponent<Button>();
         var btn4 = multiplierPanel.GetChild(3).GetComponent<Button>();
+
+        btn1.onClick.RemoveAllListeners();
+        btn2.onClick.RemoveAllListeners();
+        btn3.onClick.RemoveAllListeners();
+        btn4.onClick.RemoveAllListeners();
 
         btn1.onClick.AddListener(() => { tempAction(1); });
         btn2.onClick.AddListener(() => { tempAction(5); });

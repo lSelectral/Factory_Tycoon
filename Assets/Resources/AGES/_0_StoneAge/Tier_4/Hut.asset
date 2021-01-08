@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: Hut
+  m_EditorClassIdentifier: 
+  Description: Shelter for first humans
+  inputResources: 0200000003000000
+  inputAmounts: 080000001e000000
+  product: 15
+  partName: Hut
+  buildTime: 10
+  outputValue: 1
+  basePricePerProduct: 15000
+  unlockLevel: 4
+  xpAmount: 25
+  isLockedByContract: 0
+  lockedByContract: {fileID: 0}
+  icon: {fileID: 21300000, guid: 993a1cd6dfe6f4c48856ef47f6e0a18c, type: 3}
+  ageBelongsTo: 0
+  tier: 3
+  itemType: 0500000001000000
+  pricePerProduct: 39,14K
+  incomePerSecond: 3,91K
+  _pricePerProduct: 39136

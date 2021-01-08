@@ -119,8 +119,9 @@ public class MapManager : Singleton<MapManager>
         var infoPanel = mapStatPanel.Find("InfoPanel");
         infoPanel.Find("Top").Find("Money").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.MoneyAmount);
         infoPanel.Find("Top").Find("AttackPower").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.AttackPower);
+        infoPanel.Find("Top").Find("DefensePower").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.DefensePower);
         infoPanel.Find("Bottom").Find("Food").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.FoodAmount);
-        infoPanel.Find("Bottom").Find("DefensePower").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.DefensePower);
+        infoPanel.Find("Bottom").Find("CountryLives").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.CombatLives);
     }
 
     public void SetupResourcePanel(Map_Part map)

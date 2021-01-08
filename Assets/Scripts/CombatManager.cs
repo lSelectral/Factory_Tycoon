@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Linq;
 /// <summary>
 /// 
 /// Combats can require food especially really high for attackers (%20 of attack power, NOT SURE)
+/// Also combat food and gold requirement will change according to distance between attacking countries.
 /// 
 /// Combats will be simple. There is 2 important thing.
 /// Attack Power and Defense Power
@@ -14,17 +14,16 @@ using System.Linq;
 /// Sum of attack power of items determine total attack power of a country.
 /// Every defense type item produced by a country, increase its defense power by its own unique value. 
 /// 
-/// At Defense defender country has %10 more shield
+/// At Defense defender country has %10 more base shield ( That value can increase with special contracts and items)
 /// If attacker country's attack power is lower than enemy's or equal to its defense war automatically result as a loss for attacker.
 /// If attacker's attack power higher than defender's defense than the country which has highest attack+defense power country will win.
 /// And winner will take %40 of money and %25 of resources of defeated country.
 /// Every country has maximum 3 lives. If a country beaten in war 3 times, it will be conquered by winner country.
 /// When conquring a country, Attacker get all resources (Money, resource, food)
 /// If a country has lower than (1,2) lives and win a war at attack it will earn +1 life MAXIMUM 3
-/// Lives of country can increase with special contracts. (NEED HIGH AMOUNT VALUABLE RESOURCE) 
+/// Lives of country can increase with special contracts. (NEED HIGH AMOUNT VALUABLE RESOURCE)
 /// 
-/// Every country has a cooldown for next attack ( 60 Minute )
-/// WHEN PLAYER ATTACK A COUNTRY 10 GAME MINUTE WILL PASS ( NOT FINAL DECISION)
+/// Every country has a cooldown for next attack ( 30 Minute )
 /// 
 /// </summary>
 
@@ -32,13 +31,12 @@ public class CombatManager : Singleton<CombatManager>
 {
     /// <summary>
     /// When player or AI, attacking to the surrounding countries, this method will be called.
-    /// When defender loss, only attackedRegion will loss health. But lost resources are percentage of all regions owned by attacker or defender regarding to who lost the war
     /// </summary>
-    /// <param name="attacker">Attacker country, All power as one</param>
-    /// <param name="defender">Defender country, All power as one</param>
+    /// <param name="attacker">Attacker country</param>
+    /// <param name="defender">Defender country</param>
     /// <param name="attackedRegion">Chosen attack region, selected by attacker country, if defender country loses, region will lost a live, when all lives consumed only this region will be lost
     /// <param name="defenseBonus"/>Defense bonus as percentage for defender<param name="defenseBonus"/>
-    /// <returns>Winner country</returns>
+    /// <returns>Return Winner country</returns>
     public Map_Part[] AttackCountry(Map_Part[] attacker, Map_Part[] defender, Map_Part attackedRegion, float defenseBonus = 10f)
     {
         Map_Part[] winner = { };
@@ -68,6 +66,7 @@ public class CombatManager : Singleton<CombatManager>
             attackedRegion.CombatLives--;
             if (attackedRegion.CombatLives == 0)
             {
+                attackedRegion.CombatLives = 3;
                 OnAttackEnd(attacker, defender, 100, 100);
                 ConquerArea(attacker, attackedRegion);
             }
@@ -84,8 +83,19 @@ public class CombatManager : Singleton<CombatManager>
         return winner;
     }
 
+    public long CalculateRequiredFoodForTravel(float distance, float attackPower)
+    {
+        return (long)(distance * 0.7f * attackPower);
+    }
+
+    public long CalculateRequiredMoneyForTravel(float distance, float attackPower)
+    {
+        return (long)(distance * 2.4f * attackPower);
+    }
+
     public void ConquerArea(Map_Part[] attacker, Map_Part attackedRegion)
     {
+        Map_Part[] newRegion = null;
         attackedRegion.GetComponent<Image>().color = attacker[0].GetComponent<Image>().color;
 
         for (int i = 0; i < attacker.Length; i++)
@@ -93,10 +103,22 @@ public class CombatManager : Singleton<CombatManager>
             List<Map_Part> newList = attacker[i].ConnectedMapParts.ToList();
             newList.Add(attackedRegion);
             attacker[i].ConnectedMapParts = newList.ToArray();
+            newRegion = newList.ToArray();
         }
         
         // Remove defeated region from game and connected lists
-        attackedRegion.ConnectedMapParts = attackedRegion.ConnectedMapParts.Where(map => map != attackedRegion).ToArray();
+        //attackedRegion.ConnectedMapParts.Where(map => map != attackedRegion).ToArray();
+
+        foreach (var map in attackedRegion.ConnectedMapParts)
+        {
+            if (map != attackedRegion)
+            {
+                var tempList = map.ConnectedMapParts.ToList();
+                tempList.Remove(attackedRegion);
+                map.ConnectedMapParts = tempList.ToArray();
+            }
+        }
+        attackedRegion.ConnectedMapParts = newRegion;
     }
 
     public long GetTotalAttackPower(Map_Part[] map)

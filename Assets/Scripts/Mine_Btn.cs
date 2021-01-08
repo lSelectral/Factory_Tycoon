@@ -18,20 +18,6 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
 
     bool isUpgradePanelActive;
 
-    #region CONSTANTS
-
-    const float PRICE_PER_PRODUCT_MULTIPLER_LOW_50 = 3.18f;
-
-    const float UPGRADE_POWER_MULTIPLIER_LOW_50 = 1.003f;
-
-    const float PRICE_PER_PRODUCT_MULTIPLIR_HIGH_50 = 3.7f;
-
-    const float UPGRADE_POWER_MULTIPLIER_HIGH_50 = 1f;
-
-    const float UPGRADE_BASE_MULTIPLIER = 1.63f;
-
-    #endregion
-
     // Scriptable object class variables
     [SerializeField] float collectTime;
     string mineName;
@@ -167,7 +153,7 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         UpgradeSystem.Instance.OnEarnedXpMultiplierChanged += Instance_OnEarnedXpMultiplierChanged;
 
         collectTime = scriptableMine.collectTime;
-        mineName = scriptableMine.Name;
+        mineName = scriptableMine.TranslatedName;
         resourceName = scriptableMine.resourceName;
         producedResource = scriptableMine.baseResource;
         outputValue = scriptableMine.outputValue;
@@ -229,7 +215,7 @@ public class Mine_Btn : MonoBehaviour, IPointerClickHandler
         StatSystem.Instance.CurrencyPerSecond += incomePerSecond;
 
         if (upgradeCost == 0)
-            upgradeCost = outputValue*pricePerProduct*15;
+            upgradeCost = outputValue*pricePerProduct* UpgradeSystem.MINE_STARTING_UPGRADE_COST_MULTIPLIER;
         upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost);
     }
 

@@ -9,6 +9,7 @@ using System;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] int requiredXPforFirstLevel;
     [SerializeField] private GameObject LevelObject;
     public GameObject levelLock;
     private Image fillBar;
@@ -26,7 +27,7 @@ public class GameManager : Singleton<GameManager>
 
     private int currentLevel;
     private float currentXP;
-    private long requiredXPForNextLevel;
+    [SerializeField] long requiredXPForNextLevel;
 
     public long RequiredXPforNextLevel
     {
@@ -80,8 +81,16 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        //#if UNITY_ANDROID
+        //    if (Application.systemLanguage == SystemLanguage.Turkish)
+        //        LocalisationSystem.currentLanguage = LocalisationSystem.Language.Turkish;
+        //    else
+        //        LocalisationSystem.currentLanguage = LocalisationSystem.Language.English;
+        //#endif
+
         Input.multiTouchEnabled = false;
-        requiredXPForNextLevel = 100;
+        CurrentLevel = 1;
+        requiredXPForNextLevel = requiredXPforFirstLevel;
         fillBar = LevelObject.transform.Find("Outline").Find("Fill").GetComponent<Image>();
         levelText = LevelObject.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
     }
