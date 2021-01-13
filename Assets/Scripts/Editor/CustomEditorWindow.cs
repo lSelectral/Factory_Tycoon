@@ -17,6 +17,9 @@ public class CustomEditorWindow : EditorWindow
     string xpString = "Enter XP value";
     string currencyString = "Enter Currency Amount";
 
+    float c1 = 0f;
+    float c2 = 0f;
+
     private void OnGUI()
     {
         GUILayout.BeginVertical("Add Resource");
@@ -68,13 +71,19 @@ public class CustomEditorWindow : EditorWindow
             }
         }
 
-        if (GUILayout.Button("Create Multiple UI Image"))
-        {
-            CreateUiImage();
-        }
+        //c1 = EditorGUILayout.Slider("COMPOUND_PRICE_MULTIPLIER", c1, 1, 7, GUILayout.MinHeight(10f));
+        //c2 = EditorGUILayout.Slider("INCOME_PRICE_MULTIPLIER", c2, 1, 7, GUILayout.MinHeight(10f));
 
-        if (GUILayout.Button("Set Pixel Size of Maps"))
-            SetPixelSizeAmount();
+        //UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER = c1;
+        //UpgradeSystem.Instance.INCOME_PRICE_MULTIPLIER = c2;
+
+        //if (GUILayout.Button("Create Multiple UI Image"))
+        //{
+        //    CreateUiImage();
+        //}
+
+        //if (GUILayout.Button("Set Pixel Size of Maps"))
+        //    SetPixelSizeAmount();
 
         if (GUILayout.Button("Increase Combat Power"))
             UpgradeSystem.Instance.CombatPowerMultiplier *= 2;

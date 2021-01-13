@@ -98,8 +98,8 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             {
                 if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
                 {
-                    if (!resourceValueDict.ContainsKey(scriptableMines[i].baseResource))
-                        resourceValueDict.Add(scriptableMines[i].baseResource, 100);
+                    if (!resourceValueDict.ContainsKey(scriptableMines[i].product))
+                        resourceValueDict.Add(scriptableMines[i].product, 100);
                 }
             }
             for (int i = 0; i < scriptableCompounds.Count; i++)
@@ -132,8 +132,8 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             {
                 if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
                 {
-                    if (!resourceValueDict.ContainsKey(scriptableMines[i].baseResource))
-                        resourceValueDict.Add(scriptableMines[i].baseResource, 100);
+                    if (!resourceValueDict.ContainsKey(scriptableMines[i].product))
+                        resourceValueDict.Add(scriptableMines[i].product, 100);
                 }
             }
             for (int i = 0; i < scriptableCompounds.Count; i++)
@@ -183,7 +183,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     {
         foreach (var scriptableMine in ProductionManager.Instance.mineList)
         {
-            var res = scriptableMine.baseResource;
+            var res = scriptableMine.product;
             if (resourceValueDict.ContainsKey(res))
             {
                 var earnedResource = Mathf.CeilToInt(scriptableMine.outputValue * 1f / scriptableMine.collectTime) ;
@@ -196,7 +196,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             var res = scriptableCompound.product;
             if (resourceValueDict.ContainsKey(res))
             {
-                var earnedResource = Mathf.CeilToInt(scriptableCompound.outputValue * 1f/ scriptableCompound.buildTime);
+                var earnedResource = Mathf.CeilToInt(scriptableCompound.outputValue * 1f/ scriptableCompound.collectTime);
                 resourceValueDict[res] += earnedResource;
             }
         }

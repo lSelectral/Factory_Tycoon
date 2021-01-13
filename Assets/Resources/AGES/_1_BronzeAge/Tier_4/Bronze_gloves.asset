@@ -10,24 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
-  m_Name: Bronze_plate
+  m_Name: Bronze_gloves
   m_EditorClassIdentifier: 
   Description: 
+  isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
   product: 0
-  partName: Bronze_Plate
+  partName: Bronze_gloves
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 0
   outputValue: 0
   basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
+  lockedByContract: []
+  icon: {fileID: 21300000, guid: 1f046c0e01a452e44beac7f3b4bac9ab, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 1
-  tier: 0
-  itemType: 
-  pricePerProduct: 
-  incomePerSecond: 
-  _pricePerProduct: 0
+  tier: 3
+  itemTypes: 00000000
+  pricePerProductText: 
+  pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  incomePerSecondText: 
+  incomePerSecond: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

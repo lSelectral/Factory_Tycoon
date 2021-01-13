@@ -14,25 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: 
   isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
+  inputResources: 07000000
+  inputAmounts: 02000000
   product: 18
   partName: Copper_ore
-  buildTime: 0
-  outputValue: 0
-  basePricePerProduct: 0
-  unlockLevel: 0
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  buildTime: 20
+  outputValue: 6
+  basePricePerProduct: 4.5e+15
+  unlockLevel: 11
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
+  lockedByContract: []
+  icon: {fileID: 21300000, guid: 14fdcdfe7024c01409deeeb8efad9a6c, type: 3}
+  toolImage: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 1
   tier: 0
-  itemType: 00000000
-  pricePerProductText: 
-  _pricePerProduct: 0
-  incomePerSecondText: 
-  incomePerSecond: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0
+  itemTypes: 00000000
+  pricePerProductText: 4,5P
+  pricePerProduct: 4.5e+15
+  optimalPricePerProductText: 20,88M
+  optimalPricePerProduct: 20875696
+  incomePerSecondText: 1,35P
+  incomePerSecond: 1.35e+15
+  optimalIncomePerSecondText: 872,49K
+  optimalPricePerSecond: 872485.25
+  isOptimal: 1

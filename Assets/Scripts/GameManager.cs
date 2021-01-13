@@ -7,6 +7,17 @@ using System.Linq;
 using System.IO;
 using System;
 
+/// <summary>
+/// 
+/// TODO GAME MECHANIC ADDITION
+/// 
+/// More advanced products quickly make earlier products obselete because of difference of the price.
+/// Make contract, quests and addition. (War need, Gathering tool)
+/// 
+/// 
+/// </summary>
+
+
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] int requiredXPforFirstLevel;

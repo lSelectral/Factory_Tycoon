@@ -13,21 +13,33 @@ MonoBehaviour:
   m_Name: Bronze_sword
   m_EditorClassIdentifier: 
   Description: 
+  isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  product: 0
-  partName: Bronze_Sword
+  product: 30
+  partName: Bronze_sword
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 0
   outputValue: 0
   basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
+  lockedByContract:
+  - {fileID: 0}
+  icon: {fileID: 21300000, guid: 4516c1665eb447e4daabf333f097b0f0, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 1
-  tier: 0
-  itemType: 
-  pricePerProduct: 
-  incomePerSecond: 
-  _pricePerProduct: 0
+  tier: 2
+  itemTypes: 00000000
+  pricePerProductText: 
+  pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  incomePerSecondText: 
+  incomePerSecond: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

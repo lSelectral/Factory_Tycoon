@@ -13,21 +13,33 @@ MonoBehaviour:
   m_Name: Leather_armor
   m_EditorClassIdentifier: 
   Description: 
+  isFixedArraySize: 1
   inputResources: 070000000d000000
   inputAmounts: 080000000c000000
   product: 16
-  partName: Leather Armor
+  partName: Leather_armor
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 60
   outputValue: 1
-  basePricePerProduct: 250000
-  unlockLevel: 12
+  basePricePerProduct: 3.15e+15
+  unlockLevel: 13
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
+  lockedByContract:
+  - {fileID: 0}
   icon: {fileID: 21300000, guid: 143130a3c014b5e44a31e4519625068a, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 3
-  itemType: 0100000002000000
-  pricePerProduct: 424,24K
-  incomePerSecond: 7,07K
-  _pricePerProduct: 424236.16
+  itemTypes: 00000000
+  pricePerProductText: 3,15P
+  pricePerProduct: 3.1532933e+15
+  optimalPricePerProductText: 3,29T
+  optimalPricePerProduct: 3.2935143e+12
+  incomePerSecondText: 52,55T
+  incomePerSecond: 5.255489e+13
+  optimalIncomePerSecondText: 367,04G
+  optimalPricePerSecond: 3.6704263e+11
+  isOptimal: 1

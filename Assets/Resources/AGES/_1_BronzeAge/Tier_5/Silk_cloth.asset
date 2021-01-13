@@ -13,21 +13,33 @@ MonoBehaviour:
   m_Name: Silk_cloth
   m_EditorClassIdentifier: 
   Description: 
+  isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  product: 0
-  partName: Silk Cloth
+  product: 37
+  partName: Silk_cloth
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 0
   outputValue: 0
   basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
-  ageBelongsTo: 0
-  tier: 0
-  itemType: 
-  pricePerProduct: 
-  incomePerSecond: 
-  _pricePerProduct: 0
+  lockedByContract:
+  - {fileID: 0}
+  icon: {fileID: 21300000, guid: a369c622b9cbfb445a6f38e173296ec1, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  ageBelongsTo: 1
+  tier: 4
+  itemTypes: 00000000
+  pricePerProductText: 
+  pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  incomePerSecondText: 
+  incomePerSecond: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

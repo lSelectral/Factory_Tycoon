@@ -13,21 +13,33 @@ MonoBehaviour:
   m_Name: Bronze_spear
   m_EditorClassIdentifier: 
   Description: 
+  isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  product: 0
-  partName: Bronze Spear
+  product: 29
+  partName: Bronze_spear
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 0
   outputValue: 0
   basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
-  ageBelongsTo: 0
-  tier: 0
-  itemType: 
-  pricePerProduct: 
-  incomePerSecond: 
-  _pricePerProduct: 0
+  lockedByContract:
+  - {fileID: 0}
+  icon: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  ageBelongsTo: 1
+  tier: 2
+  itemTypes: 00000000
+  pricePerProductText: 
+  pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  incomePerSecondText: 
+  incomePerSecond: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

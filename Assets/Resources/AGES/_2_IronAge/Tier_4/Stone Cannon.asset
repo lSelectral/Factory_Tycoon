@@ -10,19 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
-  m_Name: Cake
+  m_Name: Stone Cannon
   m_EditorClassIdentifier: 
   Description: 
+  isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
   product: 0
   partName: 
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 0
   outputValue: 0
+  basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
+  lockedByContracts: []
   icon: {fileID: 0}
-  ageBelongsTo: 2
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  ageBelongsTo: 0
   tier: 0
+  itemTypes: 00000000
+  pricePerProductText: 
+  pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  incomePerSecondText: 
+  incomePerSecond: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

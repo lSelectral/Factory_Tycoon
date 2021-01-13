@@ -13,21 +13,33 @@ MonoBehaviour:
   m_Name: Hut
   m_EditorClassIdentifier: 
   Description: Shelter for first humans
-  inputResources: 0200000003000000
-  inputAmounts: 080000001e000000
+  isFixedArraySize: 1
+  inputResources: 020000000100000005000000
+  inputAmounts: 1c000000280000000c000000
   product: 15
   partName: Hut
-  buildTime: 10
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  buildTime: 30
   outputValue: 1
-  basePricePerProduct: 15000
-  unlockLevel: 4
+  basePricePerProduct: 7.89e+13
+  unlockLevel: 12
   xpAmount: 25
   isLockedByContract: 0
   lockedByContract: {fileID: 0}
   icon: {fileID: 21300000, guid: 993a1cd6dfe6f4c48856ef47f6e0a18c, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 3
-  itemType: 0500000001000000
-  pricePerProduct: 39,14K
-  incomePerSecond: 3,91K
-  _pricePerProduct: 39136
+  itemTypes: 05000000
+  pricePerProductText: 78,9T
+  pricePerProduct: 7.890001e+13
+  optimalPricePerProductText: 5,09M
+  optimalPricePerProduct: 5092058.5
+  incomePerSecondText: 2,63T
+  incomePerSecond: 2.6300003e+12
+  optimalIncomePerSecondText: 194,79K
+  optimalPricePerSecond: 194794.9
+  isOptimal: 1

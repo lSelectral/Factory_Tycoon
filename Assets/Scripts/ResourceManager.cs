@@ -25,32 +25,47 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public event EventHandler<OnCurrencyChangedEventArgs> OnCurrencyChanged;
 
+    public class OnPricePerProductChangedEventArgs : EventArgs
+    {
+        public float newPrice;
+    }
+
+    public event EventHandler<OnPricePerProductChangedEventArgs> OnPricePerProductChanged;
+
     #endregion
 
     public bool isLoadingFromSaveFile;
     
+    // Resource related Variables
     public Dictionary<BaseResources, long> resourceValueDict;
-    public Dictionary<BaseResources, long> emptyResourceValueDict;
     public Dictionary<BaseResources, TextMeshProUGUI> resourceTextDict;
+    /// <summary>
+    /// Stores all resources current price per product values for send information about new prices of products.
+    /// When a components sub product price change, its price will change too
+    /// TODO MAKE THIS DICTIONARY. Currently null.
+    /// </summary>
+    public Dictionary<BaseResources, float> resourceNewPricePerProductDictionary;
+    IEnumerable<BaseResources> resources;
 
     public List<ScriptableMine> scriptableMines;
     public List<ScriptableCompound> scriptableCompounds;
 
-    [SerializeField] private GameObject resourcePanel;
-    [SerializeField] private GameObject resourcePrefab;
+    // Player related variable and smoothing values
+    [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText;
     double currency,totalResource, premiumCurrency;
+    long foodAmount, attackAmount;
     double smoothCurrency,smoothPremiumCurency, smoothTotalResource;
     double smoothVelocity,smoothVelocityPremiumCurrency, smoothVelocityTotalResource;
     public float smoothTime;
     public float currencySmoothTime;
 
-    [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText;
-
+    #region Panels and Prefabs
+    [SerializeField] private GameObject resourcePanel;
+    [SerializeField] private GameObject resourcePrefab;
     public GameObject resourceIconPrefab;
     public GameObject resourceAmountTextPrefab;
     public GameObject iconPrefab;
-
-    IEnumerable<BaseResources> resources;
+    #endregion
 
     #region Properties
 
@@ -107,9 +122,29 @@ public class ResourceManager : Singleton<ResourceManager>
             isLoadingFromSaveFile = false;
         }
     }
+
+    public long FoodAmount
+    {
+        get { return foodAmount; }
+        set
+        {
+            foodAmount = value;
+            foodAmountText.text = CurrencyToString(foodAmount);
+        }
+    }
+    public long AttackAmount
+    {
+        get { return attackAmount; }
+        set
+        {
+            attackAmount = value;
+            attackAmountText.text = CurrencyToString(attackAmount);
+        }
+    }
     #endregion
 
-    private readonly string[] suffix = new string[] { "", "K", "M", "G", "T", "P", "E", "AA", "AB", "BA", "BB" , "CA", "CB", "CC"}; // kilo, mega, giga, terra, penta, exa
+    #region Helper Functions
+    private readonly string[] suffix = new string[] { "", "K", "M", "G", "T", "P", "E", "AA", "AB", "BA", "BB", "CA", "CB", "CC" }; // kilo, mega, giga, terra, penta, exa
     public string CurrencyToString(float valueToConvert, int decimalAmount = 2)
     {
         int scale = 0;
@@ -182,11 +217,15 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         return char.ToUpper(res.ToString().Substring(3).ToCharArray()[0]) + res.ToString().Substring(4);
     }
+    #endregion
 
     private void Awake()
     {
         scriptableMines = new List<ScriptableMine>();
         scriptableCompounds = new List<ScriptableCompound>();
+
+        foodAmountText.text ="0";
+        attackAmountText.text = "0";
 
         resources = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>();
 
@@ -204,7 +243,11 @@ public class ResourceManager : Singleton<ResourceManager>
             }
         }
 
-        //totalResourceText.text = totalResource.ToString();
+        resourceNewPricePerProductDictionary = new Dictionary<BaseResources, float>();
+        foreach (var res in resources)
+        {
+            resourceNewPricePerProductDictionary.Add(res, 0f);
+        }
 
         resourceValueDict = new Dictionary<BaseResources, long>();
         foreach (var res in resources)
@@ -218,10 +261,8 @@ public class ResourceManager : Singleton<ResourceManager>
             resourceTextDict.Add(res, new TextMeshProUGUI());
         }
 
-
+        #region Add all resources to resource panel
         int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
-
-        // Add Resource to panel
         foreach (var resource in resources)
         {
             int arrayCounter = 0;
@@ -235,26 +276,27 @@ public class ResourceManager : Singleton<ResourceManager>
 
             for (int i = 0; i < scriptableMines.Count; i++)
             {
-                if (scriptableMines[i].baseResource == resource)
+                if (scriptableMines[i].product == resource)
                     resourceName.text = scriptableMines[i].resourceName;
             }
             for (int i = 0; i < scriptableCompounds.Count; i++)
             {
                 if (scriptableCompounds[i].product == resource)
-                    resourceName.text = scriptableCompounds[i].partName;
+                    resourceName.text = scriptableCompounds[i].resourceName;
             }
 
             resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
 
-            resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() => 
+            resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
             { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
-            resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() => 
+            resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
             { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
 
             resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, resourceIncrementArray[arrayCounter]); });
             resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-            resourceTextDict[resource].text =(GetResourceAmount(resource)).ToString();
+            resourceTextDict[resource].text = (GetResourceAmount(resource)).ToString();
         }
+        #endregion
     }
 
     void Update()
@@ -269,6 +311,12 @@ public class ResourceManager : Singleton<ResourceManager>
         //totalResourceText.text = "Total Resource\n" + CurrencyToString((smoothTotalResource), 0);
     }
 
+    public void SetNewPricePerProduct(BaseResources res, float newPrice)
+    {
+        resourceNewPricePerProductDictionary[res] = newPrice;
+        OnPricePerProductChanged(this, new OnPricePerProductChangedEventArgs() { newPrice = newPrice });
+    }
+
     public float AddResource(BaseResources resource, long amount, bool isLoadingFromSave = false)
     {
         resourceValueDict[resource] += amount;
@@ -276,6 +324,16 @@ public class ResourceManager : Singleton<ResourceManager>
             TotalResource += amount;
         OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
         resourceTextDict[resource].text = CurrencyToString(resourceValueDict[resource]);
+
+        Mine_Btn _mine = ProductionManager.Instance.GetMineFromResource(resource);
+        if (_mine != null && _mine.ItemTypes.Contains(ItemType.food))
+            FoodAmount += _mine.FoodAmount * amount;
+
+        var _compound = ProductionManager.Instance.GetCompoundFromResource(resource);
+        if (_compound != null && _compound.ItemTypes.Contains(ItemType.food))
+            FoodAmount += _compound.FoodAmount * amount;
+        if (_compound != null && _compound.ItemTypes.Contains(ItemType.warItem))
+            AttackAmount += _compound.AttackAmount * amount;
 
         return amount;
     }
@@ -286,6 +344,18 @@ public class ResourceManager : Singleton<ResourceManager>
         TotalResource -= amount;
         resourceTextDict[resource].text = CurrencyToString(resourceValueDict[resource]);
         OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
+
+        Mine_Btn _mine = ProductionManager.Instance.GetMineFromResource(resource);
+        if (_mine != null && _mine.ItemTypes.Contains(ItemType.food))
+            FoodAmount -= _mine.FoodAmount;
+
+        
+        var _compound = ProductionManager.Instance.GetCompoundFromResource(resource);
+
+        if (_compound != null && _compound.ItemTypes.Contains(ItemType.food))
+            FoodAmount -= _compound.FoodAmount * amount;
+        if (_compound != null && _compound.ItemTypes.Contains(ItemType.warItem))
+            AttackAmount -= _compound.AttackAmount * amount;
     }
 
     public long GetResourceAmount(BaseResources resource)
@@ -297,7 +367,7 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         for (int i = 0; i < scriptableMines.Count; i++)
         {
-            if (scriptableMines[i].baseResource == resource)
+            if (scriptableMines[i].product == resource)
                 return scriptableMines[i].icon;
         }
         for (int i = 0; i < scriptableCompounds.Count; i++)
@@ -381,7 +451,8 @@ public enum BaseResources
 
     _0_fire,
     _0_hut,
-    _0_leather_cloth,
+    _0_leather_armor,
+    _0_wheel,
     _0_wine,
     #endregion
 
@@ -389,26 +460,34 @@ public enum BaseResources
     _1_copper_ore,
     _1_rope,
     _1_tin_ore,
-    _1_wheel,
 
+    _1_bronze_axe,
     _1_bronze_ingot,
-    _1_bronze_plate,
     _1_stone_tablet,
-    _1_wool,
 
-    _1_bronze_armor,
+    _1_bronze_boot,
+    _1_bronze_chestplate,
     _1_bronze_helmet,
-    _1_bronze_shield,
     _1_bronze_spear,
     _1_bronze_sword,
 
+    _1_bronze_gloves,
+    _1_bronze_shield,
     _1_chariot,
     _1_silk,
     _1_wheeled_wagon,
-    _1_wool_sweater,
 
     _1_bronze_statue,
+    _1_gold_ore,
     _1_painted_vase,
     _1_silk_cloth,
+    #endregion
+
+    #region Iron Age Resources
+
+    #endregion
+
+    #region Middle Age Resources
+
     #endregion
 }

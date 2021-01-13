@@ -8,6 +8,7 @@ public class ContractBase : ScriptableObject
 
     public long contractReward;
     public ContractRewardType contractRewardType;
+    public ScriptableProductionBase[] productsToUnlock;
     public ScriptableCompound[] compoundsToUnlock;
     public ScriptableMine[] minesToUnlock;
     public BaseResources[] requiredResources;
@@ -17,10 +18,10 @@ public class ContractBase : ScriptableObject
 
     public Sprite icon;
     public string rewardPanelHeader = "<color=red>Congrulations</color>";
-
     public string rewardPanelDescription;
     public string pageNameToGo;
     public long xpReward;
 
     public Age ageBelongsTo;
+    public int history;
 }

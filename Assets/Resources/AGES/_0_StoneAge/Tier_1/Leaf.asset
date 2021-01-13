@@ -16,17 +16,20 @@ MonoBehaviour:
   TranslatedName: Leaf
   resourceName: Leaf
   baseResource: 1
+  foodAmount: 0
   collectTime: 3
   outputValue: 2
   pricePerProduct: 45
-  backgroundImage: {fileID: 21300000, guid: b9f6b9a85e0141c419af6e39f393435b, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: c11fa297dd331de418654209c490f7e6, type: 3}
   icon: {fileID: 21300000, guid: 18f5c124190bbb8489cbe177e7be7915, type: 3}
   unlockLevel: 2
-  xpAmount: 3
-  isLockedByContract: 0
+  xpAmount: 5
+  lockedByContracts: []
   ageBelongsTo: 0
   tier: 0
-  itemType: 00000000
+  itemTypes: 00000000
   isUnlocked: 0
   incomePerSecond: 30
   _incomePerSecond: 30

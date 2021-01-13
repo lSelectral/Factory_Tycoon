@@ -85,12 +85,12 @@ public class CombatManager : Singleton<CombatManager>
 
     public long CalculateRequiredFoodForTravel(float distance, float attackPower)
     {
-        return (long)(distance * 0.7f * attackPower);
+        return (long)(distance * 4.7f * attackPower);
     }
 
     public long CalculateRequiredMoneyForTravel(float distance, float attackPower)
     {
-        return (long)(distance * 2.4f * attackPower);
+        return (long)(distance * 12.4f * attackPower);
     }
 
     public void ConquerArea(Map_Part[] attacker, Map_Part attackedRegion)

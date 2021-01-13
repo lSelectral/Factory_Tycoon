@@ -16,17 +16,20 @@ MonoBehaviour:
   TranslatedName: 
   resourceName: Stick
   baseResource: 2
+  foodAmount: 0
   collectTime: 3.5
   outputValue: 1
-  pricePerProduct: 900
-  backgroundImage: {fileID: 21300000, guid: 43a7d98bd4222b64e933596512dc09ad, type: 3}
-  icon: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
+  pricePerProduct: 1000
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
+  icon: {fileID: 21300000, guid: 4f9bf3a93fb0cf74c8bb315b8a6787a8, type: 3}
   unlockLevel: 3
-  xpAmount: 9
-  isLockedByContract: 0
+  xpAmount: 30
+  lockedByContracts: []
   ageBelongsTo: 0
   tier: 0
-  itemType: 00000000
+  itemTypes: 00000000
   isUnlocked: 0
-  incomePerSecond: 257,14
-  _incomePerSecond: 257.14285
+  incomePerSecond: 285,71
+  _incomePerSecond: 285.7143

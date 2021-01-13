@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
-  m_Name: Chariot
+  m_Name: Bronze_boot
   m_EditorClassIdentifier: 
-  Description: Chariots are elit wheeled horse powered vehicles. Both transporation
-    and war
+  Description: 
   isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  product: 31
-  partName: Chariot
+  product: 25
+  partName: Bronze_boot
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
@@ -27,13 +26,12 @@ MonoBehaviour:
   basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  lockedByContract:
-  - {fileID: 0}
-  icon: {fileID: 21300000, guid: 0a3aadd28a70dea4aa40673b6536c8b3, type: 3}
+  lockedByContracts: []
+  icon: {fileID: 21300000, guid: 751ca79a25c7f2a43befde8d1f4bcfe1, type: 3}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
   ageBelongsTo: 1
-  tier: 3
+  tier: 2
   itemTypes: 00000000
   pricePerProductText: 
   pricePerProduct: 0

@@ -18,21 +18,28 @@ MonoBehaviour:
   inputAmounts: 0800000006000000
   product: 10
   partName: Bow
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 300
   buildTime: 9
   outputValue: 1
-  basePricePerProduct: 3500000
-  unlockLevel: 6
+  basePricePerProduct: 170000000
+  unlockLevel: 7
   xpAmount: 120
-  isLockedByContract: 0
+  isLockedByContract: 1
   lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
   icon: {fileID: 21300000, guid: 848c5226927b69148825ba61d21eacce, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 2
-  itemType: 02000000
-  pricePerProductText: 3,76M
-  _pricePerProduct: 3756940
-  incomePerSecondText: 806,33K
-  incomePerSecond: 806326.7
-  optimalIncomePerSecondText: 6,18M
-  optimalPricePerSecond: 6180299.5
+  itemTypes: 
+  pricePerProductText: 292,05M
+  pricePerProduct: 292046720
+  optimalPricePerProductText: 122,05M
+  optimalPricePerProduct: 122046730
+  incomePerSecondText: 32,45M
+  incomePerSecond: 32449636
+  optimalIncomePerSecondText: 40,68M
+  optimalPricePerSecond: 40678812
   isOptimal: 0

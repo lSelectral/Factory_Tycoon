@@ -108,18 +108,8 @@ public class ContractManager : Singleton<ContractManager>
         List<ContractBase> automationContracts = new List<ContractBase>();
         foreach (BaseResources resource in Enum.GetValues(typeof(BaseResources)))
         {
-            ScriptableMine mine = null;
-            ScriptableCompound compound = null;
-            foreach (var _mine in ResourceManager.Instance.scriptableMines)
-            {
-                if (_mine.baseResource == resource)
-                    mine = _mine;
-            }
-            foreach (var _compound in ResourceManager.Instance.scriptableCompounds)
-            {
-                if (_compound.product == resource)
-                    compound = _compound;
-            }
+            ScriptableMine mine = ProductionManager.Instance.GetScriptableMineFromResource(resource);
+            ScriptableCompound compound = ProductionManager.Instance.GetScriptableCompoundFromResource(resource);
 
             ScriptableMine[] mineArray = null;
             ScriptableCompound[] compoundArray = null;
@@ -246,15 +236,28 @@ public class ContractManager : Singleton<ContractManager>
                         //Debug.Log("Not enough " + input.Resource);
                     }
                 }
-
+                // Contract completed
                 if (tempResources[i].Count == 0)
                 {
+                    activatedContracts.Remove(contracts[i]);
                     completedContracts.Add(contracts[i]);
                     instantiatedContracts[i].GetComponent<Button>().onClick.RemoveAllListeners();
                     instantiatedContracts[i].GetComponent<Button>().onClick.AddListener(
                     () => PopupManager.Instance.PopupConfirmationPanel("Contract already completed", null, null));
 
+                    // Set active contract counter
+                    if (activatedContracts != null && activatedContracts.Count > 0)
+                    {
+                        activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
+                        activeContractCounter.SetActive(true);
+                    }
+                    else if (activatedContracts != null && activatedContracts.Count <= 0)
+                    {
+                        activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
+                        activeContractCounter.SetActive(false);
+                    }
 
+                    // Give reward according to contract reward type
                     if (contracts[i].contractRewardType == ContractRewardType.Currency)
                         ResourceManager.Instance.Currency += contracts[i].contractReward;
                     else if (contracts[i].contractRewardType == ContractRewardType.PremiumCurrency)
@@ -278,10 +281,13 @@ public class ContractManager : Singleton<ContractManager>
                             var compound = obj.GetComponent<Compounds>();
                             if (contracts[i].compoundsToUnlock.Contains(compound.scriptableCompound))
                             {
-                                compound.IsLockedByContract = false;
-                                compound.scriptableCompound.isLockedByContract = false;
-                                // Destroy lock to unlock this element
-                                Destroy(obj.transform.Find("Level_Lock(Clone)").gameObject);
+                                compound.ContractStatueCheckDictionary[contracts[i]] = true;
+
+                                if (!compound.ContractStatueCheckDictionary.ContainsValue(false))
+                                {
+                                    compound.IsLockedByContract = false;
+                                    Destroy(obj.transform.Find("Level_Lock(Clone)").gameObject);
+                                }
                             }
                         }
                     }
@@ -292,10 +298,13 @@ public class ContractManager : Singleton<ContractManager>
                             var mine = obj.GetComponent<Mine_Btn>();
                             if (contracts[i].minesToUnlock.Contains(mine.scriptableMine))
                             {
-                                mine.IsLockedByContract = false;
-                                mine.scriptableMine.isLockedByContract = false;
-                                // Destroy lock to unlock this element
-                                Destroy(obj.transform.Find("Level_Lock(Clone)").gameObject);
+                                mine.ContractStatueCheckDictionary[contracts[i]] = true;
+
+                                if (!mine.ContractStatueCheckDictionary.ContainsValue(false))
+                                {
+                                    mine.IsLockedByContract = false;
+                                    Destroy(obj.transform.Find("Level_Lock(Clone)").gameObject);
+                                }
                             }
                         }
                     }
@@ -314,6 +323,7 @@ public class ContractManager : Singleton<ContractManager>
 
                     GameManager.Instance.AddXP(contracts[i].xpReward);
                     ShowCompletedContract(contracts[i], contracts[i].pageNameToGo);
+                    // Move completed contract to completed contracts panel
                     instantiatedContracts[i].transform.SetParent(completedContractPanel.transform);
                 }
             }
@@ -346,6 +356,30 @@ public class ContractManager : Singleton<ContractManager>
                 activeContractCounter.SetActive(true);
             }
             CheckAvailableResources();
+        }
+    }
+    // TODO implement this function to activated contract on click
+    public void DeActivateContract(ContractBase contract)
+    {
+        if (activatedContracts.Contains(contract))
+        {
+            activatedContracts.Remove(contract);
+
+            for (int i = 0; i < instantiatedContracts.Count; i++)
+            {
+                if (contracts[i] == contract)
+                {
+                    instantiatedContracts[i].GetComponent<Image>().color = new Color(0,0,0);
+                    instantiatedContracts[i].transform.SetAsLastSibling();
+
+                    instantiatedContracts[i].GetComponent<Button>().onClick.AddListener(
+                    () => PopupManager.Instance.PopupConfirmationPanel(("Do you want to activate " + contract.contractName + " Contract"),
+                    () => ActivateContract(contract),
+                    () => PopupManager.Instance.confirmationPopUpPrefab.transform.parent.gameObject.SetActive(false)));
+
+                    instantiatedContracts[i].GetComponent<Button>().onClick.RemoveAllListeners();
+                }
+            }
         }
     }
 
@@ -392,16 +426,16 @@ public class ContractManager : Singleton<ContractManager>
         PageManager.Instance.minePageInfoText.text = pageName;
     }
 
-    void OnContractExpired(ContractBase contract)
-    {
-        for (int i = 0; i < contractPanel.transform.childCount; i++)
-        {
-            if (contractPanel.transform.GetChild(i).GetComponent<ContractBase>() == contract)
-            {
-                Destroy(contractPanel.transform.GetChild(i).gameObject);
-            }
-        }
-    }
+    //void OnContractExpired(ContractBase contract)
+    //{
+    //    for (int i = 0; i < contractPanel.transform.childCount; i++)
+    //    {
+    //        if (contractPanel.transform.GetChild(i).GetComponent<ContractBase>() == contract)
+    //        {
+    //            Destroy(contractPanel.transform.GetChild(i).gameObject);
+    //        }
+    //    }
+    //}
 }
 
 public enum ContractRewardType

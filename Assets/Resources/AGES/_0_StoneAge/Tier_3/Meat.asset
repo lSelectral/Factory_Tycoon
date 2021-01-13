@@ -14,25 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: Meat is one of the first food that humanity explored. It is very nutritous
     and delicious.
+  isFixedArraySize: 1
   inputResources: 08000000
-  inputAmounts: 03000000
+  inputAmounts: 04000000
   product: 13
   partName: Meat
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 30
   outputValue: 8
-  basePricePerProduct: 350000
-  unlockLevel: 4
+  basePricePerProduct: 2.9e+10
+  unlockLevel: 10
   xpAmount: 40
   isLockedByContract: 0
   lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
   icon: {fileID: 21300000, guid: 90d1fe8195b84c9479d9b2b1af71a5e2, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 2
-  itemType: 0000000003000000
-  pricePerProductText: 365,28K
-  _pricePerProduct: 365282.8
-  incomePerSecondText: 190,74K
-  incomePerSecond: 190742.08
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0
+  itemTypes: 0300000001000000
+  pricePerProductText: 30,11G
+  pricePerProduct: 3.0105776e+10
+  optimalPricePerProductText: 1,11G
+  optimalPricePerProduct: 1.1057757e+9
+  incomePerSecondText: 8,03G
+  incomePerSecond: 8.028207e+9
+  optimalIncomePerSecondText: 16,77M
+  optimalPricePerSecond: 16767910
+  isOptimal: 1

@@ -16,17 +16,20 @@ MonoBehaviour:
   TranslatedName: 
   resourceName: Berry
   baseResource: 0
+  foodAmount: 1
   collectTime: 2.2
   outputValue: 1
   pricePerProduct: 5
-  backgroundImage: {fileID: 21300000, guid: 43a7d98bd4222b64e933596512dc09ad, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 28414171dc0d6994db0611c47ba1c07d, type: 3}
   icon: {fileID: 21300000, guid: cd1cbd18ac0484b4f8c7f82098766bdd, type: 3}
   unlockLevel: 0
-  xpAmount: 1
+  xpAmount: 2
   isLockedByContract: 0
   ageBelongsTo: 0
   tier: 0
-  itemType: 00000000
+  itemTypes: 03000000
   isUnlocked: 0
   incomePerSecond: 2,27
   _incomePerSecond: 2.2727273

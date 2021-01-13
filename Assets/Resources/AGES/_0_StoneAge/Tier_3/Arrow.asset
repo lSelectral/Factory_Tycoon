@@ -14,25 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: bow tool for hunting and war
   isFixedArraySize: 1
-  inputResources: 0200000003000000
-  inputAmounts: 0400000003000000
+  inputResources: 02000000
+  inputAmounts: 09000000
   product: 9
   partName: Arrow
-  buildTime: 5
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  buildTime: 6.5
   outputValue: 3
-  basePricePerProduct: 400000
-  unlockLevel: 4
+  basePricePerProduct: 11000000
+  unlockLevel: 6
   xpAmount: 120
-  isLockedByContract: 0
+  isLockedByContract: 1
   lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
   icon: {fileID: 21300000, guid: ec6ea7954af38004f96753bea523ad98, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 2
-  itemType: 00000000
-  pricePerProductText: 419,78K
-  _pricePerProduct: 419782
-  incomePerSecondText: 491,87K
-  incomePerSecond: 491869.2
-  optimalIncomePerSecondText: 8,68K
-  optimalPricePerSecond: 8679.857
+  itemTypes: 
+  pricePerProductText: 11,02M
+  pricePerProduct: 11016714
+  optimalPricePerProductText: 16,71K
+  optimalPricePerProduct: 16714.285
+  incomePerSecondText: 5,08M
+  incomePerSecond: 5084637
+  optimalIncomePerSecondText: 2,57K
+  optimalPricePerSecond: 2571.4287
   isOptimal: 1

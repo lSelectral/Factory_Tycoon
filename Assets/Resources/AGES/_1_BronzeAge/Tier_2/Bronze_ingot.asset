@@ -16,21 +16,27 @@ MonoBehaviour:
   isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  product: 22
+  product: 23
   partName: Bronze_ingot
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 0
   outputValue: 0
   basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
+  lockedByContracts: []
+  icon: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 1
   tier: 1
-  itemType: 
+  itemTypes: 00000000
   pricePerProductText: 
-  _pricePerProduct: 0
+  pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
   incomePerSecondText: 
   incomePerSecond: 0
   optimalIncomePerSecondText: 

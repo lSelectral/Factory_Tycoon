@@ -13,21 +13,33 @@ MonoBehaviour:
   m_Name: Bronze_helmet
   m_EditorClassIdentifier: 
   Description: 
+  isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  product: 0
-  partName: Bronze Helmet
+  product: 27
+  partName: Bronze_helmet
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 0
   outputValue: 0
   basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
-  ageBelongsTo: 0
-  tier: 0
-  itemType: 
-  pricePerProduct: 
-  incomePerSecond: 
-  _pricePerProduct: 0
+  lockedByContract:
+  - {fileID: 0}
+  icon: {fileID: 21300000, guid: a6508b0e523350745985c34bd2858ad5, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  ageBelongsTo: 1
+  tier: 2
+  itemTypes: 00000000
+  pricePerProductText: 
+  pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  incomePerSecondText: 
+  incomePerSecond: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

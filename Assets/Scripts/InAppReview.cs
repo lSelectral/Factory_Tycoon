@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using UnityEngine;
 using Google.Play.Review;
 
 public class InAppReview : Singleton<InAppReview>
@@ -8,6 +7,10 @@ public class InAppReview : Singleton<InAppReview>
     private ReviewManager _reviewManager;
     private PlayReviewInfo _playReviewInfo;
 
+    /// <summary>
+    /// Google Play Instant Review Function
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Review()
     {
         _reviewManager = new ReviewManager();

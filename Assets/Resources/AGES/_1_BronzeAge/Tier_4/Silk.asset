@@ -13,18 +13,23 @@ MonoBehaviour:
   m_Name: Silk
   m_EditorClassIdentifier: 
   Name: Silk
+  TranslatedName: 
   resourceName: Silk
-  baseResource: 0
+  baseResource: 32
+  foodAmount: 0
   collectTime: 0
   outputValue: 0
   pricePerProduct: 0
   backgroundImage: {fileID: 0}
-  icon: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: c7e60c1d14574ce42b70f209ce78081d, type: 3}
   unlockLevel: 0
   xpAmount: 10
   isLockedByContract: 0
-  ageBelongsTo: 0
-  tier: 0
-  itemType: 
+  ageBelongsTo: 1
+  tier: 3
+  itemTypes: 00000000
   isUnlocked: 0
   incomePerSecond: NaN
+  _incomePerSecond: NaN

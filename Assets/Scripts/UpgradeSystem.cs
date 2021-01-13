@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UpgradeSystem : Singleton<UpgradeSystem>
@@ -146,6 +147,8 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         /// </summary>
         public float COMPOUND_PRICE_MULTIPLIER = 1.4f;
 
+        public float INCOME_PRICE_MULTIPLIER = 1f;
+
         public const float MINE_STARTING_UPGRADE_COST_MULTIPLIER = 25f;
 
         public const float COMPOUND_STARTING_UPGRADE_COST_MULTIPLIER = 25f;
@@ -285,12 +288,12 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     public void SetUpgradePanel(int levelUpgradeMultiplier, long outputValue, int mineLevel, float collectTime, float pricePerProduct, double upgradeCost, string name, bool hideBottomPanel = true)
     {
         var newLevel = mineLevel + levelUpgradeMultiplier;
-        var newOutputValue = UpgradeSystem.Instance.GetNewOutputAmount(levelUpgradeMultiplier, outputValue, mineLevel);
-        var newCollectTime = UpgradeSystem.Instance.GetNewCollectTime(levelUpgradeMultiplier, collectTime);
-        var newPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(levelUpgradeMultiplier, pricePerProduct, mineLevel);
-        var newUpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(levelUpgradeMultiplier, upgradeCost, mineLevel);
+        var newOutputValue = GetNewOutputAmount(levelUpgradeMultiplier, outputValue, mineLevel);
+        var newCollectTime = GetNewCollectTime(levelUpgradeMultiplier, collectTime);
+        var newPricePerProduct = GetNewPricePerProduct(levelUpgradeMultiplier, pricePerProduct, mineLevel);
+        var newUpgradeCost = GetNewUpgradeCost(levelUpgradeMultiplier, upgradeCost, mineLevel);
 
-        var panel = UpgradeSystem.Instance.upgradePanel.transform;
+        var panel = upgradePanel.transform;
         panel.Find("Header").GetComponent<TextMeshProUGUI>().text = string.Format("<color=red>{0}</color> Level {1}", name, mineLevel);
         var levelUpText = panel.Find("LevelUp_Text").GetComponent<TextMeshProUGUI>();
 
@@ -341,11 +344,11 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         UnityAction<int> tempAction = SetUpgradePanel;
 
         isUpgradePanelActive = true;
-        var panel = UpgradeSystem.Instance.upgradePanel;
+        var panel = upgradePanel;
         panel.transform.Find("CloseBtn").GetComponent<Button>().onClick.RemoveAllListeners();
         panel.transform.Find("CloseBtn").GetComponent<Button>().onClick.AddListener(() => isUpgradePanelActive = false);
         panel.SetActive(true);
-        UpgradeSystem.Instance.upgradeMultiplier = 1;
+        upgradeMultiplier = 1;
         tempAction(1);
 
         var multiplierPanel = panel.transform.Find("Multiplier_Panel");
@@ -368,6 +371,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         panel.transform.Find("BuyBtn").GetComponent<Button>().onClick.AddListener(() =>
         {
             UpgradeMine();
+            ExecuteEvents.Execute(btn4.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
             tempAction(UpgradeSystem.Instance.upgradeMultiplier);
         });
     }

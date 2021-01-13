@@ -16,17 +16,20 @@ MonoBehaviour:
   TranslatedName: 
   resourceName: Clay
   baseResource: 5
+  foodAmount: 0
   collectTime: 5.5
   outputValue: 3
   pricePerProduct: 12000
-  backgroundImage: {fileID: 21300000, guid: 0f5d4b4459da917479af62504277218e, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   icon: {fileID: 21300000, guid: 966263a09293ab040b421553cbab8bc0, type: 3}
-  unlockLevel: 0
+  unlockLevel: 4
   xpAmount: 10
-  isLockedByContract: 0
+  lockedByContracts: []
   ageBelongsTo: 0
   tier: 1
-  itemType: 00000000
+  itemTypes: 00000000
   isUnlocked: 0
   incomePerSecond: 6,55K
   _incomePerSecond: 6545.4546

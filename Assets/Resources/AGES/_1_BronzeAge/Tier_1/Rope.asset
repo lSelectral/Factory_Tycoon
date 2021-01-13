@@ -13,21 +13,32 @@ MonoBehaviour:
   m_Name: Rope
   m_EditorClassIdentifier: 
   Description: 
+  isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  product: 19
+  product: 20
   partName: Rope
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 0
   outputValue: 0
   basePricePerProduct: 0
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
+  lockedByContracts: []
+  icon: {fileID: 21300000, guid: 426d7a491e233464190ce1e42792da9d, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 1
   tier: 0
-  itemType: 00000000
-  pricePerProduct: 
-  incomePerSecond: 
-  _pricePerProduct: 0
+  itemTypes: 00000000
+  pricePerProductText: 
+  pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  incomePerSecondText: 
+  incomePerSecond: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

@@ -13,25 +13,32 @@ MonoBehaviour:
   m_Name: Spear
   m_EditorClassIdentifier: 
   Description: Spear
+  isFixedArraySize: 1
   inputResources: 0200000003000000
-  inputAmounts: 0500000002000000
+  inputAmounts: 0500000004000000
   product: 8
   partName: Spear
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 7.5
   outputValue: 1
-  basePricePerProduct: 720000
-  unlockLevel: 4
+  basePricePerProduct: 14000000
+  unlockLevel: 6
   xpAmount: 80
-  isLockedByContract: 0
-  lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
+  lockedByContracts: []
   icon: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 1
-  itemType: 02000000
-  pricePerProductText: 736,49K
-  _pricePerProduct: 736485
-  incomePerSecondText: 194,2K
-  incomePerSecond: 194198
-  optimalIncomePerSecondText: 6,73K
-  optimalPricePerSecond: 6728.572
+  itemTypes: 00000000
+  pricePerProductText: 14,15M
+  pricePerProduct: 14151789
+  optimalPricePerProductText: 151,79K
+  optimalPricePerProduct: 151789.28
+  incomePerSecondText: 1,89M
+  incomePerSecond: 1886905.2
+  optimalIncomePerSecondText: 28,38K
+  optimalPricePerSecond: 28377.143
   isOptimal: 1

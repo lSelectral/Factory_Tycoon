@@ -13,21 +13,32 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   Description: One of the first step of human colonization
+  isFixedArraySize: 1
   inputResources: 0200000001000000
-  inputAmounts: 0800000004000000
+  inputAmounts: 080000000f000000
   product: 14
   partName: Fire
-  buildTime: 10
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  buildTime: 15
   outputValue: 1
-  basePricePerProduct: 800
-  unlockLevel: 4
+  basePricePerProduct: 3.34e+12
+  unlockLevel: 11
   xpAmount: 90
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
+  lockedByContracts: []
   icon: {fileID: 21300000, guid: 1ea126cd684d60a49800188899b8e927, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 3
-  itemType: 0100000000000000
-  pricePerProduct: 4,05K
-  incomePerSecond: 404,8
-  _pricePerProduct: 4048
+  itemTypes: 00000000
+  pricePerProductText: 3,34T
+  pricePerProduct: 3.3400003e+12
+  optimalPricePerProductText: 172,11K
+  optimalPricePerProduct: 172109.47
+  incomePerSecondText: 222,67G
+  incomePerSecond: 2.2266669e+11
+  optimalIncomePerSecondText: 10,45K
+  optimalPricePerSecond: 10450.429
+  isOptimal: 1

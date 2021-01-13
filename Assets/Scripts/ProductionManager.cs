@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -122,27 +123,10 @@ public class ProductionManager : Singleton<ProductionManager>
 
     private void Awake()
     {
+        assets = Resources.LoadAll("AGES");
         mineList = new List<ScriptableMine>();
         compoundList = new List<ScriptableCompound>();
-
-        assets = Resources.LoadAll("AGES");
-
-        for (int i = 0; i < assets.Length; i++)
-        {
-            var asset = assets[i];
-            
-            if (asset as ScriptableObject != null)
-            {
-                var sc = asset as ScriptableObject;
-                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_StoneAge)
-                    mineList.Add(sc as ScriptableMine);
-                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_StoneAge)
-                    compoundList.Add(sc as ScriptableCompound);
-            }
-        }
-        //Debug.Log("Mine count is: " + mineList.Count);
-        //Debug.Log("Compound count is: " + compoundList.Count);
-
+        InitializeMineAndCompoundList(out mineList, out compoundList);
 
         for (int i = 0; i < mineList.Count; i++)
         {
@@ -165,134 +149,76 @@ public class ProductionManager : Singleton<ProductionManager>
     /// <param name="collectTime"></param>
     /// <returns></returns>
     /// <see cref="Compounds"/>
-    /// <see cref="ScriptableCompound"/>
-    public float GetPricePerProductForCompound(BaseResources[] resources, int[] inputAmounts, float collectTime)
+    //public float GetPricePerProductForCompound(BaseResources[] resources, int[] inputAmounts, float collectTime)
+    //{
+    //    float pricePerProduct = 0f;
+
+    //    foreach (BaseResources res in resources)
+    //    {
+    //        var _mine = GetMineFromResource(res);
+    //        if (_mine != null)
+    //            pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _mine.PricePerProduct * collectTime / _mine.CollectTime);
+
+    //        var _compound = GetCompoundFromResource(res);
+    //        if (_compound != null)
+    //            pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _compound.PricePerProduct * collectTime / _compound.BuildTime);
+    //    }
+    //    return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER / collectTime;
+    //}
+
+    public float GET_OPTIMAL_PRICE_PER_PRODUCT(Compounds compound)
     {
         float pricePerProduct = 0f;
-        foreach (BaseResources res in resources)
+        foreach (BaseResources res in compound.InputResources)
         {
-            foreach (GameObject _mine in instantiatedMines)
+            var _mine = GetMineFromResource(res);
+            if (_mine != null)
             {
-                var mine = _mine.GetComponent<Mine_Btn>();
-                if (mine.scriptableMine.baseResource == res)
-                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * mine.PricePerProduct * collectTime / mine.CollectTime);
+                pricePerProduct += _mine.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.BuildTime / _mine.CollectTime;
             }
-            foreach (GameObject _compound in instantiatedCompounds)
-            {
-                var compound = _compound.GetComponent<Compounds>();
-                if (compound.scriptableCompound.product == res)
-                    pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * compound.PricePerProduct * collectTime / compound.BuildTime);
-            }
-        }
-        return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER / collectTime;
-    }
 
-    public float GetPricePerProductForEDITOR(BaseResources[] resources, int[] inputAmounts)
-    {
-        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
-        List<ScriptableMine> mineList = new List<ScriptableMine>();
-
-        InitializeMineAndCompoundList(out mineList, out compoundList);
-
-        float pricePerProduct = 0f;
-        foreach (BaseResources res in resources)
-        {
-            foreach (ScriptableMine _mine in mineList)
-            {
-                if (_mine.baseResource == res)
-                    pricePerProduct += _mine.pricePerProduct * (inputAmounts[Array.IndexOf(resources,res)]);
-            }
-            foreach (ScriptableCompound _compound in compoundList)
-            {
-                if (_compound.product == res)
-                {
-                    //pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * 
-                    //    GetPricePerProductForSubCompoundEditor(_compound.inputResources,_compound.inputAmounts, mineList, compoundList));
-                    pricePerProduct += inputAmounts[Array.IndexOf(resources,res)] * (_compound._pricePerProduct+_compound.basePricePerProduct);                }
-            }
+            var _compound = GetCompoundFromResource(res);
+            if (_compound != null)
+                pricePerProduct += _compound.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.BuildTime / _compound.BuildTime;
         }
         return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
     }
 
-    //float GetPricePerProductForSubCompoundEditor(BaseResources[] resources, int[] inputAmounts, List<ScriptableMine> mineList, List<ScriptableCompound> compoundList)
-    //{
-    //    float pricePerProduct = 0f;
-    //    foreach (BaseResources res in resources)
-    //    {
-    //        foreach (ScriptableMine _mine in mineList)
-    //        {
-    //            if (_mine.baseResource == res)
-    //                pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _mine.pricePerProduct);
-    //        }
-    //        foreach (ScriptableCompound _compound in compoundList)
-    //        {
-    //            if (_compound.product == res)
-    //                pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _compound._pricePerProduct);
-    //        }
-    //    }
-    //    return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
-    //}
+    public float GET_OPTIMAL_PRICE_PER_PRODUCT_EDITOR(ScriptableCompound compound)
+    {
+        float pricePerProduct = 0f;
+        foreach (BaseResources res in compound.inputResources)
+        {
+            ScriptableMine _mine = GetScriptableMineFromResource(res);
+            if (_mine != null)
+            {
+                pricePerProduct += _mine.pricePerProduct * compound.inputAmounts[Array.IndexOf(compound.inputResources, res)] * compound.collectTime / _mine.collectTime;
+            }
+
+            ScriptableCompound _compound = GetScriptableCompoundFromResource(res);
+            if (_compound != null)
+                pricePerProduct += _compound.pricePerProduct * compound.inputAmounts[Array.IndexOf(compound.inputResources, res)] * compound.collectTime / _compound.collectTime;
+        }
+        return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
+    }
 
     public float GetIncomePerSecondForEDITOR(BaseResources[] resources, int[] inputAmounts)
     {
-        var assets = Resources.LoadAll("AGES");
-        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
-        List<ScriptableMine> mineList = new List<ScriptableMine>();
-
-        for (int i = 0; i < assets.Length; i++)
-        {
-            var asset = assets[i];
-
-            if (asset as ScriptableObject != null)
-            {
-                var sc = asset as ScriptableObject;
-                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_StoneAge)
-                    mineList.Add(sc as ScriptableMine);
-                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_StoneAge)
-                    compoundList.Add(sc as ScriptableCompound);
-            }
-        }
-
         float incomePerSecond = 0f;
         foreach (BaseResources res in resources)
         {
-            foreach (ScriptableMine _mine in mineList)
-            {
-                if (_mine.baseResource == res)
-                    incomePerSecond += _mine._incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
-            }
-            foreach (ScriptableCompound _compound in compoundList)
-            {
-                if (_compound.product == res)
-                {
-                    incomePerSecond += _compound.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
-                    //incomePerSecond += GetIncomePerSecond(_compound.inputResources, inputAmounts, mineList, compoundList) * inputAmounts[Array.IndexOf(resources, res)];
-                }
-            }
+            var _mine = GetScriptableMineFromResource(res);
+            if (_mine != null)
+                incomePerSecond += _mine.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
+
+            var _compound = GetScriptableCompoundFromResource(res);
+            if (_compound != null)
+                incomePerSecond += _compound.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
         }
-        return incomePerSecond * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
+        return incomePerSecond * UpgradeSystem.Instance.INCOME_PRICE_MULTIPLIER;
     }
 
-    //float GetIncomePerSecond(BaseResources[] resources, int[] inputAmounts, List<ScriptableMine> mineList, List<ScriptableCompound> compoundList)
-    //{
-    //    float incomePerSecond = 0f;
-
-    //    foreach (BaseResources res in resources)
-    //    {
-    //        foreach (ScriptableMine _mine in mineList)
-    //        {
-    //            if (_mine.baseResource == res)
-    //                incomePerSecond += _mine._incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
-    //        }
-    //        foreach (ScriptableCompound _compound in compoundList)
-    //        {
-    //            if (_compound.product == res)
-    //                incomePerSecond += _compound.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
-    //        }
-    //    }
-    //    return incomePerSecond;
-    //}
-
+    #region Helper Functions
     void InitializeMineAndCompoundList(out List<ScriptableMine> _mineList, out List<ScriptableCompound> _compoundList)
     {
         var assets = Resources.LoadAll("AGES");
@@ -315,6 +241,38 @@ public class ProductionManager : Singleton<ProductionManager>
         _mineList = mineList;
         _compoundList = compoundList;
     }
+
+    public Mine_Btn GetMineFromResource(BaseResources res)
+    {
+        var q = instantiatedMines.Where(m => m.GetComponent<Mine_Btn>() != null && m.GetComponent<Mine_Btn>().ProducedResource == res).FirstOrDefault();
+        return q != null ? q.GetComponent<Mine_Btn>() : null;
+    }
+
+    public ScriptableMine GetScriptableMineFromResource(BaseResources res)
+    {
+        List<ScriptableMine> mineList = new List<ScriptableMine>();
+        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
+        InitializeMineAndCompoundList(out mineList, out compoundList);
+
+        var q = mineList.Where(m => m != null && m.product == res).FirstOrDefault();
+        return q != null ? q : null;
+    }
+
+    public Compounds GetCompoundFromResource(BaseResources res)
+    {
+        var q = instantiatedCompounds.Where(c => c.GetComponent<Compounds>() != null && c.GetComponent<Compounds>().Product == res).FirstOrDefault();
+        return q != null ? q.GetComponent<Compounds>() : null;
+    }
+
+    public ScriptableCompound GetScriptableCompoundFromResource(BaseResources res)
+    {
+        List<ScriptableMine> mineList = new List<ScriptableMine>();
+        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
+        InitializeMineAndCompoundList(out mineList, out compoundList);
+        var q = compoundList.Where(c => c != null && c.product == res).FirstOrDefault();
+        return q != null ? q : null;
+    }
+    #endregion
 }
 
 /// <summary>

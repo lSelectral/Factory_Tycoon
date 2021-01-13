@@ -13,21 +13,33 @@ MonoBehaviour:
   m_Name: Wine
   m_EditorClassIdentifier: 
   Description: 'Wine is a luxury item that produced by '
+  isFixedArraySize: 1
   inputResources: 06000000
   inputAmounts: 05000000
   product: 17
   partName: Wine
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   buildTime: 45
   outputValue: 1
-  basePricePerProduct: 35000
-  unlockLevel: 9
-  xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
+  basePricePerProduct: 1.4e+18
+  unlockLevel: 14
+  xpAmount: 10000
+  lockedByContract:
+  - {fileID: 0}
   icon: {fileID: 21300000, guid: 39d08c6fe3f2f8e4d9e3eff5f27d4fe7, type: 3}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 3
-  itemType: 01000000
-  pricePerProduct: 138,5K
-  incomePerSecond: 3,08K
-  _pricePerProduct: 138500
+  itemTypes: 00000000
+  pricePerProductText: 1,4E
+  pricePerProduct: 1.4e+18
+  optimalPricePerProductText: 13,71M
+  optimalPricePerProduct: 13710001
+  incomePerSecondText: 31,11P
+  incomePerSecond: 3.1111113e+16
+  optimalIncomePerSecondText: 764K
+  optimalPricePerSecond: 764000
+  isOptimal: 1
