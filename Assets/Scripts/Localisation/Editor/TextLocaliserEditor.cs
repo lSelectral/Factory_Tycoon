@@ -117,7 +117,7 @@ public class TextLocaliserSearchWindow : EditorWindow
 
         if (GUILayout.Button(content, GUILayout.MaxHeight(24), GUILayout.MaxWidth(24)))
         {
-            if (EditorUtility.DisplayDialog("Remove Key " + element.Key + "?", "This will remove the element from localisation, are you sure?", "Accept", "Cancel")) ;
+            if (EditorUtility.DisplayDialog("Remove Key " + element.Key + "?", "This will remove the element from localisation, are you sure?", "Accept", "Cancel"))
             {
                 LocalisationSystem.Remove(element.Key);
                 AssetDatabase.Refresh();

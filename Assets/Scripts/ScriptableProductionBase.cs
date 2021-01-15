@@ -54,6 +54,12 @@ public abstract class ScriptableProductionBase : ScriptableObject
     /// </summary>
     public virtual void OnValidate()
     {
+        // If these value equal to 0, income per second reach infinite
+        if (collectTime < 1)
+            collectTime = 1;
+        if (outputValue < 1)
+            outputValue = 1;
+
         resourceName = name;
 
         if (itemTypes == null)

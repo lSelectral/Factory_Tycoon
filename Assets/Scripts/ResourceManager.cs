@@ -217,6 +217,7 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         return char.ToUpper(res.ToString().Substring(3).ToCharArray()[0]) + res.ToString().Substring(4);
     }
+
     #endregion
 
     private void Awake()

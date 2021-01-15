@@ -13,21 +13,34 @@ MonoBehaviour:
   m_Name: Bronze_statue
   m_EditorClassIdentifier: 
   Description: 
+  TranslatedName: 
+  resourceName: Bronze_statue
+  product: 35
+  foodAmount: 0
+  collectTime: 1
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 0}
+  unlockLevel: 5
+  xpAmount: 25
+  ageBelongsTo: 1
+  tier: 4
+  itemTypes: 00000000
+  pricePerProductText: 0
+  pricePerProduct: 0
+  incomePerSecondText: 0
+  incomePerSecond: 0
+  isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  product: 0
-  partName: Bronze_Statue
-  buildTime: 0
-  outputValue: 0
+  housingAmount: 0
+  attackAmount: 0
   basePricePerProduct: 0
-  unlockLevel: 0
-  xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
-  ageBelongsTo: 1
-  tier: 0
-  itemType: 
-  pricePerProduct: 
-  incomePerSecond: 
-  _pricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

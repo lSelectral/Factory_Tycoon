@@ -13,33 +13,34 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   Description: Primal tool for cutting down trees and sometimes enemies
-  isFixedArraySize: 1
-  inputResources: 0200000003000000
-  inputAmounts: 0300000002000000
+  TranslatedName: 
+  resourceName: Axe
   product: 4
-  partName: Axe
   foodAmount: 0
-  housingAmount: 0
-  attackAmount: 2
-  buildTime: 9
+  collectTime: 9
   outputValue: 1
-  basePricePerProduct: 0
-  unlockLevel: 5
-  xpAmount: 500
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 21300000, guid: b0b13b34b41cfb54cb2d4fda519a2756, type: 3}
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: b0b13b34b41cfb54cb2d4fda519a2756, type: 3}
+  unlockLevel: 5
+  xpAmount: 500
   ageBelongsTo: 0
   tier: 1
   itemTypes: 0200000004000000
-  pricePerProductText: 103,53K
-  pricePerProduct: 103525.71
-  optimalPricePerProductText: 103,53K
-  optimalPricePerProduct: 103525.71
-  incomePerSecondText: 11,5K
-  incomePerSecond: 11502.856
-  optimalIncomePerSecondText: 8,56K
-  optimalPricePerSecond: 8562.857
-  isOptimal: 1
+  pricePerProductText: 96,95K
+  pricePerProduct: 96949.29
+  incomePerSecondText: 10,77K
+  incomePerSecond: 10772.144
+  isFixedArraySize: 1
+  inputResources: 0200000003000000
+  inputAmounts: 0300000002000000
+  housingAmount: 0
+  attackAmount: 2
+  basePricePerProduct: 0
+  optimalPricePerProductText: 96,95K
+  optimalPricePerProduct: 96949.29
+  optimalIncomePerSecondText: 14,73K
+  optimalPricePerSecond: 14734.285
+  isOptimal: 0

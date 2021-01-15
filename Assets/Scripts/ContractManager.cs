@@ -98,8 +98,9 @@ public class ContractManager : Singleton<ContractManager>
     }
 
     /// <summary>
-    /// Not for rungame. Used in editor play for creating automation assets automatically.
+    /// Not for rungame. Used in editor for creating automation assets automatically.
     /// Used frome editor script CustomEditorWindow.cs
+    /// For creating simply click create automation contracts button. If missing just remove comment mark from editor script
     /// </summary>
     /// <returns>List of contracts for automation of production</returns>
     /// <seealso cref="Assets\Scripts\Editor\CustomEditorWindow.cs"/>
@@ -108,8 +109,8 @@ public class ContractManager : Singleton<ContractManager>
         List<ContractBase> automationContracts = new List<ContractBase>();
         foreach (BaseResources resource in Enum.GetValues(typeof(BaseResources)))
         {
-            ScriptableMine mine = ProductionManager.Instance.GetScriptableMineFromResource(resource);
-            ScriptableCompound compound = ProductionManager.Instance.GetScriptableCompoundFromResource(resource);
+            ScriptableMine mine = ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource) as ScriptableMine;
+            ScriptableCompound compound = ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource) as ScriptableCompound;
 
             ScriptableMine[] mineArray = null;
             ScriptableCompound[] compoundArray = null;

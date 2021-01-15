@@ -37,88 +37,57 @@ public class ProductionManager : Singleton<ProductionManager>
         get { return assets; }
     }
 
-    /// <summary>
-    /// Instantiate mine prefab and create expand and collapse button for tier groups
-    /// </summary>
-    /// <param name="mine"></param>
-    void InstantiateMine(ScriptableMine mine)
+    void InstantiateProductionUnit(ScriptableProductionBase unit)
     {
-        var _contentHolder = mainPanel.transform.Find(mine.ageBelongsTo.ToString()).GetChild(0);
-
-        Transform tierSeperatedContainer = null;
-
-
-        if (_contentHolder.Find(mine.tier.ToString()) == null)
+        // TODO Remove this if statement on release. This is just for quick testing
+        if (unit.ageBelongsTo == Age._0_StoneAge)
         {
-            var collapsablePanel = Instantiate(collapsablePanelPrefab, _contentHolder);
-            collapsablePanel.GetComponentInChildren<TextMeshProUGUI>().text = "Tier " + mine.tier.ToString().Substring(mine.tier.ToString().Length - 1);
-            collapsablePanel.name = mine.tier.ToString();
+            var _contentHolder = mainPanel.transform.Find(unit.ageBelongsTo.ToString()).GetChild(0);
+            Transform tierSeperatedContainer = null;
 
-            tierSeperatedContainer = Instantiate(contentHolderPrefab, _contentHolder).transform;
-            tierSeperatedContainer.gameObject.name = "container_" + mine.tier;
+            if (_contentHolder.Find(unit.tier.ToString()) == null)
+            {
+                var collapsablePanel = Instantiate(collapsablePanelPrefab, _contentHolder);
+                collapsablePanel.GetComponentInChildren<TextMeshProUGUI>().text = "Tier " + unit.tier.ToString().Substring(unit.tier.ToString().Length - 1);
+                collapsablePanel.name = unit.tier.ToString();
+
+                tierSeperatedContainer = Instantiate(contentHolderPrefab, _contentHolder).transform;
+                tierSeperatedContainer.gameObject.name = "container_" + unit.tier;
+            }
+            else
+                tierSeperatedContainer = _contentHolder.transform.GetChild(_contentHolder.Find(unit.tier.ToString()).GetSiblingIndex() + 1);
+
+            GameObject _unit = null;
+            if (unit as ScriptableCompound != null)
+            {
+                _unit = Instantiate(compoundPrefab, tierSeperatedContainer);
+                _unit.GetComponent<Compounds>().scriptableCompound = unit as ScriptableCompound;
+            }
+            else if (unit as ScriptableMine != null)
+            {
+                _unit = Instantiate(minePrefab, tierSeperatedContainer);
+                _unit.GetComponent<Mine_Btn>().scriptableMine = unit as ScriptableMine;
+            }
+            _unit.GetComponent<ProductionBase>().scriptableProductionBase = unit;
+
+            instantiatedCompounds.Add(_unit);
+
+            var expandBtn = _contentHolder.Find(unit.tier.ToString()).Find("Image").Find("ExpandBtn").GetComponent<Button>();
+            var collapseBtn = _contentHolder.Find(unit.tier.ToString()).Find("Image").Find("CollapseBtn").GetComponent<Button>();
+
+            expandBtn.onClick.RemoveAllListeners();
+            expandBtn.onClick.AddListener(() =>
+            {
+                temporaryMovementPanel.Find("container_" + unit.tier).SetParent(_contentHolder);
+                tierSeperatedContainer.SetSiblingIndex(_contentHolder.Find(unit.tier.ToString()).GetSiblingIndex() + 1);
+            });
+
+            collapseBtn.onClick.RemoveAllListeners();
+            collapseBtn.onClick.AddListener(() =>
+            {
+                _contentHolder.transform.Find("container_" + unit.tier).SetParent(temporaryMovementPanel);
+            });
         }
-        else
-            tierSeperatedContainer = _contentHolder.transform.GetChild(_contentHolder.Find(mine.tier.ToString()).GetSiblingIndex() + 1);
-
-        var _mine = Instantiate(minePrefab, tierSeperatedContainer);
-        _mine.GetComponent<Mine_Btn>().scriptableMine = mine;
-        instantiatedMines.Add(_mine);
-
-        var expandBtn = _contentHolder.Find(mine.tier.ToString()).Find("Image").Find("ExpandBtn").GetComponent<Button>();
-        var collapseBtn = _contentHolder.Find(mine.tier.ToString()).Find("Image").Find("CollapseBtn").GetComponent<Button>();
-
-        expandBtn.onClick.RemoveAllListeners();
-        expandBtn.onClick.AddListener(() => 
-        { 
-            temporaryMovementPanel.Find("container_"+mine.tier).SetParent(_contentHolder);
-            tierSeperatedContainer.SetSiblingIndex(_contentHolder.Find(mine.tier.ToString()).GetSiblingIndex()+1);
-        });
-
-        collapseBtn.onClick.RemoveAllListeners();
-        collapseBtn.onClick.AddListener(() => 
-        {
-            _contentHolder.transform.Find("container_" + mine.tier).SetParent(temporaryMovementPanel);
-        });
-    }
-
-    void InstantiateCompound(ScriptableCompound compound)
-    {
-        var _contentHolder = mainPanel.transform.Find(compound.ageBelongsTo.ToString()).GetChild(0);
-
-        Transform tierSeperatedContainer = null;
-
-
-        if (_contentHolder.Find(compound.tier.ToString()) == null)
-        {
-            var collapsablePanel = Instantiate(collapsablePanelPrefab, _contentHolder);
-            collapsablePanel.GetComponentInChildren<TextMeshProUGUI>().text = "Tier " + compound.tier.ToString().Substring(compound.tier.ToString().Length - 1);
-            collapsablePanel.name = compound.tier.ToString();
-
-            tierSeperatedContainer = Instantiate(contentHolderPrefab, _contentHolder).transform;
-            tierSeperatedContainer.gameObject.name = "container_" + compound.tier;
-        }
-        else
-            tierSeperatedContainer = _contentHolder.transform.GetChild(_contentHolder.Find(compound.tier.ToString()).GetSiblingIndex() + 1);
-
-        var _compound = Instantiate(compoundPrefab, tierSeperatedContainer);
-        _compound.GetComponent<Compounds>().scriptableCompound = compound;
-        instantiatedCompounds.Add(_compound);
-
-        var expandBtn = _contentHolder.Find(compound.tier.ToString()).Find("Image").Find("ExpandBtn").GetComponent<Button>();
-        var collapseBtn = _contentHolder.Find(compound.tier.ToString()).Find("Image").Find("CollapseBtn").GetComponent<Button>();
-
-        expandBtn.onClick.RemoveAllListeners();
-        expandBtn.onClick.AddListener(() =>
-        {
-            temporaryMovementPanel.Find("container_" + compound.tier).SetParent(_contentHolder);
-            tierSeperatedContainer.SetSiblingIndex(_contentHolder.Find(compound.tier.ToString()).GetSiblingIndex() + 1);
-        });
-
-        collapseBtn.onClick.RemoveAllListeners();
-        collapseBtn.onClick.AddListener(() =>
-        {
-            _contentHolder.transform.Find("container_" + compound.tier).SetParent(temporaryMovementPanel);
-        });
     }
 
     private void Awake()
@@ -128,43 +97,14 @@ public class ProductionManager : Singleton<ProductionManager>
         compoundList = new List<ScriptableCompound>();
         InitializeMineAndCompoundList(out mineList, out compoundList);
 
-        for (int i = 0; i < mineList.Count; i++)
+        for (int i = 0; i < assets.Length; i++)
         {
-            InstantiateMine(mineList[i]);
-        }
-
-        for (int j = 0; j < compoundList.Count; j++)
-        {
-            InstantiateCompound(compoundList[j]);
+            if (assets[i] as ScriptableProductionBase != null)
+            {
+                InstantiateProductionUnit(assets[i] as ScriptableProductionBase);
+            }
         }
     }
-
-    /// <summary>
-    /// // Formula is => ( (A1*O+A2*O+...+An*C) * COMPOUND_PRICE_MULTIPLIER ) / C    ***  IN COMPOUND CLASS, there is base price per product too. This formula + base price  ***
-    /// Where A is every sub product delta price and O is output amount and C is production time of compound
-    /// Delta price is net income per second => Price Per Product * Output Amount / Collect Time
-    /// </summary>
-    /// <param name="resources"></param>
-    /// <param name="inputAmounts"></param>
-    /// <param name="collectTime"></param>
-    /// <returns></returns>
-    /// <see cref="Compounds"/>
-    //public float GetPricePerProductForCompound(BaseResources[] resources, int[] inputAmounts, float collectTime)
-    //{
-    //    float pricePerProduct = 0f;
-
-    //    foreach (BaseResources res in resources)
-    //    {
-    //        var _mine = GetMineFromResource(res);
-    //        if (_mine != null)
-    //            pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _mine.PricePerProduct * collectTime / _mine.CollectTime);
-
-    //        var _compound = GetCompoundFromResource(res);
-    //        if (_compound != null)
-    //            pricePerProduct += (inputAmounts[Array.IndexOf(resources, res)] * _compound.PricePerProduct * collectTime / _compound.BuildTime);
-    //    }
-    //    return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER / collectTime;
-    //}
 
     public float GET_OPTIMAL_PRICE_PER_PRODUCT(Compounds compound)
     {
@@ -174,12 +114,12 @@ public class ProductionManager : Singleton<ProductionManager>
             var _mine = GetMineFromResource(res);
             if (_mine != null)
             {
-                pricePerProduct += _mine.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.BuildTime / _mine.CollectTime;
+                pricePerProduct += _mine.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.CollectTime / _mine.CollectTime;
             }
 
             var _compound = GetCompoundFromResource(res);
             if (_compound != null)
-                pricePerProduct += _compound.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.BuildTime / _compound.BuildTime;
+                pricePerProduct += _compound.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.CollectTime / _compound.CollectTime;
         }
         return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
     }
@@ -189,13 +129,13 @@ public class ProductionManager : Singleton<ProductionManager>
         float pricePerProduct = 0f;
         foreach (BaseResources res in compound.inputResources)
         {
-            ScriptableMine _mine = GetScriptableMineFromResource(res);
+            ScriptableMine _mine = GetScriptableProductionUnitFromResource(res) as ScriptableMine;
             if (_mine != null)
             {
                 pricePerProduct += _mine.pricePerProduct * compound.inputAmounts[Array.IndexOf(compound.inputResources, res)] * compound.collectTime / _mine.collectTime;
             }
 
-            ScriptableCompound _compound = GetScriptableCompoundFromResource(res);
+            ScriptableCompound _compound = GetScriptableProductionUnitFromResource(res) as ScriptableCompound;
             if (_compound != null)
                 pricePerProduct += _compound.pricePerProduct * compound.inputAmounts[Array.IndexOf(compound.inputResources, res)] * compound.collectTime / _compound.collectTime;
         }
@@ -207,13 +147,14 @@ public class ProductionManager : Singleton<ProductionManager>
         float incomePerSecond = 0f;
         foreach (BaseResources res in resources)
         {
-            var _mine = GetScriptableMineFromResource(res);
-            if (_mine != null)
-                incomePerSecond += _mine.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
+            incomePerSecond += GetScriptableProductionUnitFromResource(res).incomePerSecond;
+            //var _mine = GetScriptableProductionUnitFromResource(res);
+            //if (_mine != null)
+            //    incomePerSecond += _mine.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
 
-            var _compound = GetScriptableCompoundFromResource(res);
-            if (_compound != null)
-                incomePerSecond += _compound.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
+            //var _compound = GetScriptableCompoundFromResource(res);
+            //if (_compound != null)
+            //    incomePerSecond += _compound.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
         }
         return incomePerSecond * UpgradeSystem.Instance.INCOME_PRICE_MULTIPLIER;
     }
@@ -224,6 +165,8 @@ public class ProductionManager : Singleton<ProductionManager>
         var assets = Resources.LoadAll("AGES");
         List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
         List<ScriptableMine> mineList = new List<ScriptableMine>();
+
+        ScriptableProductionBase[] units = assets.Where(a => (a as ScriptableProductionBase) != null).Cast<ScriptableProductionBase>().ToArray();
 
         for (int i = 0; i < assets.Length; i++)
         {
@@ -242,36 +185,49 @@ public class ProductionManager : Singleton<ProductionManager>
         _compoundList = compoundList;
     }
 
+    ScriptableProductionBase[] GetProductionUnits()
+    {
+        var assets = Resources.LoadAll("AGES");
+        return assets.Where(a => (a as ScriptableProductionBase) != null).Cast<ScriptableProductionBase>().ToArray();
+    }
+
+
     public Mine_Btn GetMineFromResource(BaseResources res)
     {
         var q = instantiatedMines.Where(m => m.GetComponent<Mine_Btn>() != null && m.GetComponent<Mine_Btn>().ProducedResource == res).FirstOrDefault();
         return q != null ? q.GetComponent<Mine_Btn>() : null;
     }
 
-    public ScriptableMine GetScriptableMineFromResource(BaseResources res)
+    public ScriptableProductionBase GetScriptableProductionUnitFromResource(BaseResources res)
     {
-        List<ScriptableMine> mineList = new List<ScriptableMine>();
-        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
-        InitializeMineAndCompoundList(out mineList, out compoundList);
-
-        var q = mineList.Where(m => m != null && m.product == res).FirstOrDefault();
+        var q = GetProductionUnits().Where(u => u != null && u.product == res).FirstOrDefault();
         return q != null ? q : null;
     }
+
+    //public ScriptableMine GetScriptableMineFromResource(BaseResources res)
+    //{
+    //    List<ScriptableMine> mineList = new List<ScriptableMine>();
+    //    List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
+    //    InitializeMineAndCompoundList(out mineList, out compoundList);
+
+    //    var q = mineList.Where(m => m != null && m.product == res).FirstOrDefault();
+    //    return q != null ? q : null;
+    //}
 
     public Compounds GetCompoundFromResource(BaseResources res)
     {
-        var q = instantiatedCompounds.Where(c => c.GetComponent<Compounds>() != null && c.GetComponent<Compounds>().Product == res).FirstOrDefault();
+        var q = instantiatedCompounds.Where(c => c.GetComponent<Compounds>() != null && c.GetComponent<Compounds>().ProducedResource == res).FirstOrDefault();
         return q != null ? q.GetComponent<Compounds>() : null;
     }
 
-    public ScriptableCompound GetScriptableCompoundFromResource(BaseResources res)
-    {
-        List<ScriptableMine> mineList = new List<ScriptableMine>();
-        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
-        InitializeMineAndCompoundList(out mineList, out compoundList);
-        var q = compoundList.Where(c => c != null && c.product == res).FirstOrDefault();
-        return q != null ? q : null;
-    }
+    //public ScriptableCompound GetScriptableCompoundFromResource(BaseResources res)
+    //{
+    //    List<ScriptableMine> mineList = new List<ScriptableMine>();
+    //    List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
+    //    InitializeMineAndCompoundList(out mineList, out compoundList);
+    //    var q = compoundList.Where(c => c != null && c.product == res).FirstOrDefault();
+    //    return q != null ? q : null;
+    //}
     #endregion
 }
 
@@ -309,6 +265,24 @@ public enum CompoundWorkingMode
     /// </summary>
     stopProduction = 3,
 }
+
+public enum WorkingMode
+{
+    /// <summary>
+    /// Use produced materials for further and advanced production
+    /// </summary>
+    production = 1,
+    /// <summary>
+    /// Sell produced products
+    /// </summary>
+    sell = 2,
+    /// <summary>
+    /// Stop the production for recipes that require another resource
+    /// so this recipe will not consume any resource if player not wants it.
+    /// </summary>
+    stopProduction = 3,
+}
+
 
 public enum Age
 {

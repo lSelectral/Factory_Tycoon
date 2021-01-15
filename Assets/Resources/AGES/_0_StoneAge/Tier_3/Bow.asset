@@ -13,33 +13,34 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   Description: bow tool for hunting and war
-  isFixedArraySize: 1
-  inputResources: 0900000002000000
-  inputAmounts: 0800000006000000
+  TranslatedName: 
+  resourceName: Bow
   product: 10
-  partName: Bow
   foodAmount: 0
-  housingAmount: 0
-  attackAmount: 300
-  buildTime: 9
+  collectTime: 5
   outputValue: 1
-  basePricePerProduct: 170000000
-  unlockLevel: 7
-  xpAmount: 120
-  isLockedByContract: 1
-  lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
-  icon: {fileID: 21300000, guid: 848c5226927b69148825ba61d21eacce, type: 3}
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 848c5226927b69148825ba61d21eacce, type: 3}
+  unlockLevel: 7
+  xpAmount: 120
   ageBelongsTo: 0
   tier: 2
   itemTypes: 
-  pricePerProductText: 292,05M
-  pricePerProduct: 292046720
-  optimalPricePerProductText: 122,05M
-  optimalPricePerProduct: 122046730
-  incomePerSecondText: 32,45M
-  incomePerSecond: 32449636
-  optimalIncomePerSecondText: 40,68M
-  optimalPricePerSecond: 40678812
-  isOptimal: 0
+  pricePerProductText: 252,62M
+  pricePerProduct: 252619340
+  incomePerSecondText: 50,52M
+  incomePerSecond: 50523868
+  isFixedArraySize: 1
+  inputResources: 0900000002000000
+  inputAmounts: 0800000006000000
+  housingAmount: 0
+  attackAmount: 300
+  basePricePerProduct: 170000000
+  optimalPricePerProductText: 82,62M
+  optimalPricePerProduct: 82619340
+  optimalIncomePerSecondText: 41,42M
+  optimalPricePerSecond: 41423120
+  isOptimal: 1

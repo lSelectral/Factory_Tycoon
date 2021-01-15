@@ -69,7 +69,7 @@ public class SaveSystem : Singleton<SaveSystem>
             {
                 chargeTime = mine.CollectTime,
                 isAutomated = mine.IsAutomated,
-                mineLevel = mine.MineLevel,
+                mineLevel = mine.Level,
                 remainedChargeTime = mine.RemainedCollectTime,
                 upgradeAmount = mine.UpgradeCost,
                 workingMode = mine.WorkingMode,
@@ -83,7 +83,7 @@ public class SaveSystem : Singleton<SaveSystem>
             var c = _compound.GetComponent<Compounds>();
             CompoundSave compoundSave = new CompoundSave()
             {
-                compoundLevel = c.CompoundLevel,
+                compoundLevel = c.Level,
                 isAutomated = c.IsAutomated,
                 outputAmount = c.OutputValue,
                 remainedChargeTime = c.RemainedBuildTime,
@@ -200,7 +200,7 @@ public class SaveSystem : Singleton<SaveSystem>
             foreach (var m in savedMineInfos)
             {
                 var mine = m.Mine.GetComponent<Mine_Btn>();
-                mine.MineLevel = m.Info.mineLevel;
+                mine.Level = m.Info.mineLevel;
                 mine.UpgradeCost = m.Info.upgradeAmount;
                 mine.CollectTime = m.Info.chargeTime;
                 mine.WorkingMode = m.Info.workingMode;
@@ -314,7 +314,7 @@ public class MineSave
     public int mineLevel;
     public bool isAutomated;
     public long outputAmount;
-    public MineWorkingMode workingMode;
+    public WorkingMode workingMode;
     public bool isLockedByContract;
 }
 
@@ -327,7 +327,7 @@ public class CompoundSave
     public bool isAutomated;
     public long outputAmount;
     public List<BaseResources> requiredResources;
-    public CompoundWorkingMode workingMode;
+    public WorkingMode workingMode;
     public bool isLockedByContract;
 }
 

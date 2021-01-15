@@ -149,7 +149,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
         public float INCOME_PRICE_MULTIPLIER = 1f;
 
-        public const float MINE_STARTING_UPGRADE_COST_MULTIPLIER = 25f;
+        public const float STARTING_UPGRADE_COST_MULTIPLIER = 25f;
 
         public const float COMPOUND_STARTING_UPGRADE_COST_MULTIPLIER = 25f;
 
