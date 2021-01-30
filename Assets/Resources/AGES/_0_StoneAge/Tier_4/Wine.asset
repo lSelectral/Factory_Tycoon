@@ -12,34 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Wine
   m_EditorClassIdentifier: 
-  Description: 'Wine is a luxury item that produced by '
+  Description: Life was always stressful. Relax and chill.
+  TranslatedName: Wine
+  resourceName: Wine
+  product: 18
+  foodAmount: 0
+  collectTime: 1
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 7c4bf82af88be9f48a2019475c285678, type: 3}
+  icon: {fileID: 21300000, guid: 39d08c6fe3f2f8e4d9e3eff5f27d4fe7, type: 3}
+  unlockLevel: 14
+  xpAmount: 10000
+  ageBelongsTo: 0
+  tier: 3
+  itemTypes: 01000000
+  pricePerProductText: 999G
+  pricePerProduct: 9.990003e+11
+  incomePerSecondText: 999G
+  incomePerSecond: 9.990003e+11
   isFixedArraySize: 1
   inputResources: 06000000
   inputAmounts: 05000000
-  product: 17
-  partName: Wine
-  foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  buildTime: 45
-  outputValue: 1
-  basePricePerProduct: 1.4e+18
-  unlockLevel: 14
-  xpAmount: 10000
-  lockedByContract:
-  - {fileID: 0}
-  icon: {fileID: 21300000, guid: 39d08c6fe3f2f8e4d9e3eff5f27d4fe7, type: 3}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
-  ageBelongsTo: 0
-  tier: 3
-  itemTypes: 00000000
-  pricePerProductText: 1,4E
-  pricePerProduct: 1.4e+18
-  optimalPricePerProductText: 13,71M
-  optimalPricePerProduct: 13710001
-  incomePerSecondText: 31,11P
-  incomePerSecond: 3.1111113e+16
-  optimalIncomePerSecondText: 764K
-  optimalPricePerSecond: 764000
+  basePricePerProduct: 9.99e+11
+  optimalPricePerProductText: 304,67K
+  optimalPricePerProduct: 304666.66
+  optimalIncomePerSecondText: 152,8K
+  optimalPricePerSecond: 152800
   isOptimal: 1

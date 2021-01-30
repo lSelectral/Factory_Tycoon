@@ -12,33 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Copper_ore
   m_EditorClassIdentifier: 
-  Description: 
-  isFixedArraySize: 1
-  inputResources: 07000000
-  inputAmounts: 02000000
-  product: 18
-  partName: Copper_ore
+  Description: One of the frist ore. Can be found  without digging.
+  TranslatedName: Copper Ore
+  resourceName: Copper_ore
+  product: 19
   foodAmount: 0
-  housingAmount: 0
-  attackAmount: 0
-  buildTime: 20
+  collectTime: 1
   outputValue: 6
-  basePricePerProduct: 4.5e+15
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
+  sourceImage: {fileID: 21300000, guid: ade058796e1c76d42ba69920f3acab25, type: 3}
+  icon: {fileID: 21300000, guid: 14fdcdfe7024c01409deeeb8efad9a6c, type: 3}
   unlockLevel: 11
   xpAmount: 25
-  lockedByContract: []
-  icon: {fileID: 21300000, guid: 14fdcdfe7024c01409deeeb8efad9a6c, type: 3}
-  toolImage: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
-  sourceImage: {fileID: 0}
   ageBelongsTo: 1
   tier: 0
   itemTypes: 00000000
   pricePerProductText: 4,5P
   pricePerProduct: 4.5e+15
-  optimalPricePerProductText: 20,88M
-  optimalPricePerProduct: 20875696
-  incomePerSecondText: 1,35P
-  incomePerSecond: 1.35e+15
-  optimalIncomePerSecondText: 872,49K
-  optimalPricePerSecond: 872485.25
+  incomePerSecondText: 27P
+  incomePerSecond: 2.6999998e+16
+  isFixedArraySize: 1
+  inputResources: 07000000
+  inputAmounts: 02000000
+  housingAmount: 0
+  attackAmount: 0
+  basePricePerProduct: 4.5e+15
+  optimalPricePerProductText: 624,87K
+  optimalPricePerProduct: 624868.1
+  optimalIncomePerSecondText: 261,16K
+  optimalPricePerSecond: 261159.31
   isOptimal: 1

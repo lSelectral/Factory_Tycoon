@@ -10,19 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
-  m_Name: Iron_Brestplate
+  m_Name: Iron_brestplate
   m_EditorClassIdentifier: 
   Description: 
-  inputResources: 
-  inputAmounts: 
+  TranslatedName: Iron_Brestplate
+  resourceName: Iron_Brestplate
   product: 0
-  partName: 
-  buildTime: 0
-  outputValue: 0
+  foodAmount: 0
+  collectTime: 1
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 0}
   unlockLevel: 0
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 0}
   ageBelongsTo: 2
-  tier: 0
+  tier: 2
+  itemTypes: 00000000
+  pricePerProductText: 0
+  pricePerProduct: 0
+  incomePerSecondText: 0
+  incomePerSecond: 0
+  isFixedArraySize: 1
+  inputResources: 
+  inputAmounts: 
+  housingAmount: 0
+  attackAmount: 0
+  basePricePerProduct: 0
+  optimalPricePerProductText: 
+  optimalPricePerProduct: 0
+  optimalIncomePerSecondText: 
+  optimalPricePerSecond: 0
+  isOptimal: 0

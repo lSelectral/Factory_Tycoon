@@ -1,0 +1,224 @@
+{ "skilltree": [
+ {
+   "id_Skill": 0,
+   "skill_Dependencies": [],
+   "unlocked": true,
+   "cost": 0
+ },
+ {
+   "id_Skill": 1,
+   "skill_Dependencies": [0],
+   "unlocked": true,
+   "cost": 1
+ },
+  {
+   "id_Skill": 3,
+   "skill_Dependencies": [0],
+   "unlocked": false,
+   "cost": 1
+ },
+  {
+   "id_Skill": 5,
+   "skill_Dependencies": [0],
+   "unlocked": true,
+   "cost": 1
+ },
+ {
+   "id_Skill": 2,
+   "skill_Dependencies": [0],
+   "unlocked": false,
+   "cost": 1
+ },
+ {
+   "id_Skill": 4,
+   "skill_Dependencies": [0],
+   "unlocked": true,
+   "cost": 1
+ },
+ {
+   "id_Skill": 6,
+   "skill_Dependencies": [0],
+   "unlocked": false,
+   "cost": 1
+ },
+ {
+   "id_Skill": 7,
+   "skill_Dependencies": [0],
+   "unlocked": false,
+   "cost": 1
+ },
+ {
+   "id_Skill": 8,
+   "skill_Dependencies": [0],
+   "unlocked": false,
+   "cost": 1
+ },
+ {
+   "id_Skill": 9,
+   "skill_Dependencies": [0],
+   "unlocked": false,
+   "cost": 1
+ },
+ {
+   "id_Skill": 10,
+   "skill_Dependencies": [1],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 11,
+   "skill_Dependencies": [2],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 12,
+   "skill_Dependencies": [3],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 13,
+   "skill_Dependencies": [4],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 14,
+   "skill_Dependencies": [5],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 15,
+   "skill_Dependencies": [6],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 16,
+   "skill_Dependencies": [7],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 17,
+   "skill_Dependencies": [8],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 18,
+   "skill_Dependencies": [9],
+   "unlocked": false,
+   "cost": 2
+ },
+ {
+   "id_Skill": 19,
+   "skill_Dependencies": [10],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 20,
+   "skill_Dependencies": [10],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 21,
+   "skill_Dependencies": [12],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 22,
+   "skill_Dependencies": [13],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 23,
+   "skill_Dependencies": [13],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 24,
+   "skill_Dependencies": [15],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 25,
+   "skill_Dependencies": [16],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 26,
+   "skill_Dependencies": [18],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 27,
+   "skill_Dependencies": [18],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 28,
+   "skill_Dependencies": [19],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 29,
+   "skill_Dependencies": [20],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 30,
+   "skill_Dependencies": [21],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 31,
+   "skill_Dependencies": [22],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 32,
+   "skill_Dependencies": [23],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 33,
+   "skill_Dependencies": [24],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 34,
+   "skill_Dependencies": [25],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 35,
+   "skill_Dependencies": [26],
+   "unlocked": false,
+   "cost": 3
+ },
+ {
+   "id_Skill": 36,
+   "skill_Dependencies": [27],
+   "unlocked": false,
+   "cost": 3
+ }
+]}

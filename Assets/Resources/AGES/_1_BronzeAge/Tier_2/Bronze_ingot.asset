@@ -12,33 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Bronze_ingot
   m_EditorClassIdentifier: 
-  Description: 
-  isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
+  Description: Can made by smelting copper and tin ore together.
+  TranslatedName: "Bronze \u0130ngot"
+  resourceName: Bronze_ingot
   product: 23
-  partName: Bronze_ingot
   foodAmount: 0
-  housingAmount: 0
-  attackAmount: 0
-  buildTime: 0
-  outputValue: 0
-  basePricePerProduct: 0
-  unlockLevel: 0
-  xpAmount: 25
+  collectTime: 1
+  outputValue: 1
   lockedByContracts: []
-  icon: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  unlockLevel: 11
+  xpAmount: 500
   ageBelongsTo: 1
   tier: 1
   itemTypes: 00000000
-  pricePerProductText: 
-  pricePerProduct: 0
-  optimalPricePerProductText: 
-  optimalPricePerProduct: 0
-  incomePerSecondText: 
-  incomePerSecond: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0
+  pricePerProductText: 10,39
+  pricePerProduct: 10.386364
+  incomePerSecondText: 10,39
+  incomePerSecond: 10.386364
+  isFixedArraySize: 1
+  inputResources: 00000000
+  inputAmounts: 01000000
+  housingAmount: 0
+  attackAmount: 0
+  basePricePerProduct: 0
+  optimalPricePerProductText: 10,39
+  optimalPricePerProduct: 10.386364
+  optimalIncomePerSecondText: 8,68
+  optimalPricePerSecond: 8.681818
+  isOptimal: 1

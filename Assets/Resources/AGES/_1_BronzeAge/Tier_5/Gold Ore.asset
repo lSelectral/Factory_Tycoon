@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gold Ore
   m_EditorClassIdentifier: 
   Description: 
-  TranslatedName: 
+  TranslatedName: Gold Ore
   resourceName: Gold Ore
   product: 0
   foodAmount: 0
@@ -29,18 +29,18 @@ MonoBehaviour:
   ageBelongsTo: 1
   tier: 4
   itemTypes: 00000000
-  pricePerProductText: 0
-  pricePerProduct: 0
-  incomePerSecondText: 0
-  incomePerSecond: 0
+  pricePerProductText: 285,63G
+  pricePerProduct: 2.8562958e+11
+  incomePerSecondText: 285,63G
+  incomePerSecond: 2.8562958e+11
   isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
+  inputResources: 0b000000
+  inputAmounts: 19000000
   housingAmount: 0
   attackAmount: 0
   basePricePerProduct: 0
-  optimalPricePerProductText: 
-  optimalPricePerProduct: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0
+  optimalPricePerProductText: 285,63G
+  optimalPricePerProduct: 2.8562958e+11
+  optimalIncomePerSecondText: 9,55G
+  optimalPricePerSecond: 9.550153e+9
+  isOptimal: 1

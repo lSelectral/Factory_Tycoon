@@ -12,33 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Clay_vase
   m_EditorClassIdentifier: 
-  Description: 
-  isFixedArraySize: 1
-  inputResources: 05000000
-  inputAmounts: 04000000
+  Description: Product of creativity. Multi purpose protection tool.
+  TranslatedName: 
+  resourceName: Clay_vase
   product: 11
-  partName: Clay_vase
   foodAmount: 0
-  housingAmount: 0
-  attackAmount: 0
-  buildTime: 9
+  collectTime: 1
   outputValue: 1
-  basePricePerProduct: 2.5e+9
-  unlockLevel: 8
-  xpAmount: 25
   lockedByContracts: []
-  icon: {fileID: 21300000, guid: 966263a09293ab040b421553cbab8bc0, type: 3}
+  backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 966263a09293ab040b421553cbab8bc0, type: 3}
+  unlockLevel: 8
+  xpAmount: 25
   ageBelongsTo: 0
   tier: 2
   itemTypes: 01000000
   pricePerProductText: 2,5G
-  pricePerProduct: 2.500359e+9
-  optimalPricePerProductText: 358,95K
-  optimalPricePerProduct: 358952.72
-  incomePerSecondText: 277,82M
-  incomePerSecond: 277817660
-  optimalIncomePerSecondText: 100,01K
-  optimalPricePerSecond: 100014.55
+  pricePerProduct: 2.50004e+9
+  incomePerSecondText: 2,5G
+  incomePerSecond: 2.50004e+9
+  isFixedArraySize: 1
+  inputResources: 05000000
+  inputAmounts: 04000000
+  housingAmount: 0
+  attackAmount: 0
+  basePricePerProduct: 2.5e+9
+  optimalPricePerProductText: 39,88K
+  optimalPricePerProduct: 39883.637
+  optimalIncomePerSecondText: 25K
+  optimalPricePerSecond: 25003.637
   isOptimal: 1

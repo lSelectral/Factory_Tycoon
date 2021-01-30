@@ -7,9 +7,10 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "New Part", menuName = "Factory/Compound")]
 public class ScriptableCompound : ScriptableProductionBase
 {
-    [SerializeField] bool isFixedArraySize = true;
+    [Tooltip("Ensure input resources and amounts are at equal size")] [SerializeField] bool isFixedArraySize = true;
     public BaseResources[] inputResources;
     public int[] inputAmounts;
+    [Space(15)]
 
     // If product is housing, enter how much population it will give
     public long housingAmount;
@@ -26,7 +27,7 @@ public class ScriptableCompound : ScriptableProductionBase
     [Tooltip("Minimum income per second calculated by ingredients")]
     public float optimalPricePerSecond;
 
-    [SerializeField] bool isOptimal;
+    [Tooltip("Check if real income per second is greater than minimum value")] [SerializeField] bool isOptimal;
 
     /// <summary>
     /// Set some of the values of scriptable object automatically according to hierarchy and naming
@@ -34,6 +35,12 @@ public class ScriptableCompound : ScriptableProductionBase
     public override void OnValidate()
     {
         base.OnValidate();
+
+        if (inputResources == null || inputResources.Length == 0 || inputAmounts[0] == 0)
+        {
+            inputResources = new BaseResources[] { BaseResources._0_berry };
+            inputAmounts = new int[] { 1 };
+        }
 
         // If set to true, Input Resource and Amount array size will set to biggest one's size
         if (isFixedArraySize && inputAmounts.Length != inputResources.Length)

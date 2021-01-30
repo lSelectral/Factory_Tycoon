@@ -12,24 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
   m_Name: Grape
   m_EditorClassIdentifier: 
-  Name: Grape
-  TranslatedName: 
+  Description: One of the most ancient fruit and use for higher purpose too.
+  TranslatedName: Grape
   resourceName: Grape
-  baseResource: 6
-  foodAmount: 0
+  product: 6
+  foodAmount: 3
   collectTime: 6
   outputValue: 3
-  pricePerProduct: 80000
+  lockedByContracts: []
   backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
-  icon: {fileID: 21300000, guid: 9b2cdf29649185e4d83a94b279361390, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 28414171dc0d6994db0611c47ba1c07d, type: 3}
+  icon: {fileID: 21300000, guid: 7c4bf82af88be9f48a2019475c285678, type: 3}
   unlockLevel: 5
   xpAmount: 10
-  lockedByContracts: []
   ageBelongsTo: 0
   tier: 1
-  itemTypes: 00000000
-  isUnlocked: 0
-  incomePerSecond: 40K
-  _incomePerSecond: 40000
+  itemTypes: 0000000001000000
+  pricePerProductText: 80K
+  pricePerProduct: 80000
+  incomePerSecondText: 40K
+  incomePerSecond: 40000

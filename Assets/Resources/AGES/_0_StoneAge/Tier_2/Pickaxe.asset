@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
   Description: Used for mining resource from underground deposits.
-  TranslatedName: 
+  TranslatedName: Pickaxe
   resourceName: Pickaxe
   product: 7
   foodAmount: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
-  toolImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
   sourceImage: {fileID: 0}
   icon: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
   unlockLevel: 4
@@ -41,6 +41,6 @@ MonoBehaviour:
   basePricePerProduct: 650000
   optimalPricePerProductText: 170,4K
   optimalPricePerProduct: 170395.72
-  optimalIncomePerSecondText: 20,46K
-  optimalPricePerSecond: 20464.287
+  optimalIncomePerSecondText: 6,82K
+  optimalPricePerSecond: 6821.4287
   isOptimal: 1

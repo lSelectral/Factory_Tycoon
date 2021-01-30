@@ -14,33 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: Meat is one of the first food that humanity explored. It is very nutritous
     and delicious.
-  isFixedArraySize: 1
-  inputResources: 08000000
-  inputAmounts: 04000000
+  TranslatedName: Meat
+  resourceName: Meat
   product: 13
-  partName: Meat
-  foodAmount: 0
-  housingAmount: 0
-  attackAmount: 0
-  buildTime: 30
+  foodAmount: 4
+  collectTime: 1
   outputValue: 8
-  basePricePerProduct: 2.9e+10
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 90d1fe8195b84c9479d9b2b1af71a5e2, type: 3}
   unlockLevel: 10
   xpAmount: 40
-  isLockedByContract: 0
-  lockedByContract: {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
-  icon: {fileID: 21300000, guid: 90d1fe8195b84c9479d9b2b1af71a5e2, type: 3}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 2
   itemTypes: 0300000001000000
-  pricePerProductText: 30,11G
-  pricePerProduct: 3.0105776e+10
-  optimalPricePerProductText: 1,11G
-  optimalPricePerProduct: 1.1057757e+9
-  incomePerSecondText: 8,03G
-  incomePerSecond: 8.028207e+9
-  optimalIncomePerSecondText: 16,77M
-  optimalPricePerSecond: 16767910
+  pricePerProductText: 29,02G
+  pricePerProduct: 2.901743e+10
+  incomePerSecondText: 232,14G
+  incomePerSecond: 2.3213944e+11
+  isFixedArraySize: 1
+  inputResources: 08000000
+  inputAmounts: 04000000
+  housingAmount: 0
+  attackAmount: 0
+  basePricePerProduct: 2.9e+10
+  optimalPricePerProductText: 17,43M
+  optimalPricePerProduct: 17431296
+  optimalIncomePerSecondText: 3,64M
+  optimalPricePerSecond: 3642644.8
   isOptimal: 1

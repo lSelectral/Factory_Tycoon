@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   Description: Primal tool for cutting down trees and sometimes enemies
-  TranslatedName: 
+  TranslatedName: Axe
   resourceName: Axe
   product: 4
   foodAmount: 0
   collectTime: 9
   outputValue: 1
   lockedByContracts: []
-  backgroundImage: {fileID: 0}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
+  sourceImage: {fileID: 21300000, guid: 9356860188971a84083c3ea09531b0b1, type: 3}
   icon: {fileID: 21300000, guid: b0b13b34b41cfb54cb2d4fda519a2756, type: 3}
   unlockLevel: 5
   xpAmount: 500
@@ -41,6 +41,6 @@ MonoBehaviour:
   basePricePerProduct: 0
   optimalPricePerProductText: 96,95K
   optimalPricePerProduct: 96949.29
-  optimalIncomePerSecondText: 14,73K
-  optimalPricePerSecond: 14734.285
-  isOptimal: 0
+  optimalIncomePerSecondText: 6,82K
+  optimalPricePerSecond: 6821.4287
+  isOptimal: 1

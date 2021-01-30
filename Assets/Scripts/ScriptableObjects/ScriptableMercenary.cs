@@ -7,7 +7,7 @@ public class ScriptableMercenary : ScriptableObject
 
     public string description;
 
-    public Sprite icon;
+    [PreviewSprite] public Sprite icon;
 
     public long health;
 

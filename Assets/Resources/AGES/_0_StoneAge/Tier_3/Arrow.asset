@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: 
-  Description: bow tool for hunting and war
-  TranslatedName: 
+  Description: Used with bow and deadly tool for hunting and ranged fightining.
+  TranslatedName: Arrow
   resourceName: Arrow
   product: 9
   foodAmount: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
+  sourceImage: {fileID: 21300000, guid: 4f9bf3a93fb0cf74c8bb315b8a6787a8, type: 3}
   icon: {fileID: 21300000, guid: ec6ea7954af38004f96753bea523ad98, type: 3}
   unlockLevel: 6
   xpAmount: 120
@@ -41,6 +41,6 @@ MonoBehaviour:
   basePricePerProduct: 11000000
   optimalPricePerProductText: 293,79K
   optimalPricePerProduct: 293785.72
-  optimalIncomePerSecondText: 9,82K
-  optimalPricePerSecond: 9822.857
+  optimalIncomePerSecondText: 1,09K
+  optimalPricePerSecond: 1091.4286
   isOptimal: 1

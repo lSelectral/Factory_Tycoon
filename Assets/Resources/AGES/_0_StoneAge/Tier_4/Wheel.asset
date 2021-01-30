@@ -13,32 +13,34 @@ MonoBehaviour:
   m_Name: Wheel
   m_EditorClassIdentifier: 
   Description: Pinnacle Of Humanity
+  TranslatedName: Wheel
+  resourceName: Wheel
+  product: 17
+  foodAmount: 0
+  collectTime: 1
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: e85b1ad766159684f98b9338b2f0acfe, type: 3}
+  unlockLevel: 14
+  xpAmount: 25
+  ageBelongsTo: 0
+  tier: 3
+  itemTypes: 0100000000000000
+  pricePerProductText: 12,4G
+  pricePerProduct: 1.2400033e+10
+  incomePerSecondText: 12,4G
+  incomePerSecond: 1.2400033e+10
   isFixedArraySize: 1
   inputResources: 0200000003000000
   inputAmounts: 0400000008000000
-  product: 17
-  partName: Wheel
-  foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  buildTime: 70
-  outputValue: 1
   basePricePerProduct: 1.24e+10
-  unlockLevel: 14
-  xpAmount: 25
-  lockedByContracts: []
-  icon: {fileID: 21300000, guid: e85b1ad766159684f98b9338b2f0acfe, type: 3}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
-  ageBelongsTo: 0
-  tier: 3
-  itemTypes: 00000000
-  pricePerProductText: 12,4G
-  pricePerProduct: 1.2402285e+10
-  optimalPricePerProductText: 2,29M
-  optimalPricePerProduct: 2285000
-  incomePerSecondText: 177,18M
-  incomePerSecond: 177175490
-  optimalIncomePerSecondText: 50,21K
-  optimalPricePerSecond: 50205.715
+  optimalPricePerProductText: 32,64K
+  optimalPricePerProduct: 32642.86
+  optimalIncomePerSecondText: 6,82K
+  optimalPricePerSecond: 6821.4287
   isOptimal: 1

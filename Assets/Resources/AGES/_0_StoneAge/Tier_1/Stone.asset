@@ -12,24 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  Name: Stone
-  TranslatedName: 
+  Description: Stone can be found everywhere.  Mostly used tool in stone age obviously.
+  TranslatedName: Stone
   resourceName: Stone
-  baseResource: 3
+  product: 3
   foodAmount: 0
   collectTime: 4
   outputValue: 2
-  pricePerProduct: 3000
+  lockedByContracts: []
   backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: 5c9e86d8a77f0ae42a9e909dbdd7277c, type: 3}
   icon: {fileID: 21300000, guid: 14a2710916f32c9479082b1bc6a5cb5b, type: 3}
   unlockLevel: 4
   xpAmount: 75
-  lockedByContracts: []
   ageBelongsTo: 0
   tier: 0
   itemTypes: 00000000
-  isUnlocked: 0
-  incomePerSecond: 1,5K
-  _incomePerSecond: 1500
+  pricePerProductText: 3K
+  pricePerProduct: 3000
+  incomePerSecondText: 1,5K
+  incomePerSecond: 1500

@@ -49,6 +49,8 @@ public class TabGroup : MonoBehaviour
 
                 // Place to front for interaction
                 panels[i].transform.SetAsLastSibling();
+
+                GameManager.Instance.VisiblePanelForPlayer = panels[i];
             }
             else
             {

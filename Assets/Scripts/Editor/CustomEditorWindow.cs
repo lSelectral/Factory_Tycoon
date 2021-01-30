@@ -64,11 +64,11 @@ public class CustomEditorWindow : EditorWindow
         // Automatically create automation contracts
         if (GUILayout.Button("Create Automation Contracts"))
         {
-            foreach (ContractBase contract in ContractManager.Instance.CreateAutomationContracts())
-            {
-                AssetDatabase.CreateAsset(contract, "Assets/Resources/Contracts/Automation_Contracts/" + contract.contractName + "_automation" + ".asset");
-                AssetDatabase.SaveAssets();
-            }
+            //foreach (ContractBase contract in ContractManager.Instance.CreateAutomationContracts())
+            //{
+            //    AssetDatabase.CreateAsset(contract, "Assets/Resources/Contracts/Automation_Contracts/" + contract.contractName + "_automation" + ".asset");
+            //    AssetDatabase.SaveAssets();
+            //}
         }
 
         //c1 = EditorGUILayout.Slider("COMPOUND_PRICE_MULTIPLIER", c1, 1, 7, GUILayout.MinHeight(10f));

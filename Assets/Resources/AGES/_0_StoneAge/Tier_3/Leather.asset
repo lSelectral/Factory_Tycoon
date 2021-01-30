@@ -12,34 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Leather
   m_EditorClassIdentifier: 
-  Description: 
-  isFixedArraySize: 1
-  inputResources: 08000000
-  inputAmounts: 02000000
+  Description: After you done with meat, you can use this part too.
+  TranslatedName: Leather
+  resourceName: Leather
   product: 12
-  partName: Leather
   foodAmount: 0
-  housingAmount: 0
-  attackAmount: 0
-  buildTime: 45
+  collectTime: 1
   outputValue: 4
-  basePricePerProduct: 8.7e+9
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: c7e60c1d14574ce42b70f209ce78081d, type: 3}
   unlockLevel: 9
   xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 21300000, guid: c7e60c1d14574ce42b70f209ce78081d, type: 3}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
   ageBelongsTo: 0
   tier: 2
   itemTypes: 0000000001000000
-  pricePerProductText: 9,53G
-  pricePerProduct: 9.529332e+9
-  optimalPricePerProductText: 829,33M
-  optimalPricePerProduct: 829331700
-  incomePerSecondText: 847,05M
-  incomePerSecond: 847051700
-  optimalIncomePerSecondText: 8,38M
-  optimalPricePerSecond: 8383955
+  pricePerProductText: 8,71G
+  pricePerProduct: 8.708716e+9
+  incomePerSecondText: 34,83G
+  incomePerSecond: 3.4834862e+10
+  isFixedArraySize: 1
+  inputResources: 08000000
+  inputAmounts: 02000000
+  housingAmount: 0
+  attackAmount: 0
+  basePricePerProduct: 8.7e+9
+  optimalPricePerProductText: 8,72M
+  optimalPricePerProduct: 8715648
+  optimalIncomePerSecondText: 3,64M
+  optimalPricePerSecond: 3642644.8
   isOptimal: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
-  Description: bow tool for hunting and war
+  Description: In the good hands, can bring down foes from distance
   TranslatedName: 
   resourceName: Bow
   product: 10
@@ -41,6 +41,6 @@ MonoBehaviour:
   basePricePerProduct: 170000000
   optimalPricePerProductText: 82,62M
   optimalPricePerProduct: 82619340
-  optimalIncomePerSecondText: 41,42M
-  optimalPricePerSecond: 41423120
+  optimalIncomePerSecondText: 5,18M
+  optimalPricePerSecond: 5178163
   isOptimal: 1
