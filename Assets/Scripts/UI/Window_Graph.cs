@@ -6,7 +6,8 @@ using CodeMonkey.Utils;
 using TMPro;
 using System.Linq;
 
-public class Window_Graph : MonoBehaviour {
+public class Window_Graph : MonoBehaviour
+{
 
     [SerializeField] private Sprite dotSprite;
     private RectTransform graphContainer;
@@ -20,7 +21,8 @@ public class Window_Graph : MonoBehaviour {
     List<double> logarithmicValues;
     List<double> values;
 
-    private void Start() {
+    private void Start()
+    {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
         labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
@@ -32,7 +34,7 @@ public class Window_Graph : MonoBehaviour {
         gameObjectList = new List<GameObject>();
         logarithmicValues = new List<double>();
         axisNames = new List<string>();
-        ProductionManager.Instance.productionUnitList.ForEach(q => { if (q.ageBelongsTo == Age._0_StoneAge) { values.Add(q.pricePerProduct); logarithmicValues.Add(Mathf.Log10(q.pricePerProduct)); axisNames.Add(q.TranslatedName); } } );
+        ProductionManager.Instance.productionUnitList.ForEach(q => { if (q.ageBelongsTo == Age._0_StoneAge) { values.Add(q.pricePerProduct); logarithmicValues.Add(Mathf.Log10(q.pricePerProduct)); axisNames.Add(q.TranslatedName); } });
 
         //List<int> valueList = new List<int>() { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33 };
         //IGraphVisual lineGraphVisual = new LineGraphVisual(graphContainer, dotSprite, Color.green, new Color(1, 1, 1, .5f));
@@ -53,41 +55,50 @@ public class Window_Graph : MonoBehaviour {
         //}, .5f);
     }
 
-    private void ShowGraph(List<double> valueList, IGraphVisual graphVisual, int maxVisibleValueAmount = -1, Func<int, string> getAxisLabelX = null, Func<double, string> getAxisLabelY = null) {
-        if (getAxisLabelX == null) {
+    private void ShowGraph(List<double> valueList, IGraphVisual graphVisual, int maxVisibleValueAmount = -1, Func<int, string> getAxisLabelX = null, Func<double, string> getAxisLabelY = null)
+    {
+        if (getAxisLabelX == null)
+        {
             getAxisLabelX = delegate (int _i) { return _i.ToString(); };
         }
-        if (getAxisLabelY == null) {
+        if (getAxisLabelY == null)
+        {
             getAxisLabelY = delegate (double _f) { return ResourceManager.Instance.CurrencyToString(_f); };
         }
 
-        if (maxVisibleValueAmount <= 0) {
+        if (maxVisibleValueAmount <= 0)
+        {
             maxVisibleValueAmount = valueList.Count;
         }
 
-        foreach (GameObject gameObject in gameObjectList) {
+        foreach (GameObject gameObject in gameObjectList)
+        {
             Destroy(gameObject);
         }
         gameObjectList.Clear();
-        
+
         float graphWidth = graphContainer.sizeDelta.x;
         float graphHeight = graphContainer.sizeDelta.y;
 
         double yMaximum = valueList[0];
         double yMinimum = valueList[0];
-        
-        for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++) {
+
+        for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++)
+        {
             double value = valueList[i];
-            if (value > yMaximum) {
+            if (value > yMaximum)
+            {
                 yMaximum = value;
             }
-            if (value < yMinimum) {
+            if (value < yMinimum)
+            {
                 yMinimum = value;
             }
         }
 
         double yDifference = yMaximum - yMinimum;
-        if (yDifference <= 0) {
+        if (yDifference <= 0)
+        {
             yDifference = 5f;
         }
         yMaximum = yMaximum + (yDifference * 0.2f);
@@ -99,7 +110,8 @@ public class Window_Graph : MonoBehaviour {
 
         int xIndex = 0;
 
-        for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++) {
+        for (int i = Mathf.Max(valueList.Count - maxVisibleValueAmount, 0); i < valueList.Count; i++)
+        {
             float xPosition = xSize + xIndex * xSize;
             double yPosition = ((valueList[i] - yMinimum) / (yMaximum - yMinimum)) * graphHeight;
 
@@ -141,7 +153,8 @@ public class Window_Graph : MonoBehaviour {
         }
 
         int separatorCount = 10;
-        for (int i = 0; i <= separatorCount; i++) {
+        for (int i = 0; i <= separatorCount; i++)
+        {
             RectTransform labelY = Instantiate(labelTemplateY);
             labelY.SetParent(graphContainer, false);
             labelY.gameObject.SetActive(true);
@@ -160,33 +173,38 @@ public class Window_Graph : MonoBehaviour {
 
 
 
-    private interface IGraphVisual {
+    private interface IGraphVisual
+    {
 
         List<GameObject> AddGraphVisual(Vector2 graphPosition, float graphPositionWidth);
 
     }
 
 
-    private class BarChartVisual : IGraphVisual {
+    private class BarChartVisual : IGraphVisual
+    {
 
         private RectTransform graphContainer;
         private RectTransform verticalBarText;
         private Color barColor;
         private float barWidthMultiplier;
 
-        public BarChartVisual(RectTransform graphContainer, RectTransform verticalBarText, List<double> values, Color barColor, float barWidthMultiplier) {
+        public BarChartVisual(RectTransform graphContainer, RectTransform verticalBarText, List<double> values, Color barColor, float barWidthMultiplier)
+        {
             this.graphContainer = graphContainer;
             this.barColor = barColor;
             this.barWidthMultiplier = barWidthMultiplier;
             this.verticalBarText = verticalBarText;
         }
 
-        public List<GameObject> AddGraphVisual(Vector2 graphPosition, float graphPositionWidth) {
+        public List<GameObject> AddGraphVisual(Vector2 graphPosition, float graphPositionWidth)
+        {
             GameObject barGameObject = CreateBar(graphPosition, graphPositionWidth);
             return new List<GameObject>() { barGameObject };
         }
 
-        private GameObject CreateBar(Vector2 graphPosition, float barWidth) {
+        private GameObject CreateBar(Vector2 graphPosition, float barWidth)
+        {
             GameObject gameObject = new GameObject("bar", typeof(Image));
             gameObject.transform.SetParent(graphContainer, false);
             gameObject.GetComponent<Image>().color = barColor;
@@ -211,7 +229,8 @@ public class Window_Graph : MonoBehaviour {
     }
 
 
-    private class LineGraphVisual : IGraphVisual {
+    private class LineGraphVisual : IGraphVisual
+    {
 
         private RectTransform graphContainer;
         private Sprite dotSprite;
@@ -219,7 +238,8 @@ public class Window_Graph : MonoBehaviour {
         private Color dotColor;
         private Color dotConnectionColor;
 
-        public LineGraphVisual(RectTransform graphContainer, Sprite dotSprite, Color dotColor, Color dotConnectionColor) {
+        public LineGraphVisual(RectTransform graphContainer, Sprite dotSprite, Color dotColor, Color dotConnectionColor)
+        {
             this.graphContainer = graphContainer;
             this.dotSprite = dotSprite;
             this.dotColor = dotColor;
@@ -228,11 +248,13 @@ public class Window_Graph : MonoBehaviour {
         }
 
 
-        public List<GameObject> AddGraphVisual(Vector2 graphPosition, float graphPositionWidth) {
+        public List<GameObject> AddGraphVisual(Vector2 graphPosition, float graphPositionWidth)
+        {
             List<GameObject> gameObjectList = new List<GameObject>();
             GameObject dotGameObject = CreateDot(graphPosition);
             gameObjectList.Add(dotGameObject);
-            if (lastDotGameObject != null) {
+            if (lastDotGameObject != null)
+            {
                 GameObject dotConnectionGameObject = CreateDotConnection(lastDotGameObject.GetComponent<RectTransform>().anchoredPosition, dotGameObject.GetComponent<RectTransform>().anchoredPosition);
                 gameObjectList.Add(dotConnectionGameObject);
             }
@@ -240,7 +262,8 @@ public class Window_Graph : MonoBehaviour {
             return gameObjectList;
         }
 
-        private GameObject CreateDot(Vector2 anchoredPosition) {
+        private GameObject CreateDot(Vector2 anchoredPosition)
+        {
             GameObject gameObject = new GameObject("dot", typeof(Image));
             gameObject.transform.SetParent(graphContainer, false);
             gameObject.GetComponent<Image>().sprite = dotSprite;
@@ -253,7 +276,8 @@ public class Window_Graph : MonoBehaviour {
             return gameObject;
         }
 
-        private GameObject CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB) {
+        private GameObject CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB)
+        {
             GameObject gameObject = new GameObject("dotConnection", typeof(Image));
             gameObject.transform.SetParent(graphContainer, false);
             gameObject.GetComponent<Image>().color = dotConnectionColor;

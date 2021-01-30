@@ -155,7 +155,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
     #endregion
 
-    public double GetNewUpgradeCost(double oldUpgradeCost, int currentLevel)
+    public BNum GetNewUpgradeCost(BNum oldUpgradeCost, int currentLevel)
     {
         if (currentLevel <= 50)
             return oldUpgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_LOW_50, currentLevel);
@@ -215,14 +215,14 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     }
 
     // Calculate maximum upgrade for maximum buying capacity
-    public int GetMaximumUpgradeAmount(double oldUpgradeCost, int mineLevel)
+    public int GetMaximumUpgradeAmount(BNum oldUpgradeCost, int mineLevel)
     {
         var currency = ResourceManager.Instance.Currency - oldUpgradeCost;
         var newUpgradeCost = oldUpgradeCost;
         //var level = mineLevel++;
         int counter = 1;
 
-        while (currency > 0)
+        while (currency > new BNum())
         {
             newUpgradeCost = GetNewUpgradeCost(newUpgradeCost, mineLevel);
             if (currency >= newUpgradeCost)
@@ -237,9 +237,9 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         return counter;
     }
 
-    public double GetNewUpgradeCost(int maximumUpgradeAmount, double oldUpgradeCost, int mineLevel)
+    public BNum GetNewUpgradeCost(int maximumUpgradeAmount, BNum oldUpgradeCost, int mineLevel)
     {
-        double totalUpgradeCost = 0;
+        BNum totalUpgradeCost = new BNum();
         totalUpgradeCost = oldUpgradeCost;
         var newUpgradeCost = oldUpgradeCost;
         var newMineLevel = mineLevel;
@@ -285,7 +285,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     /// Setup the upgrade panel infos according to upgrade multiplier
     /// </summary>
     /// <param name="levelUpgradeMultiplier">How many level will be upgraded. If 0 max upgrade will be applied</param>
-    public void SetUpgradePanel(int levelUpgradeMultiplier, long outputValue, int mineLevel, float collectTime, float pricePerProduct, double upgradeCost, string name, bool hideBottomPanel = true)
+    public void SetUpgradePanel(int levelUpgradeMultiplier, long outputValue, int mineLevel, float collectTime, float pricePerProduct, BNum upgradeCost, string name, bool hideBottomPanel = true)
     {
         var newLevel = mineLevel + levelUpgradeMultiplier;
         var newOutputValue = GetNewOutputAmount(levelUpgradeMultiplier, outputValue, mineLevel);
@@ -339,7 +339,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         }
     }
 
-    public void ShowUpgradePanel(UnityAction<int> SetUpgradePanel, UnityAction UpgradeMine, bool isUpgradePanelActive, double upgradeCost, int level)
+    public void ShowUpgradePanel(UnityAction<int> SetUpgradePanel, UnityAction UpgradeMine, bool isUpgradePanelActive, BNum upgradeCost, int level)
     {
         UnityAction<int> tempAction = SetUpgradePanel;
 
@@ -371,7 +371,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         panel.transform.Find("BuyBtn").GetComponent<Button>().onClick.AddListener(() =>
         {
             UpgradeMine();
-            ExecuteEvents.Execute(btn4.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
+            //ExecuteEvents.Execute(btn4.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
             tempAction(UpgradeSystem.Instance.upgradeMultiplier);
         });
     }

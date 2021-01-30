@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 
 public class TEST : MonoBehaviour, IPointerDownHandler
 {
+
     public void OnPointerDown(PointerEventData eventData)
     {
 
@@ -17,17 +18,7 @@ public class TEST : MonoBehaviour, IPointerDownHandler
 
     private void Start()
     {
-        //BNum bNum = new BNum(100,1);
-        //Debug.Log(bNum.ToString("sym"));
-        //Debug.Log(bNum);
-
-        //BNum bNum2 = new BNum(10000, 1);
-        //Debug.Log(bNum.ToString("sym"));
-        //Debug.Log(bNum2);
-
-        //BNum bNum3 = new BNum(10000, 2);
-        //Debug.Log(bNum.ToString("sym"));
-        //Debug.Log(bNum3);
+        Debug.Log( (new BNum(15468.3, 7) + new BNum(219.3333,6) ).ToString());
     }
 
     private void Update()
@@ -47,39 +38,3 @@ public class TEST : MonoBehaviour, IPointerDownHandler
     }
 }
 
-public class IncrementalNumber
-{
-    public double value;
-    public int tenPower;
-
-    // Disable emty constructor.
-    private IncrementalNumber()
-    {
-
-    }
-
-    public IncrementalNumber(double value, int tenPower)
-    {
-        this.value = value;
-        this.tenPower = tenPower;
-    }
-
-    private readonly string[] suffix = new string[] { "", "K", "M", "B", "T", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K" };
-
-    //public IncrementalNumber Add(IncrementalNumber number2)
-    //{
-    //    IncrementalNumber result;
-
-    //    int powDiff = tenPower - number2.tenPower;
-
-    //    if (powDiff >= 7)
-    //        return this;
-    //    if (powDiff <= -7)
-    //        return number2;
-
-
-    //}
-
-
-
-}

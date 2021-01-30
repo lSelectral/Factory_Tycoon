@@ -47,7 +47,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     internal float outputPerSecond;
 
     internal int level;
-    internal double upgradeCost;
+    internal BNum upgradeCost;
     internal float incomePerSecond;
     internal WorkingMode workingMode;
     internal LTDescr toolAnimation;
@@ -72,7 +72,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         set { level = value; levelText.text = "LEVEL " + level.ToString(); }
     }
 
-    public double UpgradeCost
+    public BNum UpgradeCost
     {
         get { return upgradeCost; }
         set { upgradeCost = value; upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost); }
@@ -193,8 +193,8 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         xpAmount = scriptableProductionBase.xpAmount * 1f;
         outputPerSecond = outputValue * 1f / collectTime;
 
-        if (upgradeCost == 0)
-            upgradeCost = outputValue * pricePerProduct * UpgradeSystem.STARTING_UPGRADE_COST_MULTIPLIER;
+        if (upgradeCost == null || upgradeCost == new BNum())
+            upgradeCost = new BNum(outputValue * pricePerProduct * UpgradeSystem.STARTING_UPGRADE_COST_MULTIPLIER,0);
 
         // Set lock text
         if (unlockLevel > GameManager.Instance.CurrentLevel)
@@ -213,13 +213,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     internal void OnCurrencyChanged(object sender, ResourceManager.OnCurrencyChangedEventArgs e)
     {
-        //if (IsUpgradePanelActive)
-        //{
-        //    var q = UpgradeSystem.Instance.upgradeMultiplier;
-        //    if (q != 1 && q != 5 && q != 20)
-        //        UpgradeSystem.Instance.GetMaximumUpgradeAmount(UpgradeCost, Level);
-        //    SetUpgradePanel(UpgradeSystem.Instance.upgradeMultiplier);
-        //}
+        
     }
 
     #region Event Methods
@@ -361,7 +355,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         var newCollectTime = UpgradeSystem.Instance.GetNewCollectTime(upgradeMultiplier, collectTime);
         var newPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(upgradeMultiplier, pricePerProduct, level);
 
-        double newUpgradeCost = 0;
+        BNum newUpgradeCost = new BNum();
 
         if (upgradeMultiplier > 1)
             newUpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(upgradeMultiplier, UpgradeCost, level);

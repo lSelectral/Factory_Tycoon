@@ -29,6 +29,7 @@ public class ScriptableCompound : ScriptableProductionBase
 
     [Tooltip("Check if real income per second is greater than minimum value")] [SerializeField] bool isOptimal;
 
+
     /// <summary>
     /// Set some of the values of scriptable object automatically according to hierarchy and naming
     /// </summary>
@@ -36,14 +37,16 @@ public class ScriptableCompound : ScriptableProductionBase
     {
         base.OnValidate();
 
-        if (inputResources == null || inputResources.Length == 0 || inputAmounts[0] == 0)
+        if (isValidate)
         {
-            inputResources = new BaseResources[] { BaseResources._0_berry };
-            inputAmounts = new int[] { 1 };
-        }
+            if (inputResources == null || inputResources.Length == 0 || inputAmounts[0] == 0)
+            {
+                inputResources = new BaseResources[] { BaseResources._0_berry };
+                inputAmounts = new int[] { 1 };
+            }
 
-        // If set to true, Input Resource and Amount array size will set to biggest one's size
-        if (isFixedArraySize && inputAmounts.Length != inputResources.Length)
+            // If set to true, Input Resource and Amount array size will set to biggest one's size
+            if (isFixedArraySize && inputAmounts.Length != inputResources.Length)
             {
                 if (inputAmounts.Length > inputResources.Length)
                     Array.Resize(ref inputResources, inputAmounts.Length);
@@ -71,5 +74,6 @@ public class ScriptableCompound : ScriptableProductionBase
                 else
                     isOptimal = false;
             }
+        }
     }
 }

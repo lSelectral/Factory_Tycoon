@@ -125,10 +125,10 @@ public class Mine_Btn : ProductionBase
         switch (workingMode)
         {
             case WorkingMode.production:
-                /*resourceAmount = */ResourceManager.Instance.AddResource(producedResource, (long)(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
+                /*resourceAmount = */ResourceManager.Instance.AddResource(producedResource, new BNum(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier,0));
                 break;
             case WorkingMode.sell:
-                ResourceManager.Instance.AddResource(producedResource, (long)(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
+                ResourceManager.Instance.AddResource(producedResource, new BNum(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier,0));
                 SellResource();
                 break;
         }
@@ -138,9 +138,9 @@ public class Mine_Btn : ProductionBase
         GameManager.Instance.AddXP(XPAmount);
     }
 
-    public double IdleEarn(int idleTime)
+    public BNum IdleEarn(int idleTime)
     {
-        return incomePerSecond * idleTime * UpgradeSystem.Instance.EarnedCoinMultiplier;
+        return new BNum(incomePerSecond * idleTime * UpgradeSystem.Instance.EarnedCoinMultiplier, 0);
     }
 
     public void CollectMine()

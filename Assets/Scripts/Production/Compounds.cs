@@ -132,13 +132,13 @@ public class Compounds : ProductionBase
 
                 if (workingMode == WorkingMode.production)
                 {
-                    ResourceManager.Instance.AddResource(producedResource, (outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier));
+                    ResourceManager.Instance.AddResource(producedResource, new BNum(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier,0));
                     if (CheckIfPanelActive())
                         StatSystem.Instance.PopupText(transform, outputValue, _name);
                 }
                 else if (workingMode == WorkingMode.sell)
                 {
-                    ResourceManager.Instance.AddResource(producedResource, (outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier));
+                    ResourceManager.Instance.AddResource(producedResource, new BNum(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier,0));
                     SellResource();
                     if (CheckIfPanelActive())
                         StatSystem.Instance.PopupText(transform, PricePerProduct, "Gold");

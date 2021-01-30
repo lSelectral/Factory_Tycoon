@@ -12,15 +12,15 @@ public class ResourceManager : Singleton<ResourceManager>
     public class OnResourceAmountChangedEventArgs: EventArgs
     {
         public BaseResources resource;
-        public double resourceAmount;
+        public BNum resourceAmount;
     }
 
     public event EventHandler<OnResourceAmountChangedEventArgs> OnResourceAmountChanged;
 
     public class OnCurrencyChangedEventArgs: EventArgs
     {
-        public double currency;
-        public double premiumCurrency;
+        public BNum currency;
+        public BNum premiumCurrency;
     }
 
     public event EventHandler<OnCurrencyChangedEventArgs> OnCurrencyChanged;
@@ -40,7 +40,7 @@ public class ResourceManager : Singleton<ResourceManager>
     public bool isLoadingFromSaveFile;
     
     // Resource related Variables
-    public Dictionary<BaseResources, long> resourceValueDict;
+    public Dictionary<BaseResources, BNum> resourceValueDict;
     public Dictionary<BaseResources, TextMeshProUGUI> resourceTextDict;
     /// <summary>
     /// Stores all resources current price per product values for send information about new prices of products.
@@ -55,10 +55,10 @@ public class ResourceManager : Singleton<ResourceManager>
 
     // Player related variable and smoothing values
     [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText;
-    double currency,totalResource, premiumCurrency;
-    long foodAmount, attackAmount;
-    double smoothCurrency,smoothPremiumCurency, smoothTotalResource;
-    double smoothVelocity,smoothVelocityPremiumCurrency, smoothVelocityTotalResource;
+    BNum currency,totalResource, premiumCurrency;
+    BNum foodAmount, attackAmount;
+    BNum smoothCurrency,smoothPremiumCurency, smoothTotalResource;
+    BNum smoothVelocity,smoothVelocityPremiumCurrency, smoothVelocityTotalResource;
     public float smoothTime;
     public float currencySmoothTime;
 
@@ -72,7 +72,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
     #region Properties
 
-    public double TotalResource
+    public BNum TotalResource
     {
         get
         {
@@ -88,7 +88,7 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public double Currency
+    public BNum Currency
     {
         get
         {
@@ -96,7 +96,7 @@ public class ResourceManager : Singleton<ResourceManager>
         }
         set
         {
-            double newValue;
+            BNum newValue;
             newValue = (value * UpgradeSystem.Instance.EarnedCoinMultiplier) - currency;
             currency += newValue;
             if (!isLoadingFromSaveFile)
@@ -108,7 +108,7 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public double PremiumCurrency
+    public BNum PremiumCurrency
     {
         get
         {
@@ -126,7 +126,7 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public long FoodAmount
+    public BNum FoodAmount
     {
         get { return foodAmount; }
         set
@@ -135,7 +135,7 @@ public class ResourceManager : Singleton<ResourceManager>
             foodAmountText.text = CurrencyToString(foodAmount);
         }
     }
-    public long AttackAmount
+    public BNum AttackAmount
     {
         get { return attackAmount; }
         set
@@ -164,6 +164,11 @@ public class ResourceManager : Singleton<ResourceManager>
         else if (decimalAmount == 0)
             return v.ToString("0");
         return "";
+    }
+
+    public string CurrencyToString(BNum valueToConvert, int decimalAmount = 2)
+    {
+        return valueToConvert.ToString("sym");
     }
 
     // TODO add engineering notation. Let users to choose which format he wants.
@@ -268,10 +273,10 @@ public class ResourceManager : Singleton<ResourceManager>
             resourceNewPricePerProductDictionary.Add(res, 0f);
         }
 
-        resourceValueDict = new Dictionary<BaseResources, long>();
+        resourceValueDict = new Dictionary<BaseResources, BNum>();
         foreach (var res in resources)
         {
-            resourceValueDict.Add(res, 0);
+            resourceValueDict.Add(res, new BNum());
         }
 
         resourceTextDict = new Dictionary<BaseResources, TextMeshProUGUI>();
@@ -311,7 +316,7 @@ public class ResourceManager : Singleton<ResourceManager>
             resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
             { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
 
-            resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, resourceIncrementArray[arrayCounter]); });
+            resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, new BNum(resourceIncrementArray[arrayCounter],0)); });
             resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
             resourceTextDict[resource].text = (GetResourceAmount(resource)).ToString();
         }
@@ -320,11 +325,11 @@ public class ResourceManager : Singleton<ResourceManager>
 
     void Update()
     {
-        smoothCurrency = SmoothDamp(smoothCurrency, currency, ref smoothVelocity, currencySmoothTime);
-        currencyText.text = CurrencyToString(smoothCurrency);
+        //smoothCurrency = SmoothDamp(smoothCurrency, currency, ref smoothVelocity, currencySmoothTime);
+        //currencyText.text = CurrencyToString(smoothCurrency);
 
-        smoothPremiumCurency = SmoothDamp(smoothPremiumCurency, premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
-        premiumCurrencyText.text = CurrencyToString(smoothPremiumCurency);
+        //smoothPremiumCurency = SmoothDamp(smoothPremiumCurency, premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
+        //premiumCurrencyText.text = CurrencyToString(smoothPremiumCurency);
 
         //smoothTotalResource = SmoothDamp(smoothTotalResource, totalResource, ref smoothVelocityTotalResource, smoothTime);
         //totalResourceText.text = "Total Resource\n" + CurrencyToString((smoothTotalResource), 0);
@@ -336,7 +341,7 @@ public class ResourceManager : Singleton<ResourceManager>
         OnPricePerProductChanged(this, new OnPricePerProductChangedEventArgs() { newPrice = newPrice });
     }
 
-    public float AddResource(BaseResources resource, long amount, bool isLoadingFromSave = false)
+    public BNum AddResource(BaseResources resource, BNum amount, bool isLoadingFromSave = false)
     {
         resourceValueDict[resource] += amount;
         if (!isLoadingFromSave)
@@ -346,13 +351,13 @@ public class ResourceManager : Singleton<ResourceManager>
 
         Mine_Btn _mine = ProductionManager.Instance.GetMineFromResource(resource);
         if (_mine != null && _mine.ItemTypes.Contains(ItemType.food))
-            FoodAmount += _mine.FoodAmount * amount;
+            FoodAmount += amount * _mine.foodAmount;
 
         var _compound = ProductionManager.Instance.GetCompoundFromResource(resource);
         if (_compound != null && _compound.ItemTypes.Contains(ItemType.food))
-            FoodAmount += _compound.FoodAmount * amount;
+            FoodAmount += amount * _compound.FoodAmount;
         if (_compound != null && _compound.ItemTypes.Contains(ItemType.warItem))
-            AttackAmount += _compound.AttackAmount * amount;
+            AttackAmount += amount * _compound.AttackAmount;
 
         return amount;
     }
@@ -377,7 +382,7 @@ public class ResourceManager : Singleton<ResourceManager>
             AttackAmount -= _compound.AttackAmount * amount;
     }
 
-    public long GetResourceAmount(BaseResources resource)
+    public BNum GetResourceAmount(BaseResources resource)
     {
         return resourceValueDict[resource];
     }
@@ -417,31 +422,31 @@ public class ResourceManager : Singleton<ResourceManager>
         return tradeIcon;
     }
 
-    public static double SmoothDamp(double current, double target, ref double currentVelocity, float smoothTime, double maxSpeed= Mathf.Infinity)
-    {
-        var deltaTime = Time.deltaTime;
-        smoothTime = Mathf.Max(0.0001f, smoothTime);
-        double num = 2f / smoothTime;
-        double num2 = num * deltaTime;
-        double num3 = 1f / (1f + num2 + 0.48f * num2 * num2 + 0.235f * num2 * num2 * num2);
-        double num4 = current - target;
-        double num5 = target;
-        double num6 = maxSpeed * smoothTime;
+    //public static BNum SmoothDamp(BNum current, BNum target, ref BNum currentVelocity, float smoothTime, BNum maxSpeed= Mathf.Infinity)
+    //{
+    //    var deltaTime = Time.deltaTime;
+    //    smoothTime = Mathf.Max(0.0001f, smoothTime);
+    //    BNum num = 2f / smoothTime;
+    //    BNum num2 = num * deltaTime;
+    //    BNum num3 = 1f / (1f + num2 + 0.48f * num2 * num2 + 0.235f * num2 * num2 * num2);
+    //    BNum num4 = current - target;
+    //    BNum num5 = target;
+    //    BNum num6 = maxSpeed * smoothTime;
 
-        num4 = ClampDouble(num4, -num6, num6);
-        target = current - num4;
-        double num7 = (currentVelocity + num * num4) * deltaTime;
-        currentVelocity = (currentVelocity - num * num7) * num3;
-        double num8 = target + (num4 + num7) * num3;
-        if (num5 - current > 0f == num8 > num5)
-        {
-            num8 = num5;
-            currentVelocity = (num8 - num5) / deltaTime;
-        }
-        return num8;
-    }
+    //    num4 = ClampDouble(num4, -num6, num6);
+    //    target = current - num4;
+    //    BNum num7 = (currentVelocity + num * num4) * deltaTime;
+    //    currentVelocity = (currentVelocity - num * num7) * num3;
+    //    BNum num8 = target + (num4 + num7) * num3;
+    //    if (num5 - current > 0f == num8 > num5)
+    //    {
+    //        num8 = num5;
+    //        currentVelocity = (num8 - num5) / deltaTime;
+    //    }
+    //    return num8;
+    //}
 
-    public static double ClampDouble(double value, double min, double max)
+    public static BNum ClampDouble(BNum value, BNum min, BNum max)
     {
         if (value < min)
         {

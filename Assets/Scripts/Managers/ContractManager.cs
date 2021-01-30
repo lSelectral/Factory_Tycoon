@@ -417,7 +417,7 @@ public class ContractManager : Singleton<ContractManager>
             CheckAvailableResources();
         }
     }
-    // TODO implement this function to activated contract on click
+    // TODO implement this function to deactivate contract on click
     public void DeActivateContract(ContractBase contract)
     {
         if (activatedContracts.Contains(contract))

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bronze_sword
   m_EditorClassIdentifier: 
   Description: 
-  TranslatedName: Bronze_sword
+  TranslatedName: Bronze Sword
   resourceName: Bronze_sword
   product: 29
   foodAmount: 0
@@ -24,10 +24,10 @@ MonoBehaviour:
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
   icon: {fileID: 21300000, guid: 4516c1665eb447e4daabf333f097b0f0, type: 3}
-  unlockLevel: 0
+  unlockLevel: 8
   xpAmount: 25
   ageBelongsTo: 1
-  tier: 2
+  tier: 1
   itemTypes: 00000000
   pricePerProductText: 4,14M
   pricePerProduct: 4142122.5

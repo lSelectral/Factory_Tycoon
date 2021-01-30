@@ -25,12 +25,12 @@ using UnityEngine;
 /// </remarks>
 public class SaveSystem : Singleton<SaveSystem>
 {
-    public double totalEarnedCurrency;
-    public double totalEarnedPremiumCurrency;
-    public double totalProducedResource;
-    public double totalSpendedCurrency;
-    public double totalSpendedPremiumCurrency;
-    public double totalConsumedResource;
+    public BNum totalEarnedCurrency;
+    public BNum totalEarnedPremiumCurrency;
+    public BNum totalProducedResource;
+    public BNum totalSpendedCurrency;
+    public BNum totalSpendedPremiumCurrency;
+    public BNum totalConsumedResource;
 
     int totalExitTime;
 
@@ -97,7 +97,7 @@ public class SaveSystem : Singleton<SaveSystem>
         #endregion
 
         // Save resource values
-        List<long> resourceList = new List<long>();
+        List<BNum> resourceList = new List<BNum>();
         foreach (var res in ResourceManager.Instance.resourceValueDict)
         {
             resourceList.Add(res.Value);
@@ -166,8 +166,8 @@ public class SaveSystem : Singleton<SaveSystem>
             totalExitTime = (DateTime.Now - saveObject.lastExitTime).Seconds;
             //Debug.Log(string.Format("You were out of game for: {0} minutes and {1:00} seconds",(int)totalExitTime/60,(int)totalExitTime%60));
 
-            double idleEarnedCurrency = 0;
-            double idleEarnedResource = 0;
+            BNum idleEarnedCurrency = new BNum();
+            BNum idleEarnedResource = new BNum();
 
             GameManager.Instance.CurrentXP = saveObject.currentXP;
             GameManager.Instance.RequiredXPforNextLevel = saveObject.requiredXPforNextLevel;
@@ -273,7 +273,7 @@ public class SaveSystem : Singleton<SaveSystem>
     [Serializable]
     public class SaveObject
     {
-        public List<long> resourceList = new List<long>();
+        public List<BNum> resourceList = new List<BNum>();
 
         public DateTime firstEnterTime;
         public DateTime lastExitTime;
@@ -292,16 +292,16 @@ public class SaveSystem : Singleton<SaveSystem>
         public long requiredXPforNextLevel;
         public int currentLevel;
 
-        //public double currency;
-        //public double premiumCurrency;
-        //public double totalResource;
+        //public BNum currency;
+        //public BNum premiumCurrency;
+        //public BNum totalResource;
 
-        public double totalEarnedCurrency;
-        public double totalEarnedPremiumCurrency;
-        public double totalProducedResource;
-        public double totalSpendedCurrency;
-        public double totalSpendedPremiumCurrency;
-        public double totalConsumedResource;
+        public BNum totalEarnedCurrency;
+        public BNum totalEarnedPremiumCurrency;
+        public BNum totalProducedResource;
+        public BNum totalSpendedCurrency;
+        public BNum totalSpendedPremiumCurrency;
+        public BNum totalConsumedResource;
     }
 }
 
@@ -310,7 +310,7 @@ public class MineSave
 {
     public float chargeTime;
     public float remainedChargeTime;
-    public double upgradeAmount;
+    public BNum upgradeAmount;
     public int mineLevel;
     public bool isAutomated;
     public long outputAmount;
@@ -322,7 +322,7 @@ public class MineSave
 public class CompoundSave
 {
     public float remainedChargeTime;
-    public double upgradeAmount;
+    public BNum upgradeAmount;
     public int compoundLevel;
     public bool isAutomated;
     public long outputAmount;
@@ -336,10 +336,10 @@ public class MapSave
 {
     public int countryLevel;
     public Age currentAgeOfNation;
-    public long attackPower;
-    public long defensePower;
-    public long foodAmount;
-    public double moneyAmount;
+    public BNum attackPower;
+    public BNum defensePower;
+    public BNum foodAmount;
+    public BNum moneyAmount;
     public int currentLives;
     public List<long> resourceAmounts;
 }

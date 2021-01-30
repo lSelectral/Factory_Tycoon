@@ -8,11 +8,12 @@
 /// Values are stored as a*10^x with a = #.####### (7 decimals) and x = integers
 /// Could be adjusted to maintain additional accuracy, but my use case doesn't care about differences in excess of 1/10millionth scale
 /// </summary>
+[Serializable]
 public class BNum   
 {
     public double value;
     public int tenPow;
-    public int aPow;
+    private int aPow;
 	public BNum()
 	{
         value = 0;
@@ -26,14 +27,137 @@ public class BNum
         this.CheckValue();
     }
 
+    public static BNum operator +(BNum number) => number;
+    public static BNum operator -(BNum number) => new BNum(-number.value, number.tenPow);
+
+    public static BNum operator +(BNum number1, BNum number2) => number1.Plus(number2);
+    public static BNum operator +(BNum number1, double number2)
+    {
+        return new BNum(number1.value + number2, number1.tenPow);
+    }
+
+    public static BNum operator -(BNum number1, double number2) =>
+        new BNum(number1.value - number2, number1.tenPow);
+
+    public static BNum operator -(BNum number1, BNum number2) => number1.Minus(number2);
+    public static BNum operator *(BNum number1, BNum number2) => number1.Times(number2);
+    public static BNum operator /(BNum number1, BNum number2) => number1.DivBy(number2);
+
+    public static BNum operator *(BNum number1, double number2) =>
+        new BNum(number1.value * number2, number1.tenPow);
+
+    public static bool operator >(BNum number1, BNum number2)
+    {
+        if (number1.tenPow > number2.tenPow)
+            return true;
+        else if (number1.tenPow == number2.tenPow && number1.value > number2.value)
+            return true;
+        else
+            return false;
+    }
+
+    public static bool operator >=(BNum number1, BNum number2)
+    {
+        if (number2 < number1)
+            return true;
+        else
+            return false;
+    }
+
+    public static bool operator <(BNum number1, BNum number2)
+    {
+        if (number1.tenPow > number2.tenPow)
+            return false;
+        else if (number1.tenPow == number2.tenPow && number1.value > number2.value)
+            return false;
+        else
+            return true;
+    }
+
+    public static bool operator <(BNum number1, double number2)
+    {
+        int scale = 0;
+        while (number2 >= 1000)
+        {
+            number2 /= 1000;
+            scale++;
+        }
+        if (scale > number1.tenPow)
+            return true;
+        else if (scale == number1.tenPow && number1.value < number2)
+            return true;
+        else
+            return false;
+    }
+
+    [Obsolete("Need fix not obsolete")]
+    public static bool operator >(BNum number1, double number2)
+    {
+        if (number1 < number2)
+            return false;
+        else
+            return true;
+    }
+
+    public static bool operator >=(BNum number1, double number2)
+    {
+        if (number1 < number2)
+            return false;
+        else
+            return true;
+    }
+
+    [Obsolete("Need fix not obsolete")]
+    public static bool operator <=(BNum number1, double number2)
+    {
+        if (number1 < number2)
+            return false;
+        else
+            return true;
+    }
+
+    public static bool operator <=(BNum number1, BNum number2)
+    {
+        if (number1 > number2)
+            return false;
+        else
+            return true;
+    }
+
+    public static bool operator ==(BNum number1, BNum number2)
+    {
+        if (number1.value == number2.value && number1.tenPow == number2.tenPow)
+            return true;
+        else
+            return false;
+    }
+
+    public static bool operator !=(BNum number1, BNum number2)
+    {
+        if (number1 == number2)
+            return false;
+        else
+            return true;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
     //custom ToString for default display using Scientific Notation
     public override string ToString() 
     {
         this.CheckValue();
         string outputStr = "";
         double outputVal;
-        outputVal = (Math.Floor(this.value * 1000)) / 1000; //truncate to 3 decimals for display
-        outputStr = "" + outputVal.ToString("###.0") + " e" + aPow;
+        outputVal = (Math.Floor(this.value * 10000)) / 10000; //truncate to 4 decimals for display
+        outputStr = "" + outputVal.ToString("G4") + " e" + tenPow;
         return outputStr;
     }
 

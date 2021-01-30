@@ -30,7 +30,7 @@ public class CustomEditorWindow : EditorWindow
 
         if (GUILayout.Button("+" + resourceAmountString + " " + ResourceManager.Instance.GetValidName(resource.ToString()) ))
         {
-            ResourceManager.Instance.AddResource(resource, int.Parse(resourceAmountString));
+            ResourceManager.Instance.AddResource(resource, new BNum(long.Parse(resourceAmountString),0));
         }
         GUILayout.EndVertical();
 

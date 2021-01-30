@@ -105,20 +105,20 @@ public class ProductionManager : Singleton<ProductionManager>
         productionUnitList = new List<ScriptableProductionBase>();
         InitializeMineAndCompoundList(out mineList, out compoundList);
 
-        for (int i = 0; i < assets.Length; i++)
-        {
-            if (assets[i] as ScriptableProductionBase != null)
-            {
-                productionUnitList.Add(assets[i] as ScriptableProductionBase);
-                InstantiateProductionUnit(assets[i] as ScriptableProductionBase);
-            }
-        }
+        //for (int i = 0; i < assets.Length; i++)
+        //{
+        //    if (assets[i] as ScriptableProductionBase != null)
+        //    {
+        //        productionUnitList.Add(assets[i] as ScriptableProductionBase);
+        //        InstantiateProductionUnit(assets[i] as ScriptableProductionBase);
+        //    }
+        //}
 
-        // UNITY UI don't refresh layout when add element sometimes. So we are forcing it to refresh.
-        for (int i = 0; i < tierSeperatedContainers.Count; i++)
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(tierSeperatedContainers[i].GetComponent<RectTransform>());
-        }
+        //// UNITY UI don't refresh layout when add element sometimes. So we are forcing it to refresh.
+        //for (int i = 0; i < tierSeperatedContainers.Count; i++)
+        //{
+        //    LayoutRebuilder.ForceRebuildLayoutImmediate(tierSeperatedContainers[i].GetComponent<RectTransform>());
+        //}
 
     }
     public float GET_OPTIMAL_PRICE_PER_PRODUCT(Compounds compound)
