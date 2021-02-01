@@ -126,7 +126,7 @@ public class MapManager : Singleton<MapManager>
 
     public void SetupResourcePanel(Map_Part map)
     {
-        List<long> mapResourceAmounts = new List<long>();
+        List<BNum> mapResourceAmounts = new List<BNum>();
         List<BaseResources> mapResourceTypes = new List<BaseResources>();
         //if (!map.IsPlayerOwned)
         //{
@@ -142,7 +142,7 @@ public class MapManager : Singleton<MapManager>
         //    Debug.Log("Player owned map");
         //    DebugList(mapResourceAmounts);
         //}
-        mapResourceAmounts = new List<long>(map.ResourceValueDict.Values);
+        mapResourceAmounts = new List<BNum>(map.ResourceValueDict.Values);
         mapResourceTypes = new List<BaseResources>(map.ResourceValueDict.Keys);
         //Debug.Log(mapResourceTypes.Count);
         //DebugList(mapResourceTypes);

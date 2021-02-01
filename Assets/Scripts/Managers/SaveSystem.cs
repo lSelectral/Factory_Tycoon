@@ -341,7 +341,7 @@ public class MapSave
     public BNum foodAmount;
     public BNum moneyAmount;
     public int currentLives;
-    public List<long> resourceAmounts;
+    public List<BNum> resourceAmounts;
 }
 
 [Serializable]

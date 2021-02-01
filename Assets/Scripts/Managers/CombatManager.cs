@@ -185,7 +185,7 @@ public class CombatManager : Singleton<CombatManager>
     public void OnAttackEnd(Map_Part[] winner, Map_Part[] loser, int resourceLossPercentage = 25, int moneyLossPercentage = 40)
     {
         #region Money and Resource Exchange Part
-        Dictionary<BaseResources, long> lostResourceDict = new Dictionary<BaseResources, long>();
+        Dictionary<BaseResources, BNum> lostResourceDict = new Dictionary<BaseResources, BNum>();
         BNum lostMoney = new BNum();
 
         for (int i = 0; i < loser.Length; i++)
@@ -194,7 +194,7 @@ public class CombatManager : Singleton<CombatManager>
             loser[i].MoneyAmount *= ((100-moneyLossPercentage * 1f)/100);
 
             List<BaseResources> keys = new List<BaseResources>(loser[i].ResourceValueDict.Keys);
-            List<long> values = new List<long>(loser[i].ResourceValueDict.Values);
+            List<BNum> values = new List<BNum>(loser[i].ResourceValueDict.Values);
 
             for (int j = 0; j < keys.Count; j++)
             {
@@ -202,13 +202,13 @@ public class CombatManager : Singleton<CombatManager>
                 var value = values[j];
                 if (!lostResourceDict.ContainsKey(key))
                 {
-                    lostResourceDict.Add(key, (long)(value * (resourceLossPercentage * 1f / 100)));
+                    lostResourceDict.Add(key, (value * (resourceLossPercentage * 1f / 100)));
                 }
                 else
-                    lostResourceDict[key] += (long)(value * (resourceLossPercentage * 1f / 100));
+                    lostResourceDict[key] += (value * (resourceLossPercentage * 1f / 100));
 
                 // +25% all resources for winner, -25% all resources for loser
-                loser[i].ResourceValueDict[key] = (long)(loser[i].ResourceValueDict[key] * ((100 - resourceLossPercentage * 1f) / 100));
+                loser[i].ResourceValueDict[key] = (loser[i].ResourceValueDict[key] * ((100 - resourceLossPercentage * 1f) / 100));
             }
         }
 

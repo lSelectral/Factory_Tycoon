@@ -6681,7 +6681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &401392993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11906,21 +11906,27 @@ MonoBehaviour:
   totalEarnedCurrency:
     value: 0
     tenPow: 0
+    aPow: 0
   totalEarnedPremiumCurrency:
     value: 0
     tenPow: 0
+    aPow: 0
   totalProducedResource:
     value: 0
     tenPow: 0
+    aPow: 0
   totalSpendedCurrency:
     value: 0
     tenPow: 0
+    aPow: 0
   totalSpendedPremiumCurrency:
     value: 0
     tenPow: 0
+    aPow: 0
   totalConsumedResource:
     value: 0
     tenPow: 0
+    aPow: 0
   mines: []
   compounds: []
   isLoadAtStart: 0
@@ -18631,6 +18637,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindowGraph
       objectReference: {fileID: 0}
+    - target: {fileID: 1607396430839814253, guid: b522c5fc766555a48aa05d1375a000ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1607396431153590082, guid: b522c5fc766555a48aa05d1375a000ca,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -22067,6 +22078,26 @@ MonoBehaviour:
   premiumCurrencyText: {fileID: 999445625}
   foodAmountText: {fileID: 265462593}
   attackAmountText: {fileID: 685533662}
+  currency:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  totalResource:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  premiumCurrency:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  foodAmount:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  attackAmount:
+    value: 0
+    tenPow: 0
+    aPow: 0
   smoothTime: 0.2
   currencySmoothTime: 0.2
   resourcePanel: {fileID: 1715049458}

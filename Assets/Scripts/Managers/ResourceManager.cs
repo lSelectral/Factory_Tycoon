@@ -55,10 +55,9 @@ public class ResourceManager : Singleton<ResourceManager>
 
     // Player related variable and smoothing values
     [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText;
-    BNum currency,totalResource, premiumCurrency;
-    BNum foodAmount, attackAmount;
-    BNum smoothCurrency,smoothPremiumCurency, smoothTotalResource;
-    BNum smoothVelocity,smoothVelocityPremiumCurrency, smoothVelocityTotalResource;
+    [SerializeField] BNum currency,totalResource, premiumCurrency, foodAmount, attackAmount = new BNum();
+    [SerializeField] BNum smoothCurrency,smoothPremiumCurency, smoothTotalResource = new BNum();
+    [SerializeField] BNum smoothVelocity,smoothVelocityPremiumCurrency, smoothVelocityTotalResource = new BNum();
     public float smoothTime;
     public float currencySmoothTime;
 
@@ -286,50 +285,50 @@ public class ResourceManager : Singleton<ResourceManager>
         }
 
         #region Add all resources to resource panel
-        int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
-        foreach (var resource in resources)
-        {
-            int arrayCounter = 0;
+        //int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
+        //foreach (var resource in resources)
+        //{
+        //    int arrayCounter = 0;
 
-            var resourceInfo = Instantiate(resourcePrefab, resourcePanel.transform.GetChild(0));
+        //    var resourceInfo = Instantiate(resourcePrefab, resourcePanel.transform.GetChild(0));
 
-            var text = resourceInfo.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();
-            text.text = "1";
+        //    var text = resourceInfo.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();
+        //    text.text = "1";
 
-            var resourceName = resourceInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        //    var resourceName = resourceInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
-            for (int i = 0; i < scriptableMines.Count; i++)
-            {
-                if (scriptableMines[i].product == resource)
-                    resourceName.text = scriptableMines[i].resourceName;
-            }
-            for (int i = 0; i < scriptableCompounds.Count; i++)
-            {
-                if (scriptableCompounds[i].product == resource)
-                    resourceName.text = scriptableCompounds[i].resourceName;
-            }
+        //    for (int i = 0; i < scriptableMines.Count; i++)
+        //    {
+        //        if (scriptableMines[i].product == resource)
+        //            resourceName.text = scriptableMines[i].resourceName;
+        //    }
+        //    for (int i = 0; i < scriptableCompounds.Count; i++)
+        //    {
+        //        if (scriptableCompounds[i].product == resource)
+        //            resourceName.text = scriptableCompounds[i].resourceName;
+        //    }
 
-            resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
+        //    resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
 
-            resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
-            { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
-            resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
-            { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
+        //    resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
+        //    { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
+        //    resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
+        //    { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
 
-            resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, new BNum(resourceIncrementArray[arrayCounter],0)); });
-            resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-            resourceTextDict[resource].text = (GetResourceAmount(resource)).ToString();
-        }
+        //    resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, new BNum(resourceIncrementArray[arrayCounter],0)); });
+        //    resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        //    resourceTextDict[resource].text = (GetResourceAmount(resource)).ToString();
+        //}
         #endregion
     }
 
     void Update()
     {
-        //smoothCurrency = SmoothDamp(smoothCurrency, currency, ref smoothVelocity, currencySmoothTime);
-        //currencyText.text = CurrencyToString(smoothCurrency);
+        smoothCurrency = SmoothDamp(smoothCurrency, currency, ref smoothVelocity, currencySmoothTime);
+        currencyText.text = CurrencyToString(smoothCurrency);
 
-        //smoothPremiumCurency = SmoothDamp(smoothPremiumCurency, premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
-        //premiumCurrencyText.text = CurrencyToString(smoothPremiumCurency);
+        smoothPremiumCurency = SmoothDamp(smoothPremiumCurency, premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
+        premiumCurrencyText.text = CurrencyToString(smoothPremiumCurency);
 
         //smoothTotalResource = SmoothDamp(smoothTotalResource, totalResource, ref smoothVelocityTotalResource, smoothTime);
         //totalResourceText.text = "Total Resource\n" + CurrencyToString((smoothTotalResource), 0);
@@ -422,44 +421,34 @@ public class ResourceManager : Singleton<ResourceManager>
         return tradeIcon;
     }
 
-    //public static BNum SmoothDamp(BNum current, BNum target, ref BNum currentVelocity, float smoothTime, BNum maxSpeed= Mathf.Infinity)
-    //{
-    //    var deltaTime = Time.deltaTime;
-    //    smoothTime = Mathf.Max(0.0001f, smoothTime);
-    //    BNum num = 2f / smoothTime;
-    //    BNum num2 = num * deltaTime;
-    //    BNum num3 = 1f / (1f + num2 + 0.48f * num2 * num2 + 0.235f * num2 * num2 * num2);
-    //    BNum num4 = current - target;
-    //    BNum num5 = target;
-    //    BNum num6 = maxSpeed * smoothTime;
-
-    //    num4 = ClampDouble(num4, -num6, num6);
-    //    target = current - num4;
-    //    BNum num7 = (currentVelocity + num * num4) * deltaTime;
-    //    currentVelocity = (currentVelocity - num * num7) * num3;
-    //    BNum num8 = target + (num4 + num7) * num3;
-    //    if (num5 - current > 0f == num8 > num5)
-    //    {
-    //        num8 = num5;
-    //        currentVelocity = (num8 - num5) / deltaTime;
-    //    }
-    //    return num8;
-    //}
-
-    public static BNum ClampDouble(BNum value, BNum min, BNum max)
+    public static BNum SmoothDamp(BNum current, BNum target, ref BNum currentVelocity, float smoothTime)
     {
-        if (value < min)
+        var deltaTime = Time.deltaTime;
+        smoothTime = Mathf.Max(0.0001f, smoothTime);
+        BNum num = new BNum(2f / smoothTime, 0);
+
+        BNum num2 = num * deltaTime;
+        BNum num3 = 1f / (num2 + 1f + num2 * 0.48f * num2 + num2 * num2 * 0.235f * 0.235f);
+        BNum num4 = current - target;
+        BNum num5 = target;
+        BNum num6 = new BNum(99, 10000) * smoothTime;
+
+        num4 = ClampBNum(num4, -num6, num6);
+        target = current - num4;
+        BNum num7 = (currentVelocity + num * num4) * deltaTime;
+        currentVelocity = (currentVelocity - num * num7) * num3;
+        BNum num8 = target + (num4 + num7) * num3;
+        if (num5 - current > 0f == num8 > num5)
         {
-            value = min;
+            num8 = num5;
+            currentVelocity = (num8 - num5) / deltaTime;
         }
-        else
-        {
-            if (value > max)
-            {
-                value = max;
-            }
-        }
-        return value;
+        return num8;
+    }
+
+    public static BNum ClampBNum(BNum value, BNum min, BNum max)
+    {
+        return (value < min) ? min : (value > max) ? max : value;
     }
 }
 

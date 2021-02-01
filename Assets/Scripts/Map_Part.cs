@@ -32,7 +32,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] Map_Part[] connectedMapParts;
 
-    Dictionary<BaseResources, long> resourceValueDict;
+    Dictionary<BaseResources, BNum> resourceValueDict;
 
     [Range(0f, 1f)] public float alphaSlider;
     Image image;
@@ -49,7 +49,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     public BNum MoneyAmount { get => moneyAmount; set => moneyAmount = value; }
     public BNum DefensePower { get => defensePower; set { defensePower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); }}
     public int CombatLives { get => combatLives; set { combatLives = Mathf.Clamp(value,0,3); } }
-    public Dictionary<BaseResources, long> ResourceValueDict { get => resourceValueDict; set => resourceValueDict = value; }
+    public Dictionary<BaseResources, BNum> ResourceValueDict { get => resourceValueDict; set => resourceValueDict = value; }
     public Map_Part[] ConnectedMapParts { get => connectedMapParts; set => connectedMapParts = value; }
     public bool IsPlayerOwned { get => isPlayerOwned; set => isPlayerOwned = value; }
     #endregion
@@ -91,7 +91,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             image.alphaHitTestMinimumThreshold = alphaSlider;
 
             // Create resource dictionary with all resource in it for this age
-            resourceValueDict = new Dictionary<BaseResources, long>();
+            resourceValueDict = new Dictionary<BaseResources, BNum>();
             var scriptableMines = ProductionManager.Instance.mineList;
             var scriptableCompounds = ProductionManager.Instance.compoundList;
             for (int i = 0; i < scriptableMines.Count; i++)
@@ -99,7 +99,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                 if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
                 {
                     if (!resourceValueDict.ContainsKey(scriptableMines[i].product))
-                        resourceValueDict.Add(scriptableMines[i].product, 100);
+                        resourceValueDict.Add(scriptableMines[i].product, new BNum(1,2));
                 }
             }
             for (int i = 0; i < scriptableCompounds.Count; i++)
@@ -107,7 +107,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                 if (scriptableCompounds[i].ageBelongsTo == currentAgeOfNation)
                 {
                     if (!resourceValueDict.ContainsKey(scriptableCompounds[i].product))
-                        resourceValueDict.Add(scriptableCompounds[i].product, 100);
+                        resourceValueDict.Add(scriptableCompounds[i].product, new BNum(1, 2));
                 }
             }
             // Add extra resource for every tribe if has one. Resource amount is related to area size of country
@@ -125,7 +125,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             combatLives = 3;
             connectedMapParts = new Map_Part[] { this };
             //resourceValueDict = ResourceManager.Instance.resourceValueDict;
-            resourceValueDict = new Dictionary<BaseResources, long>();
+            resourceValueDict = new Dictionary<BaseResources, BNum>();
             var scriptableMines = ProductionManager.Instance.mineList;
             var scriptableCompounds = ProductionManager.Instance.compoundList;
             for (int i = 0; i < scriptableMines.Count; i++)
@@ -133,7 +133,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                 if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
                 {
                     if (!resourceValueDict.ContainsKey(scriptableMines[i].product))
-                        resourceValueDict.Add(scriptableMines[i].product, 100);
+                        resourceValueDict.Add(scriptableMines[i].product, new BNum(1, 2));
                 }
             }
             for (int i = 0; i < scriptableCompounds.Count; i++)
@@ -141,7 +141,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                 if (scriptableCompounds[i].ageBelongsTo == currentAgeOfNation)
                 {
                     if (!resourceValueDict.ContainsKey(scriptableCompounds[i].product))
-                        resourceValueDict.Add(scriptableCompounds[i].product, 100);
+                        resourceValueDict.Add(scriptableCompounds[i].product, new BNum(1, 2));
                 }
             }
             image = GetComponent<Image>();

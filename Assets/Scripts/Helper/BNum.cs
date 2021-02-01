@@ -1,5 +1,4 @@
 ﻿using System;
-
 /// <summary>
 /// class BNum
 /// written by Wyjosn 11/14/2017
@@ -9,13 +8,13 @@
 /// Could be adjusted to maintain additional accuracy, but my use case doesn't care about differences in excess of 1/10millionth scale
 /// </summary>
 [Serializable]
-public class BNum   
+public class BNum
 {
     public double value;
     public int tenPow;
-    private int aPow;
-	public BNum()
-	{
+    public int aPow;
+    public BNum()
+    {
         value = 0;
         tenPow = 0;
     }
@@ -27,35 +26,135 @@ public class BNum
         this.CheckValue();
     }
 
-    public static BNum operator +(BNum number) => number;
-    public static BNum operator -(BNum number) => new BNum(-number.value, number.tenPow);
-
-    public static BNum operator +(BNum number1, BNum number2) => number1.Plus(number2);
-    public static BNum operator +(BNum number1, double number2)
+    public static BNum Zero
     {
-        return new BNum(number1.value + number2, number1.tenPow);
+        get { return new BNum(); }
     }
 
-    public static BNum operator -(BNum number1, double number2) =>
-        new BNum(number1.value - number2, number1.tenPow);
+    static int GetTenPower(double d)
+    {
+        int scale = 0;
+        while (d >= 10)
+        {
+            d /= 10;
+            scale++;
+        }
+        return scale;
+    }
 
-    public static BNum operator -(BNum number1, BNum number2) => number1.Minus(number2);
-    public static BNum operator *(BNum number1, BNum number2) => number1.Times(number2);
-    public static BNum operator /(BNum number1, BNum number2) => number1.DivBy(number2);
+    /// <summary>
+    /// Convert given Bnum parameter, according to the power difference for processing 2 BNum.
+    /// </summary>
+    /// <param name="number2">BNum to convert acccording to power difference</param>
+    /// <param name="powerDifference">Power difference between 2 BNum</param>
+    /// <returns>BNum with fixed power</returns>
+    static BNum GetConvertedValue(BNum number2, long powerDifference)
+    {
+        // Over 8 power difference accuracy doesn't matter.
+        if (powerDifference >= 8)
+            return new BNum();
+        else if (powerDifference <= -8)
+            return number2;
 
+        while (powerDifference > 0)
+        {
+            number2.value /= 10;
+            powerDifference--;
+        }
+        while (powerDifference < 0)
+        {
+            number2.value *= 10;
+            powerDifference++;
+        }
+        return number2;
+    }
+
+    #region Operators
+    // BNum + BNum 
+    public static BNum operator +(BNum number) => number;
+    public static BNum operator +(BNum number1, BNum number2) =>
+        new BNum(number1.value 
+            + GetConvertedValue(number2, (number1.tenPow - number2.tenPow)).value, number1.tenPow);
+    public static BNum operator +(BNum number1, double number2)
+    {
+        long powerDifference = number1.tenPow - GetTenPower(number2);
+        BNum tempValue = new BNum(number2, 0);
+        tempValue = GetConvertedValue(tempValue, powerDifference);
+        return new BNum(tempValue.value + number1.value, number1.tenPow);
+    }
+
+    // BNum - BNum
+    public static BNum operator -(BNum number) => new BNum(-number.value, number.tenPow);
+    public static BNum operator -(BNum number1, BNum number2) =>
+        new BNum(number1.value - GetConvertedValue(number2, (number1.tenPow - number2.tenPow)).value, number1.tenPow);
+    public static BNum operator -(BNum number1, double number2)
+    {
+        long powerDifference = number1.tenPow - GetTenPower(number2);
+        BNum tempValue = new BNum(number2, 0);
+        tempValue = GetConvertedValue(tempValue, powerDifference);
+        return new BNum(number1.value - tempValue.value, number1.tenPow);
+    }
+
+    // BNum*BNum = a*10^x * b*10^y = (a*b)*(10^(x+y))
+    public static BNum operator *(BNum number1, BNum number2) =>
+        new BNum(number1.value * number2.value, number1.tenPow + number2.tenPow);
     public static BNum operator *(BNum number1, double number2) =>
-        new BNum(number1.value * number2, number1.tenPow);
+         new BNum(number1.value * number2, number1.aPow);
 
+
+    // BNum/BNum = a*10^x / b*10^y = (a/b)(10^(x-y))
+    public static BNum operator /(BNum number1, BNum number2) =>
+        new BNum(number1.value / number2.value, number1.tenPow - number2.tenPow);
+    public static BNum operator /(BNum number1, double number2) =>
+        new BNum(number1.value / number2, number1.tenPow);
+    public static BNum operator /(double number1, BNum number2) =>
+        new BNum((number1 / number2.value), -number2.tenPow);
+
+    // BNum > BNum
     public static bool operator >(BNum number1, BNum number2)
     {
-        if (number1.tenPow > number2.tenPow)
+        if (number1.value >= 1 && number1.tenPow > number2.tenPow)
             return true;
         else if (number1.tenPow == number2.tenPow && number1.value > number2.value)
+            return true;
+        else if (number1.tenPow < number2.tenPow && number1.value >= 1 && number2.value < 1)
+            return true;
+        else
+            return false;
+    }
+    public static bool operator >(BNum number1, double number2)
+    {
+        long power = GetTenPower(number2);
+        BNum convertedValue = GetConvertedValue(new BNum(number2, 0), number1.tenPow - power);
+
+        if (number1.value >= 1 && number1.tenPow > power)
+            return true;
+        else if (number1.tenPow == power && number1.value > convertedValue.value)
+            return true;
+        else if (number1.tenPow < power && number1.value >= 1 && convertedValue.value < 1)
             return true;
         else
             return false;
     }
 
+    // BNum < BNum
+    public static bool operator <(BNum number1, BNum number2)
+    {
+        if (number2 > number1 && number1 != number2)
+            return true;
+        else
+            return false;
+    }
+    public static bool operator <(BNum number1, double number2)
+    {
+        long powerDifference = number1.tenPow - GetTenPower(number2);
+        if (!(number1 > number2) && number1 != GetConvertedValue(new BNum(number2, 0), powerDifference))
+            return true;
+        else
+            return false;
+    }
+
+    // BNum >= BNum
     public static bool operator >=(BNum number1, BNum number2)
     {
         if (number2 < number1)
@@ -63,59 +162,15 @@ public class BNum
         else
             return false;
     }
-
-    public static bool operator <(BNum number1, BNum number2)
-    {
-        if (number1.tenPow > number2.tenPow)
-            return false;
-        else if (number1.tenPow == number2.tenPow && number1.value > number2.value)
-            return false;
-        else
-            return true;
-    }
-
-    public static bool operator <(BNum number1, double number2)
-    {
-        int scale = 0;
-        while (number2 >= 1000)
-        {
-            number2 /= 1000;
-            scale++;
-        }
-        if (scale > number1.tenPow)
-            return true;
-        else if (scale == number1.tenPow && number1.value < number2)
-            return true;
-        else
-            return false;
-    }
-
-    [Obsolete("Need fix not obsolete")]
-    public static bool operator >(BNum number1, double number2)
-    {
-        if (number1 < number2)
-            return false;
-        else
-            return true;
-    }
-
     public static bool operator >=(BNum number1, double number2)
     {
         if (number1 < number2)
-            return false;
-        else
             return true;
+        else
+            return false;
     }
 
-    [Obsolete("Need fix not obsolete")]
-    public static bool operator <=(BNum number1, double number2)
-    {
-        if (number1 < number2)
-            return false;
-        else
-            return true;
-    }
-
+    // BNum <= BNum
     public static bool operator <=(BNum number1, BNum number2)
     {
         if (number1 > number2)
@@ -123,43 +178,31 @@ public class BNum
         else
             return true;
     }
-
-    public static bool operator ==(BNum number1, BNum number2)
+    public static bool operator <=(BNum number1, double number2)
     {
-        if (number1.value == number2.value && number1.tenPow == number2.tenPow)
-            return true;
-        else
-            return false;
-    }
-
-    public static bool operator !=(BNum number1, BNum number2)
-    {
-        if (number1 == number2)
+        if (number1 > number2)
             return false;
         else
             return true;
     }
 
-    public override bool Equals(object obj)
-    {
-        return base.Equals(obj);
-    }
+    #endregion
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
-    }
-
+    #region Class Methods
     //custom ToString for default display using Scientific Notation
-    public override string ToString() 
+    public override string ToString()
     {
         this.CheckValue();
         string outputStr = "";
         double outputVal;
-        outputVal = (Math.Floor(this.value * 10000)) / 10000; //truncate to 4 decimals for display
-        outputStr = "" + outputVal.ToString("G4") + " e" + tenPow;
+        outputVal = (Math.Floor(this.value * 1000)) / 1000; //truncate to 3 decimals for display
+        outputStr = "" + outputVal.ToString("N6") + " e" + tenPow;
         return outputStr;
     }
+
+    private readonly string[] suffix =
+        new string[] { "", "K", "M", "G", "T", "P", "E", "AA", "AB", "BA", "BB", "CA", "CB", "CC" };
+
 
     //overloaded ToString method for representing big numbers in different styles based on parameter
     public string ToString(string style)
@@ -172,91 +215,32 @@ public class BNum
         if (style == "sym")
         {
             //intentional int-division to get only whole quotient for use in symbolic representation
-            powMult = tenPow / 3; 
+            powMult = tenPow / 3;
 
             //use remainder to determine how many digits before and after decimal
-            switch (tenPow%3)
+            switch (tenPow % 3)
             {
                 case 0:
                     outputVal = (Math.Floor(this.value * 1000)) / 1000; //truncate to 4 digits (3 decimals)
-                    outputStr = "" + outputVal.ToString("#.000");
+                    outputStr = outputVal.ToString("#.000");
                     break;
                 case 1:
                     outputVal = (Math.Floor(this.value * 1000)) / 100; //truncate to 4 digis (2 decimals)
-                    outputStr = "" + outputVal.ToString("##.00");
+                    outputStr = outputVal.ToString("##.00");
                     break;
                 case 2:
                     outputVal = (Math.Floor(this.value * 1000)) / 10; //truncate to 4 digits (1 decimal)
-                    outputStr = "" + outputVal.ToString("###.0");
+                    outputStr = outputVal.ToString("###.0");
                     break;
                 default:
                     return outputStr;
             }
 
-            //appending 'suffix' symbol (K, M, B, T, a, b, ... y, z, aa, ab...) based on power multiple (power/3)
-            switch (powMult)
-            {
-                case 0:
-                    outputStr = outputStr + "  ";
-                    break;
-                case 1:
-                    outputStr = outputStr + " K";
-                    break;
-                case 2:
-                    outputStr = outputStr + " M";
-                    break;
-                case 3:
-                    outputStr = outputStr + " B";
-                    break;
-                case 4:
-                    outputStr = outputStr + " T";
-                    break;
-                case 5:
-                    outputStr = outputStr + " a";
-                    break;
-                case 6:
-                    outputStr = outputStr + " b";
-                    break;
-                case 7:
-                    outputStr = outputStr + " c";
-                    break;
-                case 8:
-                    outputStr = outputStr + " d";
-                    break;
-                case 9:
-                    outputStr = outputStr + " e";
-                    break;
-                case 10:
-                    outputStr = outputStr + " f";
-                    break;
-                case 11:
-                    outputStr = outputStr + " g";
-                    break;
-                case 12:
-                    outputStr = outputStr + " h";
-                    break;
-                case 13:
-                    outputStr = outputStr + " i";
-                    break;
-                case 14:
-                    outputStr = outputStr + " j";
-                    break;
-                case 15:
-                    outputStr = outputStr + " k";
-                    break;
-                case 16:
-                    outputStr = outputStr + " l";
-                    break;
-                case 17:
-                    outputStr = outputStr + " m";
-                    break;
-                /*
-                 * easily continue sequence for ever larger numbers
-                 */
-                default:
-                    return outputStr;
+            if (powMult >= suffix.Length) // Array overflow show standard
+                return outputStr;
+            else
+                outputStr += suffix[powMult];
 
-            }
             return outputStr;
         }
         //bounce back to default ToString for scientific notation
@@ -273,118 +257,19 @@ public class BNum
         return outputStr;
     }
 
-    // discards "excessive differences" (more than 7 orders of magnitude) then aligns powers, performs addition, and reformats result 
-    public BNum Plus(BNum num2)
-    {
-        BNum result; //for storing output
-        BNum tempNum = new BNum(num2.value,num2.tenPow); //might not be necessary, but I wasn't confident in whether the reference variable would affect the exterior BNum object or create a copy
-        double resVal;
-        //check orders of magnitude difference between numbers
-        int powDiff = this.tenPow - tempNum.tenPow;
-        //shortcuts for excessive power differences to avoid potential overflows just returns the larger ignoring the smaller
-        if (powDiff >= 7)
-            return this;
-        if (powDiff <= -7)
-            return num2;
-        //adjust the second number to have the same power as this one
-        while (powDiff > 0)
-        {
-            tempNum.value /= 10;
-            powDiff -= 1;
-        }
-        while (powDiff < 0)
-        {
-            tempNum.value *= 10;
-            powDiff += 1;
-        }
-        //add values now that powers match
-        resVal = this.value + tempNum.value;
-        //create BNum object with resultant value and power
-        result = new BNum(resVal, this.tenPow);
-        //verify format of resultant value and power 
-        result.CheckValue(); //this is implicitly called in the constructor, but I've called it again out of extra caution unnecessarily
-        return result;
-    }
-
-    //very similar to the Add method, just different arithmetic operation
-    public BNum Minus(BNum num2)
-    {
-        BNum result; //for storing output
-        BNum tempNum = new BNum(num2.value, num2.tenPow); //might not be necessary, but I wasn't confident in whether the reference variable would affect the exterior BNum object or create a copy
-        double resVal;
-        //check orders of magnitude difference between numbers
-        int powDiff = this.tenPow - tempNum.tenPow;
-        //shortcuts for excessive power differences to avoid potential overflows just returns the larger ignoring the smaller
-        if (powDiff >= 7)
-            return this;
-        if (powDiff <= -7)
-            return num2;
-        //adjust the second number to have the same power as this one
-        while (powDiff > 0)
-        {
-            tempNum.value /= 10;
-            powDiff -= 1;
-        }
-        while (powDiff < 0)
-        {
-            tempNum.value *= 10;
-            powDiff += 1;
-        }
-        //subtract values now that powers match
-        resVal = this.value - tempNum.value;
-        //create BNum object with resultant value and power
-        result = new BNum(resVal, this.tenPow);
-        //verify format of resultant value and power 
-        result.CheckValue(); //this is implicitly called in the constructor, but I've called it again out of extra caution unnecessarily
-        return result;
-    }
-
-    //surprisingly trival while simultaneously not a common use case I expect to use
-        // a*10^x*b*10^y = (a*b)(10^(x+y))
-    public BNum Times(BNum num2)
-    {
-        BNum result;
-        double resVal;
-        int resPow;
-        // 10^x * 10^y = 10^(x+y)
-        resPow = this.tenPow + num2.tenPow;
-        // a*b
-        resVal = this.value * num2.value;
-        result = new BNum(resVal, resPow);
-        result.CheckValue(); //again, unnecessary since implicit in the constructor
-        return result;
-    }
-
-    //also fairly trivial, similar to multiplication, and even less likely to ever be used in my implementation
-        // a*10^x / b*10^y = (a/b)(10^(x-y))
-    public BNum DivBy(BNum num2)
-    {
-        BNum result;
-        double resVal;
-        int resPow;
-        // 10^x / 10^y = 10^(x-y)
-        resPow = this.tenPow - num2.tenPow;
-        // a/b
-        resVal = this.value / num2.value; //this may cause slightly unexpected values since it uses 'double' division and rounds 'toward even' by default. Didn't feel like testing since it's an unlikely use case
-        result = new BNum(resVal, resPow);
-        result.CheckValue(); //again, unnecessary sicne implicit in the constructor
-        return result;
-    }
-
-
     public void CheckValue()
     {
-        while( this.value >=10) //increase power until 1<=value<10
+        while (this.value >= 10) //increase power until 1<=value<10
         {
             this.value /= 10;
             this.tenPow += 1;
         }
-        while( this.value < 1) //decrease power until 1<=value<10
+        while (this.value > 0 && this.value < 1) //decrease power until 1<=value<10
         {
             this.value *= 10;
             this.tenPow -= 1;
         }
-        this.value = Math.Floor((this.value * 10000000))/10000000; //"Round Down" to the 7th decimal place
+        this.value = Math.Floor((this.value * 10000000)) / 10000000; //"Round Down" to the 7th decimal place
     }
-    
+    #endregion
 }

@@ -155,7 +155,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     internal virtual void Start()
     {
         // TODO ONLY FOR DEBUG REMOVE IT
-        IsAutomated = true;
+        IsAutomated = false;
         mainProductionPanel = transform.parent.parent.parent.parent.parent.gameObject;
         agePanel = transform.parent.parent.parent.gameObject;
         #region DONE
