@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Bronze_sword
   m_EditorClassIdentifier: 
   Description: 
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
   TranslatedName: Bronze Sword
-  resourceName: Bronze_sword
-  product: 29
+  product: 25
   foodAmount: 0
-  collectTime: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 10
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
@@ -29,18 +34,67 @@ MonoBehaviour:
   ageBelongsTo: 1
   tier: 1
   itemTypes: 00000000
-  pricePerProductText: 4,14M
-  pricePerProduct: 4142122.5
-  incomePerSecondText: 4,14M
-  incomePerSecond: 4142122.5
+  pricePerProductText: 83,3B
+  pricePerProduct: 8.330215e+13
+  incomePerSecondText: 8,33B
+  incomePerSecond: 8.330215e+12
+  pricePerProductUntilLevel50:
+  - 2.0884364e+13
+  - 3.2788454e+13
+  - 5.1477876e+13
+  - 8.082027e+13
+  - 1.2688783e+14
+  - 1.992139e+14
+  - 3.1276583e+14
+  - 4.9104237e+14
+  - 7.7093656e+14
+  - 1.2103705e+15
+  - 1.9002817e+15
+  - 2.9834424e+15
+  - 4.684005e+15
+  - 7.353888e+15
+  - 1.1545604e+16
+  - 1.81266e+16
+  - 2.8458763e+16
+  - 4.4680257e+16
+  - 7.0148004e+16
+  - 1.1013237e+17
+  - 1.7290782e+17
+  - 2.714653e+17
+  - 4.2620053e+17
+  - 6.691349e+17
+  - 1.0505418e+18
+  - 1.6493506e+18
+  - 2.5894805e+18
+  - 4.0654844e+18
+  - 6.3828107e+18
+  - 1.0021013e+19
+  - 1.5732991e+19
+  - 2.4700797e+19
+  - 3.8780254e+19
+  - 6.0885003e+19
+  - 9.558946e+19
+  - 1.5007546e+20
+  - 2.3561848e+20
+  - 3.6992103e+20
+  - 5.8077605e+20
+  - 9.118184e+20
+  - 1.431555e+21
+  - 2.2475414e+21
+  - 3.52864e+21
+  - 5.539965e+21
+  - 8.6977457e+21
+  - 1.3655461e+22
+  - 2.1439075e+22
+  - 3.365935e+22
+  - 5.284518e+22
+  - 1.9552716e+23
   isFixedArraySize: 1
-  inputResources: 00000000
-  inputAmounts: 01000000
-  housingAmount: 0
-  attackAmount: 0
-  basePricePerProduct: 4142112
-  optimalPricePerProductText: 10,39
-  optimalPricePerProduct: 10.386364
-  optimalIncomePerSecondText: 8,68
-  optimalPricePerSecond: 8.681818
+  inputResources: 0200000018000000
+  inputAmounts: 0200000005000000
+  basePricePerProduct: 7.5e+13
+  optimalPricePerProductText: 8,3B
+  optimalPricePerProduct: 8.3021424e+12
+  optimalIncomePerSecondText: 138,79A
+  optimalPricePerSecond: 1.3879293e+11
   isOptimal: 1

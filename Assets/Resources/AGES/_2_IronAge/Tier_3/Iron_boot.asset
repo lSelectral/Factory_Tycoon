@@ -10,34 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
-  m_Name: Stone_cannon
+  m_Name: Iron_boot
   m_EditorClassIdentifier: 
   Description: 
-  TranslatedName: Stone Cannon
-  resourceName: Stone Cannon
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: 
   product: 0
   foodAmount: 0
-  collectTime: 1
-  outputValue: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 0
+  outputValue: 0
   lockedByContracts: []
-  backgroundImage: {fileID: 0}
+  backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
   icon: {fileID: 0}
   unlockLevel: 0
-  xpAmount: 25
-  ageBelongsTo: 2
-  tier: 3
+  xpAmount: 10
+  ageBelongsTo: 0
+  tier: 0
   itemTypes: 00000000
-  pricePerProductText: 0
+  pricePerProductText: 
   pricePerProduct: 0
-  incomePerSecondText: 0
+  incomePerSecondText: 
   incomePerSecond: 0
+  pricePerProductUntilLevel50: []
   isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  housingAmount: 0
-  attackAmount: 0
   basePricePerProduct: 0
   optimalPricePerProductText: 
   optimalPricePerProduct: 0

@@ -12,35 +12,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
   m_Name: Clay_vase
   m_EditorClassIdentifier: 
-  Description: Product of creativity. Multi purpose protection tool.
-  TranslatedName: 
-  resourceName: Clay_vase
+  Description: Product of creativity. Multi purpose storage  tool.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Clay Vase
   product: 11
   foodAmount: 0
-  collectTime: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 20
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
-  icon: {fileID: 21300000, guid: 966263a09293ab040b421553cbab8bc0, type: 3}
+  icon: {fileID: 21300000, guid: cfbed7c25c038434e830d5a8a63a3ba3, type: 3}
   unlockLevel: 8
   xpAmount: 25
   ageBelongsTo: 0
   tier: 2
-  itemTypes: 01000000
-  pricePerProductText: 2,5G
-  pricePerProduct: 2.50004e+9
-  incomePerSecondText: 2,5G
-  incomePerSecond: 2.50004e+9
+  itemTypes: 0100000000000000
+  pricePerProductText: 680,8M
+  pricePerProduct: 680797700
+  incomePerSecondText: 34,04M
+  incomePerSecond: 34039884
+  pricePerProductUntilLevel50:
+  - 1.0688524e+9
+  - 1.6780983e+9
+  - 2.6346145e+9
+  - 4.1363448e+9
+  - 6.4940616e+9
+  - 1.0195677e+10
+  - 1.6007214e+10
+  - 2.5131327e+10
+  - 3.9456186e+10
+  - 6.1946216e+10
+  - 9.725556e+10
+  - 1.5269125e+11
+  - 2.3972526e+11
+  - 3.763687e+11
+  - 5.9089886e+11
+  - 9.277112e+11
+  - 1.4565067e+12
+  - 2.2867157e+12
+  - 3.5901436e+12
+  - 5.6365254e+12
+  - 8.849345e+12
+  - 1.3893472e+13
+  - 2.181275e+13
+  - 3.424602e+13
+  - 5.3766254e+13
+  - 8.441302e+13
+  - 1.3252845e+14
+  - 2.0806967e+14
+  - 3.266694e+14
+  - 5.12871e+14
+  - 8.052075e+14
+  - 1.2641758e+15
+  - 1.9847562e+15
+  - 3.1160672e+15
+  - 4.8922254e+15
+  - 7.680794e+15
+  - 1.2058848e+16
+  - 1.8932392e+16
+  - 2.9723856e+16
+  - 4.6666456e+16
+  - 7.3266335e+16
+  - 1.1502815e+17
+  - 1.805942e+17
+  - 2.835329e+17
+  - 4.4514666e+17
+  - 6.988803e+17
+  - 1.0972421e+18
+  - 1.7226702e+18
+  - 2.7045922e+18
+  - 1.0006991e+19
   isFixedArraySize: 1
   inputResources: 05000000
   inputAmounts: 04000000
-  housingAmount: 0
-  attackAmount: 0
-  basePricePerProduct: 2.5e+9
-  optimalPricePerProductText: 39,88K
-  optimalPricePerProduct: 39883.637
+  basePricePerProduct: 680000000
+  optimalPricePerProductText: 797,67K
+  optimalPricePerProduct: 797672.75
   optimalIncomePerSecondText: 25K
   optimalPricePerSecond: 25003.637
   isOptimal: 1

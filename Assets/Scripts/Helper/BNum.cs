@@ -31,16 +31,16 @@ public class BNum
         get { return new BNum(); }
     }
 
-    static int GetTenPower(double d)
-    {
-        int scale = 0;
-        while (d >= 10)
-        {
-            d /= 10;
-            scale++;
-        }
-        return scale;
-    }
+    //static int GetTenPower(double d)
+    //{
+    //    int scale = 0;
+    //    while (d >= 10)
+    //    {
+    //        d /= 10;
+    //        scale++;
+    //    }
+    //    return scale;
+    //}
 
     /// <summary>
     /// Convert given Bnum parameter, according to the power difference for processing 2 BNum.
@@ -50,7 +50,7 @@ public class BNum
     /// <returns>BNum with fixed power</returns>
     static BNum GetConvertedValue(BNum number2, long powerDifference)
     {
-        // Over 8 power difference accuracy doesn't matter.
+        // After 8 digit accuracy doesn't matter.
         if (powerDifference >= 8)
             return new BNum();
         else if (powerDifference <= -8)
@@ -77,8 +77,8 @@ public class BNum
             + GetConvertedValue(number2, (number1.tenPow - number2.tenPow)).value, number1.tenPow);
     public static BNum operator +(BNum number1, double number2)
     {
-        long powerDifference = number1.tenPow - GetTenPower(number2);
         BNum tempValue = new BNum(number2, 0);
+        long powerDifference = number1.tenPow - tempValue.tenPow;
         tempValue = GetConvertedValue(tempValue, powerDifference);
         return new BNum(tempValue.value + number1.value, number1.tenPow);
     }
@@ -89,8 +89,8 @@ public class BNum
         new BNum(number1.value - GetConvertedValue(number2, (number1.tenPow - number2.tenPow)).value, number1.tenPow);
     public static BNum operator -(BNum number1, double number2)
     {
-        long powerDifference = number1.tenPow - GetTenPower(number2);
         BNum tempValue = new BNum(number2, 0);
+        long powerDifference = number1.tenPow - tempValue.tenPow;
         tempValue = GetConvertedValue(tempValue, powerDifference);
         return new BNum(number1.value - tempValue.value, number1.tenPow);
     }
@@ -124,14 +124,14 @@ public class BNum
     }
     public static bool operator >(BNum number1, double number2)
     {
-        long power = GetTenPower(number2);
-        BNum convertedValue = GetConvertedValue(new BNum(number2, 0), number1.tenPow - power);
+        long powerDifference = number1.tenPow - new BNum(number2,0).tenPow;
+        BNum convertedValue = GetConvertedValue(new BNum(number2, 0), powerDifference);
 
-        if (number1.value >= 1 && number1.tenPow > power)
+        if (number1.value >= 1 && powerDifference > 0)
             return true;
-        else if (number1.tenPow == power && number1.value > convertedValue.value)
+        else if (powerDifference == 0 && number1.value > convertedValue.value)
             return true;
-        else if (number1.tenPow < power && number1.value >= 1 && convertedValue.value < 1)
+        else if (powerDifference < 0 && number1.value >= 1 && convertedValue.value < 1)
             return true;
         else
             return false;
@@ -147,7 +147,7 @@ public class BNum
     }
     public static bool operator <(BNum number1, double number2)
     {
-        long powerDifference = number1.tenPow - GetTenPower(number2);
+        long powerDifference = number1.tenPow - new BNum(number2,0).tenPow;
         if (!(number1 > number2) && number1 != GetConvertedValue(new BNum(number2, 0), powerDifference))
             return true;
         else
@@ -165,9 +165,9 @@ public class BNum
     public static bool operator >=(BNum number1, double number2)
     {
         if (number1 < number2)
-            return true;
-        else
             return false;
+        else
+            return true;
     }
 
     // BNum <= BNum
@@ -259,15 +259,15 @@ public class BNum
 
     public void CheckValue()
     {
-        while (this.value >= 10) //increase power until 1<=value<10
+        while (this.value >= 1000) //increase power until 1<=value<10
         {
-            this.value /= 10;
-            this.tenPow += 1;
+            this.value /= 1000;
+            this.tenPow += 3;
         }
         while (this.value > 0 && this.value < 1) //decrease power until 1<=value<10
         {
-            this.value *= 10;
-            this.tenPow -= 1;
+            this.value *= 1000;
+            this.tenPow -= 3;
         }
         this.value = Math.Floor((this.value * 10000000)) / 10000000; //"Round Down" to the 7th decimal place
     }

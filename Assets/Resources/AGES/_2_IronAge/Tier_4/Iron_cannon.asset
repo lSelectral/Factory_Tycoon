@@ -13,31 +13,85 @@ MonoBehaviour:
   m_Name: Iron_cannon
   m_EditorClassIdentifier: 
   Description: 
-  TranslatedName: 
-  resourceName: 
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Berry
   product: 0
   foodAmount: 0
-  collectTime: 0
-  outputValue: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 1
+  outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
-  icon: {fileID: 0}
-  unlockLevel: 0
+  icon: {fileID: 21300000, guid: 8ba563e90231c2e438867b1175946b51, type: 3}
+  unlockLevel: 8
   xpAmount: 10
-  ageBelongsTo: 0
-  tier: 0
+  ageBelongsTo: 2
+  tier: 3
   itemTypes: 00000000
-  pricePerProductText: 
+  pricePerProductText: 0
   pricePerProduct: 0
-  incomePerSecondText: 
+  incomePerSecondText: 0
   incomePerSecond: 0
+  pricePerProductUntilLevel50:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   isFixedArraySize: 1
   inputResources: 
   inputAmounts: 
-  housingAmount: 0
-  attackAmount: 0
   basePricePerProduct: 0
   optimalPricePerProductText: 
   optimalPricePerProduct: 0

@@ -39,9 +39,6 @@ public class Compounds : ProductionBase
 
     internal override void Start()
     {
-        // TODO ONLY FOR DEBUG REMOVE IT
-        IsAutomated = true;
-
         // Events
         ResourceManager.Instance.OnPricePerProductChanged += OnPricePerProductChanged;
         UpgradeSystem.Instance.OnProductionEfficiencyChanged += OnProductionEfficiencyChanged;
@@ -159,7 +156,7 @@ public class Compounds : ProductionBase
             var inputs = inputResources.Zip(inputAmounts, (resource, amount) => (Resource: resource, Amount: amount));
             foreach (var (Resource, Amount) in inputs)
             {
-                if (ResourceManager.Instance.GetResourceAmount(Resource) >= Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier && tempResourceList.Contains(Resource))
+                if (ResourceManager.Instance.GetResourceAmount(Resource) >= (Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier) && tempResourceList.Contains(Resource))
                 {
                     //Debug.Log(string.Format("{0} added to {1} recipe", input.Resource, producedResource));
                     //Debug.Log(input.Resource + " added to recipe");

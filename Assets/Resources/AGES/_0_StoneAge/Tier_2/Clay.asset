@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Clay
   m_EditorClassIdentifier: 
   Description: Everyone wants to play with mud and clay. All you need is creativity
+  test:
+    value: 0
+    tenPow: -64
+    aPow: 0
   TranslatedName: Clay
-  resourceName: Clay
   product: 5
   foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   collectTime: 5.5
   outputValue: 3
   lockedByContracts: []
@@ -33,3 +38,54 @@ MonoBehaviour:
   pricePerProduct: 12000
   incomePerSecondText: 6,55K
   incomePerSecond: 6545.4546
+  pricePerProductUntilLevel50:
+  - 18840
+  - 29578.8
+  - 46438.72
+  - 72908.79
+  - 114466.805
+  - 179712.89
+  - 282149.25
+  - 442974.34
+  - 695469.75
+  - 1091887.5
+  - 1714263.4
+  - 2691393.5
+  - 4225488
+  - 6634016.5
+  - 10415406
+  - 16352188
+  - 25672936
+  - 40306510
+  - 63281224
+  - 99351530
+  - 155981900
+  - 244891600
+  - 384479840
+  - 603633340
+  - 947704400
+  - 1.4878959e+9
+  - 2.3359967e+9
+  - 3.667515e+9
+  - 5.7579986e+9
+  - 9.040058e+9
+  - 1.4192892e+10
+  - 2.228284e+10
+  - 3.498406e+10
+  - 5.4924976e+10
+  - 8.623221e+10
+  - 1.3538458e+11
+  - 2.125538e+11
+  - 3.3370948e+11
+  - 5.2392388e+11
+  - 8.225605e+11
+  - 1.29142e+12
+  - 2.0275296e+12
+  - 3.1832214e+12
+  - 4.997658e+12
+  - 7.8463233e+12
+  - 1.2318727e+13
+  - 1.9340403e+13
+  - 3.0364435e+13
+  - 4.7672166e+13
+  - 1.7638701e+14

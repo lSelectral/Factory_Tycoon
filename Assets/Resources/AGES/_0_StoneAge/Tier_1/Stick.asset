@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   Description: Dead child trees.
-  TranslatedName: 
+  TranslatedName: Stick
   resourceName: Stick
   product: 2
   foodAmount: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
   ageBelongsTo: 0
   tier: 0
   itemTypes: 00000000
-  pricePerProductText: 1K
-  pricePerProduct: 1000
-  incomePerSecondText: 285,71
-  incomePerSecond: 285.7143
+  pricePerProductText: 650
+  pricePerProduct: 650
+  incomePerSecondText: 185,71
+  incomePerSecond: 185.71428

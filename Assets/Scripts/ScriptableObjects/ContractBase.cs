@@ -6,8 +6,10 @@ public class ContractBase : ScriptableObject
     public string contractName;
     public string description;
 
-    public long contractReward;
+    public float contractReward;
     public ContractRewardType contractRewardType;
+    [Tooltip("Chosen resource will rewarded if contract reward type is set to Unit Speed Up")] 
+    public BaseResources resourceToRewarded;
 
     public ContractBase[] dependentContracts;
     public ScriptableProductionBase[] productsToUnlock;

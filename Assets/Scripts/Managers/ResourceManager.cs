@@ -13,6 +13,7 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         public BaseResources resource;
         public BNum resourceAmount;
+        public bool isConsumed;
     }
 
     public event EventHandler<OnResourceAmountChangedEventArgs> OnResourceAmountChanged;
@@ -97,7 +98,7 @@ public class ResourceManager : Singleton<ResourceManager>
         {
             BNum newValue;
             newValue = (value * UpgradeSystem.Instance.EarnedCoinMultiplier) - currency;
-            currency += newValue;
+            currency = value;
             if (!isLoadingFromSaveFile)
             {
                 SaveSystem.Instance.totalEarnedCurrency += newValue;
@@ -146,7 +147,7 @@ public class ResourceManager : Singleton<ResourceManager>
     #endregion
 
     #region Helper Functions
-    private readonly string[] suffix = new string[] { "", "K", "M", "G", "T", "P", "E", "AA", "AB", "BA", "BB", "CA", "CB", "CC" }; // kilo, mega, giga, terra, penta, exa
+    private readonly string[] suffix = new string[] { "", "K", "M", "A", "B", "C", "D", "E", "F", "G", "H", "AA", "AB", "AC", "AD", "AE" }; // kilo, mega, giga, terra, penta, exa
     public string CurrencyToString(float valueToConvert, int decimalAmount = 2)
     {
         int scale = 0;
@@ -244,27 +245,11 @@ public class ResourceManager : Singleton<ResourceManager>
 
     private void Awake()
     {
-        scriptableMines = new List<ScriptableMine>();
-        scriptableCompounds = new List<ScriptableCompound>();
 
         foodAmountText.text ="0";
         attackAmountText.text = "0";
 
         resources = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>();
-
-        for (int i = 0; i < ProductionManager.Instance.Assets.Length; i++)
-        {
-            var asset = ProductionManager.Instance.Assets[i];
-
-            if (asset as ScriptableObject != null)
-            {
-                var sc = asset as ScriptableObject;
-                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_StoneAge)
-                    scriptableMines.Add(sc as ScriptableMine);
-                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_StoneAge)
-                    scriptableCompounds.Add(sc as ScriptableCompound);
-            }
-        }
 
         resourceNewPricePerProductDictionary = new Dictionary<BaseResources, float>();
         foreach (var res in resources)
@@ -324,8 +309,8 @@ public class ResourceManager : Singleton<ResourceManager>
 
     void Update()
     {
-        smoothCurrency = SmoothDamp(smoothCurrency, currency, ref smoothVelocity, currencySmoothTime);
-        currencyText.text = CurrencyToString(smoothCurrency);
+        //smoothCurrency = SmoothDamp(smoothCurrency, currency, ref smoothVelocity, currencySmoothTime);
+        currencyText.text = currency.ToString("sym");
 
         smoothPremiumCurency = SmoothDamp(smoothPremiumCurency, premiumCurrency, ref smoothVelocityPremiumCurrency, smoothTime);
         premiumCurrencyText.text = CurrencyToString(smoothPremiumCurency);
@@ -345,14 +330,14 @@ public class ResourceManager : Singleton<ResourceManager>
         resourceValueDict[resource] += amount;
         if (!isLoadingFromSave)
             TotalResource += amount;
-        OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
+        OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource], isConsumed = false });
         resourceTextDict[resource].text = CurrencyToString(resourceValueDict[resource]);
 
-        Mine_Btn _mine = ProductionManager.Instance.GetMineFromResource(resource);
+        Mine_Btn _mine = ProductionManager.Instance.GetProductionUnitFromResource(resource).GetComponent<Mine_Btn>();
         if (_mine != null && _mine.ItemTypes.Contains(ItemType.food))
             FoodAmount += amount * _mine.foodAmount;
 
-        var _compound = ProductionManager.Instance.GetCompoundFromResource(resource);
+        var _compound = ProductionManager.Instance.GetProductionUnitFromResource(resource).GetComponent<Compounds>();
         if (_compound != null && _compound.ItemTypes.Contains(ItemType.food))
             FoodAmount += amount * _compound.FoodAmount;
         if (_compound != null && _compound.ItemTypes.Contains(ItemType.warItem))
@@ -366,14 +351,14 @@ public class ResourceManager : Singleton<ResourceManager>
         resourceValueDict[resource] -= amount;
         TotalResource -= amount;
         resourceTextDict[resource].text = CurrencyToString(resourceValueDict[resource]);
-        OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource] });
+        OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource], isConsumed = true });
 
-        Mine_Btn _mine = ProductionManager.Instance.GetMineFromResource(resource);
+        Mine_Btn _mine = ProductionManager.Instance.GetProductionUnitFromResource(resource).GetComponent<Mine_Btn>();
         if (_mine != null && _mine.ItemTypes.Contains(ItemType.food))
             FoodAmount -= _mine.FoodAmount;
 
         
-        var _compound = ProductionManager.Instance.GetCompoundFromResource(resource);
+        var _compound = ProductionManager.Instance.GetProductionUnitFromResource(resource).GetComponent<Compounds>();
 
         if (_compound != null && _compound.ItemTypes.Contains(ItemType.food))
             FoodAmount -= _compound.FoodAmount * amount;
@@ -431,7 +416,7 @@ public class ResourceManager : Singleton<ResourceManager>
         BNum num3 = 1f / (num2 + 1f + num2 * 0.48f * num2 + num2 * num2 * 0.235f * 0.235f);
         BNum num4 = current - target;
         BNum num5 = target;
-        BNum num6 = new BNum(99, 10000) * smoothTime;
+        BNum num6 = new BNum(999, 10000) * smoothTime;
 
         num4 = ClampBNum(num4, -num6, num6);
         target = current - num4;
@@ -495,14 +480,16 @@ public enum BaseResources
     _1_tin_ore,
 
     _1_bronze_axe,
+    _1_bronze_pickaxe,
     _1_bronze_ingot,
+    _1_bronze_sword,
     _1_stone_tablet,
 
     _1_bronze_boot,
     _1_bronze_chestplate,
+    _1_bronze_hammer,
     _1_bronze_helmet,
     _1_bronze_spear,
-    _1_bronze_sword,
 
     _1_bronze_gloves,
     _1_bronze_shield,

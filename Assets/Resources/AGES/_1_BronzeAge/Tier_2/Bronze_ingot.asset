@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Bronze_ingot
   m_EditorClassIdentifier: 
   Description: Can made by smelting copper and tin ore together.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
   TranslatedName: "Bronze \u0130ngot"
-  resourceName: Bronze_ingot
-  product: 23
+  product: 24
   foodAmount: 0
-  collectTime: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 5
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
@@ -29,18 +34,67 @@ MonoBehaviour:
   ageBelongsTo: 1
   tier: 1
   itemTypes: 00000000
-  pricePerProductText: 10,39
-  pricePerProduct: 10.386364
-  incomePerSecondText: 10,39
-  incomePerSecond: 10.386364
+  pricePerProductText: 181,67A
+  pricePerProduct: 1.8166614e+11
+  incomePerSecondText: 36,33A
+  incomePerSecond: 3.633323e+10
+  pricePerProductUntilLevel50:
+  - 2.5381585e+11
+  - 3.984909e+11
+  - 6.256307e+11
+  - 9.8224026e+11
+  - 1.5421173e+12
+  - 2.4211242e+12
+  - 3.801165e+12
+  - 5.9678293e+12
+  - 9.369492e+12
+  - 1.4710104e+13
+  - 2.3094863e+13
+  - 3.6258936e+13
+  - 5.6926533e+13
+  - 8.937466e+13
+  - 1.40318226e+14
+  - 2.2029963e+14
+  - 3.4587043e+14
+  - 5.4301657e+14
+  - 8.5253604e+14
+  - 1.3384816e+15
+  - 2.1014162e+15
+  - 3.2992237e+15
+  - 5.1797816e+15
+  - 8.1322575e+15
+  - 1.2767645e+16
+  - 2.0045203e+16
+  - 3.147097e+16
+  - 4.9409424e+16
+  - 7.75728e+16
+  - 1.21789295e+17
+  - 1.912092e+17
+  - 3.0019846e+17
+  - 4.713116e+17
+  - 7.399592e+17
+  - 1.161736e+18
+  - 1.8239256e+18
+  - 2.863563e+18
+  - 4.4957942e+18
+  - 7.0583974e+18
+  - 1.1081684e+19
+  - 1.7398244e+19
+  - 2.7315244e+19
+  - 4.2884934e+19
+  - 6.7329347e+19
+  - 1.0570707e+20
+  - 1.6596011e+20
+  - 2.6055737e+20
+  - 4.0907508e+20
+  - 6.422479e+20
+  - 2.3763173e+21
   isFixedArraySize: 1
-  inputResources: 00000000
-  inputAmounts: 01000000
-  housingAmount: 0
-  attackAmount: 0
-  basePricePerProduct: 0
-  optimalPricePerProductText: 10,39
-  optimalPricePerProduct: 10.386364
-  optimalIncomePerSecondText: 8,68
-  optimalPricePerSecond: 8.681818
+  inputResources: 1300000015000000
+  inputAmounts: 0100000001000000
+  basePricePerProduct: 2e+10
+  optimalPricePerProductText: 161,67A
+  optimalPricePerProduct: 1.6166614e+11
+  optimalIncomePerSecondText: 28,45A
+  optimalPricePerSecond: 2.8450839e+10
   isOptimal: 1

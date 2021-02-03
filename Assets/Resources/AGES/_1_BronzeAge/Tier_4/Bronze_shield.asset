@@ -13,34 +13,88 @@ MonoBehaviour:
   m_Name: Bronze_shield
   m_EditorClassIdentifier: 
   Description: 
-  TranslatedName: Bronze_shield
-  resourceName: Bronze_shield
-  product: 31
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Bronze Shield
+  product: 33
   foodAmount: 0
-  collectTime: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
   icon: {fileID: 21300000, guid: 47d10a8c2866a9a4fb044e0781fddd1e, type: 3}
-  unlockLevel: 0
+  unlockLevel: 8
   xpAmount: 25
   ageBelongsTo: 1
   tier: 3
   itemTypes: 00000000
-  pricePerProductText: 31,99E
-  pricePerProduct: 3.1990003e+19
-  incomePerSecondText: 31,99E
-  incomePerSecond: 3.1990003e+19
+  pricePerProductText: 325D
+  pricePerProduct: 3.25e+20
+  incomePerSecondText: 21,67D
+  incomePerSecond: 2.1666668e+19
+  pricePerProductUntilLevel50:
+  - 3.925002e+19
+  - 6.162253e+19
+  - 9.674737e+19
+  - 1.5189338e+20
+  - 2.3847262e+20
+  - 3.7440204e+20
+  - 5.8781123e+20
+  - 9.228636e+20
+  - 1.448896e+21
+  - 2.2747668e+21
+  - 3.571384e+21
+  - 5.6070733e+21
+  - 8.803105e+21
+  - 1.3820875e+22
+  - 2.1698775e+22
+  - 3.4067079e+22
+  - 5.3485317e+22
+  - 8.397195e+22
+  - 1.3183596e+23
+  - 2.0698247e+23
+  - 3.249625e+23
+  - 5.101911e+23
+  - 8.010001e+23
+  - 1.2575702e+24
+  - 1.9743853e+24
+  - 3.099785e+24
+  - 4.8666627e+24
+  - 7.6406604e+24
+  - 1.1995837e+25
+  - 1.8833465e+25
+  - 2.9568542e+25
+  - 4.642261e+25
+  - 7.28835e+25
+  - 1.144271e+26
+  - 1.7965055e+26
+  - 2.8205138e+26
+  - 4.428207e+26
+  - 6.952285e+26
+  - 1.09150875e+27
+  - 1.7136687e+27
+  - 2.69046e+27
+  - 4.2240222e+27
+  - 6.631715e+27
+  - 1.0411792e+28
+  - 1.6346514e+28
+  - 2.566403e+28
+  - 4.0292525e+28
+  - 6.325927e+28
+  - 9.931705e+28
+  - 3.674731e+29
   isFixedArraySize: 1
-  inputResources: 12000000
-  inputAmounts: 05000000
-  housingAmount: 0
-  attackAmount: 0
-  basePricePerProduct: 0
-  optimalPricePerProductText: 31,99E
-  optimalPricePerProduct: 3.1990003e+19
-  optimalIncomePerSecondText: 5,35E
-  optimalPricePerSecond: 5.348e+18
+  inputResources: 18000000
+  inputAmounts: 04000000
+  basePricePerProduct: 3.25e+20
+  optimalPricePerProductText: 9,96B
+  optimalPricePerProduct: 9.962572e+12
+  optimalIncomePerSecondText: 138,79A
+  optimalPricePerSecond: 1.3879293e+11
   isOptimal: 1

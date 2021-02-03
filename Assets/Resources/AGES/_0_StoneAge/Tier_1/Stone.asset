@@ -29,7 +29,7 @@ MonoBehaviour:
   ageBelongsTo: 0
   tier: 0
   itemTypes: 00000000
-  pricePerProductText: 3K
-  pricePerProduct: 3000
-  incomePerSecondText: 1,5K
-  incomePerSecond: 1500
+  pricePerProductText: 2,5K
+  pricePerProduct: 2500
+  incomePerSecondText: 1,25K
+  incomePerSecond: 1250

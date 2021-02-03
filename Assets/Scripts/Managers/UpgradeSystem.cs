@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UpgradeSystem : Singleton<UpgradeSystem>
 {
-    [Range(1, 10)] public float timeSlider;
+    //[Range(1, 10)] public float timeSlider;
     public GameObject upgradePanel;
+    private Dictionary<BaseResources, float> speedUpDictionary;
 
-    private void Update()
+    // Set production speed for specific unit
+    public KeyValuePair<BaseResources,float> SpeedUpDictionaryValue
     {
-        Time.timeScale = timeSlider;
+        set
+        {
+            speedUpDictionary[value.Key] = value.Value;
+            ProductionManager.Instance.GetProductionUnitFromResource(value.Key).CollectTime /= value.Value;
+        }
     }
+
+    //private void Update()
+    //{
+    //    Time.timeScale = timeSlider;
+    //}
 
     public int upgradeMultiplier;
 
@@ -29,7 +39,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
     public class OnMiningYieldChangedEventArgs : EventArgs
     {
-        public long miningYield;
+        public float miningYield;
     }
 
     public event EventHandler<OnMiningYieldChangedEventArgs> OnMiningYieldChanged;
@@ -43,7 +53,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
     public class OnProductionYieldChangedEventArgs : EventArgs
     {
-        public long productionYield;
+        public float productionYield;
     }
 
     public event EventHandler<OnProductionYieldChangedEventArgs> OnProductionYieldChanged;
@@ -84,9 +94,9 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     public event EventHandler<OnDefensePowerMultiplierChangedEventArgs> OnDefensePowerMultiplierChanged;
 
     [SerializeField] private float miningSpeedMultiplier = 1;
-    [SerializeField] private long miningYieldMultiplier = 1;
+    [SerializeField] private float miningYieldMultiplier = 1;
     [SerializeField] private float productionSpeedMultiplier = 1;
-    [SerializeField] private long productionYieldMultiplier = 1;
+    [SerializeField] private float productionYieldMultiplier = 1;
     [SerializeField] private float productionEfficiencyMultiplier = 1;
     [SerializeField] private float earnedCoinMultiplier = 1;
     [SerializeField] private float earnedXPMultiplier = 1;
@@ -97,34 +107,34 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     // Set events
     public float MiningSpeedMultiplier { get => miningSpeedMultiplier;
         set { miningSpeedMultiplier = value;
-            OnMiningSpeedChanged(this, new OnMiningSpeedChangedEventArgs() { miningSpeed = miningSpeedMultiplier }); } }
-    public long MiningYieldMultiplier { get => miningYieldMultiplier;
+            OnMiningSpeedChanged?.Invoke(this, new OnMiningSpeedChangedEventArgs() { miningSpeed = miningSpeedMultiplier }); } }
+    public float MiningYieldMultiplier { get => miningYieldMultiplier;
         set { miningYieldMultiplier = value;
-            OnMiningYieldChanged(this, new OnMiningYieldChangedEventArgs() { miningYield = miningYieldMultiplier }); } }
+            OnMiningYieldChanged?.Invoke(this, new OnMiningYieldChangedEventArgs() { miningYield = miningYieldMultiplier }); } }
     public float ProductionSpeedMultiplier { get => productionSpeedMultiplier;
         set { productionSpeedMultiplier = value;
-            OnProductionSpeedChanged(this, new OnProductionSpeedChangedEventArgs() { productionSpeed = productionSpeedMultiplier }); } }
-    public long ProductionYieldMultiplier { get => productionYieldMultiplier;
+            OnProductionSpeedChanged?.Invoke(this, new OnProductionSpeedChangedEventArgs() { productionSpeed = productionSpeedMultiplier }); } }
+    public float ProductionYieldMultiplier { get => productionYieldMultiplier;
         set { productionYieldMultiplier = value;
-            OnProductionYieldChanged(this, new OnProductionYieldChangedEventArgs() { productionYield = productionYieldMultiplier }); } }
+            OnProductionYieldChanged?.Invoke(this, new OnProductionYieldChangedEventArgs() { productionYield = productionYieldMultiplier }); } }
     public float ProductionEfficiencyMultiplier { get => productionEfficiencyMultiplier;
         set { productionEfficiencyMultiplier = value;
-            OnProductionEfficiencyChanged(this, new OnProductionEfficiencyChangedEventArgs() { productionEfficiency = productionEfficiencyMultiplier }); } }
+            OnProductionEfficiencyChanged?.Invoke(this, new OnProductionEfficiencyChangedEventArgs() { productionEfficiency = productionEfficiencyMultiplier }); } }
     public float EarnedCoinMultiplier { get => earnedCoinMultiplier;
         set { earnedCoinMultiplier = value;
-            OnEarnedCoinMultiplierChanged(this, new OnEarnedCoinMultiplierChangedEventArgs() { earnedCoinMultiplier = earnedCoinMultiplier }); } }
+            OnEarnedCoinMultiplierChanged?.Invoke(this, new OnEarnedCoinMultiplierChangedEventArgs() { earnedCoinMultiplier = earnedCoinMultiplier }); } }
     public float EarnedXPMultiplier { get => earnedXPMultiplier;
         set { earnedXPMultiplier = value;
-            OnEarnedXpMultiplierChanged(this, new OnEarnedXpMultiplierChangedEventArgs() { earnedXpMultiplier = earnedXPMultiplier }); }
+            OnEarnedXpMultiplierChanged?.Invoke(this, new OnEarnedXpMultiplierChangedEventArgs() { earnedXpMultiplier = earnedXPMultiplier }); }
     }
 
     public float CombatPowerMultiplier { get => combatPowerMultiplier;
         set { combatPowerMultiplier = value;
-            OnCombatPowerMultiplierChanged(this, new OnCombatPowerMultiplierChangedEventArgs() { combatPowerMultiplier = combatPowerMultiplier }); } }
+            OnCombatPowerMultiplierChanged?.Invoke(this, new OnCombatPowerMultiplierChangedEventArgs() { combatPowerMultiplier = combatPowerMultiplier }); } }
 
     public float DefensePowerMultiplier { get => defensePowerMultiplier;
         set { defensePowerMultiplier = value;
-            OnDefensePowerMultiplierChanged(this, new OnDefensePowerMultiplierChangedEventArgs() { defensePowerMultiplier = defensePowerMultiplier }); } }
+            OnDefensePowerMultiplierChanged?.Invoke(this, new OnDefensePowerMultiplierChangedEventArgs() { defensePowerMultiplier = defensePowerMultiplier }); } }
 
     #endregion
 
@@ -259,6 +269,16 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
     #endregion
 
+    private void Awake()
+    {
+        speedUpDictionary = new Dictionary<BaseResources, float>();
+        foreach (BaseResources res in Enum.GetValues(typeof(BaseResources)))
+        {
+            // Default value 1 indicates no change in default speed
+            speedUpDictionary.Add(res, 1);
+        } 
+    }
+
     void Start()
     {
         var multiplierPanel = upgradePanel.transform.Find("Multiplier_Panel");
@@ -269,7 +289,6 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         var btn4 = multiplierPanel.GetChild(3).GetComponent<Button>();
 
         // I had to write this cursed code for fucking bug of unity.
-        // May luck be with you
         btn1.onClick.AddListener(() => { btn1.GetComponent<Image>().color = Color.green; ChangeButtonColor(btn2); ChangeButtonColor(btn3); ChangeButtonColor(btn4); });
         btn2.onClick.AddListener(() => { btn2.GetComponent<Image>().color = Color.green; ChangeButtonColor(btn1); ChangeButtonColor(btn3); ChangeButtonColor(btn4); });
         btn3.onClick.AddListener(() => { btn3.GetComponent<Image>().color = Color.green; ChangeButtonColor(btn1); ChangeButtonColor(btn2); ChangeButtonColor(btn4); });

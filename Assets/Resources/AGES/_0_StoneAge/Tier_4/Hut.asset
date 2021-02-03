@@ -13,33 +13,88 @@ MonoBehaviour:
   m_Name: Hut
   m_EditorClassIdentifier: 
   Description: Shelter for first humans
-  isFixedArraySize: 1
-  inputResources: 020000000100000005000000
-  inputAmounts: 1c000000280000000c000000
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Hut
   product: 15
-  partName: Hut
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  buildTime: 30
+  collectTime: 30
   outputValue: 1
-  basePricePerProduct: 7.89e+13
-  unlockLevel: 12
-  xpAmount: 25
-  isLockedByContract: 0
-  lockedByContract: {fileID: 0}
-  icon: {fileID: 21300000, guid: 993a1cd6dfe6f4c48856ef47f6e0a18c, type: 3}
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 993a1cd6dfe6f4c48856ef47f6e0a18c, type: 3}
+  unlockLevel: 12
+  xpAmount: 25
   ageBelongsTo: 0
   tier: 3
   itemTypes: 05000000
-  pricePerProductText: 78,9T
-  pricePerProduct: 7.890001e+13
-  optimalPricePerProductText: 5,09M
-  optimalPricePerProduct: 5092058.5
-  incomePerSecondText: 2,63T
-  incomePerSecond: 2.6300003e+12
-  optimalIncomePerSecondText: 194,79K
-  optimalPricePerSecond: 194794.9
+  pricePerProductText: 3,41B
+  pricePerProduct: 3.4100014e+12
+  incomePerSecondText: 113,67A
+  incomePerSecond: 1.1366671e+11
+  pricePerProductUntilLevel50:
+  - 4.867002e+12
+  - 7.6411935e+12
+  - 1.1996674e+13
+  - 1.883478e+13
+  - 2.9570607e+13
+  - 4.6425853e+13
+  - 7.288859e+13
+  - 1.1443509e+14
+  - 1.796631e+14
+  - 2.8207107e+14
+  - 4.428516e+14
+  - 6.95277e+14
+  - 1.0915849e+15
+  - 1.7137885e+15
+  - 2.690648e+15
+  - 4.2243175e+15
+  - 6.6321784e+15
+  - 1.041252e+16
+  - 1.6347657e+16
+  - 2.5665823e+16
+  - 4.0295345e+16
+  - 6.326369e+16
+  - 9.9324e+16
+  - 1.5593868e+17
+  - 2.4482374e+17
+  - 3.843733e+17
+  - 6.0346606e+17
+  - 9.4744175e+17
+  - 1.4874837e+18
+  - 2.3353495e+18
+  - 3.6664988e+18
+  - 5.7564035e+18
+  - 9.037554e+18
+  - 1.418896e+19
+  - 2.2276669e+19
+  - 3.497437e+19
+  - 5.490976e+19
+  - 8.620833e+19
+  - 1.35347075e+20
+  - 2.124949e+20
+  - 3.3361702e+20
+  - 5.2377873e+20
+  - 8.2233266e+20
+  - 1.2910624e+21
+  - 2.026968e+21
+  - 3.1823398e+21
+  - 4.996274e+21
+  - 7.84415e+21
+  - 1.2315316e+22
+  - 4.556667e+22
+  isFixedArraySize: 1
+  inputResources: 020000000100000005000000
+  inputAmounts: 080000000600000004000000
+  basePricePerProduct: 3.41e+12
+  optimalPricePerProductText: 1,41M
+  optimalPricePerProduct: 1412539.6
+  optimalIncomePerSecondText: 25,83K
+  optimalPricePerSecond: 25827.664
   isOptimal: 1

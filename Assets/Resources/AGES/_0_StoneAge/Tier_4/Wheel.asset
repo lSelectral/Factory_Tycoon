@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Wheel
   m_EditorClassIdentifier: 
   Description: Pinnacle Of Humanity
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
   TranslatedName: Wheel
-  resourceName: Wheel
   product: 17
   foodAmount: 0
-  collectTime: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 12
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
@@ -29,18 +34,67 @@ MonoBehaviour:
   ageBelongsTo: 0
   tier: 3
   itemTypes: 0100000000000000
-  pricePerProductText: 12,4G
-  pricePerProduct: 1.2400033e+10
-  incomePerSecondText: 12,4G
-  incomePerSecond: 1.2400033e+10
+  pricePerProductText: 624B
+  pricePerProduct: 6.24e+14
+  incomePerSecondText: 52B
+  incomePerSecond: 5.2000004e+13
+  pricePerProductUntilLevel50:
+  - 3.7680004e+13
+  - 5.915761e+13
+  - 9.287745e+13
+  - 1.458176e+14
+  - 2.2893364e+14
+  - 3.594258e+14
+  - 5.642986e+14
+  - 8.859488e+14
+  - 1.3909397e+15
+  - 2.1837753e+15
+  - 3.4285274e+15
+  - 5.382788e+15
+  - 8.4509774e+15
+  - 1.3268034e+16
+  - 2.0830815e+16
+  - 3.270438e+16
+  - 5.134588e+16
+  - 8.061303e+16
+  - 1.2656246e+17
+  - 1.9870307e+17
+  - 3.119638e+17
+  - 4.897832e+17
+  - 7.689596e+17
+  - 1.2072667e+18
+  - 1.8954087e+18
+  - 2.9757917e+18
+  - 4.671993e+18
+  - 7.3350295e+18
+  - 1.1515997e+19
+  - 1.8080115e+19
+  - 2.8385782e+19
+  - 4.456568e+19
+  - 6.9968117e+19
+  - 1.0984995e+20
+  - 1.7246442e+20
+  - 2.7076915e+20
+  - 4.2510758e+20
+  - 6.674189e+20
+  - 1.04784774e+21
+  - 1.645121e+21
+  - 2.58284e+21
+  - 4.0550588e+21
+  - 6.3664427e+21
+  - 9.995315e+21
+  - 1.5692645e+22
+  - 2.4637455e+22
+  - 3.8680805e+22
+  - 6.0728866e+22
+  - 9.534432e+22
+  - 3.52774e+23
   isFixedArraySize: 1
-  inputResources: 0200000003000000
-  inputAmounts: 0400000008000000
-  housingAmount: 0
-  attackAmount: 0
-  basePricePerProduct: 1.24e+10
-  optimalPricePerProductText: 32,64K
-  optimalPricePerProduct: 32642.86
-  optimalIncomePerSecondText: 6,82K
-  optimalPricePerSecond: 6821.4287
+  inputResources: 02000000
+  inputAmounts: 05000000
+  basePricePerProduct: 6.24e+14
+  optimalPricePerProductText: 50,92K
+  optimalPricePerProduct: 50922.86
+  optimalIncomePerSecondText: 709,43
+  optimalPricePerSecond: 709.4285
   isOptimal: 1

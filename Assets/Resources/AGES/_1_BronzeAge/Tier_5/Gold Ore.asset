@@ -13,34 +13,88 @@ MonoBehaviour:
   m_Name: Gold Ore
   m_EditorClassIdentifier: 
   Description: 
-  TranslatedName: Gold Ore
-  resourceName: Gold Ore
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Berry
   product: 0
   foodAmount: 0
-  collectTime: 1
-  outputValue: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
+  outputValue: 2
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
   icon: {fileID: 21300000, guid: 346474c3c8dd08b48946f45136c29bef, type: 3}
-  unlockLevel: 5
+  unlockLevel: 8
   xpAmount: 25
   ageBelongsTo: 1
   tier: 4
   itemTypes: 00000000
-  pricePerProductText: 285,63G
-  pricePerProduct: 2.8562958e+11
-  incomePerSecondText: 285,63G
-  incomePerSecond: 2.8562958e+11
+  pricePerProductText: 17,8K
+  pricePerProduct: 17799.633
+  incomePerSecondText: 2,37K
+  incomePerSecond: 2373.2844
+  pricePerProductUntilLevel50:
+  - 27945.424
+  - 43874.316
+  - 68882.68
+  - 108145.81
+  - 169788.94
+  - 266568.66
+  - 418512.8
+  - 657065.1
+  - 1031592.25
+  - 1619599.9
+  - 2542772
+  - 3992152.2
+  - 6267679
+  - 9840256
+  - 15449202
+  - 24255248
+  - 38080740
+  - 59786764
+  - 93865224
+  - 147368400
+  - 231368400
+  - 363248420
+  - 570300000
+  - 895371100
+  - 1.4057326e+9
+  - 2.2070003e+9
+  - 3.4649907e+9
+  - 5.440036e+9
+  - 8.5408563e+9
+  - 1.3409145e+10
+  - 2.1052359e+10
+  - 3.3052205e+10
+  - 5.189196e+10
+  - 8.147038e+10
+  - 1.279085e+11
+  - 2.0081636e+11
+  - 3.152817e+11
+  - 4.949923e+11
+  - 7.7713795e+11
+  - 1.2201066e+12
+  - 1.9155675e+12
+  - 3.007441e+12
+  - 4.7216827e+12
+  - 7.413042e+12
+  - 1.1638476e+13
+  - 1.8272408e+13
+  - 2.868768e+13
+  - 4.503966e+13
+  - 7.0712274e+13
+  - 2.6163542e+14
   isFixedArraySize: 1
-  inputResources: 0b000000
+  inputResources: 17000000
   inputAmounts: 19000000
-  housingAmount: 0
-  attackAmount: 0
   basePricePerProduct: 0
-  optimalPricePerProductText: 285,63G
-  optimalPricePerProduct: 2.8562958e+11
-  optimalIncomePerSecondText: 9,55G
-  optimalPricePerSecond: 9.550153e+9
+  optimalPricePerProductText: 17,8K
+  optimalPricePerProduct: 17799.633
+  optimalIncomePerSecondText: 39,68
+  optimalPricePerSecond: 39.67591
   isOptimal: 1

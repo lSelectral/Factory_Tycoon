@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   Description: In the good hands, can bring down foes from distance
-  TranslatedName: 
-  resourceName: Bow
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Bow
   product: 10
   foodAmount: 0
-  collectTime: 5
+  housingAmount: 0
+  attackAmount: 300
+  collectTime: 15
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
@@ -28,19 +33,68 @@ MonoBehaviour:
   xpAmount: 120
   ageBelongsTo: 0
   tier: 2
-  itemTypes: 
-  pricePerProductText: 252,62M
-  pricePerProduct: 252619340
-  incomePerSecondText: 50,52M
-  incomePerSecond: 50523868
+  itemTypes: 0400000002000000
+  pricePerProductText: 932,86M
+  pricePerProduct: 932856300
+  incomePerSecondText: 62,19M
+  incomePerSecond: 62190420
+  pricePerProductUntilLevel50:
+  - 1.4645844e+9
+  - 2.2993976e+9
+  - 3.6100544e+9
+  - 5.6677857e+9
+  - 8.898424e+9
+  - 1.3970526e+10
+  - 2.1933728e+10
+  - 3.4435953e+10
+  - 5.4064447e+10
+  - 8.488119e+10
+  - 1.3326347e+11
+  - 2.0922365e+11
+  - 3.2848114e+11
+  - 5.157154e+11
+  - 8.096732e+11
+  - 1.271187e+12
+  - 1.9957636e+12
+  - 3.133349e+12
+  - 4.919358e+12
+  - 7.7233924e+12
+  - 1.2125727e+13
+  - 1.9037392e+13
+  - 2.9888707e+13
+  - 4.692527e+13
+  - 7.367267e+13
+  - 1.156661e+14
+  - 1.8159578e+14
+  - 2.851054e+14
+  - 4.476155e+14
+  - 7.027563e+14
+  - 1.10332744e+15
+  - 1.7322242e+15
+  - 2.719592e+15
+  - 4.2697596e+15
+  - 6.7035227e+15
+  - 1.0524531e+16
+  - 1.6523513e+16
+  - 2.5941916e+16
+  - 4.072881e+16
+  - 6.3944233e+16
+  - 1.0039245e+17
+  - 1.5761614e+17
+  - 2.4745736e+17
+  - 3.8850807e+17
+  - 6.099577e+17
+  - 9.576337e+17
+  - 1.503485e+18
+  - 2.3604714e+18
+  - 3.7059402e+18
+  - 1.3711979e+19
   isFixedArraySize: 1
   inputResources: 0900000002000000
-  inputAmounts: 0800000006000000
-  housingAmount: 0
-  attackAmount: 300
-  basePricePerProduct: 170000000
-  optimalPricePerProductText: 82,62M
-  optimalPricePerProduct: 82619340
-  optimalIncomePerSecondText: 5,18M
-  optimalPricePerSecond: 5178163
+  inputAmounts: 0800000005000000
+  basePricePerProduct: 16000000
+  optimalPricePerProductText: 916,86M
+  optimalPricePerProduct: 916856300
+  optimalIncomePerSecondText: 25,55M
+  optimalPricePerSecond: 25545186
   isOptimal: 1

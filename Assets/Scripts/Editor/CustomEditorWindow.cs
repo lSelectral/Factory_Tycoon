@@ -46,7 +46,7 @@ public class CustomEditorWindow : EditorWindow
         currencyString = EditorGUILayout.TextField("Currency Amount", currencyString);
         if (GUILayout.Button("Add Currency"))
         {
-            ResourceManager.Instance.Currency += float.Parse(currencyString);
+            ResourceManager.Instance.Currency += new BNum(double.Parse(currencyString),0);
         }
 
         // SAVE and LOAD

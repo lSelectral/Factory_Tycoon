@@ -13,34 +13,88 @@ MonoBehaviour:
   m_Name: Tin_ore
   m_EditorClassIdentifier: 
   Description: One of the frist ore. Can be found  without digging.
-  TranslatedName: 
-  resourceName: Tin_ore
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Tin Ore
   product: 21
   foodAmount: 0
-  collectTime: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 5
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
+  sourceImage: {fileID: 21300000, guid: 19cda5e5a9540f54b88c6a0ca2aeee80, type: 3}
   icon: {fileID: 21300000, guid: 265d0afce5e87b54f83b84c3f102f7b5, type: 3}
-  unlockLevel: 0
+  unlockLevel: 8
   xpAmount: 25
   ageBelongsTo: 1
   tier: 0
   itemTypes: 00000000
-  pricePerProductText: 0
-  pricePerProduct: 0
-  incomePerSecondText: 0
-  incomePerSecond: 0
+  pricePerProductText: 35A
+  pricePerProduct: 3.500276e+10
+  incomePerSecondText: 7A
+  incomePerSecond: 7.0005524e+9
+  pricePerProductUntilLevel50:
+  - 7.854332e+9
+  - 1.2331302e+10
+  - 1.9360145e+10
+  - 3.0395429e+10
+  - 4.7720825e+10
+  - 7.49217e+10
+  - 1.1762707e+11
+  - 1.846745e+11
+  - 2.8993896e+11
+  - 4.5520418e+11
+  - 7.146706e+11
+  - 1.122033e+12
+  - 1.7615918e+12
+  - 2.7656992e+12
+  - 4.3421477e+12
+  - 6.817172e+12
+  - 1.0702961e+13
+  - 1.680365e+13
+  - 2.638173e+13
+  - 4.141932e+13
+  - 6.502833e+13
+  - 1.02094485e+14
+  - 1.6028835e+14
+  - 2.5165272e+14
+  - 3.9509478e+14
+  - 6.2029884e+14
+  - 9.738692e+14
+  - 1.5289747e+15
+  - 2.4004902e+15
+  - 3.76877e+15
+  - 5.916969e+15
+  - 9.289642e+15
+  - 1.4584738e+16
+  - 2.289804e+16
+  - 3.5949924e+16
+  - 5.6441385e+16
+  - 8.8612975e+16
+  - 1.39122374e+17
+  - 2.1842214e+17
+  - 3.4292276e+17
+  - 5.3838875e+17
+  - 8.452704e+17
+  - 1.3270745e+18
+  - 2.083507e+18
+  - 3.2711062e+18
+  - 5.135637e+18
+  - 8.06295e+18
+  - 1.2658832e+19
+  - 1.9874368e+19
+  - 7.353516e+19
   isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
-  housingAmount: 0
-  attackAmount: 0
-  basePricePerProduct: 0
-  optimalPricePerProductText: 
-  optimalPricePerProduct: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0
+  inputResources: 07000000
+  inputAmounts: 01000000
+  basePricePerProduct: 3.5e+10
+  optimalPricePerProductText: 2,76M
+  optimalPricePerProduct: 2759335
+  optimalIncomePerSecondText: 461,3K
+  optimalPricePerSecond: 461298
+  isOptimal: 1

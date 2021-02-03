@@ -74,7 +74,7 @@ public class Mine_Btn : ProductionBase
 
     private void Instance_OnMiningYieldChanged(object sender, UpgradeSystem.OnMiningYieldChangedEventArgs e)
     {
-        OutputValue *= e.miningYield;
+        OutputValue = (long)(outputValue * e.miningYield);
     }
 
     private void Instance_OnMiningSpeedChanged(object sender, UpgradeSystem.OnMiningSpeedChangedEventArgs e)

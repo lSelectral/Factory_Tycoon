@@ -13,34 +13,88 @@ MonoBehaviour:
   m_Name: Bronze_statue
   m_EditorClassIdentifier: 
   Description: 
-  TranslatedName: 
-  resourceName: Bronze_statue
-  product: 35
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Bronze Statue
+  product: 37
   foodAmount: 0
-  collectTime: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 45
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
-  icon: {fileID: 0}
-  unlockLevel: 5
+  icon: {fileID: 21300000, guid: 779c52d7047f74a49a3a208a235fae23, type: 3}
+  unlockLevel: 8
   xpAmount: 25
   ageBelongsTo: 1
   tier: 4
   itemTypes: 00000000
-  pricePerProductText: 0
-  pricePerProduct: 0
-  incomePerSecondText: 0
-  incomePerSecond: 0
+  pricePerProductText: 117,7B
+  pricePerProduct: 1.1770078e+14
+  incomePerSecondText: 2,62B
+  incomePerSecond: 2.6155727e+12
+  pricePerProductUntilLevel50:
+  - 2.3314416e+13
+  - 3.6603636e+13
+  - 5.746771e+13
+  - 9.022431e+13
+  - 1.4165217e+14
+  - 2.2239391e+14
+  - 3.4915846e+14
+  - 5.481788e+14
+  - 8.606407e+14
+  - 1.351206e+15
+  - 2.1213935e+15
+  - 3.330588e+15
+  - 5.2290234e+15
+  - 8.209567e+15
+  - 1.2889021e+16
+  - 2.0235764e+16
+  - 3.177015e+16
+  - 4.987914e+16
+  - 7.831025e+16
+  - 1.229471e+17
+  - 1.9302695e+17
+  - 3.030523e+17
+  - 4.7579215e+17
+  - 7.469937e+17
+  - 1.1727802e+18
+  - 1.841265e+18
+  - 2.8907862e+18
+  - 4.5385344e+18
+  - 7.1254995e+18
+  - 1.1187035e+19
+  - 1.7563645e+19
+  - 2.7574923e+19
+  - 4.329263e+19
+  - 6.796943e+19
+  - 1.0671201e+20
+  - 1.6753786e+20
+  - 2.6303446e+20
+  - 4.129641e+20
+  - 6.483537e+20
+  - 1.01791534e+21
+  - 1.5981271e+21
+  - 2.5090595e+21
+  - 3.9392234e+21
+  - 6.184581e+21
+  - 9.709792e+21
+  - 1.5244374e+22
+  - 2.3933669e+22
+  - 3.757586e+22
+  - 5.89941e+22
+  - 2.1827818e+23
   isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
-  housingAmount: 0
-  attackAmount: 0
+  inputResources: 180000001d000000
+  inputAmounts: 0800000001000000
   basePricePerProduct: 0
-  optimalPricePerProductText: 
-  optimalPricePerProduct: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0
+  optimalPricePerProductText: 117,7B
+  optimalPricePerProduct: 1.1770078e+14
+  optimalIncomePerSecondText: 686,92A
+  optimalPricePerSecond: 6.8692306e+11
+  isOptimal: 1

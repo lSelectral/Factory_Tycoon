@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Bronze_axe
   m_EditorClassIdentifier: 
   Description: More durable and more stronger version of stone axe.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
   TranslatedName: Bronze Axe
-  resourceName: Bronze_axe
   product: 22
   foodAmount: 0
-  collectTime: 1
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 9
   outputValue: 1
   lockedByContracts:
   - {fileID: 11400000, guid: 1e939b1da8fbc2a489664dca405ea2c1, type: 2}
@@ -31,18 +36,67 @@ MonoBehaviour:
   ageBelongsTo: 1
   tier: 1
   itemTypes: 00000000
-  pricePerProductText: 10,39
-  pricePerProduct: 10.386364
-  incomePerSecondText: 10,39
-  incomePerSecond: 10.386364
+  pricePerProductText: 2,99B
+  pricePerProduct: 2.9887714e+12
+  incomePerSecondText: 332,09A
+  incomePerSecond: 3.3208572e+11
+  pricePerProductUntilLevel50:
+  - 8.769146e+14
+  - 1.3767559e+15
+  - 2.1615069e+15
+  - 3.393566e+15
+  - 5.3278983e+15
+  - 8.3648005e+15
+  - 1.3132738e+16
+  - 2.0618399e+16
+  - 3.2370887e+16
+  - 5.0822296e+16
+  - 7.979101e+16
+  - 1.2527189e+17
+  - 1.9667686e+17
+  - 3.087827e+17
+  - 4.8478883e+17
+  - 7.611185e+17
+  - 1.1949561e+18
+  - 1.8760812e+18
+  - 2.9454476e+18
+  - 4.624353e+18
+  - 7.260234e+18
+  - 1.1398568e+19
+  - 1.7895752e+19
+  - 2.8096333e+19
+  - 4.4111245e+19
+  - 6.9254657e+19
+  - 1.0872982e+20
+  - 1.7070581e+20
+  - 2.6800814e+20
+  - 4.207728e+20
+  - 6.606133e+20
+  - 1.03716295e+21
+  - 1.6283458e+21
+  - 2.556503e+21
+  - 4.01371e+21
+  - 6.301525e+21
+  - 9.893395e+21
+  - 1.553263e+22
+  - 2.438623e+22
+  - 3.8286384e+22
+  - 6.0109625e+22
+  - 9.437211e+22
+  - 1.4816422e+23
+  - 2.3261784e+23
+  - 3.6521e+23
+  - 5.7337975e+23
+  - 9.002062e+23
+  - 1.4133238e+24
+  - 2.2189185e+24
+  - 8.2099984e+24
   isFixedArraySize: 1
-  inputResources: 00000000
-  inputAmounts: 01000000
-  housingAmount: 0
-  attackAmount: 0
+  inputResources: 0200000018000000
+  inputAmounts: 0200000002000000
   basePricePerProduct: 0
-  optimalPricePerProductText: 10,39
-  optimalPricePerProduct: 10.386364
-  optimalIncomePerSecondText: 8,68
-  optimalPricePerSecond: 8.681818
+  optimalPricePerProductText: 2,99B
+  optimalPricePerProduct: 2.9887714e+12
+  optimalIncomePerSecondText: 138,79A
+  optimalPricePerSecond: 1.3879293e+11
   isOptimal: 1

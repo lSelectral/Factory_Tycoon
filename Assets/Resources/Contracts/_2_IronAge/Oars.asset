@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cab4ef3c6492d74fb327e13a597e0fe, type: 3}
   m_Name: Oars
   m_EditorClassIdentifier: 
-  contractName: 
-  description: 
+  contractName: Oars
+  description: Help rotating the ship
   contractReward: 0
   contractRewardType: 0
   dependentContracts: []

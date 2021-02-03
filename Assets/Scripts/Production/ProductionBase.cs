@@ -161,7 +161,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         #region DONE
         // Custom Events
         GameManager.Instance.OnLevelUp += OnLevelUp;
-        ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
         ResourceManager.Instance.OnCurrencyChanged += OnCurrencyChanged;
         //UpgradeSystem.Instance.OnMiningSpeedChanged += Instance_OnMiningSpeedChanged;
         //UpgradeSystem.Instance.OnMiningYieldChanged += Instance_OnMiningYieldChanged;
@@ -181,7 +180,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
         collectTime = scriptableProductionBase.collectTime;
         _name = scriptableProductionBase.TranslatedName;
-        resourceName = scriptableProductionBase.resourceName;
+        resourceName = ResourceManager.Instance.GetValidNameForResource(scriptableProductionBase.product);
         producedResource = scriptableProductionBase.product;
         foodAmount = scriptableProductionBase.foodAmount;
         itemTypes = scriptableProductionBase.itemTypes;
@@ -238,10 +237,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     //    CollectTime /= e.miningSpeed;
     //}
 
-    internal void OnResourceAmountChanged(object sender, ResourceManager.OnResourceAmountChangedEventArgs e)
-    {
-    }
-
     internal void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
     {
         if (transform.Find("Level_Lock(Clone)") != null && unlockLevel == e.currentLevel)
@@ -286,7 +281,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     internal virtual void SellResource()
     {
-        ResourceManager.Instance.Currency += outputValue * 1f * (pricePerProduct * 1f);
+        ResourceManager.Instance.Currency += (outputValue * 1f * (pricePerProduct * 1f));
         ResourceManager.Instance.ConsumeResource(producedResource, outputValue);
     }
 

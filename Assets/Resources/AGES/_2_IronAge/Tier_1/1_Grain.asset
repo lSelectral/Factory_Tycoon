@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 1_Grain
+  m_EditorClassIdentifier: 
+  Description: 
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Berry
+  product: 0
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
+  outputValue: 4
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: cfd550cd23ce05145a39330bf14cb937, type: 3}
+  unlockLevel: 8
+  xpAmount: 10
+  ageBelongsTo: 2
+  tier: 0
+  itemTypes: 00000000
+  pricePerProductText: 5K
+  pricePerProduct: 5000
+  incomePerSecondText: 1,33K
+  incomePerSecond: 1333.3334
+  pricePerProductUntilLevel50:
+  - 7850.0005
+  - 12324.501
+  - 19349.467
+  - 30378.664
+  - 47694.504
+  - 74880.375
+  - 117562.195
+  - 184572.66
+  - 289779.1
+  - 454953.2
+  - 714276.5
+  - 1121414.1
+  - 1760620.2
+  - 2764174
+  - 4339753.5
+  - 6813413
+  - 10697059
+  - 16794384
+  - 26367184
+  - 41396480
+  - 64992476
+  - 102038190
+  - 160199970
+  - 251513950
+  - 394876930
+  - 619956800
+  - 973332200
+  - 1.5281316e+9
+  - 2.3991667e+9
+  - 3.7666918e+9
+  - 5.9137065e+9
+  - 9.28452e+9
+  - 1.4576696e+10
+  - 2.2885415e+10
+  - 3.5930104e+10
+  - 5.6410264e+10
+  - 8.856411e+10
+  - 1.3904567e+11
+  - 2.1830171e+11
+  - 3.427337e+11
+  - 5.380919e+11
+  - 8.448043e+11
+  - 1.3263429e+12
+  - 2.0823584e+12
+  - 3.269303e+12
+  - 5.1328057e+12
+  - 8.0585053e+12
+  - 1.2651854e+13
+  - 1.986341e+13
+  - 7.349462e+13

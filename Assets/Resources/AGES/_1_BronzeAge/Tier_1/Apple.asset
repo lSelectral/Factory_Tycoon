@@ -12,24 +12,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  Description: 
-  TranslatedName: 
-  resourceName: 
+  Description: Beatiful, delicious apple. Root of all sins.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Berry
   product: 0
-  foodAmount: 0
-  collectTime: 0
-  outputValue: 0
+  foodAmount: 4
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 4
+  outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
-  icon: {fileID: 0}
-  unlockLevel: 0
+  icon: {fileID: 21300000, guid: 358f8498c0a22354f95a2021f0f2866b, type: 3}
+  unlockLevel: 8
   xpAmount: 10
-  ageBelongsTo: 0
+  ageBelongsTo: 1
   tier: 0
   itemTypes: 00000000
-  pricePerProductText: 
-  pricePerProduct: 0
-  incomePerSecondText: 
-  incomePerSecond: 0
+  pricePerProductText: 200M
+  pricePerProduct: 200000000
+  incomePerSecondText: 50M
+  incomePerSecond: 50000000
+  pricePerProductUntilLevel50:
+  - 314000000
+  - 492980030
+  - 773978700
+  - 1.2151466e+9
+  - 1.9077802e+9
+  - 2.995215e+9
+  - 4.702488e+9
+  - 7.3829064e+9
+  - 1.1591163e+10
+  - 1.8198127e+10
+  - 2.857106e+10
+  - 4.4856566e+10
+  - 7.042481e+10
+  - 1.1056696e+11
+  - 1.7359013e+11
+  - 2.7253652e+11
+  - 4.2788235e+11
+  - 6.717753e+11
+  - 1.0546873e+12
+  - 1.655859e+12
+  - 2.5996988e+12
+  - 4.0815273e+12
+  - 6.407998e+12
+  - 1.0060557e+13
+  - 1.5795076e+13
+  - 2.4798269e+13
+  - 3.8933283e+13
+  - 6.1125257e+13
+  - 9.596666e+13
+  - 1.5066765e+14
+  - 2.3654823e+14
+  - 3.7138072e+14
+  - 5.830678e+14
+  - 9.1541644e+14
+  - 1.4372038e+15
+  - 2.2564102e+15
+  - 3.5425642e+15
+  - 5.561826e+15
+  - 8.732067e+15
+  - 1.3709346e+16
+  - 2.1523672e+16
+  - 3.3792167e+16
+  - 5.3053704e+16
+  - 8.329432e+16
+  - 1.3077208e+17
+  - 2.0531217e+17
+  - 3.223401e+17
+  - 5.06074e+17
+  - 7.9453624e+17
+  - 2.939784e+18

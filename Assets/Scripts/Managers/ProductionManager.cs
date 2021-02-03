@@ -26,6 +26,7 @@ public class ProductionManager : Singleton<ProductionManager>
 
     public List<GameObject> instantiatedMines;
     public List<GameObject> instantiatedCompounds;
+    public List<GameObject> instantiatedProductionUnits;
 
     UnityEngine.Object[] assets;
 
@@ -68,12 +69,14 @@ public class ProductionManager : Singleton<ProductionManager>
             _unit = Instantiate(compoundPrefab, tierSeperatedContainer);
             _unit.GetComponent<Compounds>().scriptableCompound = unit as ScriptableCompound;
             instantiatedCompounds.Add(_unit);
+            instantiatedProductionUnits.Add(_unit);
         }
         else if (unit as ScriptableMine != null)
         {
             _unit = Instantiate(minePrefab, tierSeperatedContainer);
             _unit.GetComponent<Mine_Btn>().scriptableMine = unit as ScriptableMine;
             instantiatedMines.Add(_unit);
+            instantiatedProductionUnits.Add(_unit);
         }
         _unit.GetComponent<ProductionBase>().scriptableProductionBase = unit;
 
@@ -126,13 +129,13 @@ public class ProductionManager : Singleton<ProductionManager>
         float pricePerProduct = 0f;
         foreach (BaseResources res in compound.InputResources)
         {
-            var _mine = GetMineFromResource(res);
+            var _mine = GetProductionUnitFromResource(res).GetComponent<Mine_Btn>();
             if (_mine != null)
             {
                 pricePerProduct += _mine.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.CollectTime / _mine.CollectTime;
             }
 
-            var _compound = GetCompoundFromResource(res);
+            var _compound = GetProductionUnitFromResource(res).GetComponent<Compounds>();
             if (_compound != null)
                 pricePerProduct += _compound.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.CollectTime / _compound.CollectTime;
         }
@@ -206,12 +209,17 @@ public class ProductionManager : Singleton<ProductionManager>
         return assets.Where(a => (a as ScriptableProductionBase) != null).Cast<ScriptableProductionBase>().ToArray();
     }
 
-
-    public Mine_Btn GetMineFromResource(BaseResources res)
+    public ProductionBase GetProductionUnitFromResource(BaseResources res)
     {
-        var q = instantiatedMines.Where(m => m.GetComponent<Mine_Btn>() != null && m.GetComponent<Mine_Btn>().ProducedResource == res).FirstOrDefault();
-        return q != null ? q.GetComponent<Mine_Btn>() : null;
+        var q = instantiatedProductionUnits.Where(u => u.GetComponent<ProductionBase>().ProducedResource == res).FirstOrDefault();
+        return q.GetComponent<ProductionBase>();
     }
+
+    //public Mine_Btn GetMineFromResource(BaseResources res)
+    //{
+    //    var q = instantiatedMines.Where(m => m.GetComponent<Mine_Btn>() != null && m.GetComponent<Mine_Btn>().ProducedResource == res).FirstOrDefault();
+    //    return q != null ? q.GetComponent<Mine_Btn>() : null;
+    //}
 
     public ScriptableProductionBase GetScriptableProductionUnitFromResource(BaseResources res)
     {
@@ -219,11 +227,11 @@ public class ProductionManager : Singleton<ProductionManager>
         return q != null ? q : null;
     }
 
-    public Compounds GetCompoundFromResource(BaseResources res)
-    {
-        var q = instantiatedCompounds.Where(c => c.GetComponent<Compounds>() != null && c.GetComponent<Compounds>().ProducedResource == res).FirstOrDefault();
-        return q != null ? q.GetComponent<Compounds>() : null;
-    }
+    //public Compounds GetCompoundFromResource(BaseResources res)
+    //{
+    //    var q = instantiatedCompounds.Where(c => c.GetComponent<Compounds>() != null && c.GetComponent<Compounds>().ProducedResource == res).FirstOrDefault();
+    //    return q != null ? q.GetComponent<Compounds>() : null;
+    //}
     #endregion
 }
 

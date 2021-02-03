@@ -11,7 +11,7 @@ using UnityEngine.UI;
  * 
  * 
  */
-
+// TODO When user missing resource for contract or any other thing show ad panel for earning that resource
 
 public class ContractManager : Singleton<ContractManager>
 {
@@ -213,7 +213,8 @@ public class ContractManager : Singleton<ContractManager>
 
     private void OnResourceAmountChanged(object sender, ResourceManager.OnResourceAmountChangedEventArgs e)
     {
-        CheckAvailableResources();
+        if (!e.isConsumed)
+            CheckAvailableResources();
     }
 
     void CheckAvailableResources()
@@ -273,7 +274,7 @@ public class ContractManager : Singleton<ContractManager>
                     // Check if this contract has dependency for another contracts
                     for (int j = 0; j < instantiatedContracts.Count; j++)
                     {
-                        if (contracts[j].dependentContracts.Contains(contract))
+                        if (contracts[j].dependentContracts != null && contracts[j].dependentContracts.Contains(contract))
                         {
                             var counter = 0;
                             for (int k = 0; k < contracts[j].dependentContracts.Length; k++)
@@ -332,6 +333,9 @@ public class ContractManager : Singleton<ContractManager>
 
                     else if (contract.contractRewardType == ContractRewardType.productionYieldUpgrade)
                         UpgradeSystem.Instance.ProductionYieldMultiplier += contract.contractReward;
+
+                    else if (contract.contractRewardType == ContractRewardType.unitSpeedUp)
+                        UpgradeSystem.Instance.SpeedUpDictionaryValue = new KeyValuePair<BaseResources, float>(contract.resourceToRewarded, contract.contractReward);
 
                     else if (contract.contractRewardType == ContractRewardType.unlockCompound)
                     {
@@ -510,6 +514,7 @@ public enum ContractRewardType
     unlockCompound,
     unlockMine,
     automate,
+    unitSpeedUp,
 }
 
 public enum ContractActivationType

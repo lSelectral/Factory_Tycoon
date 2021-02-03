@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: Meat is one of the first food that humanity explored. It is very nutritous
     and delicious.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
   TranslatedName: Meat
-  resourceName: Meat
   product: 13
   foodAmount: 4
-  collectTime: 1
-  outputValue: 8
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
+  outputValue: 5
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
@@ -30,18 +35,67 @@ MonoBehaviour:
   ageBelongsTo: 0
   tier: 2
   itemTypes: 0300000001000000
-  pricePerProductText: 29,02G
-  pricePerProduct: 2.901743e+10
-  incomePerSecondText: 232,14G
-  incomePerSecond: 2.3213944e+11
+  pricePerProductText: 3,29A
+  pricePerProduct: 3.2852713e+9
+  incomePerSecondText: 1,1A
+  incomePerSecond: 1.0950904e+9
+  pricePerProductUntilLevel50:
+  - 4.8438764e+9
+  - 7.604886e+9
+  - 1.1939671e+10
+  - 1.8745285e+10
+  - 2.9430098e+10
+  - 4.6205256e+10
+  - 7.254226e+10
+  - 1.13891344e+11
+  - 1.7880942e+11
+  - 2.807308e+11
+  - 4.4074736e+11
+  - 6.919734e+11
+  - 1.0863983e+12
+  - 1.7056453e+12
+  - 2.6778634e+12
+  - 4.2042455e+12
+  - 6.600666e+12
+  - 1.0363046e+13
+  - 1.6269983e+13
+  - 2.5543873e+13
+  - 4.0103884e+13
+  - 6.29631e+13
+  - 9.885207e+13
+  - 1.5519775e+14
+  - 2.4366047e+14
+  - 3.8254697e+14
+  - 6.0059876e+14
+  - 9.429401e+14
+  - 1.4804159e+15
+  - 2.324253e+15
+  - 3.6490772e+15
+  - 5.7290515e+15
+  - 8.994611e+15
+  - 1.412154e+16
+  - 2.2170819e+16
+  - 3.4808187e+16
+  - 5.4648855e+16
+  - 8.579871e+16
+  - 1.3470397e+17
+  - 2.1148524e+17
+  - 3.3203183e+17
+  - 5.2128997e+17
+  - 8.1842526e+17
+  - 1.2849276e+18
+  - 2.0173365e+18
+  - 3.1672186e+18
+  - 4.972533e+18
+  - 7.806877e+18
+  - 1.2256798e+19
+  - 4.5350153e+19
   isFixedArraySize: 1
   inputResources: 08000000
-  inputAmounts: 04000000
-  housingAmount: 0
-  attackAmount: 0
-  basePricePerProduct: 2.9e+10
-  optimalPricePerProductText: 17,43M
-  optimalPricePerProduct: 17431296
-  optimalIncomePerSecondText: 3,64M
-  optimalPricePerSecond: 3642644.8
+  inputAmounts: 02000000
+  basePricePerProduct: 3.2e+9
+  optimalPricePerProductText: 85,27M
+  optimalPricePerProduct: 85271220
+  optimalIncomePerSecondText: 2,38M
+  optimalPricePerSecond: 2375901
   isOptimal: 1

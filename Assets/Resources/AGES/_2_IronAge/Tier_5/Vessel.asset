@@ -13,17 +13,22 @@ MonoBehaviour:
   m_Name: Vessel
   m_EditorClassIdentifier: 
   Description: War Ship
-  TranslatedName: 
-  resourceName: Vessel
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Berry
   product: 0
   foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
   collectTime: 1
   outputValue: 1
   lockedByContracts: []
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 513d48b7105b5c146a969e6d20a6b97d, type: 3}
   unlockLevel: 8
   xpAmount: 10
   ageBelongsTo: 2
@@ -33,11 +38,60 @@ MonoBehaviour:
   pricePerProduct: 10.386364
   incomePerSecondText: 10,39
   incomePerSecond: 10.386364
+  pricePerProductUntilLevel50:
+  - 16.306593
+  - 25.601353
+  - 40.194126
+  - 63.10478
+  - 99.07451
+  - 155.54698
+  - 244.20877
+  - 383.40778
+  - 601.95026
+  - 945.06195
+  - 1483.7473
+  - 2329.4834
+  - 3657.289
+  - 5741.944
+  - 9014.853
+  - 14153.319
+  - 22220.713
+  - 34886.52
+  - 54771.836
+  - 85991.79
+  - 135007.11
+  - 211961.17
+  - 332779.06
+  - 522463.16
+  - 820267.2
+  - 1287819.5
+  - 2021876.6
+  - 3174346.5
+  - 4983724
+  - 7824447
+  - 12284382
+  - 19286480
+  - 30279774
+  - 47539250
+  - 74636620
+  - 117179500
+  - 183971820
+  - 288835780
+  - 453472200
+  - 711951360
+  - 1.1177637e+9
+  - 1.7548891e+9
+  - 2.755176e+9
+  - 4.3256264e+9
+  - 6.7912335e+9
+  - 1.0662237e+10
+  - 1.6739713e+10
+  - 2.6281351e+10
+  - 4.1261724e+10
+  - 1.5266837e+11
   isFixedArraySize: 1
   inputResources: 00000000
   inputAmounts: 01000000
-  housingAmount: 0
-  attackAmount: 0
   basePricePerProduct: 0
   optimalPricePerProductText: 10,39
   optimalPricePerProduct: 10.386364
