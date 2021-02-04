@@ -34,7 +34,7 @@ public class Window_Graph : MonoBehaviour
         gameObjectList = new List<GameObject>();
         logarithmicValues = new List<double>();
         axisNames = new List<string>();
-        ProductionManager.Instance.productionUnitList.ForEach(q => { if (q.ageBelongsTo == Age._0_StoneAge) { values.Add(q.pricePerProduct); logarithmicValues.Add(Mathf.Log10(q.pricePerProduct)); axisNames.Add(q.TranslatedName); } });
+        ProductionManager.Instance.scriptableProductionUnitList.ForEach(q => { if (q.ageBelongsTo == Age._0_StoneAge) { values.Add(q.pricePerProduct); logarithmicValues.Add(Mathf.Log10(q.pricePerProduct)); axisNames.Add(q.TranslatedName); } });
 
         //List<int> valueList = new List<int>() { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33 };
         //IGraphVisual lineGraphVisual = new LineGraphVisual(graphContainer, dotSprite, Color.green, new Color(1, 1, 1, .5f));

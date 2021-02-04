@@ -51,8 +51,7 @@ public class ResourceManager : Singleton<ResourceManager>
     public Dictionary<BaseResources, float> resourceNewPricePerProductDictionary;
     IEnumerable<BaseResources> resources;
 
-    public List<ScriptableMine> scriptableMines;
-    public List<ScriptableCompound> scriptableCompounds;
+    public List<ScriptableProductionBase> scriptableProductionUnits;
 
     // Player related variable and smoothing values
     [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText;
@@ -245,7 +244,6 @@ public class ResourceManager : Singleton<ResourceManager>
 
     private void Awake()
     {
-
         foodAmountText.text ="0";
         attackAmountText.text = "0";
 
@@ -268,42 +266,38 @@ public class ResourceManager : Singleton<ResourceManager>
         {
             resourceTextDict.Add(res, new TextMeshProUGUI());
         }
+    }
+
+    private void Start()
+    {
+        scriptableProductionUnits = ProductionManager.Instance.scriptableProductionUnitList;
 
         #region Add all resources to resource panel
-        //int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
-        //foreach (var resource in resources)
-        //{
-        //    int arrayCounter = 0;
+        int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
+        foreach (var resource in resources)
+        {
+            int arrayCounter = 0;
 
-        //    var resourceInfo = Instantiate(resourcePrefab, resourcePanel.transform.GetChild(0));
+            var resourceInfo = Instantiate(resourcePrefab, resourcePanel.transform.GetChild(0));
 
-        //    var text = resourceInfo.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();
-        //    text.text = "1";
+            var text = resourceInfo.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();
+            text.text = "1";
 
-        //    var resourceName = resourceInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            var resourceName = resourceInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
-        //    for (int i = 0; i < scriptableMines.Count; i++)
-        //    {
-        //        if (scriptableMines[i].product == resource)
-        //            resourceName.text = scriptableMines[i].resourceName;
-        //    }
-        //    for (int i = 0; i < scriptableCompounds.Count; i++)
-        //    {
-        //        if (scriptableCompounds[i].product == resource)
-        //            resourceName.text = scriptableCompounds[i].resourceName;
-        //    }
+            resourceName.text = ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource).TranslatedName;
 
-        //    resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
+            resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
 
-        //    resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
-        //    { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
-        //    resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
-        //    { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
+            resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
+            { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
+            resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
+            { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
 
-        //    resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, new BNum(resourceIncrementArray[arrayCounter],0)); });
-        //    resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-        //    resourceTextDict[resource].text = (GetResourceAmount(resource)).ToString();
-        //}
+            resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, new BNum(resourceIncrementArray[arrayCounter], 0)); });
+            resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            resourceTextDict[resource].text = (GetResourceAmount(resource)).ToString();
+        }
         #endregion
     }
 
@@ -373,17 +367,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public Sprite GetSpriteFromResource(BaseResources resource)
     {
-        for (int i = 0; i < scriptableMines.Count; i++)
-        {
-            if (scriptableMines[i].product == resource)
-                return scriptableMines[i].icon;
-        }
-        for (int i = 0; i < scriptableCompounds.Count; i++)
-        {
-            if (scriptableCompounds[i].product == resource)
-                return scriptableCompounds[i].icon;
-        }
-        return null;
+        return ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource).icon;
     }
 
     public Sprite GetSpriteFromItemType(ItemType itemType)

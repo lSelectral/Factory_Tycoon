@@ -12,7 +12,7 @@ public class ProductionManager : Singleton<ProductionManager>
 {
     public List<ScriptableMine> mineList;
     public List<ScriptableCompound> compoundList;
-    public List<ScriptableProductionBase> productionUnitList;
+    public List<ScriptableProductionBase> scriptableProductionUnitList;
 
     public GameObject mainPanel;
     // Hide objects on screen but still work on background
@@ -105,14 +105,14 @@ public class ProductionManager : Singleton<ProductionManager>
         assets = Resources.LoadAll("AGES");
         mineList = new List<ScriptableMine>();
         compoundList = new List<ScriptableCompound>();
-        productionUnitList = new List<ScriptableProductionBase>();
+        scriptableProductionUnitList = new List<ScriptableProductionBase>();
         InitializeMineAndCompoundList(out mineList, out compoundList);
 
         for (int i = 0; i < assets.Length; i++)
         {
             if (assets[i] as ScriptableProductionBase != null)
             {
-                productionUnitList.Add(assets[i] as ScriptableProductionBase);
+                scriptableProductionUnitList.Add(assets[i] as ScriptableProductionBase);
                 InstantiateProductionUnit(assets[i] as ScriptableProductionBase);
             }
         }
@@ -215,23 +215,11 @@ public class ProductionManager : Singleton<ProductionManager>
         return q.GetComponent<ProductionBase>();
     }
 
-    //public Mine_Btn GetMineFromResource(BaseResources res)
-    //{
-    //    var q = instantiatedMines.Where(m => m.GetComponent<Mine_Btn>() != null && m.GetComponent<Mine_Btn>().ProducedResource == res).FirstOrDefault();
-    //    return q != null ? q.GetComponent<Mine_Btn>() : null;
-    //}
-
     public ScriptableProductionBase GetScriptableProductionUnitFromResource(BaseResources res)
     {
         var q = GetProductionUnits().Where(u => u != null && u.product == res).FirstOrDefault();
         return q != null ? q : null;
     }
-
-    //public Compounds GetCompoundFromResource(BaseResources res)
-    //{
-    //    var q = instantiatedCompounds.Where(c => c.GetComponent<Compounds>() != null && c.GetComponent<Compounds>().ProducedResource == res).FirstOrDefault();
-    //    return q != null ? q.GetComponent<Compounds>() : null;
-    //}
     #endregion
 }
 

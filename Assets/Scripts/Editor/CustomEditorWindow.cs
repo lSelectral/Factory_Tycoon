@@ -62,14 +62,14 @@ public class CustomEditorWindow : EditorWindow
         GUILayout.EndHorizontal();
 
         // Automatically create automation contracts
-        if (GUILayout.Button("Create Automation Contracts"))
-        {
+        //if (GUILayout.Button("Create Automation Contracts"))
+        //{
             //foreach (ContractBase contract in ContractManager.Instance.CreateAutomationContracts())
             //{
             //    AssetDatabase.CreateAsset(contract, "Assets/Resources/Contracts/Automation_Contracts/" + contract.contractName + "_automation" + ".asset");
             //    AssetDatabase.SaveAssets();
             //}
-        }
+        //}
 
         //c1 = EditorGUILayout.Slider("COMPOUND_PRICE_MULTIPLIER", c1, 1, 7, GUILayout.MinHeight(10f));
         //c2 = EditorGUILayout.Slider("INCOME_PRICE_MULTIPLIER", c2, 1, 7, GUILayout.MinHeight(10f));
@@ -85,8 +85,13 @@ public class CustomEditorWindow : EditorWindow
         //if (GUILayout.Button("Set Pixel Size of Maps"))
         //    SetPixelSizeAmount();
 
-        if (GUILayout.Button("Increase Combat Power"))
-            UpgradeSystem.Instance.CombatPowerMultiplier *= 2;
+        //if (GUILayout.Button("Increase Combat Power"))
+        //    UpgradeSystem.Instance.CombatPowerMultiplier *= 2;
+
+        if (GUILayout.Button(""))
+        {
+
+        }
     }
 
     void CreateUiImage()

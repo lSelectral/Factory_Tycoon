@@ -68,7 +68,7 @@ public class CombatManager : Singleton<CombatManager>
             ResourceManager.Instance.Currency -= CalculateRequiredMoneyForTravel(GetTotalAttackPower(attacker));
         }
 
-        OnWarStartedEvent(this, new OnWarStartedEventArgs()
+        OnWarStartedEvent?.Invoke(this, new OnWarStartedEventArgs()
         {
             attackedRegion = attackedRegion,
             defender = defender,

@@ -59,7 +59,6 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        MapManager.Instance.allMaps.Add(this);
         mineLevelDict = new Dictionary<ScriptableMine, int>();
         compoundLevelDict = new Dictionary<ScriptableCompound, int>();
 
@@ -72,8 +71,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             compoundLevelDict.Add(compound, 1);
         }
 
-        if (MapManager.Instance.playerCurrentMapPart.ToList().Contains(this))
-            isPlayerOwned = true;
+        
 
         if (scriptableMap != null)
         {
@@ -152,6 +150,14 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
         UpgradeSystem.Instance.OnDefensePowerMultiplierChanged += OnDefensePowerMultiplierChanged;
     }
 
+    private void Start()
+    {
+        MapManager.Instance.allMaps.Add(this);
+        if (MapManager.Instance.playerCurrentMapPart.ToList().Contains(this))
+            isPlayerOwned = true;
+        InvokeRepeating("countryProduction", 2f, 5f);
+    }
+
     private void OnDefensePowerMultiplierChanged(object sender, UpgradeSystem.OnDefensePowerMultiplierChangedEventArgs e)
     {
         if (isPlayerOwned)
@@ -166,11 +172,6 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
         {
             AttackPower = (attackPower * e.combatPowerMultiplier);
         }
-    }
-
-    private void Start()
-    {
-        InvokeRepeating("countryProduction", 2f, 5f);
     }
 
     public void OnPointerClick(PointerEventData eventData)
