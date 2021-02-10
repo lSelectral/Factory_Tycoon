@@ -283,12 +283,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 97.6
+  m_fontSize: 60.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 97.62
+  m_fontSizeMax: 60.2
   m_fontStyle: 0
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -556,12 +556,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 60.3
+  m_fontSize: 59.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72.13
+  m_fontSizeMax: 59.9
   m_fontStyle: 0
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -1023,14 +1023,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 82.65
+  m_fontSize: 60.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 103.29
+  m_fontSizeMax: 60.7
   m_fontStyle: 0
-  m_textAlignment: 514
+  m_textAlignment: 513
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -1097,7 +1097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6131978724225985835}
   m_Layer: 5
-  m_Name: Resource 1
+  m_Name: Resource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

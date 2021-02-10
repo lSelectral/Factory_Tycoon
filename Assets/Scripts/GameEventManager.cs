@@ -10,8 +10,8 @@ using System.Linq;
 /// </summary>
 public class GameEventManager : Singleton<GameEventManager>
 {
-
-
+    public Age currentAge;
+    public int storyPart;
 
 
     

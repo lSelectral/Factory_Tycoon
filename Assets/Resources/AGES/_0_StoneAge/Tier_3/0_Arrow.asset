@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 0_Arrow
+  m_EditorClassIdentifier: 
+  Description: Used with bow and deadly tool for hunting and ranged fightining.
+  test:
+    mantissa: 0
+    exponent: 0
+  TranslatedName: Arrow
+  product: 10
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 9
+  outputValue: 4
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 07d042f517ba13442b3af063fe6fa374, type: 3}
+  sourceImage: {fileID: 21300000, guid: 4f9bf3a93fb0cf74c8bb315b8a6787a8, type: 3}
+  icon: {fileID: 21300000, guid: ec6ea7954af38004f96753bea523ad98, type: 3}
+  unlockLevel: 6
+  xpAmount: 120
+  ageBelongsTo: 0
+  tier: 2
+  itemTypes: 00000000
+  pricePerProductText: 15,05M
+  pricePerProduct: 15045831
+  incomePerSecondText: 6,69M
+  incomePerSecond: 6687036
+  pricePerProductUntilLevel50:
+  - 23621956
+  - 37086470
+  - 58225764
+  - 91414456
+  - 143520700
+  - 225327520
+  - 353764220
+  - 555409860
+  - 871993500
+  - 1.3690298e+9
+  - 2.1493768e+9
+  - 3.3745216e+9
+  - 5.297999e+9
+  - 8.3178583e+9
+  - 1.3059038e+10
+  - 2.050269e+10
+  - 3.2189225e+10
+  - 5.0537083e+10
+  - 7.934322e+10
+  - 1.2456886e+11
+  - 1.9557312e+11
+  - 3.0704982e+11
+  - 4.8206823e+11
+  - 7.5684715e+11
+  - 1.1882501e+12
+  - 1.8655528e+12
+  - 2.928918e+12
+  - 4.598401e+12
+  - 7.21949e+12
+  - 1.1334599e+13
+  - 1.779532e+13
+  - 2.7938653e+13
+  - 4.3863687e+13
+  - 6.8865992e+13
+  - 1.0811961e+14
+  - 1.697478e+14
+  - 2.6650405e+14
+  - 4.1841135e+14
+  - 6.5690585e+14
+  - 1.03134224e+15
+  - 1.6192074e+15
+  - 2.5421557e+15
+  - 3.9911845e+15
+  - 6.2661597e+15
+  - 9.837871e+15
+  - 1.5445457e+16
+  - 2.4249368e+16
+  - 3.807151e+16
+  - 5.977227e+16
+  - 2.211574e+17
+  isFixedArraySize: 1
+  inputResources: 02000000
+  inputAmounts: 06000000
+  basePricePerProduct: 15000000
+  optimalPricePerProductText: 45,83K
+  optimalPricePerProduct: 45830.574
+  optimalIncomePerSecondText: 709,43
+  optimalPricePerSecond: 709.4285
+  isOptimal: 1

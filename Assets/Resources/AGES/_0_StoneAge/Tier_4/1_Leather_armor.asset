@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Leather_armor
+  m_EditorClassIdentifier: 
+  Description: Basic protection from human and animals. Also keep you warm.
+  test:
+    mantissa: 0
+    exponent: 0
+  TranslatedName: Leather Armor
+  product: 17
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 20
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 74ffedf3f879cd340baa39e79f507e0f, type: 3}
+  sourceImage: {fileID: 21300000, guid: c7e60c1d14574ce42b70f209ce78081d, type: 3}
+  icon: {fileID: 21300000, guid: 143130a3c014b5e44a31e4519625068a, type: 3}
+  unlockLevel: 13
+  xpAmount: 25
+  ageBelongsTo: 0
+  tier: 3
+  itemTypes: 02000000
+  pricePerProductText: 0
+  pricePerProduct:
+    mantissa: 0
+    exponent: 0
+  incomePerSecondText: 0
+  incomePerSecond:
+    mantissa: 0
+    exponent: 0
+  pricePerProductUntilLevel50:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  isFixedArraySize: 1
+  inputResources: 0c00000001000000
+  inputAmounts: 0200000004000000
+  basePricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 0
+  optimalPricePerSecond:
+    mantissa: 0
+    exponent: 0
+  isOptimal: 1

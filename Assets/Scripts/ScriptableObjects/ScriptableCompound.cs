@@ -12,14 +12,14 @@ public class ScriptableCompound : ScriptableProductionBase
     public int[] inputAmounts;
     [Space(15)]
 
-    public float basePricePerProduct;
+    public BigDouble basePricePerProduct;
 
     public string optimalPricePerProductText;
-    public float optimalPricePerProduct;
+    public BigDouble optimalPricePerProduct;
 
     public string optimalIncomePerSecondText;
     [Tooltip("Minimum income per second calculated by ingredients")]
-    public float optimalPricePerSecond;
+    public BigDouble optimalPricePerSecond;
 
     [Tooltip("Check if real income per second is greater than minimum value")] [SerializeField] bool isOptimal;
 
@@ -30,7 +30,6 @@ public class ScriptableCompound : ScriptableProductionBase
     public override void OnValidate()
     {
         base.OnValidate();
-
         //if (!isValidate) return;
         //if (inputResources == null && inputResources.Length == 0 && inputAmounts[0] == 0)
         //{
@@ -51,16 +50,16 @@ public class ScriptableCompound : ScriptableProductionBase
         if (collectTime > 0 && outputValue > 0 && inputAmounts.Length > 0 && inputResources.Length > 0)
         {
             optimalPricePerProduct = ProductionManager.Instance.GET_OPTIMAL_PRICE_PER_PRODUCT_EDITOR(this);
-            optimalPricePerProductText = ResourceManager.Instance.CurrencyToString(optimalPricePerProduct);
+            optimalPricePerProductText = (optimalPricePerProduct).ToString();
 
             pricePerProduct = (optimalPricePerProduct + basePricePerProduct);
-            pricePerProductText = ResourceManager.Instance.CurrencyToString(pricePerProduct);
+            pricePerProductText = (pricePerProduct).ToString();
 
             optimalPricePerSecond = ProductionManager.Instance.GetIncomePerSecondForEDITOR(inputResources, inputAmounts);
-            optimalIncomePerSecondText = ResourceManager.Instance.CurrencyToString(optimalPricePerSecond);
+            optimalIncomePerSecondText = (optimalPricePerSecond).ToString();
 
             incomePerSecond = (pricePerProduct) * outputValue / collectTime;
-            incomePerSecondText = ResourceManager.Instance.CurrencyToString(incomePerSecond);
+            incomePerSecondText = (incomePerSecond).ToString();
 
             if (incomePerSecond >= optimalPricePerSecond)
                 isOptimal = true;

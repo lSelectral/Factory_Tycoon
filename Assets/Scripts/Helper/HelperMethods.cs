@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-
-public class HelperMethods
+using UnityEngine;
+public class HelperMethods : MonoBehaviour
 {
-    public ScriptableProductionBase[] scriptableProductionUnits;
 }

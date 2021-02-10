@@ -19,28 +19,29 @@ public class PageManager : Singleton<PageManager>
     private void Update()
     {
 #if UNITY_EDITOR
-
-        if (Input.GetMouseButtonDown(0))
+        if (!TutorialManager.Instance.isTutorialActive)
         {
-            touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Mathf.Abs(direction.x) > 2)
+            if (Input.GetMouseButtonDown(0))
             {
-                if (direction.x > 0)
+                touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                if (Mathf.Abs(direction.x) > 2)
                 {
-                    ChangePage(true);
-                }
-                else
-                {
-                    ChangePage(false);
+                    if (direction.x > 0)
+                    {
+                        ChangePage(true);
+                    }
+                    else
+                    {
+                        ChangePage(false);
+                    }
                 }
             }
         }
-
 #endif
 
 //#if UNITY_ANDROID

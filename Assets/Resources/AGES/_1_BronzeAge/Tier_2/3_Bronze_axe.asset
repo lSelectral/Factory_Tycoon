@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Bronze_axe
+  m_EditorClassIdentifier: 
+  Description: More durable and more stronger version of stone axe.
+  test:
+    mantissa: 0
+    exponent: 0
+  TranslatedName: Bronze Axe
+  product: 23
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 9
+  outputValue: 1
+  lockedByContracts:
+  - {fileID: 11400000, guid: 1e939b1da8fbc2a489664dca405ea2c1, type: 2}
+  - {fileID: 11400000, guid: 6cf492b5906911c4183d2fbc605c2bf6, type: 2}
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: ee502034ad782db41ac1547bfa0e4794, type: 3}
+  unlockLevel: 8
+  xpAmount: 25
+  ageBelongsTo: 1
+  tier: 1
+  itemTypes: 00000000
+  pricePerProductText: 0
+  pricePerProduct:
+    mantissa: 0
+    exponent: 0
+  incomePerSecondText: 0
+  incomePerSecond:
+    mantissa: 0
+    exponent: 0
+  pricePerProductUntilLevel50:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  isFixedArraySize: 1
+  inputResources: 0200000018000000
+  inputAmounts: 0200000002000000
+  basePricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 0
+  optimalPricePerSecond:
+    mantissa: 0
+    exponent: 0
+  isOptimal: 1

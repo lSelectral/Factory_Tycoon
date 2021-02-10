@@ -11,8 +11,6 @@ public abstract class ScriptableProductionBase : ScriptableObject
 {
     [TextArea] public string Description;
     [Space(5)]
-    public BNum test;
-    //[SerializeField] string Name = "";
     public string TranslatedName;
 
     public BaseResources product;
@@ -29,6 +27,8 @@ public abstract class ScriptableProductionBase : ScriptableObject
     public float collectTime;
 
     public int outputValue;
+
+    public Recipe[] recipes;
 
     public ContractBase[] lockedByContracts;
 
@@ -51,13 +51,13 @@ public abstract class ScriptableProductionBase : ScriptableObject
     public ItemType[] itemTypes = new ItemType[1];
 
     public string pricePerProductText;
-    public float pricePerProduct;
+    public BigDouble pricePerProduct;
 
     public string incomePerSecondText;
-    public float incomePerSecond;
+    public BigDouble incomePerSecond;
 
-    [SerializeField] List<float> pricePerProductUntilLevel50;
-    float lastPricePerProduct;
+    [SerializeField] List<string> pricePerProductUntilLevel50;
+    BigDouble lastPricePerProduct;
 
     string _name;
 
@@ -68,12 +68,12 @@ public abstract class ScriptableProductionBase : ScriptableObject
     /// </summary>
     public virtual void OnValidate()
     {
+        //if (!isValidate) return;
         _name = name;
         if (name.Any(c => char.IsDigit(c)))
             _name = name.Substring(2);
 
 
-        //if (!isValidate) return;
         var parentDir = Directory.GetParent(AssetDatabase.GetAssetPath(this));
 
         // Minimum level threshold
@@ -111,18 +111,18 @@ public abstract class ScriptableProductionBase : ScriptableObject
                 product = res;
         }
 
-        pricePerProductText = ResourceManager.Instance.CurrencyToString(pricePerProduct);
+        pricePerProductText = (pricePerProduct).ToString();
 
         incomePerSecond = (outputValue * pricePerProduct / collectTime);
-        incomePerSecondText = ResourceManager.Instance.CurrencyToString(incomePerSecond);
+        incomePerSecondText = (incomePerSecond).ToString();
 
-        pricePerProductUntilLevel50 = new List<float>();
+        pricePerProductUntilLevel50 = new List<string>();
 
         lastPricePerProduct = pricePerProduct;
         for (int i = 1; i < 51; i++)
         {
             lastPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(1, lastPricePerProduct, i);
-            pricePerProductUntilLevel50.Add(lastPricePerProduct);
+            pricePerProductUntilLevel50.Add(lastPricePerProduct.ToString());
         }
 
         ///

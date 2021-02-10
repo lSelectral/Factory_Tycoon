@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,7 @@ public class CustomEditorWindow : EditorWindow
 
         if (GUILayout.Button("+" + resourceAmountString + " " + ResourceManager.Instance.GetValidName(resource.ToString()) ))
         {
-            ResourceManager.Instance.AddResource(resource, new BNum(long.Parse(resourceAmountString),0));
+            ResourceManager.Instance.AddResource(resource, new BigDouble(long.Parse(resourceAmountString),0));
         }
         GUILayout.EndVertical();
 
@@ -46,14 +47,14 @@ public class CustomEditorWindow : EditorWindow
         currencyString = EditorGUILayout.TextField("Currency Amount", currencyString);
         if (GUILayout.Button("Add Currency"))
         {
-            ResourceManager.Instance.Currency += new BNum(double.Parse(currencyString),0);
+            ResourceManager.Instance.Currency += BigDouble.Parse(currencyString);
         }
 
         // SAVE and LOAD
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("SAVE"))
         {
-            PrestigeSystem.Instance.ResetGame();
+            SaveSystem.Instance.Save();
         }
         if (GUILayout.Button("LOAD"))
         {
@@ -88,10 +89,17 @@ public class CustomEditorWindow : EditorWindow
         //if (GUILayout.Button("Increase Combat Power"))
         //    UpgradeSystem.Instance.CombatPowerMultiplier *= 2;
 
-        if (GUILayout.Button(""))
-        {
+        //if (GUILayout.Button("Add Assets to Helper Class"))
+        //{
+        //    var assets = Resources.LoadAll("AGES");
 
-        }
+        //    List<ScriptableProductionBase> tempList = new List<ScriptableProductionBase>();
+        //    for (int i = 0; i < assets.Length; i++)
+        //    {
+        //        tempList.Add(assets[i] as ScriptableProductionBase);
+        //    }
+        //    HelperMethods.scriptableProductionBases = tempList.ToArray();
+        //}
     }
 
     void CreateUiImage()

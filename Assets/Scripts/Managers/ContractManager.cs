@@ -12,6 +12,7 @@ using UnityEngine.UI;
  * 
  */
 // TODO When user missing resource for contract or any other thing show ad panel for earning that resource
+// TODO Add automatically activate new contracts for people who just want to play game not story
 
 public class ContractManager : Singleton<ContractManager>
 {
@@ -42,14 +43,10 @@ public class ContractManager : Singleton<ContractManager>
     private void Awake()
     {
         tempResources = new List<List<BaseResources>>();
-        if (instantiatedContracts == null)
-            instantiatedContracts = new List<GameObject>();
-        if (completedContracts == null)
-            completedContracts = new List<ContractBase>();
+        instantiatedContracts = new List<GameObject>();
+        completedContracts = new List<ContractBase>();
         contractDependencyDictionary = new Dictionary<ContractBase, List<ContractBase>>();
-
-        if (activatedContracts == null)
-            activatedContracts = new List<ContractBase>();
+        activatedContracts = new List<ContractBase>();
 
         ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
         GameManager.Instance.OnLevelUp += OnLevelUp;
@@ -65,6 +62,24 @@ public class ContractManager : Singleton<ContractManager>
                 c.transform.Find("Activation_Btn").GetComponent<Button>().interactable = true;
                 Destroy(c.transform.Find("Level_Lock(Clone)").gameObject);
             }
+            if (contracts[i].dependentContracts != null && contracts[i].dependentContracts.Length > 0)
+            {
+                c.transform.Find("Activation_Btn").GetComponent<Button>().interactable = false;
+                var lockText = Instantiate(GameManager.Instance.levelLock, c.transform);
+                lockText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("Unlocked when <color=red>{0}</color> completed", contracts[i].dependentContracts[0].contractName);
+            }
+        }
+
+        for (int i = 0; i < contracts.Length; i++)
+        {
+            var contract = contracts[i];
+            if (contract.contractName != "" && contract.unlockLevel == GameManager.Instance.CurrentLevel)
+            {
+                CreateContract(contract);
+
+                if (contract.dependentContracts != null && contract.dependentContracts.Length > 0)
+                    contractDependencyDictionary.Add(contract, contract.dependentContracts.ToList());
+            }
         }
     }
 
@@ -79,9 +94,9 @@ public class ContractManager : Singleton<ContractManager>
             if (asset as ContractBase != null)
             {
                 var contractBase = asset as ContractBase;
-                if (contractBase.contractName != "")
+                tempContracts.Add(contractBase);
+                if (contractBase.contractName != "" && contractBase.unlockLevel <= GameManager.Instance.CurrentLevel)
                 {
-                    tempContracts.Add(contractBase);
                     CreateContract(contractBase);
 
                     if (contractBase.dependentContracts != null && contractBase.dependentContracts.Length > 0)
@@ -163,6 +178,8 @@ public class ContractManager : Singleton<ContractManager>
     {
         // Instantiate prefab and enter information from scriptable object
         var _contract = Instantiate(contractPrefab, contractPanel.transform);
+        _contract.AddComponent<ContractHolder>();
+        _contract.GetComponent<ContractHolder>().contract = contract;
         _contract.transform.Find("Texts").Find("Header").GetComponent<TextMeshProUGUI>().text = contract.contractName;
         _contract.transform.Find("Texts").Find("Description").GetComponent<TextMeshProUGUI>().text = contract.description;
         _contract.transform.Find("Texts").Find("Reward").GetComponent<TextMeshProUGUI>().text = contract.contractReward.ToString();
@@ -192,7 +209,6 @@ public class ContractManager : Singleton<ContractManager>
             {
                 _contract.transform.Find("Activation_Btn").GetComponent<Button>().interactable = false;
                 var lockText = Instantiate(GameManager.Instance.levelLock, _contract.transform);
-                //lockText.GetComponentInChildren<TextMeshProUGUI>().text = "Unlocked when " + contract.dependentContracts[0].contractName + " completed";
                 lockText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("Unlocked when <color=red>{0}</color> completed", contract.dependentContracts[0].contractName);
             }
             else if (contract.unlockLevel > GameManager.Instance.CurrentLevel)
@@ -222,7 +238,7 @@ public class ContractManager : Singleton<ContractManager>
         for (int i = 0; i < contracts.Length; i++)
         {
             var contract = contracts[i];
-            if (activatedContracts.Contains(contract) && !completedContracts.Contains(contract) && !completedContracts.Contains(contract))
+            if (activatedContracts.Contains(contract) && !completedContracts.Contains(contract))
             {
                 var requiredResources = contract.requiredResources;
                 var requiredResourceAmounts = contract.requiredResourceAmounts;
@@ -463,6 +479,12 @@ public class ContractManager : Singleton<ContractManager>
     /// <param name="pageName">Production page name to go</param>
     void SetPageSettings(string pageName)
     {
+        if (pageName == "Map")
+        {
+            productionPanel.transform.parent.parent.parent.Find("Bottom_Panel").Find("Map").GetComponent<TabButton>().OnPointerClick(null);
+            return;
+        }
+
         // Navigate from any page to production page
         ProductionPanelBtn.GetComponent<TabButton>().OnPointerClick(null);
 
@@ -524,30 +546,43 @@ public enum ContractActivationType
     contractCompletion
 }
 
-public class Contracts
+public enum ContractType
 {
-    /// <summary>
-    /// This method get contract with its object name
-    /// Methods original name is GetContractWithName
-    /// </summary>
-    /// <param name="Name">Name of the gameobject in asset folder</param>
-    /// <returns>Returns contract that matches with given value</returns>
-    internal static ContractBase G(string Name)
-    {
-        return ContractManager.Instance.contracts.Where(c => c.name == Name).First();
-    }
+    story = 0,
+    producing = 1,
+    war = 2,
 }
 
-public class StoneAgeContracts : Contracts
+[Serializable]
+public class ContractHolder : MonoBehaviour
 {
-    public static ContractBase HUNTING_TOOLS_CONTRACT => G("");
-    public static ContractBase BERRY_COLLECTOR_CONTRACT => G("");
-    public static ContractBase MINING_CONTRACT { get { return G(""); } }
-    public static ContractBase WAR_BRINGER_CONTRACT => G("");
-
+    public ContractBase contract;
 }
 
-public class BronzeAgeContracts : Contracts
-{
-    public static ContractBase BLACKSMITH_CONTRACT => G("");
-}
+//public class Contracts
+//{
+//    /// <summary>
+//    /// This method get contract with its object name
+//    /// Methods original name is GetContractWithName
+//    /// </summary>
+//    /// <param name="Name">Name of the gameobject in asset folder</param>
+//    /// <returns>Returns contract that matches with given value</returns>
+//    protected static ContractBase G(string Name)
+//    {
+//        return ContractManager.Instance.contracts.Where(c => c.name == Name).First();
+//    }
+//}
+
+//public class StoneAgeContracts : Contracts
+//{
+//    public static ContractBase HUNTING_TOOLS_CONTRACT => G("");
+//    public static ContractBase BERRY_COLLECTOR_CONTRACT => G("");
+//    public static ContractBase MINING_CONTRACT { get { return G(""); } }
+//    public static ContractBase WAR_BRINGER_CONTRACT => G("");
+
+//}
+
+//public class BronzeAgeContracts : Contracts
+//{
+//    public static ContractBase BLACKSMITH_CONTRACT => G("");
+//}

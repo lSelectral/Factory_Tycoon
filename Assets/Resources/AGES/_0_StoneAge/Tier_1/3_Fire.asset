@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Fire
+  m_EditorClassIdentifier: 
+  Description: One of the first step of human colonization
+  test:
+    mantissa: 0
+    exponent: 0
+  TranslatedName: Fire
+  product: 3
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 18
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: a85d69e52ef0bba43bfb00fa50cfda66, type: 3}
+  unlockLevel: 11
+  xpAmount: 90
+  ageBelongsTo: 0
+  tier: 0
+  itemTypes: 01000000
+  pricePerProductText: 234A
+  pricePerProduct: 2.3400015e+11
+  incomePerSecondText: 13A
+  incomePerSecond: 1.3000009e+10
+  pricePerProductUntilLevel50:
+  - 3.6738027e+11
+  - 5.7678705e+11
+  - 9.0555574e+11
+  - 1.4217225e+12
+  - 2.2321045e+12
+  - 3.5044042e+12
+  - 5.501915e+12
+  - 8.6380066e+12
+  - 1.3561671e+13
+  - 2.1291824e+13
+  - 3.3428165e+13
+  - 5.248222e+13
+  - 8.2397085e+13
+  - 1.29363425e+14
+  - 2.0310058e+14
+  - 3.1886794e+14
+  - 5.0062266e+14
+  - 7.859776e+14
+  - 1.2339849e+15
+  - 1.9373564e+15
+  - 3.0416497e+15
+  - 4.77539e+15
+  - 7.4973626e+15
+  - 1.1770859e+16
+  - 1.848025e+16
+  - 2.9013994e+16
+  - 4.5551972e+16
+  - 7.15166e+16
+  - 1.1228106e+17
+  - 1.7628128e+17
+  - 2.7676163e+17
+  - 4.3451576e+17
+  - 6.821898e+17
+  - 1.071038e+18
+  - 1.6815297e+18
+  - 2.6400016e+18
+  - 4.1448026e+18
+  - 6.50734e+18
+  - 1.0216525e+19
+  - 1.6039944e+19
+  - 2.5182713e+19
+  - 3.953686e+19
+  - 6.207287e+19
+  - 9.745441e+19
+  - 1.5300343e+20
+  - 2.4021539e+20
+  - 3.771382e+20
+  - 5.9210696e+20
+  - 9.29608e+20
+  - 3.4395496e+21
+  isFixedArraySize: 1
+  inputResources: 0200000001000000
+  inputAmounts: 080000000f000000
+  basePricePerProduct: 2.34e+11
+  optimalPricePerProductText: 140,72K
+  optimalPricePerProduct: 140723.36
+  optimalIncomePerSecondText: 824,03
+  optimalPricePerSecond: 824.0285
+  isOptimal: 1

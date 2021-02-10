@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cab4ef3c6492d74fb327e13a597e0fe, type: 3}
+  m_Name: Story_6 - Spear
+  m_EditorClassIdentifier: 
+  contractName: Rise of Humanity
+  description: People know they couldn't survive only eating only berries and nuts.
+    Also need to defend themselves against predators and another humans. Thus people
+    invented spear and used it to hunt down enemies and predators.
+  contractReward: 0
+  contractRewardType: 8
+  resourceToRewarded: 0
+  dependentContracts:
+  - {fileID: 11400000, guid: 7d2e71eff28114d448666a039f95cacf, type: 2}
+  productsToUnlock:
+  - {fileID: 11400000, guid: 843f65c223f0ac44d9cd649ef1095fa7, type: 2}
+  requiredResources: 0200000003000000
+  requiredResourceAmounts: 0f0000000a000000
+  unlockLevel: 5
+  icon: {fileID: 21300000, guid: 3309f64568376734085e67a3c351aa24, type: 3}
+  rewardPanelHeader: <color=red>Congrulations.</color> Now your people have mighty
+    weapon against predators.
+  rewardPanelDescription: Your people can defend themselves against predators and
+    collect meat from all kind of animals. Your people grow stronger everyday. Congrulations
+    GREAT LEADER!.
+  pageNameToGo: _0_stoneAge
+  xpReward: 1200
+  ageBelongsTo: 0
+  history: -5999

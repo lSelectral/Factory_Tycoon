@@ -51,6 +51,7 @@ public class Compounds : ProductionBase
         attackAmount = scriptableCompound.attackAmount;
         inputAmounts = scriptableCompound.inputAmounts;
         fillBar = transform.Find("FillBar").transform.Find("Fill").GetComponent<Image>();
+        levelText = transform.Find("Main_Panel").Find("levelText").GetComponent<TextMeshProUGUI>();
         nameText = transform.Find("Main_Panel").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
         icon = transform.Find("Main_Panel").Find("Icon").GetComponent<Image>();
         upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
@@ -83,7 +84,7 @@ public class Compounds : ProductionBase
         base.Start();
         nameText.text = _name;
 
-        upgradeAmountText.text = ResourceManager.Instance.CurrencyToString(upgradeCost);
+        upgradeAmountText.text = upgradeCost.ToString();
     }
 
     #region Event Methods
@@ -129,13 +130,13 @@ public class Compounds : ProductionBase
 
                 if (workingMode == WorkingMode.production)
                 {
-                    ResourceManager.Instance.AddResource(producedResource, new BNum(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier,0));
+                    ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier,0));
                     if (CheckIfPanelActive())
                         StatSystem.Instance.PopupText(transform, outputValue, _name);
                 }
                 else if (workingMode == WorkingMode.sell)
                 {
-                    ResourceManager.Instance.AddResource(producedResource, new BNum(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier,0));
+                    ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier,0));
                     SellResource();
                     if (CheckIfPanelActive())
                         StatSystem.Instance.PopupText(transform, PricePerProduct, "Gold");

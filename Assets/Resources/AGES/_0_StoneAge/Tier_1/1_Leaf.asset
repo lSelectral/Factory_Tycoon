@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 1_Leaf
+  m_EditorClassIdentifier: 
+  Description: Nature's "gift" to humans.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Leaf
+  product: 1
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 3
+  outputValue: 2
+  lockedByContracts: []
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: c11fa297dd331de418654209c490f7e6, type: 3}
+  icon: {fileID: 21300000, guid: 18f5c124190bbb8489cbe177e7be7915, type: 3}
+  unlockLevel: 2
+  xpAmount: 5
+  ageBelongsTo: 0
+  tier: 0
+  itemTypes: 00000000
+  pricePerProductText: 45
+  pricePerProduct: 45
+  incomePerSecondText: 30
+  incomePerSecond: 30
+  pricePerProductUntilLevel50:
+  - 70.65
+  - 110.92051
+  - 174.1452
+  - 273.408
+  - 429.25055
+  - 673.9234
+  - 1058.0598
+  - 1661.1539
+  - 2608.0117
+  - 4094.5786
+  - 6428.489
+  - 10092.728
+  - 15845.583
+  - 24877.566
+  - 39057.78
+  - 61320.72
+  - 96273.53
+  - 151149.45
+  - 237304.66
+  - 372568.3
+  - 584932.25
+  - 918343.7
+  - 1441799.6
+  - 2263625.5
+  - 3553892.2
+  - 5579611
+  - 8759990
+  - 13753185
+  - 21592502
+  - 33900228
+  - 53223360
+  - 83560680
+  - 131190270
+  - 205968740
+  - 323370900
+  - 507692350
+  - 797077000
+  - 1.251411e+9
+  - 1.9647153e+9
+  - 3.0846031e+9
+  - 4.8428273e+9
+  - 7.603239e+9
+  - 1.1937085e+10
+  - 1.8741225e+10
+  - 2.9423725e+10
+  - 4.619525e+10
+  - 7.2526545e+10
+  - 1.1386668e+11
+  - 1.7877069e+11
+  - 6.614516e+11

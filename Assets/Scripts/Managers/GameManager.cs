@@ -21,7 +21,7 @@ using System;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] int requiredXPforFirstLevel;
-    [SerializeField] private GameObject LevelObject;
+    [SerializeField] private GameObject levelObject;
     public GameObject levelLock;
     private Image fillBar;
     private TextMeshProUGUI levelText;
@@ -93,6 +93,7 @@ public class GameManager : Singleton<GameManager>
                 currentLevel = 0;
             else
                 this.currentLevel = value;
+            levelText.text = "LVL " + currentLevel.ToString();
         }
     }
 
@@ -112,7 +113,8 @@ public class GameManager : Singleton<GameManager>
                 currentXP -= requiredXPForNextLevel;
                 CalculateRequiredXPforNextLevel();
                 OnLevelUp(this, new OnLevelUpEventArgs { currentLevel = currentLevel });
-                PopupManager.Instance.PopupPanel("You reached Level " + currentLevel.ToString(), "With unlocking new levels you will be able to build new buildings");
+                if (!SaveSystem.Instance.isLoading)
+                    PopupManager.Instance.PopupPanel("You reached Level " + currentLevel.ToString(), "With unlocking new levels you will be able to build new buildings");
                 levelText.text = "LVL " + currentLevel.ToString();
             }
         }
@@ -137,21 +139,18 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
-        //#if UNITY_ANDROID
-        //    if (Application.systemLanguage == SystemLanguage.Turkish)
-        //        LocalisationSystem.currentLanguage = LocalisationSystem.Language.Turkish;
-        //    else
-        //        LocalisationSystem.currentLanguage = LocalisationSystem.Language.English;
-        //#endif
+        #if UNITY_ANDROID
+            LocalisationSystem.currentLanguage = Application.systemLanguage;
+        #endif
 
         visiblePanelForPlayer = ProductionManager.Instance.mainPanel.transform.parent.gameObject;
         visibleSubPanelForPlayer = ProductionManager.Instance.mainPanel.transform.Find("_0_StoneAge").gameObject;
 
         Input.multiTouchEnabled = false;
-        CurrentLevel = 1;
         requiredXPForNextLevel = requiredXPforFirstLevel;
-        fillBar = LevelObject.transform.Find("Outline").Find("Fill").GetComponent<Image>();
-        levelText = LevelObject.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
+        fillBar = levelObject.transform.Find("Outline").Find("Fill").GetComponent<Image>();
+        levelText = levelObject.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
+        CurrentLevel = 1;
     }
 
     private void Start()

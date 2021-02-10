@@ -14,7 +14,7 @@ public class QuestBase : ScriptableObject
 
     public BaseResources resource;
 
-    public QuestAchiveRequirement questAchiveRequirement;
+    public QuestAchivementRequirement questAchiveRequirement;
 
     public int[] intervals = { 100, 1000, 10000, 100000, 1000000 };
 

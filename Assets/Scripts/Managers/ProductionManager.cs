@@ -103,10 +103,7 @@ public class ProductionManager : Singleton<ProductionManager>
     private void Awake()
     {
         assets = Resources.LoadAll("AGES");
-        mineList = new List<ScriptableMine>();
-        compoundList = new List<ScriptableCompound>();
         scriptableProductionUnitList = new List<ScriptableProductionBase>();
-        InitializeMineAndCompoundList(out mineList, out compoundList);
 
         for (int i = 0; i < assets.Length; i++)
         {
@@ -124,9 +121,9 @@ public class ProductionManager : Singleton<ProductionManager>
         }
 
     }
-    public float GET_OPTIMAL_PRICE_PER_PRODUCT(Compounds compound)
+    public BigDouble GET_OPTIMAL_PRICE_PER_PRODUCT(Compounds compound)
     {
-        float pricePerProduct = 0f;
+        BigDouble pricePerProduct = 0f;
         foreach (BaseResources res in compound.InputResources)
         {
             var _mine = GetProductionUnitFromResource(res).GetComponent<Mine_Btn>();
@@ -142,9 +139,9 @@ public class ProductionManager : Singleton<ProductionManager>
         return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
     }
 
-    public float GET_OPTIMAL_PRICE_PER_PRODUCT_EDITOR(ScriptableCompound compound)
+    public BigDouble GET_OPTIMAL_PRICE_PER_PRODUCT_EDITOR(ScriptableCompound compound)
     {
-        float pricePerProduct = 0f;
+        BigDouble pricePerProduct = 0f;
         foreach (BaseResources res in compound.inputResources)
         {
             ScriptableMine _mine = GetScriptableProductionUnitFromResource(res) as ScriptableMine;
@@ -160,49 +157,17 @@ public class ProductionManager : Singleton<ProductionManager>
         return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
     }
 
-    public float GetIncomePerSecondForEDITOR(BaseResources[] resources, int[] inputAmounts)
+    public BigDouble GetIncomePerSecondForEDITOR(BaseResources[] resources, int[] inputAmounts)
     {
-        float incomePerSecond = 0f;
+        BigDouble incomePerSecond = 0f;
         foreach (BaseResources res in resources)
         {
             incomePerSecond += GetScriptableProductionUnitFromResource(res).incomePerSecond;
-            //var _mine = GetScriptableProductionUnitFromResource(res);
-            //if (_mine != null)
-            //    incomePerSecond += _mine.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
-
-            //var _compound = GetScriptableCompoundFromResource(res);
-            //if (_compound != null)
-            //    incomePerSecond += _compound.incomePerSecond * inputAmounts[Array.IndexOf(resources, res)];
         }
         return incomePerSecond * UpgradeSystem.Instance.INCOME_PRICE_MULTIPLIER;
     }
 
     #region Helper Functions
-    public void InitializeMineAndCompoundList(out List<ScriptableMine> _mineList, out List<ScriptableCompound> _compoundList)
-    {
-        assets = Resources.LoadAll("AGES");
-        List<ScriptableCompound> compoundList = new List<ScriptableCompound>();
-        List<ScriptableMine> mineList = new List<ScriptableMine>();
-
-        ScriptableProductionBase[] units = assets.Where(a => (a as ScriptableProductionBase) != null).Cast<ScriptableProductionBase>().ToArray();
-
-        for (int i = 0; i < assets.Length; i++)
-        {
-            var asset = assets[i];
-
-            if (asset as ScriptableObject != null)
-            {
-                var sc = asset as ScriptableObject;
-                if (sc.GetType() == typeof(ScriptableMine) && (sc as ScriptableMine).ageBelongsTo == Age._0_StoneAge)
-                    mineList.Add(sc as ScriptableMine);
-                else if (sc.GetType() == typeof(ScriptableCompound) && (sc as ScriptableCompound).ageBelongsTo == Age._0_StoneAge)
-                    compoundList.Add(sc as ScriptableCompound);
-            }
-        }
-        _mineList = mineList;
-        _compoundList = compoundList;
-    }
-
     ScriptableProductionBase[] GetProductionUnits()
     {
         var assets = Resources.LoadAll("AGES");
@@ -221,6 +186,13 @@ public class ProductionManager : Singleton<ProductionManager>
         return q != null ? q : null;
     }
     #endregion
+}
+
+[Serializable]
+public class Recipe
+{
+    public BaseResources[] inputResource;
+    public int[] inputAmount;
 }
 
 public enum WorkingMode

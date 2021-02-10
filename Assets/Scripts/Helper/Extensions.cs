@@ -24,4 +24,25 @@ public static class Extensions
         return (currentIndex == 0) ? item.Length - 1 : currentIndex-1;
     }
 
-}   
+}
+
+static class StringExtensions
+{
+    /// <summary>
+    /// Split string to parts at given intervals.
+    /// </summary>
+    /// <param name="s">Input string</param>
+    /// <param name="partLength">Part Interval</param>
+    /// <returns>An array of string that splitted with given intervals</returns>
+    public static IEnumerable<String> SplitInParts(this String s, Int32 partLength)
+    {
+        if (s == null)
+            throw new ArgumentNullException(nameof(s));
+        if (partLength <= 0)
+            throw new ArgumentException("Part length has to be positive.", nameof(partLength));
+
+        for (var i = 0; i < s.Length; i += partLength)
+            yield return s.Substring(i, Math.Min(partLength, s.Length - i));
+    }
+
+}

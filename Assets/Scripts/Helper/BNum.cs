@@ -18,6 +18,7 @@ public class BNum
         value = 0;
         tenPow = 0;
     }
+
     public BNum(double aVal, int aPow)
     {
         this.aPow = aPow;
@@ -30,17 +31,6 @@ public class BNum
     {
         get { return new BNum(); }
     }
-
-    //static int GetTenPower(double d)
-    //{
-    //    int scale = 0;
-    //    while (d >= 10)
-    //    {
-    //        d /= 10;
-    //        scale++;
-    //    }
-    //    return scale;
-    //}
 
     /// <summary>
     /// Convert given Bnum parameter, according to the power difference for processing 2 BNum.
@@ -73,7 +63,7 @@ public class BNum
     // BNum + BNum 
     public static BNum operator +(BNum number) => number;
     public static BNum operator +(BNum number1, BNum number2) =>
-        new BNum(number1.value 
+        new BNum(number1.value
             + GetConvertedValue(number2, (number1.tenPow - number2.tenPow)).value, number1.tenPow);
     public static BNum operator +(BNum number1, double number2)
     {
@@ -124,7 +114,7 @@ public class BNum
     }
     public static bool operator >(BNum number1, double number2)
     {
-        long powerDifference = number1.tenPow - new BNum(number2,0).tenPow;
+        long powerDifference = number1.tenPow - new BNum(number2, 0).tenPow;
         BNum convertedValue = GetConvertedValue(new BNum(number2, 0), powerDifference);
 
         if (number1.value >= 1 && powerDifference > 0)
@@ -147,7 +137,7 @@ public class BNum
     }
     public static bool operator <(BNum number1, double number2)
     {
-        long powerDifference = number1.tenPow - new BNum(number2,0).tenPow;
+        long powerDifference = number1.tenPow - new BNum(number2, 0).tenPow;
         if (!(number1 > number2) && number1 != GetConvertedValue(new BNum(number2, 0), powerDifference))
             return true;
         else
@@ -184,6 +174,33 @@ public class BNum
             return false;
         else
             return true;
+    }
+
+    public static bool operator ==(BNum number1, double number2)
+    {
+        BNum tempValue = new BNum(number2, 0);
+        if (number1 == tempValue)
+            return true;
+        else
+            return false;
+    }
+
+    public static bool operator !=(BNum number1, double number2)
+    {
+        if (number1 == number2)
+            return false;
+        else
+            return true;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 
     #endregion
@@ -236,7 +253,7 @@ public class BNum
                     return outputStr;
             }
 
-            if (powMult >= suffix.Length) // Array overflow show standard
+            if (powMult > suffix.Length) // Array overflow show standard
                 return outputStr;
             else
                 outputStr += suffix[powMult];

@@ -117,16 +117,16 @@ public class MapManager : Singleton<MapManager>
         // Setup Map Info Panel
         mapStatPanel.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = newClickedMap.CountryName + " - LEVEL " + newClickedMap.CountryLevel;
         var infoPanel = mapStatPanel.Find("InfoPanel");
-        infoPanel.Find("Top").Find("Money").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.MoneyAmount);
-        infoPanel.Find("Top").Find("AttackPower").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.AttackPower);
-        infoPanel.Find("Top").Find("DefensePower").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.DefensePower);
-        infoPanel.Find("Bottom").Find("Food").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.FoodAmount);
-        infoPanel.Find("Bottom").Find("CountryLives").GetComponentInChildren<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(newClickedMap.CombatLives);
+        infoPanel.Find("Top").Find("Money").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.MoneyAmount).ToString();
+        infoPanel.Find("Top").Find("AttackPower").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.AttackPower).ToString();
+        infoPanel.Find("Top").Find("DefensePower").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.DefensePower).ToString();
+        infoPanel.Find("Bottom").Find("Food").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.FoodAmount).ToString();
+        infoPanel.Find("Bottom").Find("CountryLives").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.CombatLives).ToString();
     }
 
     public void SetupResourcePanel(Map_Part map)
     {
-        List<BNum> mapResourceAmounts = new List<BNum>();
+        List<BigDouble> mapResourceAmounts = new List<BigDouble>();
         List<BaseResources> mapResourceTypes = new List<BaseResources>();
         //if (!map.IsPlayerOwned)
         //{
@@ -142,7 +142,7 @@ public class MapManager : Singleton<MapManager>
         //    Debug.Log("Player owned map");
         //    DebugList(mapResourceAmounts);
         //}
-        mapResourceAmounts = new List<BNum>(map.ResourceValueDict.Values);
+        mapResourceAmounts = new List<BigDouble>(map.ResourceValueDict.Values);
         mapResourceTypes = new List<BaseResources>(map.ResourceValueDict.Keys);
         //Debug.Log(mapResourceTypes.Count);
         //DebugList(mapResourceTypes);
@@ -153,13 +153,13 @@ public class MapManager : Singleton<MapManager>
         {
             var resource = countryResourceContentTransform.GetChild(i);
             resource.transform.Find("Left").Find("Image").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(mapResourceTypes[j]);
-            resource.transform.Find("Left").Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(mapResourceAmounts[j]);
+            resource.transform.Find("Left").Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = (mapResourceAmounts[j]).ToString();
 
             if (mapResourceTypes.Count > j + 1)
             {
                 //Debug.Log(mapResourceTypes[j + 1]);
                 resource.transform.Find("Right").Find("Image").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(mapResourceTypes[j + 1]);
-                resource.transform.Find("Right").Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(mapResourceAmounts[j + 1]);
+                resource.transform.Find("Right").Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = mapResourceAmounts[j + 1].ToString();
             }
             j += 2;
         }

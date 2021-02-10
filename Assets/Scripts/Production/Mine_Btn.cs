@@ -48,7 +48,7 @@ public class Mine_Btn : ProductionBase
             res.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromItemType(itemTypes[i]);
         }
 
-        upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost);
+        upgradeAmountText.text = "$" + upgradeCost.ToString();
 
         //if (remainedCollectTime > 0)
         //{
@@ -125,10 +125,10 @@ public class Mine_Btn : ProductionBase
         switch (workingMode)
         {
             case WorkingMode.production:
-                /*resourceAmount = */ResourceManager.Instance.AddResource(producedResource, new BNum(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier,0));
+                /*resourceAmount = */ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier,0));
                 break;
             case WorkingMode.sell:
-                ResourceManager.Instance.AddResource(producedResource, new BNum(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier,0));
+                ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier,0));
                 SellResource();
                 break;
         }
@@ -138,9 +138,9 @@ public class Mine_Btn : ProductionBase
         GameManager.Instance.AddXP(XPAmount);
     }
 
-    public BNum IdleEarn(int idleTime)
+    public BigDouble IdleEarn(int idleTime)
     {
-        return new BNum(incomePerSecond * idleTime * UpgradeSystem.Instance.EarnedCoinMultiplier, 0);
+        return (incomePerSecond * idleTime * UpgradeSystem.Instance.EarnedCoinMultiplier);
     }
 
     public void CollectMine()

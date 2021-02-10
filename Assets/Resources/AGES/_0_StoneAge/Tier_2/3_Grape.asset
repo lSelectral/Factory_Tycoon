@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 3_Grape
+  m_EditorClassIdentifier: 
+  Description: One of the most ancient fruit and use for higher purpose too.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Grape
+  product: 6
+  foodAmount: 3
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 6.5
+  outputValue: 3
+  lockedByContracts: []
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 28414171dc0d6994db0611c47ba1c07d, type: 3}
+  icon: {fileID: 21300000, guid: 7c4bf82af88be9f48a2019475c285678, type: 3}
+  unlockLevel: 5
+  xpAmount: 10
+  ageBelongsTo: 0
+  tier: 1
+  itemTypes: 0000000001000000
+  pricePerProductText: 60K
+  pricePerProduct: 60000
+  incomePerSecondText: 27,69K
+  incomePerSecond: 27692.309
+  pricePerProductUntilLevel50:
+  - 94200
+  - 147894
+  - 232193.6
+  - 364543.97
+  - 572334.06
+  - 898564.5
+  - 1410746.2
+  - 2214871.8
+  - 3477348.8
+  - 5459437.5
+  - 8571317
+  - 13456968
+  - 21127440
+  - 33170082
+  - 52077030
+  - 81760940
+  - 128364690
+  - 201532560
+  - 316406140
+  - 496757660
+  - 779909570
+  - 1.2244581e+9
+  - 1.9223994e+9
+  - 3.018167e+9
+  - 4.7385226e+9
+  - 7.439481e+9
+  - 1.1679986e+10
+  - 1.833758e+10
+  - 2.879e+10
+  - 4.5200302e+10
+  - 7.096448e+10
+  - 1.1141423e+11
+  - 1.7492035e+11
+  - 2.7462495e+11
+  - 4.3116118e+11
+  - 6.7692305e+11
+  - 1.0627692e+12
+  - 1.6685477e+12
+  - 2.61962e+12
+  - 4.1128034e+12
+  - 6.4571016e+12
+  - 1.013765e+13
+  - 1.5916111e+13
+  - 2.4988294e+13
+  - 3.9231624e+13
+  - 6.159365e+13
+  - 9.670204e+13
+  - 1.518222e+14
+  - 2.3836085e+14
+  - 8.8193516e+14

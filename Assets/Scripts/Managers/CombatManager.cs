@@ -130,7 +130,7 @@ public class CombatManager : Singleton<CombatManager>
         return (long)(14.7f * attackPower);
     }
 
-    public BNum CalculateRequiredMoneyForTravel(BNum attackPower)
+    public BigDouble CalculateRequiredMoneyForTravel(BigDouble attackPower)
     {
         // TODO check values
         return attackPower * 19.4f;
@@ -164,17 +164,17 @@ public class CombatManager : Singleton<CombatManager>
         attackedRegion.ConnectedMapParts = newRegion;
     }
 
-    public BNum GetTotalAttackPower(Map_Part[] map)
+    public BigDouble GetTotalAttackPower(Map_Part[] map)
     {
-        BNum attackPower = new BNum();
+        BigDouble attackPower = new BigDouble();
         for (int i = 0; i < map.Length; i++)
             attackPower += map[i].AttackPower;
         return attackPower;
     }
 
-    public BNum GetTotalDefensePower(Map_Part[] map)
+    public BigDouble GetTotalDefensePower(Map_Part[] map)
     {
-        BNum defensePower = new BNum();
+        BigDouble defensePower = new BigDouble();
         for (int i = 0; i < map.Length; i++)
         {
             defensePower += map[i].DefensePower;
@@ -185,8 +185,8 @@ public class CombatManager : Singleton<CombatManager>
     public void OnAttackEnd(Map_Part[] winner, Map_Part[] loser, int resourceLossPercentage = 25, int moneyLossPercentage = 40)
     {
         #region Money and Resource Exchange Part
-        Dictionary<BaseResources, BNum> lostResourceDict = new Dictionary<BaseResources, BNum>();
-        BNum lostMoney = new BNum();
+        Dictionary<BaseResources, BigDouble> lostResourceDict = new Dictionary<BaseResources, BigDouble>();
+        BigDouble lostMoney = new BigDouble();
 
         for (int i = 0; i < loser.Length; i++)
         {
@@ -194,7 +194,7 @@ public class CombatManager : Singleton<CombatManager>
             loser[i].MoneyAmount *= ((100-moneyLossPercentage * 1f)/100);
 
             List<BaseResources> keys = new List<BaseResources>(loser[i].ResourceValueDict.Keys);
-            List<BNum> values = new List<BNum>(loser[i].ResourceValueDict.Values);
+            List<BigDouble> values = new List<BigDouble>(loser[i].ResourceValueDict.Values);
 
             for (int j = 0; j < keys.Count; j++)
             {
@@ -218,7 +218,7 @@ public class CombatManager : Singleton<CombatManager>
             winner[i].MoneyAmount += lostMoney;
 
             var keys = new List<BaseResources>(ResourceManager.Instance.resourceValueDict.Keys);
-            var values = new List<BNum>(ResourceManager.Instance.resourceValueDict.Values);
+            var values = new List<BigDouble>(ResourceManager.Instance.resourceValueDict.Values);
 
             // Iterate for all avaialable resources in game , ADD +25% Resource to winer from loser's resources
             for (int j = 0; j < keys.Count; j++)

@@ -4,8 +4,8 @@
 public class ContractBase : ScriptableObject
 {
     public string contractName;
-    public string description;
-
+    [TextArea] public string description;
+    public ContractType contractType;
     public float contractReward;
     public ContractRewardType contractRewardType;
     [Tooltip("Chosen resource will rewarded if contract reward type is set to Unit Speed Up")] 
@@ -19,10 +19,10 @@ public class ContractBase : ScriptableObject
     public int unlockLevel;
 
     [PreviewSprite] public Sprite icon;
-    public string rewardPanelHeader = "<color=red>Congrulations</color>";
-    public string rewardPanelDescription;
+    [TextArea] public string rewardPanelHeader = "<color=red>Congrulations</color>";
+    [TextArea] public string rewardPanelDescription;
     public string pageNameToGo;
-    public long xpReward;
+    public float xpReward;
 
     public Age ageBelongsTo;
     public int history;

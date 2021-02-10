@@ -18,7 +18,7 @@ public class TEST : MonoBehaviour, IPointerDownHandler
 
     private void Start()
     {
-        Debug.Log( (new BNum(15468.3, 7) + new BNum(219.3333,6) ).ToString());
+        Debug.Log( (new BigDouble(15468.3, 7) + new BigDouble(219.3333,6) ).ToString());
     }
 
     private void Update()

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Leather
+  m_EditorClassIdentifier: 
+  Description: After you done with meat, you can use this part too.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Leather
+  product: 14
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 16
+  outputValue: 2
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
+  sourceImage: {fileID: 21300000, guid: f9de7d4c7b8b6f446a795da4aa99fe4a, type: 3}
+  icon: {fileID: 21300000, guid: c7e60c1d14574ce42b70f209ce78081d, type: 3}
+  unlockLevel: 9
+  xpAmount: 25
+  ageBelongsTo: 0
+  tier: 2
+  itemTypes: 0000000001000000
+  pricePerProductText: 1,23A
+  pricePerProduct: 1.2313499e+9
+  incomePerSecondText: 153,92M
+  incomePerSecond: 153918740
+  pricePerProductUntilLevel50:
+  - 1.9332193e+9
+  - 3.0351544e+9
+  - 4.7651927e+9
+  - 7.4813527e+9
+  - 1.1745724e+10
+  - 1.8440788e+10
+  - 2.8952037e+10
+  - 4.54547e+10
+  - 7.136388e+10
+  - 1.12041296e+11
+  - 1.7590483e+11
+  - 2.761706e+11
+  - 4.3358788e+11
+  - 6.80733e+11
+  - 1.0687508e+12
+  - 1.6779388e+12
+  - 2.634364e+12
+  - 4.1359515e+12
+  - 6.493444e+12
+  - 1.0194708e+13
+  - 1.6005692e+13
+  - 2.5128937e+13
+  - 3.9452433e+13
+  - 6.1940324e+13
+  - 9.724631e+13
+  - 1.5267673e+14
+  - 2.3970246e+14
+  - 3.763329e+14
+  - 5.908427e+14
+  - 9.27623e+14
+  - 1.4563681e+15
+  - 2.286498e+15
+  - 3.589802e+15
+  - 5.63599e+15
+  - 8.848504e+15
+  - 1.3892151e+16
+  - 2.1810677e+16
+  - 3.4242765e+16
+  - 5.376114e+16
+  - 8.4405e+16
+  - 1.3251585e+17
+  - 2.0804988e+17
+  - 3.266383e+17
+  - 5.1282215e+17
+  - 8.051308e+17
+  - 1.2640553e+18
+  - 1.984567e+18
+  - 3.1157702e+18
+  - 4.8917597e+18
+  - 1.8099511e+19
+  isFixedArraySize: 1
+  inputResources: 08000000
+  inputAmounts: 02000000
+  basePricePerProduct: 1.23e+9
+  optimalPricePerProductText: 1,35M
+  optimalPricePerProduct: 1349907.8
+  optimalIncomePerSecondText: 105,78K
+  optimalPricePerSecond: 105784.62
+  isOptimal: 1

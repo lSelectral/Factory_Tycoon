@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contractName: A New Way Of Communication
   description: 'Alphabet has been found in 1700 BCE in Ancient '
+  contractType: 1
   contractReward: 1
   contractRewardType: 2
+  resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
   requiredResources: 0000000000000000
   requiredResourceAmounts: 0000000000000000
-  unlockLevel: 0
+  unlockLevel: 15
   icon: {fileID: 21300000, guid: 672a668cfbfc10840b94b9310ab94658, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 

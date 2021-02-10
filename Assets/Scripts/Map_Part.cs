@@ -21,10 +21,10 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     string countryName;
     int countryLevel;
     Age currentAgeOfNation;
-    BNum attackPower;
-    BNum defensePower;
-    BNum foodAmount;
-    BNum moneyAmount;
+    BigDouble attackPower;
+    BigDouble defensePower;
+    BigDouble foodAmount;
+    BigDouble moneyAmount;
     int combatLives;
     [SerializeField] bool isPlayerOwned;
 
@@ -32,7 +32,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] Map_Part[] connectedMapParts;
 
-    Dictionary<BaseResources, BNum> resourceValueDict;
+    Dictionary<BaseResources, BigDouble> resourceValueDict;
 
     [Range(0f, 1f)] public float alphaSlider;
     Image image;
@@ -44,12 +44,12 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     public string CountryName { get => countryName; set => countryName = value; }
     public int CountryLevel { get => countryLevel; set { countryLevel = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); } }
     public Age CurrentAgeOfNation { get => currentAgeOfNation; set => currentAgeOfNation = value; }
-    public BNum AttackPower { get => attackPower; set { attackPower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); } }
-    public BNum FoodAmount { get => foodAmount; set => foodAmount = value; }
-    public BNum MoneyAmount { get => moneyAmount; set => moneyAmount = value; }
-    public BNum DefensePower { get => defensePower; set { defensePower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); }}
+    public BigDouble AttackPower { get => attackPower; set { attackPower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); } }
+    public BigDouble FoodAmount { get => foodAmount; set => foodAmount = value; }
+    public BigDouble MoneyAmount { get => moneyAmount; set => moneyAmount = value; }
+    public BigDouble DefensePower { get => defensePower; set { defensePower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); }}
     public int CombatLives { get => combatLives; set { combatLives = Mathf.Clamp(value,0,3); } }
-    public Dictionary<BaseResources, BNum> ResourceValueDict { get => resourceValueDict; set => resourceValueDict = value; }
+    public Dictionary<BaseResources, BigDouble> ResourceValueDict { get => resourceValueDict; set => resourceValueDict = value; }
     public Map_Part[] ConnectedMapParts { get => connectedMapParts; set => connectedMapParts = value; }
     public bool IsPlayerOwned { get => isPlayerOwned; set => isPlayerOwned = value; }
     #endregion
@@ -89,7 +89,9 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             image.alphaHitTestMinimumThreshold = alphaSlider;
 
             // Create resource dictionary with all resource in it for this age
-            resourceValueDict = new Dictionary<BaseResources, BNum>();
+            resourceValueDict = new Dictionary<BaseResources, BigDouble>();
+
+
             var scriptableMines = ProductionManager.Instance.mineList;
             var scriptableCompounds = ProductionManager.Instance.compoundList;
             for (int i = 0; i < scriptableMines.Count; i++)
@@ -97,7 +99,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                 if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
                 {
                     if (!resourceValueDict.ContainsKey(scriptableMines[i].product))
-                        resourceValueDict.Add(scriptableMines[i].product, new BNum(1,2));
+                        resourceValueDict.Add(scriptableMines[i].product, new BigDouble(1,2));
                 }
             }
             for (int i = 0; i < scriptableCompounds.Count; i++)
@@ -105,7 +107,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                 if (scriptableCompounds[i].ageBelongsTo == currentAgeOfNation)
                 {
                     if (!resourceValueDict.ContainsKey(scriptableCompounds[i].product))
-                        resourceValueDict.Add(scriptableCompounds[i].product, new BNum(1, 2));
+                        resourceValueDict.Add(scriptableCompounds[i].product, new BigDouble(1, 2));
                 }
             }
             // Add extra resource for every tribe if has one. Resource amount is related to area size of country
@@ -116,14 +118,16 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             countryName = "SELECTRA";
             countryLevel = 133;
             currentAgeOfNation = Age._5_ModernAge;
-            attackPower = new BNum(countryLevel * 15 * Random.Range(4, 24),0);
-            defensePower = new BNum(countryLevel * 10 * Random.Range(4, 14),0);
-            foodAmount = new BNum(countryLevel * 9 * Random.Range(8, 45),0);
-            moneyAmount = new BNum(Mathf.Pow(countryLevel, Random.Range(1, 9)),0);
+            attackPower = new BigDouble(countryLevel * 15 * Random.Range(4, 24),0);
+            defensePower = new BigDouble(countryLevel * 10 * Random.Range(4, 14),0);
+            foodAmount = new BigDouble(countryLevel * 9 * Random.Range(8, 45),0);
+            moneyAmount = new BigDouble(Mathf.Pow(countryLevel, Random.Range(1, 9)),0);
             combatLives = 3;
             connectedMapParts = new Map_Part[] { this };
             //resourceValueDict = ResourceManager.Instance.resourceValueDict;
-            resourceValueDict = new Dictionary<BaseResources, BNum>();
+            resourceValueDict = new Dictionary<BaseResources, BigDouble>();
+
+
             var scriptableMines = ProductionManager.Instance.mineList;
             var scriptableCompounds = ProductionManager.Instance.compoundList;
             for (int i = 0; i < scriptableMines.Count; i++)
@@ -131,7 +135,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                 if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
                 {
                     if (!resourceValueDict.ContainsKey(scriptableMines[i].product))
-                        resourceValueDict.Add(scriptableMines[i].product, new BNum(1, 2));
+                        resourceValueDict.Add(scriptableMines[i].product, new BigDouble(1, 2));
                 }
             }
             for (int i = 0; i < scriptableCompounds.Count; i++)
@@ -139,7 +143,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                 if (scriptableCompounds[i].ageBelongsTo == currentAgeOfNation)
                 {
                     if (!resourceValueDict.ContainsKey(scriptableCompounds[i].product))
-                        resourceValueDict.Add(scriptableCompounds[i].product, new BNum(1, 2));
+                        resourceValueDict.Add(scriptableCompounds[i].product, new BigDouble(1, 2));
                 }
             }
             image = GetComponent<Image>();
@@ -155,7 +159,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
         MapManager.Instance.allMaps.Add(this);
         if (MapManager.Instance.playerCurrentMapPart.ToList().Contains(this))
             isPlayerOwned = true;
-        InvokeRepeating("countryProduction", 2f, 5f);
+        InvokeRepeating("CountryProduction", 2f, 5f);
     }
 
     private void OnDefensePowerMultiplierChanged(object sender, UpgradeSystem.OnDefensePowerMultiplierChangedEventArgs e)
@@ -176,31 +180,19 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Mouse on the" + name);
+        Debug.Log("Clicked to the" + name);
         MapManager.Instance.OnMapClick(this);
     }
 
-    void countryProduction()
+    void CountryProduction()
     {
-        foreach (var scriptableMine in ProductionManager.Instance.mineList)
+        for (int i = 0; i < ProductionManager.Instance.scriptableProductionUnitList.Count; i++)
         {
-            var res = scriptableMine.product;
-            if (resourceValueDict.ContainsKey(res))
-            {
-                var earnedResource = Mathf.CeilToInt(scriptableMine.outputValue * 1f / scriptableMine.collectTime) ;
-                resourceValueDict[res] += earnedResource;
-            }
+            var productionUnit = ProductionManager.Instance.scriptableProductionUnitList[i];
+            if (resourceValueDict.ContainsKey(productionUnit.product))
+                resourceValueDict[productionUnit.product] += Mathf.CeilToInt(productionUnit.outputValue * 1f / productionUnit.collectTime);
         }
 
-        foreach (var scriptableCompound in ProductionManager.Instance.compoundList)
-        {
-            var res = scriptableCompound.product;
-            if (resourceValueDict.ContainsKey(res))
-            {
-                var earnedResource = Mathf.CeilToInt(scriptableCompound.outputValue * 1f/ scriptableCompound.collectTime);
-                resourceValueDict[res] += earnedResource;
-            }
-        }
         moneyAmount += 500;
         MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart);
         MapManager.Instance.SetupResourcePanel(MapManager.Instance.clickedMapPart);

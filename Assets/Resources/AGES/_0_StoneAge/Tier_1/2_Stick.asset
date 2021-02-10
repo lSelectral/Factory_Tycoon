@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 2_Stick
+  m_EditorClassIdentifier: 
+  Description: Dead child trees.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Stick
+  product: 2
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 3.5
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
+  icon: {fileID: 21300000, guid: 4f9bf3a93fb0cf74c8bb315b8a6787a8, type: 3}
+  unlockLevel: 3
+  xpAmount: 30
+  ageBelongsTo: 0
+  tier: 0
+  itemTypes: 00000000
+  pricePerProductText: 650
+  pricePerProduct: 650
+  incomePerSecondText: 185,71
+  incomePerSecond: 185.71428
+  pricePerProductUntilLevel50:
+  - 1020.50006
+  - 1602.1852
+  - 2515.431
+  - 3949.2266
+  - 6200.286
+  - 9734.449
+  - 15283.086
+  - 23994.445
+  - 37671.28
+  - 59143.914
+  - 92855.945
+  - 145783.84
+  - 228880.64
+  - 359342.62
+  - 564167.94
+  - 885743.7
+  - 1390617.6
+  - 2183269.8
+  - 3427733.5
+  - 5381542
+  - 8449021
+  - 13264963
+  - 20825992
+  - 32696808
+  - 51333990
+  - 80594370
+  - 126533160
+  - 198657070
+  - 311891620
+  - 489669860
+  - 768781700
+  - 1.2069873e+9
+  - 1.8949701e+9
+  - 2.9751032e+9
+  - 4.670912e+9
+  - 7.333332e+9
+  - 1.1513332e+10
+  - 1.807593e+10
+  - 2.8379212e+10
+  - 4.4555362e+10
+  - 6.995192e+10
+  - 1.09824524e+11
+  - 1.7242451e+11
+  - 2.7070649e+11
+  - 4.2500922e+11
+  - 6.672645e+11
+  - 1.0476053e+12
+  - 1.6447403e+12
+  - 2.5822424e+12
+  - 9.554297e+12

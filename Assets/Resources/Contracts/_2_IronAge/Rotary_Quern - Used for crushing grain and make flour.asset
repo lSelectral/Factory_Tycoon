@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contractName: Rotary_Quern - Used for crushing grain and make flour
   description: 
+  contractType: 1
   contractReward: 0
   contractRewardType: 0
+  resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
   requiredResources: 
   requiredResourceAmounts: 
-  unlockLevel: 0
+  unlockLevel: 15
   icon: {fileID: 0}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 

@@ -1,14 +1,9 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class LocalisationSystem
 {
-    public enum Language
-    {
-        English,
-        Turkish,
-    }
-
-    public static Language currentLanguage = Language.English;
+    public static SystemLanguage currentLanguage = SystemLanguage.English;
 
     public static Dictionary<string, string> localisedEn;
     public static Dictionary<string, string> localisedTR;
@@ -47,11 +42,14 @@ public class LocalisationSystem
 
         switch (currentLanguage)
         {
-            case Language.English:
+            case SystemLanguage.English:
                 localisedEn.TryGetValue(key, out value);
                 break;
-            case Language.Turkish:
+            case SystemLanguage.Turkish:
                 localisedTR.TryGetValue(key, out value);
+                break;
+            default:
+                localisedEn.TryGetValue(key, out value);
                 break;
         }
         return value;

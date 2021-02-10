@@ -9,10 +9,10 @@ public class ScriptableMap : ScriptableObject
     public Map_Part[] countriesMadeOf;
     public int startCountryLevel;
     public Age startAgeOfNation;
-    public BNum startAttackPower;
-    public BNum startDefensePower;
-    public BNum startFoodAmount;
-    public BNum startMoneyAmount;
+    public BigDouble startAttackPower;
+    public BigDouble startDefensePower;
+    public BigDouble startFoodAmount;
+    public BigDouble startMoneyAmount;
     
     /// <summary>
     /// Every country has one specific resource

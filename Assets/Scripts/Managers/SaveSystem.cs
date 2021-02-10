@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 
-/// <summary>
-/// Save the state of game for loading next time
-/// </summary>
-/// <remarks>
 /// --------------------------------------------------------
 ///        ---THINGS SHOULD BE SAVED---
 ///             -BaseResources ( DONE as List )
@@ -21,21 +16,25 @@ using UnityEngine;
 ///             -Current level and xp state ( DONE )
 ///             -Exit and Enter times
 ///             -User Prefs
-/// --------------------------------------------------------
-/// </remarks>
+
+/// <summary>
+/// Save the state of game for loading next time
+/// </summary>
 public class SaveSystem : Singleton<SaveSystem>
 {
-    public BNum totalEarnedCurrency;
-    public BNum totalEarnedPremiumCurrency;
-    public BNum totalProducedResource;
-    public BNum totalSpendedCurrency;
-    public BNum totalSpendedPremiumCurrency;
-    public BNum totalConsumedResource;
+    public BigDouble totalEarnedCurrency;
+    public BigDouble totalEarnedPremiumCurrency;
+    public BigDouble totalProducedResource;
+    public BigDouble totalSpendedCurrency;
+    public BigDouble totalSpendedPremiumCurrency;
+    public BigDouble totalConsumedResource;
+
+    // For checking if values are loading so some events and popups don't show up.
+    internal bool isLoading;
 
     int totalExitTime;
 
-    public List<MineSave> mines;
-    public List<CompoundSave> compounds;
+    [SerializeField] List<ProductionUnitSave> savedProductionUnits;
 
     SaveObject saveObject;
 
@@ -50,105 +49,105 @@ public class SaveSystem : Singleton<SaveSystem>
         if (isLoadAtStart)
             Load();
 
-        mines = new List<MineSave>();
-        compounds = new List<CompoundSave>();
+        savedProductionUnits = new List<ProductionUnitSave>();
     }
 
-    private void Start()
-    {
-        
-    }
+    //private void OnApplicationFocus(bool focus)
+    //{
+    //    if (!focus)
+    //    {
+    //        Time.timeScale = 0;
+    //        Save();
+    //    }
+    //    else
+    //    {
+    //        Time.timeScale = 1;
+    //        Load();
+    //    }
+    //}
 
     public void Save()
     {
-        #region Mine and Compound Save
-        foreach (var _mine in ProductionManager.Instance.instantiatedMines)
+        // Save all production buildings info
+        foreach (var _unit in ProductionManager.Instance.instantiatedProductionUnits)
         {
-            var mine = _mine.GetComponent<Mine_Btn>();
-            MineSave mineSave = new MineSave()
+            var unit = _unit.GetComponent<ProductionBase>();
+            ProductionUnitSave unitSave = new ProductionUnitSave()
             {
-                chargeTime = mine.CollectTime,
-                isAutomated = mine.IsAutomated,
-                mineLevel = mine.Level,
-                remainedChargeTime = mine.RemainedCollectTime,
-                upgradeAmount = mine.UpgradeCost,
-                workingMode = mine.WorkingMode,
-                outputAmount = mine.OutputValue,
-                isLockedByContract = mine.IsLockedByContract,
+                chargeTime = unit.CollectTime,
+                remainedChargeTime = unit.RemainedCollectTime,
+                currentLevel = unit.Level,
+                isAutomated = unit.IsAutomated,
+                isLockedByContract = unit.IsLockedByContract,
+                outputAmount = unit.OutputValue,
+                upgradeAmount = unit.UpgradeCost,
+                workingMode = unit.WorkingMode
             };
-            mines.Add(mineSave);
+            savedProductionUnits.Add(unitSave);
         }
-        foreach (var _compound in ProductionManager.Instance.instantiatedCompounds)
-        {
-            var c = _compound.GetComponent<Compounds>();
-            CompoundSave compoundSave = new CompoundSave()
-            {
-                compoundLevel = c.Level,
-                isAutomated = c.IsAutomated,
-                outputAmount = c.OutputValue,
-                remainedChargeTime = c.RemainedBuildTime,
-                requiredResources = c.RemainedResources,
-                upgradeAmount = c.UpgradeCost,
-                workingMode = c.WorkingMode,
-                isLockedByContract = c.IsLockedByContract,
-            };
-            compounds.Add(compoundSave);
-        }
-        #endregion
 
-        // Save resource values
-        List<BNum> resourceList = new List<BNum>();
+        // Save resource values to a list
+        List<BigDouble> resourceList = new List<BigDouble>();
         foreach (var res in ResourceManager.Instance.resourceValueDict)
-        {
             resourceList.Add(res.Value);
-        }
 
         List<MapSave> savedMaps = new List<MapSave>();
-        foreach (var map in MapManager.Instance.allMaps)
+        //foreach (var map in MapManager.Instance.allMaps)
+        //{
+        //    var mapSave = new MapSave()
+        //    {
+        //        attackPower = map.AttackPower,
+        //        countryLevel = map.CountryLevel,
+        //        currentAgeOfNation = map.CurrentAgeOfNation,
+        //        currentLives = map.CombatLives,
+        //        defensePower = map.DefensePower,
+        //        foodAmount = map.FoodAmount,
+        //        moneyAmount = map.MoneyAmount,
+        //        resourceAmounts = map.ResourceValueDict.Values.ToList()
+        //    };
+        //    savedMaps.Add(mapSave);
+        //}
+
+        var contractManagerSave = new ContractManagerSave()
         {
-            var mapSave = new MapSave()
-            {
-                attackPower = map.AttackPower,
-                countryLevel = map.CountryLevel,
-                currentAgeOfNation = map.CurrentAgeOfNation,
-                currentLives = map.CombatLives,
-                defensePower = map.DefensePower,
-                foodAmount = map.FoodAmount,
-                moneyAmount = map.MoneyAmount,
-                resourceAmounts = map.ResourceValueDict.Values.ToList()
-            };
-            savedMaps.Add(mapSave);
-        }
+            activatedContracts = ContractManager.Instance.activatedContracts,
+            completedContracts = ContractManager.Instance.completedContracts,
+            contractResources = ContractManager.Instance.tempResources,
+            contracts = ContractManager.Instance.contracts,
+        };
+
+        var questManagerSave = new QuestManagerSave()
+        {
+            completedQuestList = QuestManager.Instance.completedQuests,
+            quests = QuestManager.Instance.questBases,
+        };
 
         // Save all game values as one single object for later json conversion
         SaveObject saveObject = new SaveObject()
         {
-            instantiatedCompounds = compounds,
-            instantiatedMines = mines,
             resourceList = resourceList,
+            instantiatedProductionUnits = savedProductionUnits,
+
+            contractManagerSave = contractManagerSave,
+            questManagerSave = questManagerSave,
             mapSaves = savedMaps,
 
-            // Save Contract Manager Values
-            contractManagerSave = new ContractManagerSave()
-            {
-                activatedContracts = ContractManager.Instance.activatedContracts,
-                completedContracts = ContractManager.Instance.completedContracts,
-                contractResources = ContractManager.Instance.tempResources,
-                contracts = ContractManager.Instance.contracts,
-            },
-
-            questManagerSave = new QuestManagerSave()
-            {
-                completedQuestList = QuestManager.Instance.completedQuests,
-                quests = QuestManager.Instance.questBases,
-            },
-
+            currency = ResourceManager.Instance.Currency,
+            premiumCurrency = ResourceManager.Instance.PremiumCurrency,
+            
             currentLevel = GameManager.Instance.CurrentLevel,
             currentXP = GameManager.Instance.CurrentXP,
             requiredXPforNextLevel = GameManager.Instance.RequiredXPforNextLevel,
 
+            totalEarnedCurrency = totalEarnedCurrency,
+            totalEarnedPremiumCurrency = totalEarnedPremiumCurrency,
+            totalProducedResource = totalProducedResource,
+            totalSpendedCurrency = totalSpendedCurrency,
+            totalSpendedPremiumCurrency = totalSpendedPremiumCurrency,
+            totalConsumedResource = totalConsumedResource,
+            
             lastExitTime = DateTime.Now,
-        };
+    };
 
         string saveText = JsonUtility.ToJson(saveObject);
         File.WriteAllText(Application.persistentDataPath + "/SAVES/save.txt", saveText);
@@ -159,100 +158,71 @@ public class SaveSystem : Singleton<SaveSystem>
     {
         if (File.Exists(Application.persistentDataPath + "/SAVES/save.txt"))
         {
+            isLoading = true;
             string saveText = File.ReadAllText(Application.persistentDataPath + "/SAVES/save.txt");
 
             saveObject = JsonUtility.FromJson<SaveObject>(saveText);
 
             totalExitTime = (DateTime.Now - saveObject.lastExitTime).Seconds;
-            //Debug.Log(string.Format("You were out of game for: {0} minutes and {1:00} seconds",(int)totalExitTime/60,(int)totalExitTime%60));
+            Debug.Log(string.Format("You were out of game for: {0} minutes and {1:00} seconds", (int)totalExitTime / 60, (int)totalExitTime % 60));
 
-            BNum idleEarnedCurrency = new BNum();
-            BNum idleEarnedResource = new BNum();
+            BigDouble idleEarnedCurrency = new BigDouble();
+            BigDouble idleEarnedResource = new BigDouble();
+
+            // Load all variables
+            GameManager.Instance.CurrentLevel = saveObject.currentLevel;
+            GameManager.Instance.CurrentXP = saveObject.currentXP;
+            GameManager.Instance.RequiredXPforNextLevel = saveObject.requiredXPforNextLevel;
+
+            ResourceManager.Instance.Currency = saveObject.currency;
+            ResourceManager.Instance.PremiumCurrency = saveObject.premiumCurrency;
+            ResourceManager.Instance.TotalResource = saveObject.totalResource;
+
+            var allResourceAndAmounts = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>().Zip(saveObject.resourceList, (res, amount) => (Res: res, Amount: amount));
+            foreach (var (Res, Amount) in allResourceAndAmounts)
+            {
+                ResourceManager.Instance.AddResource(Res, Amount);
+            }
+
+            ContractManager.Instance.activatedContracts = saveObject.contractManagerSave.activatedContracts;
+            ContractManager.Instance.tempResources = saveObject.contractManagerSave.contractResources;
+            ContractManager.Instance.contracts = saveObject.contractManagerSave.contracts;
+            ContractManager.Instance.completedContracts = saveObject.contractManagerSave.completedContracts;
+
+            QuestManager.Instance.completedQuests = saveObject.questManagerSave.completedQuestList;
+            QuestManager.Instance.questBases = saveObject.questManagerSave.quests;
+
+            ResourceManager.Instance.Currency = saveObject.currency;
+            ResourceManager.Instance.PremiumCurrency = saveObject.premiumCurrency;
 
             GameManager.Instance.CurrentXP = saveObject.currentXP;
             GameManager.Instance.RequiredXPforNextLevel = saveObject.requiredXPforNextLevel;
             GameManager.Instance.CurrentLevel = saveObject.currentLevel;
-            ResourceManager.Instance.isLoadingFromSaveFile = true;
-            //ResourceManager.Instance.Currency = saveObject.currency;
-            ResourceManager.Instance.isLoadingFromSaveFile = true;
-            //ResourceManager.Instance.PremiumCurrency = saveObject.premiumCurrency;
 
-            //this.totalEarnedCurrency = saveObject.totalEarnedCurrency;
-            //this.totalConsumedResource = saveObject.totalConsumedResource;
-            //this.totalEarnedPremiumCurrency = saveObject.totalEarnedPremiumCurrency;
-            //this.totalProducedResource = saveObject.totalProducedResource;
-            //this.totalSpendedCurrency = saveObject.totalSpendedCurrency;
-            //this.totalSpendedPremiumCurrency = saveObject.totalSpendedPremiumCurrency;
 
-            //ResourceManager.Instance.TotalResource = saveObject.totalResource;
+            var savedProductionUnitInfos = ProductionManager.Instance.instantiatedProductionUnits.Zip(
+                saveObject.instantiatedProductionUnits, (instance, save) => (Instance: instance, Save: save));
 
-            /*      ---------------------------  BASE_RESOURCE enum  and resource dictionary should be in same order ---------------------------     */
-            var allResourceAndAmounts = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>().Zip(saveObject.resourceList, (res, amount) => (Res: res, Amount: amount));
-
-            foreach (var resource in allResourceAndAmounts)
+            foreach (var (Instance, Save) in savedProductionUnitInfos)
             {
-                ResourceManager.Instance.AddResource(resource.Res,resource.Amount, true);
+                var unit = Instance.GetComponent<ProductionBase>();
+                unit.Level = Save.currentLevel;
+                unit.UpgradeCost = Save.upgradeAmount;
+                unit.CollectTime = Save.chargeTime;
+                unit.RemainedCollectTime = Save.remainedChargeTime;
+                unit.WorkingMode = Save.workingMode;
+                unit.IsLockedByContract = Save.isLockedByContract;
+                unit.OutputValue = Save.outputAmount;
+                unit.IsAutomated = Save.isAutomated;
             }
 
-            var savedMineInfos = ProductionManager.Instance.instantiatedMines.Zip(saveObject.instantiatedMines, (mines, infos) => (Mine: mines, Info: infos));
-            var savedCompoundInfos = ProductionManager.Instance.instantiatedCompounds.Zip(saveObject.instantiatedCompounds, (compound, info) => (Compound: compound, Info: info));
-
-            foreach (var m in savedMineInfos)
-            {
-                var mine = m.Mine.GetComponent<Mine_Btn>();
-                mine.Level = m.Info.mineLevel;
-                mine.UpgradeCost = m.Info.upgradeAmount;
-                mine.CollectTime = m.Info.chargeTime;
-                mine.WorkingMode = m.Info.workingMode;
-                mine.RemainedCollectTime = m.Info.remainedChargeTime;
-                mine.IsLockedByContract = m.Info.isLockedByContract;
-
-                if (m.Info.remainedChargeTime > 0)
-                {
-                    m.Mine.GetComponent<Mine_Btn>().CollectMine();
-                }
-                mine.IsAutomated = m.Info.isAutomated;
-                mine.CollectMine();
-            }
-
-            //foreach (var m in savedMineInfos)
-            //{
-            //    var mine = m.Mine.GetComponent<Mine_Btn>();
-            //    mine.MineLevel = m.Info.mineLevel;
-            //    mine.UpgradeCost = m.Info.upgradeAmount;
-            //    mine.CollectTime = m.Info.chargeTime;
-            //    mine.WorkingMode = m.Info.workingMode;
-
-            //    // Implement idle earning
-            //    //for (int i = 0; i < (int)((totalExitTime + m.Info.remainedChargeTime) / (mine.CollectTime)); i++)
-            //    //{
-
-            //    //    //float currency, resource;
-            //    //    //mine.AddResourceAndMoney(out currency, out resource);
-            //    //    //idleEarnedCurrency += currency;
-            //    //    //idleEarnedResource += resource;
-            //    //}
-
-            //    mine.RemainedCollectTime = ((totalExitTime + m.Info.remainedChargeTime) % mine.CollectTime);
-
-            //    if (m.Info.remainedChargeTime > 0)
-            //    {
-            //        m.Mine.GetComponent<Mine_Btn>().CollectMine();
-            //    }
-            //    mine.IsAutomated = m.Info.isAutomated;
-            //    mine.CollectMine();
-            //}
-            //Debug.Log("Idle earned currency is: " + idleEarnedCurrency);
-
-            //foreach (var c in savedCompoundInfos)
-            //{
-            //    c.Compound.GetComponent<Compounds>().RemainedCollectTime = c.Info.remainedChargeTime;
-            //    c.Compound.GetComponent<Compounds>().CompoundLevel = c.Info.compoundLevel;
-            //    c.Compound.GetComponent<Compounds>().IsAutomated = c.Info.isAutomated;
-            //    c.Compound.GetComponent<Compounds>().UpgradeAmount = c.Info.upgradeAmount;
-            //    c.Compound.GetComponent<Compounds>().IncomeAmount = c.Info.incomeAmount;
-            //    c.Compound.GetComponent<Compounds>().RemainedResources = c.Info.requiredResources;
-            //}
+            this.totalEarnedCurrency = saveObject.totalEarnedCurrency;
+            this.totalConsumedResource = saveObject.totalConsumedResource;
+            this.totalEarnedPremiumCurrency = saveObject.totalEarnedPremiumCurrency;
+            this.totalProducedResource = saveObject.totalProducedResource;
+            this.totalSpendedCurrency = saveObject.totalSpendedCurrency;
+            this.totalSpendedPremiumCurrency = saveObject.totalSpendedPremiumCurrency;
+            isLoading = false;
         }
     }
 
@@ -266,24 +236,19 @@ public class SaveSystem : Singleton<SaveSystem>
     public class SaveObj
     {
         public Dictionary<BaseResources, long> resourceDict;
-
-
     }
 
     [Serializable]
     public class SaveObject
     {
-        public List<BNum> resourceList = new List<BNum>();
+        public List<BigDouble> resourceList = new List<BigDouble>();
 
         public DateTime firstEnterTime;
         public DateTime lastExitTime;
 
-        public List<MineSave> instantiatedMines;
-        public List<CompoundSave> instantiatedCompounds;
+        public List<ProductionUnitSave> instantiatedProductionUnits;
 
         public List<MapSave> mapSaves;
-
-        public List<ContractSave> savedContracts;
 
         public ContractManagerSave contractManagerSave;
         public QuestManagerSave questManagerSave;
@@ -292,41 +257,28 @@ public class SaveSystem : Singleton<SaveSystem>
         public long requiredXPforNextLevel;
         public int currentLevel;
 
-        //public BNum currency;
-        //public BNum premiumCurrency;
-        //public BNum totalResource;
+        public BigDouble currency;
+        public BigDouble premiumCurrency;
+        public BigDouble totalResource;
 
-        public BNum totalEarnedCurrency;
-        public BNum totalEarnedPremiumCurrency;
-        public BNum totalProducedResource;
-        public BNum totalSpendedCurrency;
-        public BNum totalSpendedPremiumCurrency;
-        public BNum totalConsumedResource;
+        public BigDouble totalEarnedCurrency;
+        public BigDouble totalEarnedPremiumCurrency;
+        public BigDouble totalProducedResource;
+        public BigDouble totalSpendedCurrency;
+        public BigDouble totalSpendedPremiumCurrency;
+        public BigDouble totalConsumedResource;
     }
 }
 
 [Serializable]
-public class MineSave
+public class ProductionUnitSave
 {
     public float chargeTime;
     public float remainedChargeTime;
-    public BNum upgradeAmount;
-    public int mineLevel;
+    public BigDouble upgradeAmount;
+    public int currentLevel;
     public bool isAutomated;
     public long outputAmount;
-    public WorkingMode workingMode;
-    public bool isLockedByContract;
-}
-
-[Serializable]
-public class CompoundSave
-{
-    public float remainedChargeTime;
-    public BNum upgradeAmount;
-    public int compoundLevel;
-    public bool isAutomated;
-    public long outputAmount;
-    public List<BaseResources> requiredResources;
     public WorkingMode workingMode;
     public bool isLockedByContract;
 }
@@ -336,12 +288,12 @@ public class MapSave
 {
     public int countryLevel;
     public Age currentAgeOfNation;
-    public BNum attackPower;
-    public BNum defensePower;
-    public BNum foodAmount;
-    public BNum moneyAmount;
+    public BigDouble attackPower;
+    public BigDouble defensePower;
+    public BigDouble foodAmount;
+    public BigDouble moneyAmount;
     public int currentLives;
-    public List<BNum> resourceAmounts;
+    public List<BigDouble> resourceAmounts;
 }
 
 [Serializable]
@@ -351,14 +303,6 @@ public class ContractManagerSave
     public List<ContractBase> activatedContracts;
     public List<ContractBase> completedContracts;
     public List<List<BaseResources>> contractResources;
-}
-
-[Serializable]
-public class ContractSave
-{
-    public ContractBase contractBase;
-    public bool isContractCompleted;
-    public BaseResources[] remainedRequiredResources;
 }
 
 [Serializable]

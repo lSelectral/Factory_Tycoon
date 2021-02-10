@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Wheel
+  m_EditorClassIdentifier: 
+  Description: Pinnacle Of Humanity
+  test:
+    mantissa: 0
+    exponent: 0
+  TranslatedName: Wheel
+  product: 18
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 12
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: e85b1ad766159684f98b9338b2f0acfe, type: 3}
+  unlockLevel: 14
+  xpAmount: 25
+  ageBelongsTo: 0
+  tier: 3
+  itemTypes: 0100000000000000
+  pricePerProductText: 0
+  pricePerProduct:
+    mantissa: 0
+    exponent: 0
+  incomePerSecondText: 0
+  incomePerSecond:
+    mantissa: 0
+    exponent: 0
+  pricePerProductUntilLevel50:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  isFixedArraySize: 1
+  inputResources: 04000000
+  inputAmounts: 05000000
+  basePricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 0
+  optimalPricePerSecond:
+    mantissa: 0
+    exponent: 0
+  isOptimal: 1

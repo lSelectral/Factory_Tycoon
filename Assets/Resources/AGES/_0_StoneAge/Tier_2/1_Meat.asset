@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Meat
+  m_EditorClassIdentifier: 
+  Description: Meat is one of the first food that humanity explored. It is very nutritous
+    and delicious.
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Meat
+  product: 13
+  foodAmount: 4
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
+  outputValue: 5
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 90d1fe8195b84c9479d9b2b1af71a5e2, type: 3}
+  unlockLevel: 10
+  xpAmount: 40
+  ageBelongsTo: 0
+  tier: 2
+  itemTypes: 0300000001000000
+  pricePerProductText: 3,29A
+  pricePerProduct: 3.2852713e+9
+  incomePerSecondText: 1,1A
+  incomePerSecond: 1.0950904e+9
+  pricePerProductUntilLevel50:
+  - 5.157876e+9
+  - 8.0978657e+9
+  - 1.2713649e+10
+  - 1.996043e+10
+  - 3.1337878e+10
+  - 4.920047e+10
+  - 7.7244735e+10
+  - 1.2127424e+11
+  - 1.9040056e+11
+  - 2.989289e+11
+  - 4.6931837e+11
+  - 7.3682983e+11
+  - 1.1568229e+12
+  - 1.816212e+12
+  - 2.851453e+12
+  - 4.4767815e+12
+  - 7.028547e+12
+  - 1.103482e+13
+  - 1.7324667e+13
+  - 2.7199728e+13
+  - 4.2703576e+13
+  - 6.7044616e+13
+  - 1.0526005e+14
+  - 1.6525828e+14
+  - 2.594555e+14
+  - 4.0734517e+14
+  - 6.395319e+14
+  - 1.0040651e+15
+  - 1.5763822e+15
+  - 2.4749201e+15
+  - 3.8856247e+15
+  - 6.100431e+15
+  - 9.577677e+15
+  - 1.5036953e+16
+  - 2.3608018e+16
+  - 3.706459e+16
+  - 5.8191404e+16
+  - 9.136051e+16
+  - 1.43436e+17
+  - 2.2519453e+17
+  - 3.5355542e+17
+  - 5.5508202e+17
+  - 8.714788e+17
+  - 1.3682218e+18
+  - 2.1481083e+18
+  - 3.37253e+18
+  - 5.2948725e+18
+  - 8.31295e+18
+  - 1.3051332e+19
+  - 4.8289926e+19
+  isFixedArraySize: 1
+  inputResources: 08000000
+  inputAmounts: 02000000
+  basePricePerProduct: 3.2e+9
+  optimalPricePerProductText: 85,27M
+  optimalPricePerProduct: 85271220
+  optimalIncomePerSecondText: 2,38M
+  optimalPricePerSecond: 2375901
+  isOptimal: 1

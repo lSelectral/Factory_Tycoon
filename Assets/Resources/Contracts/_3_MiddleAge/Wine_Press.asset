@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cab4ef3c6492d74fb327e13a597e0fe, type: 3}
   m_Name: Wine_Press
   m_EditorClassIdentifier: 
-  contractName: 
+  contractName: Wine_Press
   description: Used for pressing grapes and produce wine from it
   contractReward: 0
   contractRewardType: 0
-  compoundsToUnlock:
-  - {fileID: 11400000, guid: f5c58696b33812b419091f9aa1f64199, type: 2}
-  minesToUnlock: []
+  resourceToRewarded: 0
+  dependentContracts: []
+  productsToUnlock: []
   requiredResources: 
   requiredResourceAmounts: 
-  unlockLevel: 0
+  unlockLevel: 25
   icon: {fileID: 0}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 
   pageNameToGo: 
   xpReward: 0
-  isContractCompleted: 0
+  ageBelongsTo: 0
+  history: 0

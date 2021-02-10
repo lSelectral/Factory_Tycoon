@@ -4,16 +4,16 @@ using UnityEngine;
 public class StatSystem : Singleton<StatSystem>
 {
     [SerializeField] private TextMeshProUGUI currencyPerSecondText, resourcePerSecondText;
-    [SerializeField] private float currencyPerSecond, resourcePerSecond;
+    [SerializeField] private BigDouble currencyPerSecond, resourcePerSecond;
     private float smoothCurrencyPerSecond, smoothCurrencyVelocity, smoothResourcePerSecond, smoothResourceVelocity;
 
-    public float CurrencyPerSecond
+    public BigDouble CurrencyPerSecond
     {
         get { return currencyPerSecond; }
         set { currencyPerSecond = value; }
     }
 
-    public float ResourcePerSecond
+    public BigDouble ResourcePerSecond
     {
         get { return resourcePerSecond; }
         set { resourcePerSecond = value; }
@@ -25,7 +25,7 @@ public class StatSystem : Singleton<StatSystem>
     //    currencyPerSecondText.text = "$ " + ResourceManager.Instance.CurrencyToString(smoothCurrencyPerSecond) + "/s";
     //}
 
-    public void PopupText(Transform _transform, float outputValue, string resourceName, float popupTime = 1f)
+    public void PopupText(Transform _transform, BigDouble outputValue, string resourceName, float popupTime = 1f)
     {
         var obj = new GameObject("FloatingText");
         var text = obj.AddComponent<TextMeshProUGUI>();
@@ -41,7 +41,7 @@ public class StatSystem : Singleton<StatSystem>
 
         obj.transform.SetParent(_transform);
         obj.transform.SetAsLastSibling();
-        text.text = string.Format("+{0} {1}", ResourceManager.Instance.CurrencyToString(outputValue), resourceName);
+        text.text = string.Format("+{0} {1}", (outputValue).ToString(), resourceName);
         text.raycastTarget = false;
         obj.transform.localScale = new Vector3(1, 1, 1);
         text.fontSize = 80;

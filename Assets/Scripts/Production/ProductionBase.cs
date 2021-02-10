@@ -5,6 +5,10 @@ using System;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
+/* 
+ * TODO add alternative way to create some products.
+ * Ex: Logs => 3 stick
+*/
 /// <summary>
 /// Base class for all production units
 /// </summary>
@@ -13,44 +17,44 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     #region Class Variables
     public ScriptableProductionBase scriptableProductionBase;
 
-    internal Dictionary<ContractBase, bool> contractStatueCheckDictionary;
+    protected Dictionary<ContractBase, bool> contractStatueCheckDictionary;
     internal ContractBase[] contracts;
-    [SerializeField] internal bool isAutomated;
+    [SerializeField] protected bool isAutomated;
 
-    internal bool isUpgradePanelActive;
+    protected bool isUpgradePanelActive;
 
     // Scriptable object class variables
-    [SerializeField] internal float collectTime;
-    internal string _name;
-    internal string resourceName;
-    internal BaseResources producedResource;
-    internal ItemType[] itemTypes;
-    internal long foodAmount;
-    internal float remainedCollectTime;
-    internal bool isCharging;
-    internal long outputValue;
-    internal float pricePerProduct;
-    internal Sprite backgroundImage;
-    internal int unlockLevel;
-    internal float xpAmount;
-    internal bool isLockedByContract;
+    [SerializeField] protected float collectTime;
+    protected string _name;
+    protected string resourceName;
+    protected BaseResources producedResource;
+    protected ItemType[] itemTypes;
+    protected long foodAmount;
+    protected float remainedCollectTime;
+    protected bool isCharging;
+    protected long outputValue;
+    protected BigDouble pricePerProduct;
+    protected Sprite backgroundImage;
+    protected int unlockLevel;
+    protected float xpAmount;
+    protected bool isLockedByContract;
 
     // Attached gameobject transforms
-    internal Image fillBar;
-    internal TextMeshProUGUI nameText;
-    internal Transform mainBtn;
-    internal Button upgradeBtn;
-    internal Button workModeBtn;
-    internal TextMeshProUGUI upgradeAmountText;
-    internal TextMeshProUGUI levelText;
-    internal TextMeshProUGUI workModeText;
-    internal float outputPerSecond;
+    protected Image fillBar;
+    protected TextMeshProUGUI nameText;
+    protected Transform mainBtn;
+    protected Button upgradeBtn;
+    protected Button workModeBtn;
+    protected TextMeshProUGUI upgradeAmountText;
+    protected TextMeshProUGUI levelText;
+    protected TextMeshProUGUI workModeText;
+    protected float outputPerSecond;
 
-    internal int level;
-    internal BNum upgradeCost;
-    internal float incomePerSecond;
-    internal WorkingMode workingMode;
-    internal LTDescr toolAnimation;
+    protected int level;
+    protected BigDouble upgradeCost;
+    protected BigDouble incomePerSecond;
+    protected WorkingMode workingMode;
+    protected LTDescr toolAnimation;
 
     #endregion
 
@@ -72,10 +76,10 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         set { level = value; levelText.text = "LEVEL " + level.ToString(); }
     }
 
-    public BNum UpgradeCost
+    public BigDouble UpgradeCost
     {
         get { return upgradeCost; }
-        set { upgradeCost = value; upgradeAmountText.text = "$" + ResourceManager.Instance.CurrencyToString(upgradeCost); }
+        set { upgradeCost = value; upgradeAmountText.text = "$" + upgradeCost.ToString(); }
     }
 
     public bool IsAutomated
@@ -99,7 +103,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         set { xpAmount = value; }
     }
 
-    public float PricePerProduct
+    public BigDouble PricePerProduct
     {
         get { return pricePerProduct; }
         set { pricePerProduct = value; }
@@ -130,7 +134,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         get { return producedResource; }
     }
 
-    public float IncomePerSecond
+    public BigDouble IncomePerSecond
     {
         get { return incomePerSecond; }
         set
@@ -154,7 +158,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     internal virtual void Start()
     {
-        // TODO ONLY FOR DEBUG REMOVE IT
         IsAutomated = false;
         mainProductionPanel = transform.parent.parent.parent.parent.parent.gameObject;
         agePanel = transform.parent.parent.parent.gameObject;
@@ -192,8 +195,8 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         xpAmount = scriptableProductionBase.xpAmount * 1f;
         outputPerSecond = outputValue * 1f / collectTime;
 
-        if (upgradeCost == null || upgradeCost == new BNum())
-            upgradeCost = new BNum(outputValue * pricePerProduct * UpgradeSystem.STARTING_UPGRADE_COST_MULTIPLIER,0);
+        if (upgradeCost == null || upgradeCost == new BigDouble())
+            upgradeCost = (outputValue * pricePerProduct * UpgradeSystem.STARTING_UPGRADE_COST_MULTIPLIER);
 
         // Set lock text
         if (unlockLevel > GameManager.Instance.CurrentLevel)
@@ -348,9 +351,9 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         var newLevel = level + upgradeMultiplier;
         var newOutputValue = UpgradeSystem.Instance.GetNewOutputAmount(upgradeMultiplier, OutputValue, level);
         var newCollectTime = UpgradeSystem.Instance.GetNewCollectTime(upgradeMultiplier, collectTime);
-        var newPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(upgradeMultiplier, pricePerProduct, level);
+        BigDouble newPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(upgradeMultiplier, pricePerProduct, level);
 
-        BNum newUpgradeCost = new BNum();
+        BigDouble newUpgradeCost = new BigDouble();
 
         if (upgradeMultiplier > 1)
             newUpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(upgradeMultiplier, UpgradeCost, level);

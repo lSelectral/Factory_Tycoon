@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 0_Fish
+  m_EditorClassIdentifier: 
+  Description: 
+  test:
+    value: 0
+    tenPow: 0
+    aPow: 0
+  TranslatedName: Berry
+  product: 0
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 20
+  outputValue: 4
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 886132581bedf634e86642620aed90a5, type: 3}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: b4d8b576f89e53d4187397b07a5af715, type: 3}
+  unlockLevel: 0
+  xpAmount: 10
+  ageBelongsTo: 0
+  tier: 3
+  itemTypes: 00000000
+  pricePerProductText: 207,73
+  pricePerProduct: 207.72728
+  incomePerSecondText: 41,55
+  incomePerSecond: 41.545456
+  pricePerProductUntilLevel50:
+  - 326.13184
+  - 512.027
+  - 803.8824
+  - 1262.0953
+  - 1981.4897
+  - 3110.939
+  - 4884.1743
+  - 7668.154
+  - 12039.002
+  - 18901.234
+  - 29674.94
+  - 46589.656
+  - 73145.766
+  - 114838.86
+  - 180297.02
+  - 283066.3
+  - 444414.12
+  - 697730.2
+  - 1095436.4
+  - 1719835.1
+  - 2700141.2
+  - 4239222
+  - 6655579
+  - 10449259
+  - 16405337
+  - 25756380
+  - 40437516
+  - 63486904
+  - 99674440
+  - 156488880
+  - 245687550
+  - 385729470
+  - 605595260
+  - 950784600
+  - 1.4927318e+9
+  - 2.3435889e+9
+  - 3.6794348e+9
+  - 5.7767127e+9
+  - 9.069439e+9
+  - 1.423902e+10
+  - 2.2355261e+10
+  - 3.509776e+10
+  - 5.5103484e+10
+  - 8.651248e+10
+  - 1.3582459e+11
+  - 2.1324461e+11
+  - 3.3479403e+11
+  - 5.2562664e+11
+  - 8.2523383e+11
+  - 3.0533652e+12
+  isFixedArraySize: 1
+  inputResources: 00000000
+  inputAmounts: 01000000
+  basePricePerProduct: 0
+  optimalPricePerProductText: 207,73
+  optimalPricePerProduct: 207.72728
+  optimalIncomePerSecondText: 8,68
+  optimalPricePerSecond: 8.681818
+  isOptimal: 1

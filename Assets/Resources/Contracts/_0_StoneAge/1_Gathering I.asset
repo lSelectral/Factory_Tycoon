@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cab4ef3c6492d74fb327e13a597e0fe, type: 3}
+  m_Name: 1_Gathering I
+  m_EditorClassIdentifier: 
+  contractName: Gathering Techonology I
+  description: Completing this contract wil imrove berry collection speed significantly.
+  contractType: 1
+  contractReward: 1.1
+  contractRewardType: 11
+  resourceToRewarded: 0
+  dependentContracts: []
+  productsToUnlock: []
+  requiredResources: 00000000
+  requiredResourceAmounts: 05000000
+  unlockLevel: 0
+  icon: {fileID: 21300000, guid: 4c3a68964f5a8324b94508155a5b458b, type: 3}
+  rewardPanelHeader: <color=red>Congrulations!</color> You completed Gathering Technology
+    I
+  rewardPanelDescription: Gods saw your sacrifices and gave you a gift for it. Now
+    you can collect berries much faster.
+  pageNameToGo: 
+  xpReward: 10
+  ageBelongsTo: 0
+  history: 0

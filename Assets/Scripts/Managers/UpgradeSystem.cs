@@ -165,7 +165,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
     #endregion
 
-    public BNum GetNewUpgradeCost(BNum oldUpgradeCost, int currentLevel)
+    public BigDouble GetNewUpgradeCost(BigDouble oldUpgradeCost, int currentLevel)
     {
         if (currentLevel <= 50)
             return oldUpgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_LOW_50, currentLevel);
@@ -173,7 +173,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
             return oldUpgradeCost * UPGRADE_BASE_MULTIPLIER * Mathf.Pow(UPGRADE_POWER_MULTIPLIER_HIGH_50, currentLevel);
     }
 
-    float GetNewPricePerProduct(float oldPricePerProduct, int currentLevel)
+    BigDouble GetNewPricePerProduct(BigDouble oldPricePerProduct, int currentLevel)
     {
         if (currentLevel <= 50)
             return oldPricePerProduct * PRICE_PER_PRODUCT_MULTIPLER_LOW_50;
@@ -181,7 +181,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
             return oldPricePerProduct * PRICE_PER_PRODUCT_MULTIPLIR_HIGH_50;
     }
 
-    public float GetNewPricePerProduct(int upgradeCount, float oldPricePerProduct, int currentLevel)
+    public BigDouble GetNewPricePerProduct(int upgradeCount, BigDouble oldPricePerProduct, int currentLevel)
     {
         var newPricePerProduct = oldPricePerProduct;
         var newLevel = currentLevel++;
@@ -225,14 +225,14 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     }
 
     // Calculate maximum upgrade for maximum buying capacity
-    public int GetMaximumUpgradeAmount(BNum oldUpgradeCost, int mineLevel)
+    public int GetMaximumUpgradeAmount(BigDouble oldUpgradeCost, int mineLevel)
     {
         var currency = ResourceManager.Instance.Currency - oldUpgradeCost;
         var newUpgradeCost = oldUpgradeCost;
         //var level = mineLevel++;
         int counter = 1;
 
-        while (currency > new BNum())
+        while (currency > 0)
         {
             newUpgradeCost = GetNewUpgradeCost(newUpgradeCost, mineLevel);
             if (currency >= newUpgradeCost)
@@ -247,9 +247,9 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         return counter;
     }
 
-    public BNum GetNewUpgradeCost(int maximumUpgradeAmount, BNum oldUpgradeCost, int mineLevel)
+    public BigDouble GetNewUpgradeCost(int maximumUpgradeAmount, BigDouble oldUpgradeCost, int mineLevel)
     {
-        BNum totalUpgradeCost = new BNum();
+        BigDouble totalUpgradeCost = new BigDouble();
         totalUpgradeCost = oldUpgradeCost;
         var newUpgradeCost = oldUpgradeCost;
         var newMineLevel = mineLevel;
@@ -304,7 +304,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     /// Setup the upgrade panel infos according to upgrade multiplier
     /// </summary>
     /// <param name="levelUpgradeMultiplier">How many level will be upgraded. If 0 max upgrade will be applied</param>
-    public void SetUpgradePanel(int levelUpgradeMultiplier, long outputValue, int mineLevel, float collectTime, float pricePerProduct, BNum upgradeCost, string name, bool hideBottomPanel = true)
+    public void SetUpgradePanel(int levelUpgradeMultiplier, long outputValue, int mineLevel, float collectTime, BigDouble pricePerProduct, BigDouble upgradeCost, string name, bool hideBottomPanel = true)
     {
         var newLevel = mineLevel + levelUpgradeMultiplier;
         var newOutputValue = GetNewOutputAmount(levelUpgradeMultiplier, outputValue, mineLevel);
@@ -316,7 +316,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         panel.Find("Header").GetComponent<TextMeshProUGUI>().text = string.Format("<color=red>{0}</color> Level {1}", name, mineLevel);
         var levelUpText = panel.Find("LevelUp_Text").GetComponent<TextMeshProUGUI>();
 
-        panel.transform.Find("BuyBtn").GetComponentInChildren<TextMeshProUGUI>().text = string.Format("BUY ${0}", ResourceManager.Instance.CurrencyToString(newUpgradeCost));
+        panel.transform.Find("BuyBtn").GetComponentInChildren<TextMeshProUGUI>().text = string.Format("BUY ${0}", newUpgradeCost.ToString());
 
         if (newUpgradeCost > ResourceManager.Instance.Currency)
             panel.transform.Find("BuyBtn").GetComponent<Button>().interactable = false;
@@ -347,7 +347,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
             string.Format("Collect Time\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(collectTime), ResourceManager.Instance.CurrencyToString(newCollectTime));
 
         propertiesPanel.Find("Mid").Find("PricePerProduct").GetComponentInChildren<TextMeshProUGUI>().text =
-            string.Format("Price Per Product\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(pricePerProduct), ResourceManager.Instance.CurrencyToString(newPricePerProduct));
+            string.Format("Price Per Product\n{0} <color=green>--> {1}</color>", (pricePerProduct).ToLetterExpression(), (newPricePerProduct).ToString());
 
         if (!hideBottomPanel)
         {
@@ -358,7 +358,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         }
     }
 
-    public void ShowUpgradePanel(UnityAction<int> SetUpgradePanel, UnityAction UpgradeMine, bool isUpgradePanelActive, BNum upgradeCost, int level)
+    public void ShowUpgradePanel(UnityAction<int> SetUpgradePanel, UnityAction UpgradeMine, bool isUpgradePanelActive, BigDouble upgradeCost, int level)
     {
         UnityAction<int> tempAction = SetUpgradePanel;
 

@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Bronze_pickaxe
+  m_EditorClassIdentifier: 
+  Description: Pickaxe made easier to digging underground resources. It it much faster
+    than doing with hands.
+  test:
+    mantissa: 0
+    exponent: 0
+  TranslatedName: Bronze Pickaxe
+  product: 24
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 5
+  collectTime: 10
+  outputValue: 1
+  lockedByContracts: []
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
+  unlockLevel: 8
+  xpAmount: 10
+  ageBelongsTo: 1
+  tier: 1
+  itemTypes: 00000000
+  pricePerProductText: 0
+  pricePerProduct:
+    mantissa: 0
+    exponent: 0
+  incomePerSecondText: 0
+  incomePerSecond:
+    mantissa: 0
+    exponent: 0
+  pricePerProductUntilLevel50:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  isFixedArraySize: 1
+  inputResources: 0200000019000000
+  inputAmounts: 0300000004000000
+  basePricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 0
+  optimalPricePerSecond:
+    mantissa: 0
+    exponent: 0
+  isOptimal: 1
