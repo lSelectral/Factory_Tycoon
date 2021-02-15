@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 1_Wheat
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Wheat
+  product: 17
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 18
+  outputValue: 4
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+  ageBelongsTo: 0
+  tier: 3
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 8.2
+    exponent: 14
+  pricePerProductExpText: 8.2E+14
+  pricePerProductText: 820T
+  pricePerProduct:
+    mantissa: 8.2
+    exponent: 14
+  incomePerSecondText: 182,222T
+  incomePerSecond:
+    mantissa: 1.8222222222222222
+    exponent: 14
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 0
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 1,287A
+  - 2,021A
+  - 3,173A
+  - 4,982A
+  - 7,822A
+  - 12,28A
+  - 19,28A
+  - 30,27A
+  - 47,524A
+  - 74,612A
+  - 117,141A
+  - 183,912A
+  - 288,742A
+  - 453,324A
+  - 711,719A
+  - 1,117B
+  - 1,754B
+  - 2,754B
+  - 4,324B
+  - 6,789B
+  - 10,659B
+  - 16,734B
+  - 26,273B
+  - 41,248B
+  - 64,76B
+  - 101,673B
+  - 159,626B
+  - 250,614B
+  - 393,463B
+  - 617,737B
+  - 969,848B
+  - 1,523C
+  - 2,391C
+  - 3,753C
+  - 5,893C
+  - 9,251C
+  - 14,525C
+  - 22,803C
+  - 35,801C
+  - 56,208C
+  - 88,247C
+  - 138,548C
+  - 217,52C
+  - 341,507C
+  - 536,165C
+  - 841,78C
+  - 1,322D
+  - 2,075D
+  - 3,258D
+  - 12,053D
+  backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
+  toolImage: {fileID: 21300000, guid: 0e068830a70f6ea4e80f64082e8b83da, type: 3}
+  sourceImage: {fileID: 21300000, guid: c7af687facaf01c4995adbbd9ee40c64, type: 3}
+  icon: {fileID: 21300000, guid: 4cf8bd73b8fa94444b12c108b38ce61a, type: 3}

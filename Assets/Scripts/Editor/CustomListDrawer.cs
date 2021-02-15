@@ -3,28 +3,36 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-//[CustomPropertyDrawer(typeof(CustomListAttribute))]
+[CustomPropertyDrawer(typeof(Recipe))]
 public class CustomListDrawer : PropertyDrawer
 {
     const float _height = 50;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        // Using BeginProperty / EndProperty on the parent property means that
-        // prefab override logic works on the entire property.
-        EditorGUI.BeginProperty(position, label, property);
+        var inputResources = (property.FindPropertyRelative("inputResources"));
+        var inputAmounts = (property.FindPropertyRelative("inputAmounts"));
+        var collectTime = property.FindPropertyRelative("collectTime");
+        var outputAmount = property.FindPropertyRelative("outputAmount");
 
-        // Draw label
-        position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+        EditorGUILayout.BeginHorizontal(new GUIStyle() { alignment = TextAnchor.MiddleLeft, margin = new RectOffset(30,10,0,0)
+            , stretchHeight = true, fontSize = 12, richText = true });
 
-        // Don't make child fields be indented
-        var indent = EditorGUI.indentLevel;
-        EditorGUI.indentLevel = 0;
+        EditorGUILayout.PropertyField(inputResources, true, GUILayout.MinWidth(350));
+        EditorGUILayout.PropertyField(inputAmounts, true, GUILayout.MinWidth(350));
 
-        // Set indent back to what it was
-        EditorGUI.indentLevel = indent;
+        EditorGUILayout.EndHorizontal();
 
-        EditorGUI.EndProperty();
+        EditorGUILayout.BeginHorizontal(new GUIStyle()
+        {
+            fontSize = 12,
+            richText = true
+        });
+
+        EditorGUILayout.PropertyField(collectTime, true);
+        EditorGUILayout.PropertyField(outputAmount, true);
+
+        EditorGUILayout.EndHorizontal();
     }
 
 }

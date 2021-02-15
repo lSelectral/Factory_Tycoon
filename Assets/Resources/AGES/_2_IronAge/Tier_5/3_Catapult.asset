@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Catapult
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Catapult
+  product: 72
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 50
+  outputValue: 1
+  recipes:
+  - inputResources: 130000000300000005000000
+    inputAmounts: 1e0000000f00000005000000
+    collectTime: 50
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 4
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 6
+    exponent: 48
+  pricePerProductExpText: 6E+48
+  pricePerProductText: 6AE
+  pricePerProduct:
+    mantissa: 6
+    exponent: 48
+  incomePerSecondText: 120AD
+  incomePerSecond:
+    mantissa: 1.2
+    exponent: 47
+  optimalPricePerProductText: 17,709B
+  optimalPricePerProduct:
+    mantissa: 1.7708751484118337
+    exponent: 19
+  optimalIncomePerSecondText: 29,605A
+  optimalPricePerSecond:
+    mantissa: 2.960500085185229
+    exponent: 16
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 9,42AE
+  - 14,789AE
+  - 23,219AE
+  - 36,454AE
+  - 57,233AE
+  - 89,856AE
+  - 141,075AE
+  - 221,487AE
+  - 347,735AE
+  - 545,944AE
+  - 857,132AE
+  - 1,346AF
+  - 2,113AF
+  - 3,317AF
+  - 5,208AF
+  - 8,176AF
+  - 12,836AF
+  - 20,153AF
+  - 31,641AF
+  - 49,676AF
+  - 77,991AF
+  - 122,446AF
+  - 192,24AF
+  - 301,817AF
+  - 473,852AF
+  - 743,948AF
+  - 1,168AG
+  - 1,834AG
+  - 2,879AG
+  - 4,52AG
+  - 7,096AG
+  - 11,141AG
+  - 17,492AG
+  - 27,462AG
+  - 43,116AG
+  - 67,692AG
+  - 106,277AG
+  - 166,855AG
+  - 261,962AG
+  - 411,28AG
+  - 645,71AG
+  - 1,014BA
+  - 1,592BA
+  - 2,499BA
+  - 3,923BA
+  - 6,159BA
+  - 9,67BA
+  - 15,182BA
+  - 23,836BA
+  - 88,194BA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
+  sourceImage: {fileID: 21300000, guid: 1afebd13f6cf94144b7b917ff7e2d90f, type: 3}
+  icon: {fileID: 21300000, guid: 279138b7d8e3d694390cf0b9d04f6b45, type: 3}

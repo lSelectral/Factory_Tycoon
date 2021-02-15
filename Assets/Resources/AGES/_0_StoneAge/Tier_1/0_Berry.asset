@@ -14,34 +14,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: Sweet delicious berry. But don' t forget to check before eating or
     it would be your last meal.
-  test:
-    mantissa: 0
-    exponent: 0
   TranslatedName: Berry
   product: 0
   foodAmount: 1
   housingAmount: 0
   attackAmount: 0
-  collectTime: 2.2
+  collectTime: 1
   outputValue: 1
-  lockedByContracts: []
-  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
-  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
-  sourceImage: {fileID: 21300000, guid: 28414171dc0d6994db0611c47ba1c07d, type: 3}
-  icon: {fileID: 21300000, guid: cd1cbd18ac0484b4f8c7f82098766bdd, type: 3}
-  unlockLevel: 0
-  xpAmount: 2
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+    collectTime: 1
+    outputAmount: 1
   ageBelongsTo: 0
   tier: 0
   itemTypes: 03000000
+  basePricePerProduct:
+    mantissa: 5
+    exponent: 0
+  pricePerProductExpText: 5E+0
   pricePerProductText: 5
   pricePerProduct:
     mantissa: 5
     exponent: 0
-  incomePerSecondText: 2.27272722346724
+  incomePerSecondText: 5
   incomePerSecond:
-    mantissa: 2.272727223467237
+    mantissa: 5
     exponent: 0
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 19.099999666214
+  optimalPricePerSecond:
+    mantissa: 1.909999966621399
+    exponent: 1
+  isOptimal: 0
+  lockedByContracts: []
+  unlockLevel: 0
+  xpAmount: 2
   pricePerProductUntilLevel50:
   - 7.85000026226044
   - 12.3245008234978
@@ -59,37 +70,41 @@ MonoBehaviour:
   - 2,764K
   - 4,34K
   - 6,813K
-  - 1,07K
-  - 1,679K
-  - 2,637K
-  - 4,14K
-  - 6,499K
-  - 1,02K
-  - 1,602K
-  - 2,515K
-  - 3,949K
-  - 6,2K
-  - 9,733K
+  - 10,697K
+  - 16,794K
+  - 26,367K
+  - 41,396K
+  - 64,992K
+  - 102,038K
+  - 160,2K
+  - 251,514K
+  - 394,877K
+  - 619,957K
+  - 973,332K
   - 1,528M
   - 2,399M
   - 3,767M
   - 5,914M
   - 9,285M
-  - 1,458M
-  - 2,289M
-  - 3,593M
-  - 5,641M
-  - 8,856M
-  - 1,39M
-  - 2,183M
-  - 3,427M
-  - 5,381M
-  - 8,448M
-  - 1,326G
-  - 2,082G
-  - 3,269G
-  - 5,133G
-  - 8,059G
-  - 1,265G
-  - 1,986G
-  - 7,349G
+  - 14,577M
+  - 22,885M
+  - 35,93M
+  - 56,41M
+  - 88,564M
+  - 139,046M
+  - 218,302M
+  - 342,734M
+  - 538,092M
+  - 844,804M
+  - 1,326B
+  - 2,082B
+  - 3,269B
+  - 5,133B
+  - 8,059B
+  - 12,652B
+  - 19,863B
+  - 73,495B
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 28414171dc0d6994db0611c47ba1c07d, type: 3}
+  icon: {fileID: 21300000, guid: cd1cbd18ac0484b4f8c7f82098766bdd, type: 3}

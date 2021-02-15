@@ -4,6 +4,14 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
+/*
+ * HOW QUESTS SHOULD BE SAVED.
+ * 
+ * 
+ * 
+ * 
+ */
+
 /// --------------------------------------------------------
 ///        ---THINGS SHOULD BE SAVED---
 ///             -BaseResources ( DONE as List )
@@ -15,7 +23,7 @@ using UnityEngine;
 ///             -Some bool values for isFirst time doing that
 ///             -Current level and xp state ( DONE )
 ///             -Exit and Enter times
-///             -User Prefs
+///             -User Prefs (Voice, animation, notification)
 
 /// <summary>
 /// Save the state of game for loading next time
@@ -112,7 +120,6 @@ public class SaveSystem : Singleton<SaveSystem>
         {
             activatedContracts = ContractManager.Instance.activatedContracts,
             completedContracts = ContractManager.Instance.completedContracts,
-            contractResources = ContractManager.Instance.tempResources,
             contracts = ContractManager.Instance.contracts,
         };
 
@@ -185,7 +192,6 @@ public class SaveSystem : Singleton<SaveSystem>
             }
 
             ContractManager.Instance.activatedContracts = saveObject.contractManagerSave.activatedContracts;
-            ContractManager.Instance.tempResources = saveObject.contractManagerSave.contractResources;
             ContractManager.Instance.contracts = saveObject.contractManagerSave.contracts;
             ContractManager.Instance.completedContracts = saveObject.contractManagerSave.completedContracts;
 
@@ -300,9 +306,9 @@ public class MapSave
 public class ContractManagerSave
 {
     public ContractBase[] contracts;
-    public List<ContractBase> activatedContracts;
-    public List<ContractBase> completedContracts;
-    public List<List<BaseResources>> contractResources;
+    public List<ContractHolder> activatedContracts;
+    public List<ContractHolder> completedContracts;
+    public Dictionary<ContractBase, List<BaseResources>> tempResourceDictionary;
 }
 
 [Serializable]

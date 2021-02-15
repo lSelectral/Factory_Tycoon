@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Tower
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Tower
+  product: 68
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 50000
+  collectTime: 60
+  outputValue: 1
+  recipes:
+  - inputResources: 030000000a00000043000000
+    inputAmounts: 140000000a00000003000000
+    collectTime: 60
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 3
+  itemTypes: 02000000
+  basePricePerProduct:
+    mantissa: 9
+    exponent: 45
+  pricePerProductExpText: 2.79830801769771E+46
+  pricePerProductText: 27,983AD
+  pricePerProduct:
+    mantissa: 2.79830801769771
+    exponent: 46
+  incomePerSecondText: 466,385AC
+  incomePerSecond:
+    mantissa: 4.6638466961628495
+    exponent: 44
+  optimalPricePerProductText: 18,983AD
+  optimalPricePerProduct:
+    mantissa: 1.8983080176977076
+    exponent: 46
+  optimalIncomePerSecondText: 88,154AC
+  optimalPricePerSecond:
+    mantissa: 8.81538564125029
+    exponent: 43
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 43,933AD
+  - 68,975AD
+  - 108,292AD
+  - 170,018AD
+  - 266,928AD
+  - 419,077AD
+  - 657,95AD
+  - 1,033AE
+  - 1,622AE
+  - 2,546AE
+  - 3,998AE
+  - 6,276AE
+  - 9,854AE
+  - 15,47AE
+  - 24,288AE
+  - 38,132AE
+  - 59,867AE
+  - 93,992AE
+  - 147,567AE
+  - 231,68AE
+  - 363,738AE
+  - 571,068AE
+  - 896,578AE
+  - 1,408AF
+  - 2,21AF
+  - 3,47AF
+  - 5,447AF
+  - 8,552AF
+  - 13,427AF
+  - 21,081AF
+  - 33,097AF
+  - 51,962AF
+  - 81,58AF
+  - 128,081AF
+  - 201,087AF
+  - 315,707AF
+  - 495,659AF
+  - 778,185AF
+  - 1,222AG
+  - 1,918AG
+  - 3,011AG
+  - 4,728AG
+  - 7,423AG
+  - 11,654AG
+  - 18,297AG
+  - 28,726AG
+  - 45,1AG
+  - 70,808AG
+  - 111,168AG
+  - 411,321AG
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
+  sourceImage: {fileID: 21300000, guid: 071ddc35fa59fdc46ad26bda501def00, type: 3}
+  icon: {fileID: 21300000, guid: 744471d1902911441a692bad10d270df, type: 3}

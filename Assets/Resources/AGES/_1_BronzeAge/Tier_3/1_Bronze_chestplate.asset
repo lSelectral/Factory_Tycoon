@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Bronze_chestplate
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Bronze Chestplate
+  product: 36
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 18
+  outputValue: 1
+  recipes:
+  - inputResources: 0f0000001d000000
+    inputAmounts: 0200000003000000
+    collectTime: 18
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 2
+  itemTypes: 02000000
+  basePricePerProduct:
+    mantissa: 1.1
+    exponent: 27
+  pricePerProductExpText: 1.10004690303613E+27
+  pricePerProductText: 1,1E
+  pricePerProduct:
+    mantissa: 1.10004690303613
+    exponent: 27
+  incomePerSecondText: 61,114D
+  incomePerSecond:
+    mantissa: 6.111371683534055
+    exponent: 25
+  optimalPricePerProductText: 46,903C
+  optimalPricePerProduct:
+    mantissa: 4.690303612739401
+    exponent: 22
+  optimalIncomePerSecondText: 726,03B
+  optimalPricePerSecond:
+    mantissa: 7.260296224991284
+    exponent: 20
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 1,727E
+  - 2,712E
+  - 4,257E
+  - 6,684E
+  - 10,493E
+  - 16,474E
+  - 25,865E
+  - 40,608E
+  - 63,754E
+  - 100,094E
+  - 157,148E
+  - 246,722E
+  - 387,353E
+  - 608,144E
+  - 954,786E
+  - 1,499F
+  - 2,353F
+  - 3,695F
+  - 5,801F
+  - 9,108F
+  - 14,299F
+  - 22,449F
+  - 35,245F
+  - 55,335F
+  - 86,877F
+  - 136,396F
+  - 214,142F
+  - 336,203F
+  - 527,839F
+  - 828,707F
+  - 1,301G
+  - 2,043G
+  - 3,207G
+  - 5,035G
+  - 7,905G
+  - 12,411G
+  - 19,485G
+  - 30,591G
+  - 48,028G
+  - 75,405G
+  - 118,385G
+  - 185,865G
+  - 291,808G
+  - 458,138G
+  - 719,277G
+  - 1,129AA
+  - 1,773AA
+  - 2,784AA
+  - 4,37AA
+  - 16,17AA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 3ab05f102b40e2249b212918f12c1c86, type: 3}
+  sourceImage: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  icon: {fileID: 21300000, guid: 081c9fed834c60047b03b3ab0cb45a27, type: 3}

@@ -22,7 +22,7 @@ MonoBehaviour:
   productsToUnlock: []
   requiredResources: 00000000
   requiredResourceAmounts: 05000000
-  unlockLevel: 9
+  unlockLevel: 30
   icon: {fileID: 21300000, guid: 4c3a68964f5a8324b94508155a5b458b, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: Berry collected

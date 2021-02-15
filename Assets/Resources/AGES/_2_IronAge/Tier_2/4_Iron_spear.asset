@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Iron_spear
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: "\u0130ron Spear"
+  product: 58
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 9
+  outputValue: 1
+  recipes:
+  - inputResources: 0200000035000000
+    inputAmounts: 0400000003000000
+    collectTime: 9
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 1.8
+    exponent: 39
+  pricePerProductExpText: 1.82084938547568E+39
+  pricePerProductText: 1,821AB
+  pricePerProduct:
+    mantissa: 1.82084938547568
+    exponent: 39
+  incomePerSecondText: 202,317AA
+  incomePerSecond:
+    mantissa: 2.0231659838618663
+    exponent: 38
+  optimalPricePerProductText: 20,849AA
+  optimalPricePerProduct:
+    mantissa: 2.084938547567826
+    exponent: 37
+  optimalIncomePerSecondText: 645,471G
+  optimalPricePerSecond:
+    mantissa: 6.454708496116306
+    exponent: 35
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 2,859AB
+  - 4,488AB
+  - 7,046AB
+  - 11,063AB
+  - 17,369AB
+  - 27,269AB
+  - 42,813AB
+  - 67,216AB
+  - 105,529AB
+  - 165,68AB
+  - 260,118AB
+  - 408,385AB
+  - 641,165AB
+  - 1,007AC
+  - 1,58AC
+  - 2,481AC
+  - 3,896AC
+  - 6,116AC
+  - 9,602AC
+  - 15,075AC
+  - 23,668AC
+  - 37,159AC
+  - 58,34AC
+  - 91,594AC
+  - 143,802AC
+  - 225,77AC
+  - 354,458AC
+  - 556,499AC
+  - 873,704AC
+  - 1,372AD
+  - 2,154AD
+  - 3,381AD
+  - 5,308AD
+  - 8,334AD
+  - 13,085AD
+  - 20,543AD
+  - 32,252AD
+  - 50,636AD
+  - 79,499AD
+  - 124,813AD
+  - 195,957AD
+  - 307,652AD
+  - 483,014AD
+  - 758,332AD
+  - 1,191AE
+  - 1,869AE
+  - 2,935AE
+  - 4,607AE
+  - 7,234AE
+  - 26,765AE
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: c52c87dee65eecd4586ed3fb9d1e20eb, type: 3}

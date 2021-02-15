@@ -8,7 +8,7 @@ public class ScriptableMap : ScriptableObject
     [Tooltip("If country made of multiple region choose others")]
     public Map_Part[] countriesMadeOf;
     public int startCountryLevel;
-    public Age startAgeOfNation;
+    [SearchableEnum] public Age startAgeOfNation;
     public BigDouble startAttackPower;
     public BigDouble startDefensePower;
     public BigDouble startFoodAmount;
@@ -20,5 +20,5 @@ public class ScriptableMap : ScriptableObject
     /// Also when producing this resource production speed is x1.5 faster
     /// </summary>
     [Tooltip("Country specific resources has production bonuses")]
-    public BaseResources specificResource;
+    [SearchableEnum] public BaseResources specificResource;
 }

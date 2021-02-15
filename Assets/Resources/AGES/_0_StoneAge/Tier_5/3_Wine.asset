@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Wine
+  m_EditorClassIdentifier: 
+  Description: Life was always stressful. Relax and chill.
+  TranslatedName: Wine
+  product: 23
+  foodAmount: 100
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 25
+  outputValue: 1
+  recipes:
+  - inputResources: 090000000e000000
+    inputAmounts: 0500000001000000
+    collectTime: 25
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 4
+  itemTypes: 0100000003000000
+  basePricePerProduct:
+    mantissa: 1.4
+    exponent: 21
+  pricePerProductExpText: 1.4000000499115E+21
+  pricePerProductText: 1,4C
+  pricePerProduct:
+    mantissa: 1.4000000499115
+    exponent: 21
+  incomePerSecondText: 56B
+  incomePerSecond:
+    mantissa: 5.600000199646
+    exponent: 19
+  optimalPricePerProductText: 49,912T
+  optimalPricePerProduct:
+    mantissa: 4.991150171865165
+    exponent: 13
+  optimalIncomePerSecondText: 1,668T
+  optimalPricePerSecond:
+    mantissa: 1.6679211144584662
+    exponent: 12
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 14
+  xpAmount: 10000
+  pricePerProductUntilLevel50:
+  - 2,198C
+  - 3,451C
+  - 5,418C
+  - 8,506C
+  - 13,354C
+  - 20,967C
+  - 32,917C
+  - 51,68C
+  - 81,138C
+  - 127,387C
+  - 199,997C
+  - 313,996C
+  - 492,974C
+  - 773,969C
+  - 1,215D
+  - 1,908D
+  - 2,995D
+  - 4,702D
+  - 7,383D
+  - 11,591D
+  - 18,198D
+  - 28,571D
+  - 44,856D
+  - 70,424D
+  - 110,566D
+  - 173,588D
+  - 272,533D
+  - 427,877D
+  - 671,767D
+  - 1,055E
+  - 1,656E
+  - 2,6E
+  - 4,081E
+  - 6,408E
+  - 10,06E
+  - 15,795E
+  - 24,798E
+  - 38,933E
+  - 61,124E
+  - 95,965E
+  - 150,666E
+  - 236,545E
+  - 371,376E
+  - 583,06E
+  - 915,405E
+  - 1,437F
+  - 2,256F
+  - 3,543F
+  - 5,562F
+  - 20,578F
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 7c4bf82af88be9f48a2019475c285678, type: 3}
+  icon: {fileID: 21300000, guid: cfbed7c25c038434e830d5a8a63a3ba3, type: 3}

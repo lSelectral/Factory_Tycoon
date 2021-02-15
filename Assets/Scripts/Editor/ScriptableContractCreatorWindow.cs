@@ -66,12 +66,12 @@ public class ScriptableContractCreatorWindow : EditorWindow
 
         EditorGUILayout.PropertyField(cRT, true);
 
-        if (contractRewardType == ContractRewardType.unlockMine)
-            EditorGUILayout.PropertyField(mTU, true);
-        else if (contractRewardType == ContractRewardType.unlockCompound)
-            EditorGUILayout.PropertyField(cTU, true);
-        else if (contractRewardType != ContractRewardType.automate)
-            EditorGUILayout.PropertyField(cR, true);
+        //if (contractRewardType == ContractRewardType.unlockMine)
+        //    EditorGUILayout.PropertyField(mTU, true);
+        //else if (contractRewardType == ContractRewardType.unlockCompound)
+        //    EditorGUILayout.PropertyField(cTU, true);
+        //else if (contractRewardType != ContractRewardType.automate)
+        //    EditorGUILayout.PropertyField(cR, true);
 
         so.ApplyModifiedProperties();
     }

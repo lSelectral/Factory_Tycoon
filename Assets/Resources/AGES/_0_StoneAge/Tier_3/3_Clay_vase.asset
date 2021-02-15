@@ -13,88 +13,97 @@ MonoBehaviour:
   m_Name: 3_Clay_vase
   m_EditorClassIdentifier: 
   Description: Product of creativity. Multi purpose storage  tool.
-  test:
-    value: 0
-    tenPow: 0
-    aPow: 0
   TranslatedName: Clay Vase
-  product: 13
+  product: 14
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  collectTime: 20
+  collectTime: 16
   outputValue: 1
+  recipes:
+  - inputResources: 0a000000
+    inputAmounts: 04000000
+    collectTime: 16
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 2
+  itemTypes: 0100000000000000
+  basePricePerProduct:
+    mantissa: 6.9
+    exponent: 12
+  pricePerProductExpText: 6.98356571742466E+12
+  pricePerProductText: 6,984T
+  pricePerProduct:
+    mantissa: 6.98356571742466
+    exponent: 12
+  incomePerSecondText: 436,473B
+  incomePerSecond:
+    mantissa: 4.364728573390412
+    exponent: 11
+  optimalPricePerProductText: 83,566B
+  optimalPricePerProduct:
+    mantissa: 8.356571742466517
+    exponent: 10
+  optimalIncomePerSecondText: 3,274B
+  optimalPricePerSecond:
+    mantissa: 3.274285657065254
+    exponent: 9
+  isOptimal: 1
   lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 10,964T
+  - 17,214T
+  - 27,026T
+  - 42,43T
+  - 66,616T
+  - 104,586T
+  - 164,201T
+  - 257,795T
+  - 404,738T
+  - 635,439T
+  - 997,639T
+  - 1,566A
+  - 2,459A
+  - 3,861A
+  - 6,061A
+  - 9,516A
+  - 14,941A
+  - 23,457A
+  - 36,827A
+  - 57,819A
+  - 90,776A
+  - 142,518A
+  - 223,753A
+  - 351,293A
+  - 551,53A
+  - 865,902A
+  - 1,359B
+  - 2,134B
+  - 3,351B
+  - 5,261B
+  - 8,26B
+  - 12,968B
+  - 20,359B
+  - 31,964B
+  - 50,184B
+  - 78,789B
+  - 123,699B
+  - 194,207B
+  - 304,905B
+  - 478,701B
+  - 751,56B
+  - 1,18C
+  - 1,853C
+  - 2,908C
+  - 4,566C
+  - 7,169C
+  - 11,255C
+  - 17,671C
+  - 27,743C
+  - 102,651C
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: ce4978279312e60459d25e3804fe4eae, type: 3}
   sourceImage: {fileID: 21300000, guid: b18e6f55744a8764297239d877029038, type: 3}
   icon: {fileID: 21300000, guid: cfbed7c25c038434e830d5a8a63a3ba3, type: 3}
-  unlockLevel: 8
-  xpAmount: 25
-  ageBelongsTo: 0
-  tier: 2
-  itemTypes: 0100000000000000
-  pricePerProductText: 65,16B
-  pricePerProduct: 6.5161843e+13
-  incomePerSecondText: 3,26B
-  incomePerSecond: 3.258092e+12
-  pricePerProductUntilLevel50:
-  - 1.023041e+14
-  - 1.6061745e+14
-  - 2.521694e+14
-  - 3.95906e+14
-  - 6.215724e+14
-  - 9.758688e+14
-  - 1.532114e+15
-  - 2.405419e+15
-  - 3.7765078e+15
-  - 5.9291175e+15
-  - 9.308715e+15
-  - 1.4614683e+16
-  - 2.2945053e+16
-  - 3.6023735e+16
-  - 5.6557268e+16
-  - 8.879491e+16
-  - 1.39408016e+17
-  - 2.1887059e+17
-  - 3.4362683e+17
-  - 5.3949414e+17
-  - 8.470058e+17
-  - 1.3297993e+18
-  - 2.0877848e+18
-  - 3.2778223e+18
-  - 5.146181e+18
-  - 8.0795045e+18
-  - 1.2684823e+19
-  - 1.9915173e+19
-  - 3.1266823e+19
-  - 4.9088915e+19
-  - 7.70696e+19
-  - 1.20999276e+20
-  - 1.8996887e+20
-  - 2.9825113e+20
-  - 4.6825428e+20
-  - 7.351592e+20
-  - 1.1542e+21
-  - 1.8120941e+21
-  - 2.8449878e+21
-  - 4.466631e+21
-  - 7.0126107e+21
-  - 1.1009799e+22
-  - 1.7285385e+22
-  - 2.7138056e+22
-  - 4.260675e+22
-  - 6.68926e+22
-  - 1.05021385e+23
-  - 1.6488357e+23
-  - 2.5886721e+23
-  - 9.578087e+23
-  isFixedArraySize: 1
-  inputResources: 05000000
-  inputAmounts: 04000000
-  basePricePerProduct: 680000000
-  optimalPricePerProductText: 65,16B
-  optimalPricePerProduct: 6.5161163e+13
-  optimalIncomePerSecondText: 680,84A
-  optimalPricePerSecond: 6.8084145e+11
-  isOptimal: 1

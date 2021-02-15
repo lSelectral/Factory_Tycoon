@@ -54,22 +54,22 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     public bool IsPlayerOwned { get => isPlayerOwned; set => isPlayerOwned = value; }
     #endregion
 
-    Dictionary<ScriptableMine, int> mineLevelDict;
-    Dictionary<ScriptableCompound, int> compoundLevelDict;
+    //Dictionary<ScriptableMine, int> mineLevelDict;
+    //Dictionary<ScriptableCompound, int> compoundLevelDict;
 
     private void Awake()
     {
-        mineLevelDict = new Dictionary<ScriptableMine, int>();
-        compoundLevelDict = new Dictionary<ScriptableCompound, int>();
+        //mineLevelDict = new Dictionary<ScriptableMine, int>();
+        //compoundLevelDict = new Dictionary<ScriptableCompound, int>();
 
-        foreach (var mine in ProductionManager.Instance.mineList)
-        {
-            mineLevelDict.Add(mine, 1);
-        }
-        foreach (var compound in ProductionManager.Instance.compoundList)
-        {
-            compoundLevelDict.Add(compound, 1);
-        }
+        //foreach (var mine in ProductionManager.Instance.mineList)
+        //{
+        //    mineLevelDict.Add(mine, 1);
+        //}
+        //foreach (var compound in ProductionManager.Instance.compoundList)
+        //{
+        //    compoundLevelDict.Add(compound, 1);
+        //}
 
         
 
@@ -91,25 +91,14 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             // Create resource dictionary with all resource in it for this age
             resourceValueDict = new Dictionary<BaseResources, BigDouble>();
 
+            for (int i = 0; i < ProductionManager.Instance.scriptableProductionUnitList.Length; i++)
+            {
+                var scriptableUnit = ProductionManager.Instance.scriptableProductionUnitList[i];
+                if (!resourceValueDict.ContainsKey(scriptableUnit.product))
+                    resourceValueDict.Add(scriptableUnit.product, new BigDouble(1, 2));
+            }
 
-            var scriptableMines = ProductionManager.Instance.mineList;
-            var scriptableCompounds = ProductionManager.Instance.compoundList;
-            for (int i = 0; i < scriptableMines.Count; i++)
-            {
-                if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
-                {
-                    if (!resourceValueDict.ContainsKey(scriptableMines[i].product))
-                        resourceValueDict.Add(scriptableMines[i].product, new BigDouble(1,2));
-                }
-            }
-            for (int i = 0; i < scriptableCompounds.Count; i++)
-            {
-                if (scriptableCompounds[i].ageBelongsTo == currentAgeOfNation)
-                {
-                    if (!resourceValueDict.ContainsKey(scriptableCompounds[i].product))
-                        resourceValueDict.Add(scriptableCompounds[i].product, new BigDouble(1, 2));
-                }
-            }
+
             // Add extra resource for every tribe if has one. Resource amount is related to area size of country
             resourceValueDict[scriptableMap.specificResource] += pixelSize; 
         }
@@ -128,24 +117,13 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             resourceValueDict = new Dictionary<BaseResources, BigDouble>();
 
 
-            var scriptableMines = ProductionManager.Instance.mineList;
-            var scriptableCompounds = ProductionManager.Instance.compoundList;
-            for (int i = 0; i < scriptableMines.Count; i++)
+            for (int i = 0; i < ProductionManager.Instance.scriptableProductionUnitList.Length; i++)
             {
-                if (scriptableMines[i].ageBelongsTo == currentAgeOfNation)
-                {
-                    if (!resourceValueDict.ContainsKey(scriptableMines[i].product))
-                        resourceValueDict.Add(scriptableMines[i].product, new BigDouble(1, 2));
-                }
+                var scriptableUnit = ProductionManager.Instance.scriptableProductionUnitList[i];
+                if (!resourceValueDict.ContainsKey(scriptableUnit.product))
+                    resourceValueDict.Add(scriptableUnit.product, new BigDouble(1, 2));
             }
-            for (int i = 0; i < scriptableCompounds.Count; i++)
-            {
-                if (scriptableCompounds[i].ageBelongsTo == currentAgeOfNation)
-                {
-                    if (!resourceValueDict.ContainsKey(scriptableCompounds[i].product))
-                        resourceValueDict.Add(scriptableCompounds[i].product, new BigDouble(1, 2));
-                }
-            }
+
             image = GetComponent<Image>();
             image.alphaHitTestMinimumThreshold = alphaSlider;
         }
@@ -186,7 +164,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
 
     void CountryProduction()
     {
-        for (int i = 0; i < ProductionManager.Instance.scriptableProductionUnitList.Count; i++)
+        for (int i = 0; i < ProductionManager.Instance.scriptableProductionUnitList.Length; i++)
         {
             var productionUnit = ProductionManager.Instance.scriptableProductionUnitList[i];
             if (resourceValueDict.ContainsKey(productionUnit.product))

@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Iron_helmet
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: "\u0130ron Helmet"
+  product: 63
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 16
+  outputValue: 1
+  recipes:
+  - inputResources: 35000000
+    inputAmounts: 04000000
+    collectTime: 16
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 2
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 4
+    exponent: 42
+  pricePerProductExpText: 4.00004942076557E+42
+  pricePerProductText: 4AC
+  pricePerProduct:
+    mantissa: 4.00004942076557
+    exponent: 42
+  incomePerSecondText: 250,003AB
+  incomePerSecond:
+    mantissa: 2.500030887978481
+    exponent: 41
+  optimalPricePerProductText: 49,421AA
+  optimalPricePerProduct:
+    mantissa: 4.942076557197809
+    exponent: 37
+  optimalIncomePerSecondText: 645,471G
+  optimalPricePerSecond:
+    mantissa: 6.454708496116306
+    exponent: 35
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 6,28AC
+  - 9,86AC
+  - 15,48AC
+  - 24,303AC
+  - 38,156AC
+  - 59,905AC
+  - 94,051AC
+  - 147,66AC
+  - 231,826AC
+  - 363,967AC
+  - 571,428AC
+  - 897,142AC
+  - 1,409AD
+  - 2,211AD
+  - 3,472AD
+  - 5,451AD
+  - 8,558AD
+  - 13,436AD
+  - 21,094AD
+  - 33,118AD
+  - 51,995AD
+  - 81,632AD
+  - 128,162AD
+  - 201,214AD
+  - 315,905AD
+  - 495,971AD
+  - 778,675AD
+  - 1,223AE
+  - 1,919AE
+  - 3,013AE
+  - 4,731AE
+  - 7,428AE
+  - 11,661AE
+  - 18,309AE
+  - 28,744AE
+  - 45,129AE
+  - 70,852AE
+  - 111,238AE
+  - 174,643AE
+  - 274,19AE
+  - 430,479AE
+  - 675,852AE
+  - 1,061AF
+  - 1,666AF
+  - 2,615AF
+  - 4,106AF
+  - 6,447AF
+  - 10,122AF
+  - 15,891AF
+  - 58,796AF
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 9356860188971a84083c3ea09531b0b1, type: 3}

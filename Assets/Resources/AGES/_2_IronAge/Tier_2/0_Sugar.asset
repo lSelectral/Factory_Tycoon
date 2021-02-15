@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 0_Sugar
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Sugar
+  product: 54
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 14
+  outputValue: 2
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+  ageBelongsTo: 2
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 5
+    exponent: 35
+  pricePerProductExpText: 5E+35
+  pricePerProductText: 500G
+  pricePerProduct:
+    mantissa: 5
+    exponent: 35
+  incomePerSecondText: 71,429G
+  incomePerSecond:
+    mantissa: 7.142857142857142
+    exponent: 34
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 785G
+  - 1,232AA
+  - 1,935AA
+  - 3,038AA
+  - 4,769AA
+  - 7,488AA
+  - 11,756AA
+  - 18,457AA
+  - 28,978AA
+  - 45,495AA
+  - 71,428AA
+  - 112,141AA
+  - 176,062AA
+  - 276,417AA
+  - 433,975AA
+  - 681,341AA
+  - 1,07AB
+  - 1,679AB
+  - 2,637AB
+  - 4,14AB
+  - 6,499AB
+  - 10,204AB
+  - 16,02AB
+  - 25,151AB
+  - 39,488AB
+  - 61,996AB
+  - 97,333AB
+  - 152,813AB
+  - 239,917AB
+  - 376,669AB
+  - 591,371AB
+  - 928,452AB
+  - 1,458AC
+  - 2,289AC
+  - 3,593AC
+  - 5,641AC
+  - 8,856AC
+  - 13,905AC
+  - 21,83AC
+  - 34,273AC
+  - 53,809AC
+  - 84,48AC
+  - 132,634AC
+  - 208,236AC
+  - 326,93AC
+  - 513,28AC
+  - 805,85AC
+  - 1,265AD
+  - 1,986AD
+  - 7,349AD
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 74ffedf3f879cd340baa39e79f507e0f, type: 3}
+  sourceImage: {fileID: 21300000, guid: 350e0eb6046141c41ad9c5b013493b67, type: 3}
+  icon: {fileID: 21300000, guid: 458a1cf7c44e2e349a854211dc6da357, type: 3}

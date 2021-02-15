@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 5_Longbow
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Longbow
+  product: 84
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 17
+  outputValue: 1
+  recipes:
+  - inputResources: 02000000050000000b000000
+    inputAmounts: 060000000400000008000000
+    collectTime: 17
+    outputAmount: 1
+  ageBelongsTo: 3
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 7.65
+    exponent: 53
+  pricePerProductExpText: 7.65E+53
+  pricePerProductText: 765AF
+  pricePerProduct:
+    mantissa: 7.65
+    exponent: 53
+  incomePerSecondText: 45AF
+  incomePerSecond:
+    mantissa: 4.5
+    exponent: 52
+  optimalPricePerProductText: 1,347T
+  optimalPricePerProduct:
+    mantissa: 1.3466534180916567
+    exponent: 12
+  optimalIncomePerSecondText: 24,83B
+  optimalPricePerSecond:
+    mantissa: 2.483033787711542
+    exponent: 10
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 1,201AG
+  - 1,886AG
+  - 2,96AG
+  - 4,648AG
+  - 7,297AG
+  - 11,457AG
+  - 17,987AG
+  - 28,24AG
+  - 44,336AG
+  - 69,608AG
+  - 109,284AG
+  - 171,576AG
+  - 269,375AG
+  - 422,919AG
+  - 663,982AG
+  - 1,042BA
+  - 1,637BA
+  - 2,57BA
+  - 4,034BA
+  - 6,334BA
+  - 9,944BA
+  - 15,612BA
+  - 24,511BA
+  - 38,482BA
+  - 60,416BA
+  - 94,853BA
+  - 148,92BA
+  - 233,804BA
+  - 367,072BA
+  - 576,304BA
+  - 904,797BA
+  - 1,421BB
+  - 2,23BB
+  - 3,501BB
+  - 5,497BB
+  - 8,631BB
+  - 13,55BB
+  - 21,274BB
+  - 33,4BB
+  - 52,438BB
+  - 82,328BB
+  - 129,255BB
+  - 202,93BB
+  - 318,601BB
+  - 500,203BB
+  - 785,319BB
+  - 1,233BC
+  - 1,936BC
+  - 3,039BC
+  - 11,245BC
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
+  sourceImage: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
+  icon: {fileID: 21300000, guid: bcdf258f6d1fc6748964f4fe8f876f0e, type: 3}

@@ -18,7 +18,8 @@ MonoBehaviour:
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
-  dependentContracts: []
+  dependentContracts:
+  - {fileID: 11400000, guid: 75acba57c26cf694687aa0ae6d95828c, type: 2}
   productsToUnlock: []
   requiredResources: 
   requiredResourceAmounts: 

@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 5_Medicine
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Medicine
+  product: 69
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 30
+  outputValue: 2
+  recipes:
+  - inputResources: 0100000000000000
+    inputAmounts: 0600000004000000
+    collectTime: 30
+    outputAmount: 2
+  ageBelongsTo: 2
+  tier: 3
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 9
+    exponent: 44
+  pricePerProductExpText: 9E+44
+  pricePerProductText: 900AC
+  pricePerProduct:
+    mantissa: 9
+    exponent: 44
+  incomePerSecondText: 60AC
+  incomePerSecond:
+    mantissa: 6
+    exponent: 43
+  optimalPricePerProductText: 13,585K
+  optimalPricePerProduct:
+    mantissa: 1.3585364119651895
+    exponent: 4
+  optimalIncomePerSecondText: 123.281815839208
+  optimalPricePerSecond:
+    mantissa: 1.2328181583920772
+    exponent: 2
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 1,413AD
+  - 2,218AD
+  - 3,483AD
+  - 5,468AD
+  - 8,585AD
+  - 13,478AD
+  - 21,161AD
+  - 33,223AD
+  - 52,16AD
+  - 81,892AD
+  - 128,57AD
+  - 201,855AD
+  - 316,912AD
+  - 497,551AD
+  - 781,156AD
+  - 1,226AE
+  - 1,925AE
+  - 3,023AE
+  - 4,746AE
+  - 7,451AE
+  - 11,699AE
+  - 18,367AE
+  - 28,836AE
+  - 45,273AE
+  - 71,078AE
+  - 111,592AE
+  - 175,2AE
+  - 275,064AE
+  - 431,85AE
+  - 678,004AE
+  - 1,064AF
+  - 1,671AF
+  - 2,624AF
+  - 4,119AF
+  - 6,467AF
+  - 10,154AF
+  - 15,942AF
+  - 25,028AF
+  - 39,294AF
+  - 61,692AF
+  - 96,857AF
+  - 152,065AF
+  - 238,742AF
+  - 374,824AF
+  - 588,474AF
+  - 923,905AF
+  - 1,451AG
+  - 2,277AG
+  - 3,575AG
+  - 13,229AG
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 3c969cfef1129f245b86a854f212120a, type: 3}
+  icon: {fileID: 21300000, guid: 509ee7f072414b3479bb18c40849f26b, type: 3}

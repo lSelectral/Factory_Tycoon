@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 0_Clay_pipe
+  m_EditorClassIdentifier: 
+  Description: Boots made from bronze are what soldiers need.
+  TranslatedName: Clay Pipe
+  product: 35
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 8
+  outputValue: 1
+  recipes:
+  - inputResources: 0a000000
+    inputAmounts: 02000000
+    collectTime: 8
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 2
+  itemTypes: 01000000
+  basePricePerProduct:
+    mantissa: 8
+    exponent: 25
+  pricePerProductExpText: 8E+25
+  pricePerProductText: 80D
+  pricePerProduct:
+    mantissa: 8
+    exponent: 25
+  incomePerSecondText: 10D
+  incomePerSecond:
+    mantissa: 1
+    exponent: 25
+  optimalPricePerProductText: 20,891B
+  optimalPricePerProduct:
+    mantissa: 2.0891429356166293
+    exponent: 10
+  optimalIncomePerSecondText: 3,274B
+  optimalPricePerSecond:
+    mantissa: 3.274285657065254
+    exponent: 9
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 125,6D
+  - 197,192D
+  - 309,591D
+  - 486,059D
+  - 763,112D
+  - 1,198E
+  - 1,881E
+  - 2,953E
+  - 4,636E
+  - 7,279E
+  - 11,428E
+  - 17,943E
+  - 28,17E
+  - 44,227E
+  - 69,436E
+  - 109,015E
+  - 171,153E
+  - 268,71E
+  - 421,875E
+  - 662,344E
+  - 1,04F
+  - 1,633F
+  - 2,563F
+  - 4,024F
+  - 6,318F
+  - 9,919F
+  - 15,573F
+  - 24,45F
+  - 38,387F
+  - 60,267F
+  - 94,619F
+  - 148,552F
+  - 233,227F
+  - 366,167F
+  - 574,881F
+  - 902,564F
+  - 1,417G
+  - 2,225G
+  - 3,493G
+  - 5,484G
+  - 8,609G
+  - 13,517G
+  - 21,221G
+  - 33,318G
+  - 52,309G
+  - 82,125G
+  - 128,936G
+  - 202,43G
+  - 317,814G
+  - 1,176AA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 1ea126cd684d60a49800188899b8e927, type: 3}
+  sourceImage: {fileID: 21300000, guid: b18e6f55744a8764297239d877029038, type: 3}
+  icon: {fileID: 21300000, guid: 760f41460ec0a1c4ba60153f2d9f7727, type: 3}

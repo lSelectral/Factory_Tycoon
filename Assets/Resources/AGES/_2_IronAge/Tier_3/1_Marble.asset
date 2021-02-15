@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Marble
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Marble
+  product: 60
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
+  outputValue: 4
+  recipes:
+  - inputResources: 38000000
+    inputAmounts: 01000000
+    collectTime: 15
+    outputAmount: 4
+  ageBelongsTo: 2
+  tier: 2
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 1.05
+    exponent: 39
+  pricePerProductExpText: 1.32305282962967E+39
+  pricePerProductText: 1,323AB
+  pricePerProduct:
+    mantissa: 1.32305282962967
+    exponent: 39
+  incomePerSecondText: 352,814AA
+  incomePerSecond:
+    mantissa: 3.528140879012453
+    exponent: 38
+  optimalPricePerProductText: 273,053AA
+  optimalPricePerProduct:
+    mantissa: 2.730528296296743
+    exponent: 38
+  optimalIncomePerSecondText: 15,216AA
+  optimalPricePerSecond:
+    mantissa: 1.521607223598737
+    exponent: 37
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 2,077AB
+  - 3,261AB
+  - 5,12AB
+  - 8,039AB
+  - 12,62AB
+  - 19,814AB
+  - 31,108AB
+  - 48,84AB
+  - 76,679AB
+  - 120,385AB
+  - 189,005AB
+  - 296,738AB
+  - 465,879AB
+  - 731,43AB
+  - 1,148AC
+  - 1,803AC
+  - 2,831AC
+  - 4,444AC
+  - 6,977AC
+  - 10,954AC
+  - 17,198AC
+  - 27AC
+  - 42,391AC
+  - 66,553AC
+  - 104,489AC
+  - 164,047AC
+  - 257,554AC
+  - 404,36AC
+  - 634,845AC
+  - 996,706AC
+  - 1,565AD
+  - 2,457AD
+  - 3,857AD
+  - 6,056AD
+  - 9,507AD
+  - 14,927AD
+  - 23,435AD
+  - 36,793AD
+  - 57,765AD
+  - 90,691AD
+  - 142,385AD
+  - 223,544AD
+  - 350,964AD
+  - 551,014AD
+  - 865,092AD
+  - 1,358AE
+  - 2,132AE
+  - 3,348AE
+  - 5,256AE
+  - 19,447AE
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 9356860188971a84083c3ea09531b0b1, type: 3}

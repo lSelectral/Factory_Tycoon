@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Bronze_spear
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Bronze Spear
+  product: 38
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 14
+  outputValue: 1
+  recipes:
+  - inputResources: 1d000000
+    inputAmounts: 02000000
+    collectTime: 14
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 2
+  itemTypes: 02000000
+  basePricePerProduct:
+    mantissa: 3
+    exponent: 28
+  pricePerProductExpText: 3.00000243200927E+28
+  pricePerProductText: 30E
+  pricePerProduct:
+    mantissa: 3.00000243200927
+    exponent: 28
+  incomePerSecondText: 2,143E
+  incomePerSecond:
+    mantissa: 2.1428588800066213
+    exponent: 27
+  optimalPricePerProductText: 24,32C
+  optimalPricePerProduct:
+    mantissa: 2.432009266461873
+    exponent: 22
+  optimalIncomePerSecondText: 726,03B
+  optimalPricePerSecond:
+    mantissa: 7.260296097657659
+    exponent: 20
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 47,1E
+  - 73,947E
+  - 116,097E
+  - 182,272E
+  - 286,167E
+  - 449,283E
+  - 705,374E
+  - 1,107F
+  - 1,739F
+  - 2,73F
+  - 4,286F
+  - 6,728F
+  - 10,564F
+  - 16,585F
+  - 26,039F
+  - 40,881F
+  - 64,182F
+  - 100,766F
+  - 158,203F
+  - 248,379F
+  - 389,955F
+  - 612,23F
+  - 961,2F
+  - 1,509G
+  - 2,369G
+  - 3,72G
+  - 5,84G
+  - 9,169G
+  - 14,395G
+  - 22,6G
+  - 35,482G
+  - 55,707G
+  - 87,46G
+  - 137,313G
+  - 215,581G
+  - 338,462G
+  - 531,385G
+  - 834,274G
+  - 1,31AA
+  - 2,056AA
+  - 3,229AA
+  - 5,069AA
+  - 7,958AA
+  - 12,494AA
+  - 19,616AA
+  - 30,797AA
+  - 48,351AA
+  - 75,911AA
+  - 119,181AA
+  - 440,968AA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 3ab05f102b40e2249b212918f12c1c86, type: 3}
+  sourceImage: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  icon: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}

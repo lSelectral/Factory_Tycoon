@@ -13,88 +13,97 @@ MonoBehaviour:
   m_Name: 5_Iron_sword
   m_EditorClassIdentifier: 
   Description: 
-  test:
-    value: 0
-    tenPow: 0
-    aPow: 0
-  TranslatedName: Berry
-  product: 0
+  TranslatedName: "\u0130ron Sword"
+  product: 59
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  collectTime: 1
+  collectTime: 15
   outputValue: 1
+  recipes:
+  - inputResources: 35000000
+    inputAmounts: 06000000
+    collectTime: 15
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 2.2
+    exponent: 40
+  pricePerProductExpText: 2.20694979515856E+40
+  pricePerProductText: 22,069AB
+  pricePerProduct:
+    mantissa: 2.20694979515856
+    exponent: 40
+  incomePerSecondText: 1,471AB
+  incomePerSecond:
+    mantissa: 1.47129986343904
+    exponent: 39
+  optimalPricePerProductText: 69,498AA
+  optimalPricePerProduct:
+    mantissa: 6.949795158559419
+    exponent: 37
+  optimalIncomePerSecondText: 645,471G
+  optimalPricePerSecond:
+    mantissa: 6.454708496116306
+    exponent: 35
+  isOptimal: 1
   lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 34,649AB
+  - 54,399AB
+  - 85,407AB
+  - 134,088AB
+  - 210,519AB
+  - 330,514AB
+  - 518,908AB
+  - 814,685AB
+  - 1,279AC
+  - 2,008AC
+  - 3,153AC
+  - 4,95AC
+  - 7,771AC
+  - 12,201AC
+  - 19,155AC
+  - 30,074AC
+  - 47,216AC
+  - 74,129AC
+  - 116,382AC
+  - 182,72AC
+  - 286,87AC
+  - 450,386AC
+  - 707,106AC
+  - 1,11AD
+  - 1,743AD
+  - 2,736AD
+  - 4,296AD
+  - 6,745AD
+  - 10,59AD
+  - 16,626AD
+  - 26,103AD
+  - 40,981AD
+  - 64,34AD
+  - 101,014AD
+  - 158,592AD
+  - 248,989AD
+  - 390,913AD
+  - 613,733AD
+  - 963,562AD
+  - 1,513AE
+  - 2,375AE
+  - 3,729AE
+  - 5,854AE
+  - 9,191AE
+  - 14,43AE
+  - 22,656AE
+  - 35,569AE
+  - 55,844AE
+  - 87,675AE
+  - 324,398AE
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}
   sourceImage: {fileID: 0}
   icon: {fileID: 21300000, guid: a7eca445dbfa24b4db16efd6a58cc57a, type: 3}
-  unlockLevel: 8
-  xpAmount: 25
-  ageBelongsTo: 2
-  tier: 1
-  itemTypes: 00000000
-  pricePerProductText: 0
-  pricePerProduct: 0
-  incomePerSecondText: 0
-  incomePerSecond: 0
-  pricePerProductUntilLevel50:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
-  basePricePerProduct: 0
-  optimalPricePerProductText: 
-  optimalPricePerProduct: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0

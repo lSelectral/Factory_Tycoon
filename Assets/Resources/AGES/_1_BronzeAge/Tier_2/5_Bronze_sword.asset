@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 5_Bronze_sword
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Bronze Sword
+  product: 34
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 40
+  collectTime: 12
+  outputValue: 1
+  recipes:
+  - inputResources: 020000001d000000
+    inputAmounts: 0200000003000000
+    collectTime: 12
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 1
+  itemTypes: 02000000
+  basePricePerProduct:
+    mantissa: 3.3
+    exponent: 25
+  pricePerProductExpText: 3.30312686905688E+25
+  pricePerProductText: 33,031D
+  pricePerProduct:
+    mantissa: 3.30312686905688
+    exponent: 25
+  incomePerSecondText: 2,753D
+  incomePerSecond:
+    mantissa: 2.752605724214067
+    exponent: 24
+  optimalPricePerProductText: 31,269C
+  optimalPricePerProduct:
+    mantissa: 3.12686905687955
+    exponent: 22
+  optimalIncomePerSecondText: 726,03B
+  optimalPricePerSecond:
+    mantissa: 7.260296097657659
+    exponent: 20
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 51,859D
+  - 81,419D
+  - 127,827D
+  - 200,689D
+  - 315,082D
+  - 494,679D
+  - 776,646D
+  - 1,219E
+  - 1,914E
+  - 3,006E
+  - 4,719E
+  - 7,408E
+  - 11,631E
+  - 18,261E
+  - 28,67E
+  - 45,011E
+  - 70,667E
+  - 110,948E
+  - 174,188E
+  - 273,476E
+  - 429,357E
+  - 674,09E
+  - 1,058F
+  - 1,662F
+  - 2,609F
+  - 4,096F
+  - 6,43F
+  - 10,095F
+  - 15,85F
+  - 24,884F
+  - 39,067F
+  - 61,336F
+  - 96,297F
+  - 151,187F
+  - 237,363F
+  - 372,66F
+  - 585,077F
+  - 918,571F
+  - 1,442G
+  - 2,264G
+  - 3,555G
+  - 5,581G
+  - 8,762G
+  - 13,757G
+  - 21,598G
+  - 33,909G
+  - 53,237G
+  - 83,581G
+  - 131,223G
+  - 485,524G
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 3ab05f102b40e2249b212918f12c1c86, type: 3}
+  sourceImage: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  icon: {fileID: 21300000, guid: a46b996f273162c4ba8247510856f382, type: 3}

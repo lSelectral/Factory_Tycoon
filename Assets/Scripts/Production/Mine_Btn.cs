@@ -6,9 +6,8 @@ using UnityEngine.EventSystems;
 public class Mine_Btn : ProductionBase
 {
     public ScriptableMine scriptableMine;
-    RectTransform tool;
 
-    internal override void Start()
+    protected override void Start()
     {
         base.Start();
 
@@ -50,15 +49,6 @@ public class Mine_Btn : ProductionBase
 
         upgradeAmountText.text = "$" + upgradeCost.ToString();
 
-        //if (remainedCollectTime > 0)
-        //{
-        //    fillBar.fillAmount = ((collectTime - remainedCollectTime) / collectTime);
-        //}
-        //else
-        //{
-        //    fillBar.fillAmount = 0;
-        //}
-
         upgradeBtn.onClick.AddListener(() => ShowUpgradePanel());
         workingMode = WorkingMode.sell;
         levelText.text = "Level " + level.ToString();
@@ -88,7 +78,7 @@ public class Mine_Btn : ProductionBase
     {
         if (unlockLevel <= GameManager.Instance.CurrentLevel && !isLockedByContract)
         {
-            if (isAutomated) CollectMine();
+            if (isAutomated) Produce();
 
             if (isCharging)
             {
@@ -143,21 +133,9 @@ public class Mine_Btn : ProductionBase
         return (incomePerSecond * idleTime * UpgradeSystem.Instance.EarnedCoinMultiplier);
     }
 
-    public void CollectMine()
-    {
-        if (!isCharging && transform.Find("Level_Lock(Clone)") == null)
-        {
-            if (CheckIfPanelActive())
-                toolAnimation = TweenAnimation.Instance.MoveTool(tool.gameObject);
-            isCharging = true;
-            if (remainedCollectTime == 0)
-                remainedCollectTime = collectTime;
-        }
-    }
-
     public override void OnPointerClick(PointerEventData eventData)
     {
-        CollectMine();
+        Produce();
         if (isCharging) remainedCollectTime -= .35f;
     }
 

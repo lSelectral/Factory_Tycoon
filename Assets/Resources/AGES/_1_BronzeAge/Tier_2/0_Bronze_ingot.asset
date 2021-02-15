@@ -13,97 +13,97 @@ MonoBehaviour:
   m_Name: 0_Bronze_ingot
   m_EditorClassIdentifier: 
   Description: Can made by smelting copper and tin ore together.
-  test:
-    mantissa: 0
-    exponent: 0
   TranslatedName: "Bronze \u0130ngot"
-  product: 25
+  product: 29
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  collectTime: 5
+  collectTime: 7
   outputValue: 1
-  lockedByContracts: []
-  backgroundImage: {fileID: 0}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
-  icon: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
-  unlockLevel: 11
-  xpAmount: 500
+  recipes:
+  - inputResources: 1a0000001b000000
+    inputAmounts: 0100000001000000
+    collectTime: 7
+    outputAmount: 1
   ageBelongsTo: 1
   tier: 1
   itemTypes: 00000000
-  pricePerProductText: 0
-  pricePerProduct:
-    mantissa: 0
-    exponent: 0
-  incomePerSecondText: 0
-  incomePerSecond:
-    mantissa: 0
-    exponent: 0
-  pricePerProductUntilLevel50:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  isFixedArraySize: 1
-  inputResources: 1300000015000000
-  inputAmounts: 0100000001000000
   basePricePerProduct:
-    mantissa: 0
-    exponent: 0
-  optimalPricePerProductText: 0
+    mantissa: 1.2
+    exponent: 21
+  pricePerProductExpText: 1.33042077412972E+21
+  pricePerProductText: 1,33C
+  pricePerProduct:
+    mantissa: 1.33042077412972
+    exponent: 21
+  incomePerSecondText: 190,06B
+  incomePerSecond:
+    mantissa: 1.9006011058995997
+    exponent: 20
+  optimalPricePerProductText: 130,421B
   optimalPricePerProduct:
-    mantissa: 0
-    exponent: 0
-  optimalIncomePerSecondText: 0
+    mantissa: 1.3042077412972157
+    exponent: 20
+  optimalIncomePerSecondText: 42,902B
   optimalPricePerSecond:
-    mantissa: 0
-    exponent: 0
+    mantissa: 4.2901537711804
+    exponent: 19
   isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 11
+  xpAmount: 500
+  pricePerProductUntilLevel50:
+  - 2,089C
+  - 3,279C
+  - 5,149C
+  - 8,083C
+  - 12,691C
+  - 19,924C
+  - 31,281C
+  - 49,112C
+  - 77,106C
+  - 121,056C
+  - 190,058C
+  - 298,391C
+  - 468,473C
+  - 735,503C
+  - 1,155D
+  - 1,813D
+  - 2,846D
+  - 4,469D
+  - 7,016D
+  - 11,015D
+  - 17,293D
+  - 27,151D
+  - 42,627D
+  - 66,924D
+  - 105,07D
+  - 164,961D
+  - 258,988D
+  - 406,612D
+  - 638,38D
+  - 1,002E
+  - 1,574E
+  - 2,47E
+  - 3,879E
+  - 6,089E
+  - 9,56E
+  - 15,01E
+  - 23,566E
+  - 36,998E
+  - 58,087E
+  - 91,196E
+  - 143,178E
+  - 224,789E
+  - 352,919E
+  - 554,082E
+  - 869,909E
+  - 1,366F
+  - 2,144F
+  - 3,366F
+  - 5,285F
+  - 19,556F
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}
+  sourceImage: {fileID: 21300000, guid: 304eccbdedb4d4c4088e43371cda2703, type: 3}
+  icon: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}

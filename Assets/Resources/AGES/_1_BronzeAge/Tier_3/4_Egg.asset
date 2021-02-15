@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 4_Egg
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Egg
+  product: 39
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 10
+  outputValue: 2
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+  ageBelongsTo: 1
+  tier: 2
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 4
+    exponent: 27
+  pricePerProductExpText: 4E+27
+  pricePerProductText: 4E
+  pricePerProduct:
+    mantissa: 4
+    exponent: 27
+  incomePerSecondText: 800D
+  incomePerSecond:
+    mantissa: 8
+    exponent: 26
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 6,28E
+  - 9,86E
+  - 15,48E
+  - 24,303E
+  - 38,156E
+  - 59,904E
+  - 94,05E
+  - 147,658E
+  - 231,823E
+  - 363,963E
+  - 571,421E
+  - 897,131E
+  - 1,408F
+  - 2,211F
+  - 3,472F
+  - 5,451F
+  - 8,558F
+  - 13,436F
+  - 21,094F
+  - 33,117F
+  - 51,994F
+  - 81,631F
+  - 128,16F
+  - 201,211F
+  - 315,901F
+  - 495,965F
+  - 778,666F
+  - 1,223G
+  - 1,919G
+  - 3,013G
+  - 4,731G
+  - 7,428G
+  - 11,661G
+  - 18,308G
+  - 28,744G
+  - 45,128G
+  - 70,851G
+  - 111,237G
+  - 174,641G
+  - 274,187G
+  - 430,473G
+  - 675,843G
+  - 1,061AA
+  - 1,666AA
+  - 2,615AA
+  - 4,106AA
+  - 6,447AA
+  - 10,121AA
+  - 15,891AA
+  - 58,796AA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: d4782eaa0af18fd4a832b867aedd3b10, type: 3}
+  icon: {fileID: 21300000, guid: 7cd5a4ca79c97924e931c2ebe188eb17, type: 3}

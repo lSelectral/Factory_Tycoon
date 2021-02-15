@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Bronze_hammer
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Bronze Hammer
+  product: 30
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 10
+  collectTime: 12
+  outputValue: 1
+  recipes:
+  - inputResources: 1d000000
+    inputAmounts: 02000000
+    collectTime: 12
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 1
+  itemTypes: 0000000002000000
+  basePricePerProduct:
+    mantissa: 1
+    exponent: 22
+  pricePerProductExpText: 3.08457937125303E+22
+  pricePerProductText: 30,846C
+  pricePerProduct:
+    mantissa: 3.08457937125303
+    exponent: 22
+  incomePerSecondText: 2,57C
+  incomePerSecond:
+    mantissa: 2.570482809377525
+    exponent: 21
+  optimalPricePerProductText: 20,846C
+  optimalPricePerProduct:
+    mantissa: 2.084579371253034
+    exponent: 22
+  optimalIncomePerSecondText: 726,03B
+  optimalPricePerSecond:
+    mantissa: 7.260296097657659
+    exponent: 20
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 48,428C
+  - 76,032C
+  - 119,37C
+  - 187,411C
+  - 294,235C
+  - 461,949C
+  - 725,26C
+  - 1,139D
+  - 1,788D
+  - 2,807D
+  - 4,406D
+  - 6,918D
+  - 10,862D
+  - 17,053D
+  - 26,773D
+  - 42,033D
+  - 65,992D
+  - 103,607D
+  - 162,663D
+  - 255,381D
+  - 400,949D
+  - 629,49D
+  - 988,299D
+  - 1,552E
+  - 2,436E
+  - 3,825E
+  - 6,005E
+  - 9,427E
+  - 14,801E
+  - 23,237E
+  - 36,483E
+  - 57,278E
+  - 89,926E
+  - 141,184E
+  - 221,658E
+  - 348,004E
+  - 546,366E
+  - 857,795E
+  - 1,347F
+  - 2,114F
+  - 3,32F
+  - 5,212F
+  - 8,182F
+  - 12,846F
+  - 20,169F
+  - 31,665F
+  - 49,714F
+  - 78,051F
+  - 122,54F
+  - 453,4F
+  backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
+  toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}
+  sourceImage: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  icon: {fileID: 21300000, guid: 3ab05f102b40e2249b212918f12c1c86, type: 3}

@@ -16,465 +16,307 @@ using UnityEngine.UI;
 
 public class ContractManager : Singleton<ContractManager>
 {
-    public GameObject contactAgreePrefab;
     [SerializeField] private GameObject contractPrefab;
 
-    /* All Contracts available in game */ public ContractBase[] contracts;
+    // Panels
     [SerializeField] private GameObject contractPanel;
-    /* Completed contracts will moved to this panel */ [SerializeField] private GameObject completedContractPanel;
-    /* Show number of activated contracts in contract panel */ [SerializeField] private GameObject activeContractCounter;
-
-    Dictionary<ContractBase, List<ContractBase>> contractDependencyDictionary;
-
+    /* Completed contracts will moved to this panel */
+    [SerializeField] private GameObject completedContractPanel;
+    /* Show number of activated contracts in contract panel */
+    [SerializeField] private GameObject activeContractCounter;
     [SerializeField] private GameObject contractFinishedInfoPanel;
-
     [SerializeField] private GameObject productionPanel;
     [SerializeField] private GameObject ProductionPanelBtn;
 
-    public List<GameObject> instantiatedContracts;
+    public ContractBase[] contracts; // All contracts
+    public List<ContractHolder> instantiatedContracts;
+    public List<ContractHolder> activatedContracts;
+    public List<ContractHolder> completedContracts;
 
-    public List<List<BaseResources>> tempResources;
-
-    public List<ContractBase> activatedContracts;
-    public List<ContractBase> completedContracts;
-
-    UnityEngine.Object[] assets;
+    // This list purely for optimization. When new resources produced. If it is not needed don't fire methods for less CPU usage.
+    // CheckAvailableResources method fire, when every resource collected. So its call should be minimized.
+    List<BaseResources> requiredResourcesForContracts;
 
     private void Awake()
     {
-        tempResources = new List<List<BaseResources>>();
-        instantiatedContracts = new List<GameObject>();
-        completedContracts = new List<ContractBase>();
-        contractDependencyDictionary = new Dictionary<ContractBase, List<ContractBase>>();
-        activatedContracts = new List<ContractBase>();
+        instantiatedContracts = new List<ContractHolder>();
+        completedContracts = new List<ContractHolder>();
+        activatedContracts = new List<ContractHolder>();
+        requiredResourcesForContracts = new List<BaseResources>();
 
         ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
         GameManager.Instance.OnLevelUp += OnLevelUp;
     }
 
-    private void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
-    {
-        for (int i = 0; i < instantiatedContracts.Count; i++)
-        {
-            var c = instantiatedContracts[i];
-            if (c.transform.Find("Level_Lock(Clone)") != null && contracts.Length > 0 && contracts[i].unlockLevel == e.currentLevel)
-            {
-                c.transform.Find("Activation_Btn").GetComponent<Button>().interactable = true;
-                Destroy(c.transform.Find("Level_Lock(Clone)").gameObject);
-            }
-            if (contracts[i].dependentContracts != null && contracts[i].dependentContracts.Length > 0)
-            {
-                c.transform.Find("Activation_Btn").GetComponent<Button>().interactable = false;
-                var lockText = Instantiate(GameManager.Instance.levelLock, c.transform);
-                lockText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("Unlocked when <color=red>{0}</color> completed", contracts[i].dependentContracts[0].contractName);
-            }
-        }
-
-        for (int i = 0; i < contracts.Length; i++)
-        {
-            var contract = contracts[i];
-            if (contract.contractName != "" && contract.unlockLevel == GameManager.Instance.CurrentLevel)
-            {
-                CreateContract(contract);
-
-                if (contract.dependentContracts != null && contract.dependentContracts.Length > 0)
-                    contractDependencyDictionary.Add(contract, contract.dependentContracts.ToList());
-            }
-        }
-    }
-
     private void Start()
     {
-        assets = Resources.LoadAll("Contracts");
-        List<ContractBase> tempContracts = new List<ContractBase>();
-        for (int i = 0; i < assets.Length; i++)
+        for (int i = 0; i < contracts.Length; i++)
         {
-            var asset = assets[i];
-
-            if (asset as ContractBase != null)
-            {
-                var contractBase = asset as ContractBase;
-                tempContracts.Add(contractBase);
-                if (contractBase.contractName != "" && contractBase.unlockLevel <= GameManager.Instance.CurrentLevel)
-                {
-                    CreateContract(contractBase);
-
-                    if (contractBase.dependentContracts != null && contractBase.dependentContracts.Length > 0)
-                        contractDependencyDictionary.Add(contractBase, contractBase.dependentContracts.ToList());
-                }
-            }
+            var contractBase = contracts[i];
+            if (contractBase.contractName != "" && contractBase.unlockLevel <= GameManager.Instance.CurrentLevel)
+                CreateContract(contractBase);
         }
-        contracts = tempContracts.ToArray();
-
-        // Set active contract counter
-        activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
-        if (activatedContracts != null && activatedContracts.Count <= 0)
-            activeContractCounter.SetActive(false);
-        else
-            activeContractCounter.SetActive(true);
     }
 
-    ///// <summary>
-    ///// Not for rungame. Used in editor for creating automation assets automatically.
-    ///// Used frome editor script CustomEditorWindow.cs
-    ///// For creating simply click create automation contracts button. If missing just remove comment mark from editor script
-    ///// </summary>
-    ///// <returns>List of contracts for automation of production</returns>
-    ///// <seealso cref="Assets\Scripts\Editor\CustomEditorWindow.cs"/>
-    //public List<ContractBase> CreateAutomationContracts()
-    //{
-    //    List<ContractBase> automationContracts = new List<ContractBase>();
-    //    foreach (BaseResources resource in Enum.GetValues(typeof(BaseResources)))
-    //    {
-    //        ScriptableMine mine = ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource) as ScriptableMine;
-    //        ScriptableCompound compound = ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource) as ScriptableCompound;
-
-    //        ScriptableMine[] mineArray = null;
-    //        ScriptableCompound[] compoundArray = null;
-    //        BaseResources[] requiredResources = { resource };
-    //        int[] requiredResourceAmounts = { 500 };
-
-    //        string pageNameToGo = "";
-    //        int unlockLevel = 2;
-    //        long xpReward = 100;
-
-    //        if (mine != null)
-    //        {
-    //            mineArray = new ScriptableMine[] { mine };
-    //            pageNameToGo = mine.ageBelongsTo.ToString();
-    //            unlockLevel = mine.unlockLevel++;
-    //            xpReward = mine.xpAmount * 15;
-    //        }
-    //        else if (compound != null)
-    //        {
-    //            compoundArray = new ScriptableCompound[] { compound };
-    //            pageNameToGo = compound.ageBelongsTo.ToString();
-    //            unlockLevel = compound.unlockLevel++;
-    //            xpReward = compound.xpAmount * 15;
-    //        }
-
-    //        ContractBase contract = new ContractBase()
-    //        {
-    //            contractName = ResourceManager.Instance.GetValidNameForResource(resource),
-    //            contractReward = 0,
-    //            productsToUnlock = compoundArray,
-    //            contractRewardType = ContractRewardType.automate,
-    //            description = ResourceManager.Instance.GetValidNameForResource(resource) + " will automatically collected",
-    //            icon = ResourceManager.Instance.GetSpriteFromResource(resource),
-    //            pageNameToGo = pageNameToGo,
-    //            unlockLevel = unlockLevel,
-    //            rewardPanelHeader = string.Format("<color=red>Congrulations!</color> for Automating {0}", ResourceManager.Instance.GetValidNameForResource(resource)),
-    //            rewardPanelDescription = string.Format("{0} will automatically processed.",ResourceManager.Instance.GetValidNameForResource(resource)),
-    //            xpReward = xpReward,
-    //            requiredResources = requiredResources,
-    //            requiredResourceAmounts = requiredResourceAmounts,
-    //        };
-    //        automationContracts.Add(contract);
-    //    }
-    //    return automationContracts;
-    //}
-
-    public void CreateContract(ContractBase contract)
+    void CreateContract(ContractBase contract)
     {
+        if (contract.contractName == "" || contract.unlockLevel != GameManager.Instance.CurrentLevel) return;
+
         // Instantiate prefab and enter information from scriptable object
         var _contract = Instantiate(contractPrefab, contractPanel.transform);
         _contract.AddComponent<ContractHolder>();
-        _contract.GetComponent<ContractHolder>().contract = contract;
+        var contractHolder = _contract.GetComponent<ContractHolder>();
+        contractHolder.contract = contract;
+        contractHolder.requiredResources = contract.requiredResources.ToList();
+        contractHolder.requiredResourceAmounts = contract.requiredResourceAmounts.ToList();
+        contractHolder.dependencyContracts = contract.dependentContracts.ToList();
+
+        requiredResourcesForContracts.AddRange(contractHolder.requiredResources);
+
+        for (int i = 0; i < completedContracts.Count; i++)
+        {
+            var c = completedContracts[i];
+            if (contract.dependentContracts != null && contract.dependentContracts.Length > 0)
+                if (contractHolder.dependencyContracts.Contains(c.contract))
+                    contractHolder.dependencyContracts.Remove(c.contract);
+        }
+
         _contract.transform.Find("Texts").Find("Header").GetComponent<TextMeshProUGUI>().text = contract.contractName;
         _contract.transform.Find("Texts").Find("Description").GetComponent<TextMeshProUGUI>().text = contract.description;
         _contract.transform.Find("Texts").Find("Reward").GetComponent<TextMeshProUGUI>().text = contract.contractReward.ToString();
         _contract.transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount = 0;
         _contract.transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text = "Progress: %0";
-        tempResources.Add(contract.requiredResources.ToList());
 
         if (contract.icon != null)
             _contract.transform.Find("Icon").GetComponent<Image>().sprite = contract.icon;
 
+        // Add resource icons to contract panel
+        var requiredResourcePanel = _contract.transform.Find("Required_Resource");
         for (int i = 0; i < contract.requiredResources.Length; i++)
         {
-            var icon = Instantiate(ResourceManager.Instance.iconPrefab, _contract.transform.Find("Required_Resource"));
-            icon.transform.Find("Frame").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(contract.requiredResources[i]);
-            icon.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = ResourceManager.Instance.CurrencyToString(contract.requiredResourceAmounts[i]);
+            var icon = Instantiate(ResourceManager.Instance.iconPrefab, requiredResourcePanel);
+            icon.transform.Find("Frame").Find("Icon").GetComponent<Image>().sprite =
+                ResourceManager.Instance.GetSpriteFromResource(contract.requiredResources[i]);
+            icon.transform.Find("Text").GetComponent<TextMeshProUGUI>().text =
+                contract.requiredResourceAmounts[i].ToString();
         }
-        instantiatedContracts.Add(_contract);
 
-        if (!completedContracts.Contains(contract))
+        if (!completedContracts.Contains(contractHolder))
         {
             _contract.transform.Find("Activation_Btn").GetComponent<Button>().onClick.AddListener(
-            () => PopupManager.Instance.PopupConfirmationPanel(("Do you want to activate " + contract.contractName + " Contract"),
-            () => ActivateContract(contract),
+            () => PopupManager.Instance.PopupConfirmationPanel(string.Format("Do you want to activate {0} Contract", contract.contractName),
+            () => ActivateContract(contractHolder),
             () => PopupManager.Instance.confirmationPopUpPrefab.transform.parent.gameObject.SetActive(false)));
 
-            if (contract.dependentContracts != null && contract.dependentContracts.Length > 0)
+            if (contractHolder.dependencyContracts != null && contractHolder.dependencyContracts.Count > 0)
             {
                 _contract.transform.Find("Activation_Btn").GetComponent<Button>().interactable = false;
                 var lockText = Instantiate(GameManager.Instance.levelLock, _contract.transform);
-                lockText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("Unlocked when <color=red>{0}</color> completed", contract.dependentContracts[0].contractName);
-            }
-            else if (contract.unlockLevel > GameManager.Instance.CurrentLevel)
-            {
-                _contract.transform.Find("Activation_Btn").GetComponent<Button>().interactable = false;
-                var lockText = Instantiate(GameManager.Instance.levelLock, _contract.transform);
-                lockText.GetComponentInChildren<TextMeshProUGUI>().text = "Unlocked at level " + contract.unlockLevel.ToString();
+                lockText.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("Unlocked when <color=red>{0}</color> completed",
+                    contract.dependentContracts[0].contractName);
             }
         }
-        else if (completedContracts.Contains(contract))
+        else if (activatedContracts.Contains(contractHolder))
+        {
+            _contract.transform.SetAsFirstSibling();
+            _contract.GetComponent<Image>().color = new Color(11 / 256f, 253 / 256f, 54 / 256f);
+        }
+        else if (completedContracts.Contains(contractHolder))
         {
             _contract.transform.SetParent(completedContractPanel.transform);
         }
-        else if (activatedContracts.Contains(contract))
+
+
+        instantiatedContracts.Add(contractHolder);
+    }
+
+    /// <summary>
+    /// Check available to resource to collect for active contracts
+    /// </summary>
+    /// <param name="_resource">
+    /// When new resource collected, this method will be fired OnResourceAmountChanged event.
+    /// If required resources list don't contain this resource, don't iterate. For performance.
+    /// </param>
+    void CheckAvailableResources(BaseResources _resource)
+    {
+        if (!requiredResourcesForContracts.Contains(_resource)) return;
+
+        for (int i = 0; i < activatedContracts.Count; i++)
         {
+            ContractHolder contractHolder = activatedContracts[i];
+            ContractBase contract = contractHolder.contract;
+
+            IEnumerable<(BaseResources Resource, BigDouble Amount)> inputs = contract.requiredResources.Zip(contract.requiredResourceAmounts, (resource, amount) => (Resource: resource, Amount: amount));
+
+            BigDouble totalResource = 0;
+            for (int j = 0; j < contract.requiredResourceAmounts.Length; j++)
+            {
+                totalResource += contract.requiredResourceAmounts[j];
+            }
+
+            GetAvaliableResource(inputs, contractHolder, totalResource);
+
+            if (contractHolder.requiredResources.Count == 0)
+            {
+                OnContractCompleted(contractHolder);
+            }
         }
     }
 
-    private void OnResourceAmountChanged(object sender, ResourceManager.OnResourceAmountChangedEventArgs e)
+    /// <summary>
+    /// This is inside function for CheckAvailableResource.
+    /// Only for increasing readability
+    /// </summary>
+    /// <see cref="CheckAvailableResources(BaseResources)"/>
+    void GetAvaliableResource(IEnumerable<(BaseResources Resource, BigDouble Amount)> inputs, ContractHolder contractHolder, BigDouble totalResourceAmount)
     {
-        if (!e.isConsumed)
-            CheckAvailableResources();
+        var contractObj = contractHolder;
+        foreach ((BaseResources Resource, BigDouble Amount) in inputs)
+        {
+            if (contractHolder.requiredResources.Contains(Resource) && ResourceManager.Instance.GetResourceAmount(Resource) >= Amount)
+            {
+                contractObj.transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount += (float)((Amount / totalResourceAmount).Mantissa);
+                contractObj.transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text =
+                    "Progress: %" + (contractObj.transform.Find("Outline")
+                    .Find("Fill").GetComponent<Image>().fillAmount).ToString("F2");
+                contractObj.transform.GetChild(0)
+                    .GetChild(contractHolder.requiredResources.IndexOf(Resource))
+                    .GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+
+                ResourceManager.Instance.ConsumeResource(Resource, Amount);
+                contractHolder.requiredResources.Remove(Resource);
+            }
+        }
     }
 
-    void CheckAvailableResources()
+    void OnContractCompleted(ContractHolder contractHolder)
     {
-        for (int i = 0; i < contracts.Length; i++)
+        // Remove resources from list that doesn't needed anymore
+        for (int i = 0; i < contractHolder.contract.requiredResourceAmounts.Length; i++)
+            requiredResourcesForContracts.Remove(contractHolder.contract.requiredResources[i]);
+
+        activatedContracts.Remove(contractHolder);
+        completedContracts.Add(contractHolder);
+
+        contractHolder.transform.Find("Activation_Btn").GetComponent<Button>().onClick.RemoveAllListeners();
+
+        SetActiveContractCounter();
+
+        // Check contracts that depend on contract that completed
+        CheckDependencyContracts(contractHolder);
+
+        OnContractRewarded(contractHolder);
+
+        GameManager.Instance.AddXP(contractHolder.contract.xpReward);
+        ShowCompletedContract(contractHolder.contract, contractHolder.contract.pageNameToGo);
+        // Move completed contract to completed contracts panel
+        contractHolder.transform.SetParent(completedContractPanel.transform);
+    }
+
+    /// <summary>
+    /// Check contract dependency for instantiated object over completed contract
+    /// </summary>
+    /// <param name="contractHolder">Completed Contract</param>
+    void CheckDependencyContracts(ContractHolder contractHolder)
+    {
+        foreach (var contract in instantiatedContracts)
         {
-            var contract = contracts[i];
-            if (activatedContracts.Contains(contract) && !completedContracts.Contains(contract))
+            Transform lockTransform = contract.transform.Find("Level_Lock(Clone)");
+
+            // If one of the instantiated contracts, have dependency on this contract, remove it from list
+            if (contract.dependencyContracts.Contains(contractHolder.contract))
+                contract.dependencyContracts.Remove(contractHolder.contract);
+
+            // If no dependency anymore, remove lock.
+            if (lockTransform != null && contract.dependencyContracts.Count == 0)
             {
-                var requiredResources = contract.requiredResources;
-                var requiredResourceAmounts = contract.requiredResourceAmounts;
-                int totalResourceAmount = 0;
+                contract.transform.Find("Activation_Btn").GetComponent<Button>().interactable = true;
+                Destroy(lockTransform.gameObject);
+            }
+            // If still has another dependency, change lock text with new one or has nothing to lock from start
+            else if (lockTransform != null)
+                lockTransform.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("Unlocked when <color=red>{0}</color> completed",
+                    contract.dependencyContracts[0].contractName);
+        }
+    }
 
-                for (int j = 0; j < contract.requiredResourceAmounts.Length; j++)
+    void OnContractRewarded(ContractHolder contractHolder)
+    {
+        var contract = contractHolder.contract;
+        // Give reward according to contract reward type
+        if (contract.contractRewardType == ContractRewardType.Currency)
+            ResourceManager.Instance.Currency += contract.contractReward;
+
+        else if (contract.contractRewardType == ContractRewardType.PremiumCurrency)
+            ResourceManager.Instance.PremiumCurrency += contract.contractReward;
+
+        else if (contract.contractRewardType == ContractRewardType.incresedCoinEarning)
+            UpgradeSystem.Instance.EarnedCoinMultiplier += contract.contractReward;
+
+        else if (contract.contractRewardType == ContractRewardType.miningSpeedUp)
+            UpgradeSystem.Instance.MiningSpeedMultiplier += contract.contractReward;
+
+        else if (contract.contractRewardType == ContractRewardType.miningYieldUpgrade)
+            UpgradeSystem.Instance.MiningYieldMultiplier += contract.contractReward;
+
+        else if (contract.contractRewardType == ContractRewardType.productionEfficiencyUpgrade)
+            UpgradeSystem.Instance.ProductionEfficiencyMultiplier += contract.contractReward;
+
+        else if (contract.contractRewardType == ContractRewardType.productionSpeedUp)
+            UpgradeSystem.Instance.ProductionSpeedMultiplier += contract.contractReward;
+
+        else if (contract.contractRewardType == ContractRewardType.productionYieldUpgrade)
+            UpgradeSystem.Instance.ProductionYieldMultiplier += contract.contractReward;
+
+        else if (contract.contractRewardType == ContractRewardType.unitSpeedUp)
+            UpgradeSystem.Instance.SpeedUpDictionaryValue = new KeyValuePair<BaseResources, float>(contract.resourceToRewarded, contract.contractReward);
+
+        else if (contract.contractRewardType == ContractRewardType.unlockProductionUnit)
+        {
+            for (int j = 0; j < ProductionManager.Instance.instantiatedProductionUnits.Count; j++)
+            {
+                var unit = ProductionManager.Instance.instantiatedProductionUnits[j].GetComponent<ProductionBase>();
+                if (contract.productsToUnlock != null && contract.productsToUnlock.Contains(unit.scriptableProductionBase))
                 {
-                    totalResourceAmount += contract.requiredResourceAmounts[j];
-                }
-
-                var inputs = requiredResources.Zip(requiredResourceAmounts, (resource, amount) => (Resource: resource, Amount: amount));
-                foreach (var (Resource, Amount) in inputs)
-                {
-                    if (ResourceManager.Instance.GetResourceAmount(Resource) >= Amount && tempResources[i].Contains(Resource))
+                    unit.ContractStatueCheckDictionary[contract] = true;
+                    if (!unit.ContractStatueCheckDictionary.ContainsValue(false))
                     {
-                        tempResources[i].Remove(Resource);
-                        ResourceManager.Instance.ConsumeResource(Resource, Amount);
-                        instantiatedContracts[i].transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount += (Amount * 1f / totalResourceAmount);
-                        instantiatedContracts[i].transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text =
-                            "Progress: %" + (instantiatedContracts[i].transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount).ToString("F2");
-                        instantiatedContracts[i].transform.Find("Required_Resource").GetChild(Array.IndexOf(requiredResources, Resource)).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        unit.IsLockedByContract = false;
+                        Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
                     }
-                    else if (ResourceManager.Instance.GetResourceAmount(Resource) < Amount)
-                    {
-                        //Debug.Log("Not enough " + input.Resource);
-                    }
-                }
-                // Contract completed
-                if (tempResources[i].Count == 0)
-                {
-                    activatedContracts.Remove(contract);
-                    completedContracts.Add(contract);
-                    instantiatedContracts[i].transform.Find("Activation_Btn").GetComponent<Button>().onClick.RemoveAllListeners();
-                    instantiatedContracts[i].transform.Find("Activation_Btn").GetComponent<Button>().onClick.AddListener(
-                    () => PopupManager.Instance.PopupConfirmationPanel("Contract already completed", null, null));
-
-                    // Set active contract counter
-                    if (activatedContracts != null && activatedContracts.Count > 0)
-                    {
-                        activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
-                        activeContractCounter.SetActive(true);
-                    }
-                    else if (activatedContracts != null && activatedContracts.Count <= 0)
-                    {
-                        activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
-                        activeContractCounter.SetActive(false);
-                    }
-
-                    // Check if this contract has dependency for another contracts
-                    for (int j = 0; j < instantiatedContracts.Count; j++)
-                    {
-                        if (contracts[j].dependentContracts != null && contracts[j].dependentContracts.Contains(contract))
-                        {
-                            var counter = 0;
-                            for (int k = 0; k < contracts[j].dependentContracts.Length; k++)
-                            {
-                                if (completedContracts.Contains(contracts[j].dependentContracts[k]))
-                                {
-                                    contractDependencyDictionary[contracts[j]].Remove(contracts[j].dependentContracts[k]);
-                                    counter++;
-                                }
-                            }
-
-                            var c = instantiatedContracts[j];
-                            var lockTransform = c.transform.Find("Level_Lock(Clone)");
-                            if (counter == contracts[j].dependentContracts.Length)
-                            {
-                                // All dependent contracts complete
-
-                                if (lockTransform != null)
-                                {
-                                    c.transform.Find("Activation_Btn").GetComponent<Button>().interactable = true;
-                                    Destroy(lockTransform.gameObject);
-                                }
-                            }
-                            else
-                            {
-                                if (lockTransform != null)
-                                {
-                                    lockTransform.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("Unlocked when <color=red>{0}</color> completed",
-                                        contractDependencyDictionary[contracts[j]][0].contractName);
-                                }
-                            }
-                        }
-                    }
-
-                    // Give reward according to contract reward type
-                    if (contract.contractRewardType == ContractRewardType.Currency)
-                        ResourceManager.Instance.Currency += contract.contractReward;
-
-                    else if (contract.contractRewardType == ContractRewardType.PremiumCurrency)
-                        ResourceManager.Instance.PremiumCurrency += contract.contractReward;
-
-                    else if (contract.contractRewardType == ContractRewardType.incresedCoinEarning)
-                        UpgradeSystem.Instance.EarnedCoinMultiplier += contract.contractReward;
-
-                    else if (contract.contractRewardType == ContractRewardType.miningSpeedUp)
-                        UpgradeSystem.Instance.MiningSpeedMultiplier += contract.contractReward;
-
-                    else if (contract.contractRewardType == ContractRewardType.miningYieldUpgrade)
-                        UpgradeSystem.Instance.MiningYieldMultiplier += contract.contractReward;
-
-                    else if (contract.contractRewardType == ContractRewardType.productionEfficiencyUpgrade)
-                        UpgradeSystem.Instance.ProductionEfficiencyMultiplier += contract.contractReward;
-
-                    else if (contract.contractRewardType == ContractRewardType.productionSpeedUp)
-                        UpgradeSystem.Instance.ProductionSpeedMultiplier += contract.contractReward;
-
-                    else if (contract.contractRewardType == ContractRewardType.productionYieldUpgrade)
-                        UpgradeSystem.Instance.ProductionYieldMultiplier += contract.contractReward;
-
-                    else if (contract.contractRewardType == ContractRewardType.unitSpeedUp)
-                        UpgradeSystem.Instance.SpeedUpDictionaryValue = new KeyValuePair<BaseResources, float>(contract.resourceToRewarded, contract.contractReward);
-
-                    else if (contract.contractRewardType == ContractRewardType.unlockCompound)
-                    {
-                        foreach (GameObject obj in ProductionManager.Instance.instantiatedCompounds)
-                        {
-                            var compound = obj.GetComponent<Compounds>();
-                            if (contract.productsToUnlock != null && contract.productsToUnlock.Contains(compound.scriptableCompound))
-                            {
-                                compound.ContractStatueCheckDictionary[contract] = true;
-
-                                if (!compound.ContractStatueCheckDictionary.ContainsValue(false))
-                                {
-                                    compound.IsLockedByContract = false;
-                                    Destroy(obj.transform.Find("Level_Lock(Clone)").gameObject);
-                                }
-                            }
-                        }
-                    }
-                    else if (contract.contractRewardType == ContractRewardType.unlockMine)
-                    {
-                        foreach (GameObject obj in ProductionManager.Instance.instantiatedMines)
-                        {
-                            var mine = obj.GetComponent<Mine_Btn>();
-                            if (contract.productsToUnlock.Contains(mine.scriptableMine))
-                            {
-                                mine.ContractStatueCheckDictionary[contract] = true;
-
-                                if (!mine.ContractStatueCheckDictionary.ContainsValue(false))
-                                {
-                                    mine.IsLockedByContract = false;
-                                    Destroy(obj.transform.Find("Level_Lock(Clone)").gameObject);
-                                }
-                            }
-                        }
-                    }
-                    else if (contract.contractRewardType == ContractRewardType.automate)
-                    {
-                        var mineAndCompounds = ProductionManager.Instance.instantiatedMines.Zip(ProductionManager.Instance.instantiatedCompounds, (mine, compound) => (Mine: mine, Compound: compound));
-
-                        foreach (var (Mine, Compound) in mineAndCompounds)
-                        {
-                            if (Mine != null && contract.productsToUnlock.Contains(Mine.GetComponent<Mine_Btn>().scriptableMine))
-                                Mine.GetComponent<Mine_Btn>().IsAutomated = true;
-                            else if (Compound != null && contract.productsToUnlock.Contains(Mine.GetComponent<Compounds>().scriptableCompound))
-                                Compound.GetComponent<Compounds>().IsAutomated = true;
-                        }
-                    }
-
-                    GameManager.Instance.AddXP(contract.xpReward);
-                    ShowCompletedContract(contract, contract.pageNameToGo);
-                    // Move completed contract to completed contracts panel
-                    instantiatedContracts[i].transform.SetParent(completedContractPanel.transform);
                 }
             }
         }
     }
 
-    public void ActivateContract(ContractBase contract)
+    void SetActiveContractCounter()
     {
-        if (!activatedContracts.Contains(contract))
-        {
-            activatedContracts.Add(contract);
-
-
-            for (int i = 0; i < instantiatedContracts.Count; i++)
-            {
-                if (contracts[i] == contract)
-                {
-                    instantiatedContracts[i].GetComponent<Image>().color = new Color(11 / 256f, 253 / 256f, 54 / 256f);
-                    instantiatedContracts[i].transform.SetAsFirstSibling();
-
-                    instantiatedContracts[i].transform.Find("Activation_Btn").GetComponent<Button>().onClick.RemoveAllListeners();
-                }
-            }
-
-            Debug.Log(contract.contractName + " contract activated");
-
-            if (activatedContracts != null && activatedContracts.Count > 0)
-            {
-                activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
-                activeContractCounter.SetActive(true);
-            }
-            CheckAvailableResources();
-        }
-    }
-    // TODO implement this function to deactivate contract on click
-    public void DeActivateContract(ContractBase contract)
-    {
-        if (activatedContracts.Contains(contract))
-        {
-            activatedContracts.Remove(contract);
-
-            for (int i = 0; i < instantiatedContracts.Count; i++)
-            {
-                if (contract == contract)
-                {
-                    instantiatedContracts[i].GetComponent<Image>().color = new Color(0,0,0);
-                    instantiatedContracts[i].transform.SetAsLastSibling();
-
-                    instantiatedContracts[i].transform.Find("Activation_Btn").GetComponent<Button>().onClick.AddListener(
-                    () => PopupManager.Instance.PopupConfirmationPanel(("Do you want to activate " + contract.contractName + " Contract"),
-                    () => ActivateContract(contract),
-                    () => PopupManager.Instance.confirmationPopUpPrefab.transform.parent.gameObject.SetActive(false)));
-
-                    instantiatedContracts[i].transform.Find("Activation_Btn").GetComponent<Button>().onClick.RemoveAllListeners();
-                }
-            }
-        }
+        activeContractCounter.GetComponentInChildren<TextMeshProUGUI>().text = activatedContracts.Count.ToString();
+        if (activatedContracts.Count > 0)
+            activeContractCounter.SetActive(true);
+        else
+            activeContractCounter.SetActive(false);
     }
 
-    void ShowCompletedContract(ContractBase contract, string pageName)
+    void ActivateContract(ContractHolder contractHolder)
     {
-        var panel = contractFinishedInfoPanel.transform;
-        panel.Find("Icon").GetComponent<Image>().sprite = contract.icon;
-        panel.Find("HEADER").GetComponent<TextMeshProUGUI>().text = contract.rewardPanelHeader;
-        panel.Find("Description").GetComponent<TextMeshProUGUI>().text = contract.rewardPanelDescription;
-        panel.Find("OK_Btn").GetComponent<Button>().onClick.AddListener(() => { contractFinishedInfoPanel.SetActive(false); });
-        panel.Find("GoToPage_Btn").GetComponent<Button>().onClick.AddListener(() => { SetPageSettings(pageName);  contractFinishedInfoPanel.SetActive(false); });
-        contractFinishedInfoPanel.SetActive(true);
+        if (!activatedContracts.Contains(contractHolder))
+        {
+            activatedContracts.Add(contractHolder);
+
+            contractHolder.GetComponent<Image>().color = new Color(11 / 256f, 253 / 256f, 54 / 256f);
+            contractHolder.transform.SetAsFirstSibling();
+            contractHolder.transform.Find("Activation_Btn").GetComponent<Button>().onClick.RemoveAllListeners();
+
+            Debug.Log(contractHolder.contract.contractName + " contract activated");
+            SetActiveContractCounter();
+            CheckAvailableResources(BaseResources._0_berry);
+        }
     }
 
     /// <summary>
     /// Set page settings for go to page button
+    /// TODO Need some fix for all pages (Production page access has no problem)
     /// </summary>
     /// <param name="pageName">Production page name to go</param>
     void SetPageSettings(string pageName)
@@ -510,17 +352,33 @@ public class ContractManager : Singleton<ContractManager>
         }
         PageManager.Instance.minePageInfoText.text = pageName;
     }
+    void ShowCompletedContract(ContractBase contract, string pageName)
+    {
+        var panel = contractFinishedInfoPanel.transform;
+        panel.Find("Icon").GetComponent<Image>().sprite = contract.icon;
+        panel.Find("HEADER").GetComponent<TextMeshProUGUI>().text = contract.rewardPanelHeader;
+        panel.Find("Description").GetComponent<TextMeshProUGUI>().text = contract.rewardPanelDescription;
+        panel.Find("OK_Btn").GetComponent<Button>().onClick.AddListener(() => { contractFinishedInfoPanel.SetActive(false); });
+        panel.Find("GoToPage_Btn").GetComponent<Button>().onClick.AddListener(() => { SetPageSettings(pageName); contractFinishedInfoPanel.SetActive(false); });
+        contractFinishedInfoPanel.SetActive(true);
+    }
 
-    //void OnContractExpired(ContractBase contract)
-    //{
-    //    for (int i = 0; i < contractPanel.transform.childCount; i++)
-    //    {
-    //        if (contractPanel.transform.GetChild(i).GetComponent<ContractBase>() == contract)
-    //        {
-    //            Destroy(contractPanel.transform.GetChild(i).gameObject);
-    //        }
-    //    }
-    //}
+    private void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
+    {
+        // Create contracts that will be unlocked at current level
+        for (int i = 0; i < contracts.Length; i++)
+        {
+            var contractBase = contracts[i];
+            if (contractBase.contractName != "" && contractBase.unlockLevel == GameManager.Instance.CurrentLevel)
+                CreateContract(contractBase);
+        }
+    }
+
+    private void OnResourceAmountChanged(object sender, ResourceManager.OnResourceAmountChangedEventArgs e)
+    {
+        if (!e.isConsumed)
+            CheckAvailableResources(e.resource);
+    }
 }
 
 public enum ContractRewardType
@@ -533,8 +391,7 @@ public enum ContractRewardType
     productionYieldUpgrade,
     productionEfficiencyUpgrade,
     incresedCoinEarning,
-    unlockCompound,
-    unlockMine,
+    unlockProductionUnit,
     automate,
     unitSpeedUp,
 }
@@ -543,7 +400,8 @@ public enum ContractActivationType
 {
     levelUp,
     resourceCollection,
-    contractCompletion
+    contractCompletion,
+    story,
 }
 
 public enum ContractType
@@ -551,12 +409,6 @@ public enum ContractType
     story = 0,
     producing = 1,
     war = 2,
-}
-
-[Serializable]
-public class ContractHolder : MonoBehaviour
-{
-    public ContractBase contract;
 }
 
 //public class Contracts

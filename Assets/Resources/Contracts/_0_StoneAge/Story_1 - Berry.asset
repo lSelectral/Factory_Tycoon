@@ -14,14 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contractName: More food, More work.
   description: If you feed your people well, they will work better. Collect 20 <color=green>Berry</color>
+  contractType: 0
   contractReward: 1.05
-  contractRewardType: 11
+  contractRewardType: 10
   resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
   requiredResources: 00000000
-  requiredResourceAmounts: 14000000
-  unlockLevel: 0
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
+  unlockLevel: 1
   icon: {fileID: 21300000, guid: cd1cbd18ac0484b4f8c7f82098766bdd, type: 3}
   rewardPanelHeader: <color=red>Congrulations.</color> My King
   rewardPanelDescription: Now your people have full stomach, they are able to collect

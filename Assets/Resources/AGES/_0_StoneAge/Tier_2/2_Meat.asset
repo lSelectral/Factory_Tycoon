@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Meat
+  m_EditorClassIdentifier: 
+  Description: Meat is one of the first food that humanity explored. It is very nutritous
+    and delicious.
+  TranslatedName: Meat
+  product: 7
+  foodAmount: 4
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 9
+  outputValue: 2
+  recipes:
+  - inputResources: 06000000
+    inputAmounts: 01000000
+    collectTime: 9
+    outputAmount: 2
+  ageBelongsTo: 0
+  tier: 1
+  itemTypes: 0300000001000000
+  basePricePerProduct:
+    mantissa: 3.27
+    exponent: 6
+  pricePerProductExpText: 2.13952484216856E+7
+  pricePerProductText: 21,395M
+  pricePerProduct:
+    mantissa: 2.13952484216856
+    exponent: 7
+  incomePerSecondText: 4,754M
+  incomePerSecond:
+    mantissa: 4.754499649263466
+    exponent: 6
+  optimalPricePerProductText: 18,125M
+  optimalPricePerProduct:
+    mantissa: 1.8125248421685611
+    exponent: 7
+  optimalIncomePerSecondText: 1,683M
+  optimalPricePerSecond:
+    mantissa: 1.6834049394618933
+    exponent: 6
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 6
+  xpAmount: 40
+  pricePerProductUntilLevel50:
+  - 33,591M
+  - 52,737M
+  - 82,797M
+  - 129,992M
+  - 204,087M
+  - 320,417M
+  - 503,054M
+  - 789,796M
+  - 1,24B
+  - 1,947B
+  - 3,056B
+  - 4,799B
+  - 7,534B
+  - 11,828B
+  - 18,57B
+  - 29,155B
+  - 45,773B
+  - 71,864B
+  - 112,826B
+  - 177,138B
+  - 278,106B
+  - 436,626B
+  - 685,503B
+  - 1,076T
+  - 1,69T
+  - 2,653T
+  - 4,165T
+  - 6,539T
+  - 10,266T
+  - 16,118T
+  - 25,305T
+  - 39,729T
+  - 62,374T
+  - 97,928T
+  - 153,747T
+  - 241,382T
+  - 378,97T
+  - 594,983T
+  - 934,124T
+  - 1,467A
+  - 2,303A
+  - 3,615A
+  - 5,675A
+  - 8,911A
+  - 13,99A
+  - 21,964A
+  - 34,483A
+  - 54,138A
+  - 84,996A
+  - 314,487A
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
+  sourceImage: {fileID: 21300000, guid: 321f17e4f16ee474980645ed60d5a653, type: 3}
+  icon: {fileID: 21300000, guid: 90d1fe8195b84c9479d9b2b1af71a5e2, type: 3}

@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Silk_cloth
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Silk Cloth
+  product: 49
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 30
+  outputValue: 1
+  recipes:
+  - inputResources: 29000000
+    inputAmounts: 05000000
+    collectTime: 30
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 4
+  itemTypes: 01000000
+  basePricePerProduct:
+    mantissa: 7.2
+    exponent: 35
+  pricePerProductExpText: 7.20031990001202E+35
+  pricePerProductText: 720,032G
+  pricePerProduct:
+    mantissa: 7.20031990001202
+    exponent: 35
+  incomePerSecondText: 24,001G
+  incomePerSecond:
+    mantissa: 2.40010663333734
+    exponent: 34
+  optimalPricePerProductText: 31,99F
+  optimalPricePerProduct:
+    mantissa: 3.199000120162964
+    exponent: 31
+  optimalIncomePerSecondText: 356,533E
+  optimalPricePerSecond:
+    mantissa: 3.565333271026611
+    exponent: 29
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 1,13AA
+  - 1,775AA
+  - 2,786AA
+  - 4,375AA
+  - 6,868AA
+  - 10,783AA
+  - 16,93AA
+  - 26,58AA
+  - 41,73AA
+  - 65,516AA
+  - 102,86AA
+  - 161,491AA
+  - 253,541AA
+  - 398,059AA
+  - 624,952AA
+  - 981,175AA
+  - 1,54AB
+  - 2,418AB
+  - 3,797AB
+  - 5,961AB
+  - 9,359AB
+  - 14,694AB
+  - 23,07AB
+  - 36,22AB
+  - 56,865AB
+  - 89,278AB
+  - 140,166AB
+  - 220,061AB
+  - 345,495AB
+  - 542,428AB
+  - 851,611AB
+  - 1,337AC
+  - 2,099AC
+  - 3,296AC
+  - 5,174AC
+  - 8,123AC
+  - 12,754AC
+  - 20,023AC
+  - 31,437AC
+  - 49,356AC
+  - 77,489AC
+  - 121,657AC
+  - 191,002AC
+  - 299,873AC
+  - 470,8AC
+  - 739,157AC
+  - 1,16AD
+  - 1,822AD
+  - 2,86AD
+  - 10,584AD
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 99fa4ecf1930d8742a1dcff04a2f2c77, type: 3}
+  icon: {fileID: 21300000, guid: a369c622b9cbfb445a6f38e173296ec1, type: 3}

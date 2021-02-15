@@ -50,8 +50,6 @@ public class ResourceManager : Singleton<ResourceManager>
     public Dictionary<BaseResources, BigDouble> resourceNewPricePerProductDictionary;
     IEnumerable<BaseResources> resources;
 
-    public List<ScriptableProductionBase> scriptableProductionUnits;
-
     // Player related variable and smoothing values
     [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText;
     [SerializeField] BigDouble currency,totalResource, premiumCurrency, foodAmount, attackAmount = new BigDouble();
@@ -221,8 +219,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public string GetValidNameForResourceGame(BaseResources res)
     {
-        string r = res.ToString();
-        r = r.Substring(3);
+        string r = res.ToString().Substring(3);
         if (r.ToString().ToCharArray().Contains('_'))
         {
             r = r.Replace('_', ' ');
@@ -233,8 +230,13 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public string GetValidNameForResource(BaseResources res)
     {
-        string r = res.ToString();
-        return char.ToUpper(r.Substring(3).ToCharArray()[0]) + r.Substring(4);
+        string r = res.ToString().Substring(3);
+        if (r.StartsWith("i"))
+        {
+            r = "I" + r.Remove(0, 1);
+        }
+
+        return char.ToUpper(r.ToCharArray()[0]) + r.Substring(1);
     }
 
     #endregion
@@ -267,8 +269,6 @@ public class ResourceManager : Singleton<ResourceManager>
 
     private void Start()
     {
-        scriptableProductionUnits = ProductionManager.Instance.scriptableProductionUnitList;
-
         #region Add all resources to resource panel
         int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
         foreach (var resource in resources)
@@ -282,8 +282,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
             var resourceName = resourceInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
-            //resourceName.text = ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource).TranslatedName;
-
+            resourceName.text = ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource).TranslatedName;
             resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
 
             resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
@@ -336,7 +335,7 @@ public class ResourceManager : Singleton<ResourceManager>
         return amount;
     }
 
-    public void ConsumeResource(BaseResources resource, long amount)
+    public void ConsumeResource(BaseResources resource, BigDouble amount)
     {
         resourceValueDict[resource] -= amount;
         TotalResource -= amount;
@@ -363,7 +362,8 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public Sprite GetSpriteFromResource(BaseResources resource)
     {
-        return ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource).icon;
+        var unit = ProductionManager.Instance.GetScriptableProductionUnitFromResource(resource);
+        return unit.icon;
     }
 
     public Sprite GetSpriteFromItemType(ItemType itemType)
@@ -391,10 +391,10 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         var deltaTime = Time.deltaTime;
         smoothTime = Mathf.Max(0.0001f, smoothTime);
-        BigDouble num = new BigDouble(2f / smoothTime, 0);
+        float num = 2f / smoothTime;
 
-        BigDouble num2 = num * deltaTime;
-        BigDouble num3 = 1f / (num2 + 1f + num2 * 0.48f * num2 + num2 * num2 * 0.235f * 0.235f);
+        float num2 = num * deltaTime;
+        float num3 = 1f / (num2 + 1f + num2 * 0.48f * num2 + num2 * num2 * 0.235f * 0.235f);
         BigDouble num4 = current - target;
         BigDouble num5 = target;
         BigDouble num6 = BigDouble.PositiveInfinity * smoothTime;
@@ -434,9 +434,10 @@ public enum BaseResources
     _0_berry,
     _0_leaf,
     _0_stick,
-    _0_fire,
     _0_stone,
+    _0_fire,
 
+    _0_rope,
     _0_spear,
     _0_meat,
     _0_axe,
@@ -450,46 +451,212 @@ public enum BaseResources
     _0_leather,
 
     _0_fish,
-    _0_hut,
+    _0_wheat,
+    _0_bread,
+    _0_log,
+
+    _0_sand,
     _0_leather_armor,
-    _0_wheel,
+    _0_hut,
     _0_wine,
+    _0_wheel,
     #endregion
 
     #region Bronze Age Resources
+
+    _1_apple,
     _1_copper_ore,
-    _1_rope,
     _1_tin_ore,
+    _1_rice,
 
-    _1_bronze_axe,
-    _1_bronze_pickaxe,
     _1_bronze_ingot,
-    _1_bronze_sword,
-    _1_stone_tablet,
-
-    _1_bronze_boot,
-    _1_bronze_chestplate,
     _1_bronze_hammer,
+    _1_bronze_pickaxe,
+    _1_boat,
+    _1_bronze_axe,
+    _1_bronze_sword,
+
+    _1_clay_pipe,
+    _1_bronze_chestplate,
     _1_bronze_helmet,
     _1_bronze_spear,
+    _1_egg,
 
-    _1_bronze_gloves,
     _1_bronze_shield,
-    _1_chariot,
     _1_silk,
-    _1_wheeled_wagon,
+    _1_glass,
+    _1_rice_meal,
+    _1_Wagon,
 
     _1_bronze_statue,
     _1_gold_ore,
-    _1_painted_vase,
+    _1_chariot,
+    _1_apple_pie,
     _1_silk_cloth,
     #endregion
 
     #region Iron Age Resources
 
+    _2_potato,
+    _2_iron_ore,
+    _2_boiled_potato,
+    _2_iron_ingot,
+
+    _2_sugar,
+    _2_steak,
+    _2_iron_pickaxe,
+    _2_iron_axe,
+    _2_iron_spear,
+    _2_iron_sword,
+
+    _2_marble,
+    _2_iron_boot,
+    _2_iron_breastplate,
+    _2_iron_helmet,
+    _2_iron_shield,
+
+    _2_milk,
+    _2_marble_statue,
+    _2_crossbow,
+    _2_tower,
+    _2_medicine,
+
+    _2_golden_jewelery,
+    _2_ballista,
+    _2_catapult,
+    _2_castle,
+    _2_vessel,
     #endregion
 
     #region Middle Age Resources
 
+    _3_bean,
+    _3_saltpeter,
+    _3_sulfur,
+    _3_paper,
+    _3_orange,
+
+    _3_gunpowder,
+    _3_newspaper,
+    _3_liquor,
+    _3_book,
+    _3_longbow,
+
+    _3_apple_juice,
+    _3_orange_juice,
+    _3_grenade,
+    _3_handgun,
+    _3_rifle,
+
+    _3_gastronomy_research,
+    _3_mining_research,
+    _3_combat_research,
+    _3_structure_research,
+    _3_economic_research,
+
+    _3_iron_cannon,
+    _3_ship,
+    _3_telescope,
+    _3_prosthetic_limb,
+    _3_trebuchet,
+
+    #endregion
+
+    #region Industrial Age Resources
+
+    _4_iron_plate,
+    _4_iron_screw,
+    _4_iron_rod,
+    _4_copper_coils,
+    _4_gear,
+    _4_wire,
+    _4_piston,
+    
+    _4_pump,
+    _4_rail,
+    _4_microscope,
+    _4_piston_engine,
+    _4_steam_engine,
+    _4_refrigerator,
+    _4_steam_car,
+    _4_steam_bot,
+    
+    _4_sewing_machine,
+    _4_vaccine,
+    _4_steam_locomotive,
+    _4_internal_combustionengine,
+    _4_canned_soup,
+    _4_canned_bean,
+    _4_canned_orangejuice,
+    
+    _4_electric_motor,
+    _4_fertilizer,
+    _4_portland_cement,
+    _4_automatic_rifle,
+    _4_rechargable_battery,
+    _4_crude_oil,
+    _4_carbon_fiber,
+    
+    _4_canned_milk,
+    _4_steel,
+    _4_oil,
+    _4_anti_airgun,
+    _4_telephone,
+    _4_light_bulb,
+    _4_machine_guns,
+    
+    _4_steam_turbine,
+    _4_bicycle,
+    _4_aluminum,
+    _4_petrol_car,
+    _4_wind_turbine,
+    _4_diesel_engine,
+    _4_plastic,
+
+    #endregion
+
+    #region Early Modern Age Resources
+
+    _5_circuit_board,
+    _5_advanced_circuit,
+    _5_liquid_rocketfuel,
+    _5_armor_piercinground,
+    _5_heavy_tankammo,
+    _5_land_mine,
+    _5_submarine,
+    
+    _5_zeppelin,
+    _5_basic_aircraft,
+    _5_artillery,
+    _5_tank,
+    _5_silicon,
+    _5_silicon_panel,
+    _5_penicilin,
+    
+    _5_transistor,
+    _5_television,
+    _5_ram,
+    _5_computer,
+    _5_ballistic_missile,
+    _5_atomic_bomb,
+    
+    _5_video_game,
+    _5_nuclear_power,
+    _5_video_recorder,
+    _5_solar_battery,
+    _5_hovercraft,
+    _5_hard_diskdrive,
+    
+    _5_personal_computer,
+    _5_Integrated_circuit,
+    _5_robot_arm,
+    _5_micro_processor,
+    _5_video_game_console,
+    
+    _5_cd,
+    _5_laptop,
+    _5_cellphone,
+    _5_lithium_battery,
+    _5_crypto_currency,
     #endregion
 }

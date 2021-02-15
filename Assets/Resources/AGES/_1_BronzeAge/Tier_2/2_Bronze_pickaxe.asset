@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Bronze_pickaxe
+  m_EditorClassIdentifier: 
+  Description: Pickaxe made easier to digging underground resources. It it much faster
+    than doing with hands.
+  TranslatedName: Bronze Pickaxe
+  product: 31
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 5
+  collectTime: 10
+  outputValue: 1
+  recipes:
+  - inputResources: 1d000000
+    inputAmounts: 02000000
+    collectTime: 10
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 1
+  itemTypes: 0000000002000000
+  basePricePerProduct:
+    mantissa: 9
+    exponent: 22
+  pricePerProductExpText: 1.07371494760442E+23
+  pricePerProductText: 107,371C
+  pricePerProduct:
+    mantissa: 1.07371494760442
+    exponent: 23
+  incomePerSecondText: 10,737C
+  incomePerSecond:
+    mantissa: 1.07371494760442
+    exponent: 22
+  optimalPricePerProductText: 17,371C
+  optimalPricePerProduct:
+    mantissa: 1.7371494760441948
+    exponent: 22
+  optimalIncomePerSecondText: 726,03B
+  optimalPricePerSecond:
+    mantissa: 7.260296097657659
+    exponent: 20
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 168,573C
+  - 264,66C
+  - 415,516C
+  - 652,361C
+  - 1,024D
+  - 1,608D
+  - 2,525D
+  - 3,964D
+  - 6,223D
+  - 9,77D
+  - 15,339D
+  - 24,082D
+  - 37,808D
+  - 59,359D
+  - 93,193D
+  - 146,313D
+  - 229,712D
+  - 360,648D
+  - 566,217D
+  - 888,96D
+  - 1,396E
+  - 2,191E
+  - 3,44E
+  - 5,401E
+  - 8,48E
+  - 13,313E
+  - 20,902E
+  - 32,816E
+  - 51,52E
+  - 80,887E
+  - 126,993E
+  - 199,379E
+  - 313,024E
+  - 491,448E
+  - 771,574E
+  - 1,211F
+  - 1,902F
+  - 2,986F
+  - 4,688F
+  - 7,36F
+  - 11,555F
+  - 18,142F
+  - 28,482F
+  - 44,717F
+  - 70,206F
+  - 110,223F
+  - 173,051F
+  - 271,69F
+  - 426,553F
+  - 1,578G
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 3ab05f102b40e2249b212918f12c1c86, type: 3}
+  sourceImage: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  icon: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}

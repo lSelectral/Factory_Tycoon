@@ -55,6 +55,7 @@ public class LocalisationSystem
         return value;
     }
 
+#if UNITY_EDITOR
     public static void Add(string key, string value)
     {
         if (GetLocalisedValue(key) == string.Empty)
@@ -86,7 +87,7 @@ public class LocalisationSystem
             csvLoader.Edit(key, value);
             csvLoader.LoadCSV();
             UpdateDictionaries();
-        } 
+        }
     }
 
     public static void Remove(string key)
@@ -98,4 +99,5 @@ public class LocalisationSystem
         csvLoader.LoadCSV();
         UpdateDictionaries();
     }
+#endif
 }

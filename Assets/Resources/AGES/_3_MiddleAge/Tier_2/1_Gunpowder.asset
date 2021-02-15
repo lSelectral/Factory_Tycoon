@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Gunpowder
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Gunpowder
+  product: 80
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 6
+  outputValue: 1
+  recipes:
+  - inputResources: 4c0000004d000000
+    inputAmounts: 0200000001000000
+    collectTime: 6
+    outputAmount: 1
+  ageBelongsTo: 3
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 9
+    exponent: 49
+  pricePerProductExpText: 9.09871200370789E+49
+  pricePerProductText: 90,987AE
+  pricePerProduct:
+    mantissa: 9.09871200370789
+    exponent: 49
+  incomePerSecondText: 15,165AE
+  incomePerSecond:
+    mantissa: 1.5164520006179816
+    exponent: 49
+  optimalPricePerProductText: 987,12AD
+  optimalPricePerProduct:
+    mantissa: 9.871200370788575
+    exponent: 47
+  optimalIncomePerSecondText: 183,36AD
+  optimalPricePerSecond:
+    mantissa: 1.833599967956543
+    exponent: 47
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 142,85AE
+  - 224,274AE
+  - 352,11AE
+  - 552,813AE
+  - 867,917AE
+  - 1,363AF
+  - 2,139AF
+  - 3,359AF
+  - 5,273AF
+  - 8,279AF
+  - 12,998AF
+  - 20,407AF
+  - 32,039AF
+  - 50,301AF
+  - 78,972AF
+  - 123,987AF
+  - 194,659AF
+  - 305,614AF
+  - 479,815AF
+  - 753,309AF
+  - 1,183AG
+  - 1,857AG
+  - 2,915AG
+  - 4,577AG
+  - 7,186AG
+  - 11,282AG
+  - 17,712AG
+  - 27,808AG
+  - 43,659AG
+  - 68,544AG
+  - 107,614AG
+  - 168,954AG
+  - 265,258AG
+  - 416,455AG
+  - 653,835AG
+  - 1,027BA
+  - 1,612BA
+  - 2,53BA
+  - 3,973BA
+  - 6,237BA
+  - 9,792BA
+  - 15,373BA
+  - 24,136BA
+  - 37,894BA
+  - 59,493BA
+  - 93,404BA
+  - 146,644BA
+  - 230,231BA
+  - 361,463BA
+  - 1,337BB
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: bb5e42897acacad42b733e7575c69ceb, type: 3}
+  icon: {fileID: 21300000, guid: ae835b14f89ed9747a705fee6d28538c, type: 3}

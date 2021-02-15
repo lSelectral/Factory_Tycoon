@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Book
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Book
+  product: 83
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
+  outputValue: 1
+  recipes:
+  - inputResources: 4e000000
+    inputAmounts: 32000000
+    collectTime: 15
+    outputAmount: 1
+  ageBelongsTo: 3
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 9
+    exponent: 52
+  pricePerProductExpText: 9.00685500025749E+52
+  pricePerProductText: 90,069AF
+  pricePerProduct:
+    mantissa: 9.00685500025749
+    exponent: 52
+  incomePerSecondText: 6,005AF
+  incomePerSecond:
+    mantissa: 6.004570000171659
+    exponent: 51
+  optimalPricePerProductText: 68,55AE
+  optimalPricePerProduct:
+    mantissa: 6.855000257492065
+    exponent: 49
+  optimalIncomePerSecondText: 611,2AD
+  optimalPricePerSecond:
+    mantissa: 6.111999893188477
+    exponent: 47
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 141,408AF
+  - 222,01AF
+  - 348,556AF
+  - 547,232AF
+  - 859,155AF
+  - 1,349AG
+  - 2,118AG
+  - 3,325AG
+  - 5,22AG
+  - 8,195AG
+  - 12,867AG
+  - 20,201AG
+  - 31,715AG
+  - 49,793AG
+  - 78,175AG
+  - 122,735AG
+  - 192,694AG
+  - 302,529AG
+  - 474,971AG
+  - 745,704AG
+  - 1,171BA
+  - 1,838BA
+  - 2,886BA
+  - 4,531BA
+  - 7,113BA
+  - 11,168BA
+  - 17,533BA
+  - 27,527BA
+  - 43,218BA
+  - 67,852BA
+  - 106,528BA
+  - 167,249BA
+  - 262,58BA
+  - 412,251BA
+  - 647,234BA
+  - 1,016BB
+  - 1,595BB
+  - 2,505BB
+  - 3,932BB
+  - 6,174BB
+  - 9,693BB
+  - 15,218BB
+  - 23,892BB
+  - 37,511BB
+  - 58,892BB
+  - 92,461BB
+  - 145,164BB
+  - 227,907BB
+  - 357,814BB
+  - 1,324BC
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 21300000, guid: 512c16ceaef52f74197c080f27bc7de2, type: 3}
+  icon: {fileID: 21300000, guid: 3d426929d4756844caa08b110d225a78, type: 3}

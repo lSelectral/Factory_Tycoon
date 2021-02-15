@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Iron_breastplate
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: "\u0130ron Breastplate"
+  product: 62
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 20
+  outputValue: 1
+  recipes:
+  - inputResources: 0f00000035000000
+    inputAmounts: 0400000005000000
+    collectTime: 20
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 2
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 1.7
+    exponent: 42
+  pricePerProductExpText: 1.70007721994621E+42
+  pricePerProductText: 1,7AC
+  pricePerProduct:
+    mantissa: 1.70007721994621
+    exponent: 42
+  incomePerSecondText: 85,004AB
+  incomePerSecond:
+    mantissa: 8.500386099731049
+    exponent: 40
+  optimalPricePerProductText: 77,22AA
+  optimalPricePerProduct:
+    mantissa: 7.721994620621577
+    exponent: 37
+  optimalIncomePerSecondText: 645,471G
+  optimalPricePerSecond:
+    mantissa: 6.454708496116306
+    exponent: 35
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 2,669AC
+  - 4,191AC
+  - 6,579AC
+  - 10,329AC
+  - 16,217AC
+  - 25,46AC
+  - 39,973AC
+  - 62,758AC
+  - 98,529AC
+  - 154,691AC
+  - 242,865AC
+  - 381,298AC
+  - 598,638AC
+  - 939,862AC
+  - 1,476AD
+  - 2,317AD
+  - 3,637AD
+  - 5,71AD
+  - 8,965AD
+  - 14,075AD
+  - 22,098AD
+  - 34,695AD
+  - 54,47AD
+  - 85,519AD
+  - 134,264AD
+  - 210,795AD
+  - 330,948AD
+  - 519,588AD
+  - 815,754AD
+  - 1,281AE
+  - 2,011AE
+  - 3,157AE
+  - 4,956AE
+  - 7,781AE
+  - 12,217AE
+  - 19,18AE
+  - 30,113AE
+  - 47,278AE
+  - 74,226AE
+  - 116,535AE
+  - 182,96AE
+  - 287,246AE
+  - 450,977AE
+  - 708,034AE
+  - 1,112AF
+  - 1,745AF
+  - 2,74AF
+  - 4,302AF
+  - 6,754AF
+  - 24,989AF
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 9356860188971a84083c3ea09531b0b1, type: 3}

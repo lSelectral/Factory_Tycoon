@@ -13,88 +13,97 @@ MonoBehaviour:
   m_Name: 4_Iron_ingot
   m_EditorClassIdentifier: 
   Description: 
-  test:
-    value: 0
-    tenPow: 0
-    aPow: 0
-  TranslatedName: Berry
-  product: 0
+  TranslatedName: "\u0130ron \u0130ngot"
+  product: 53
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  collectTime: 1
+  collectTime: 7
   outputValue: 1
-  lockedByContracts: []
-  backgroundImage: {fileID: 0}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
-  icon: {fileID: 21300000, guid: eaa7012c2fdf4924b8d2aed34d148c4c, type: 3}
-  unlockLevel: 8
-  xpAmount: 25
+  recipes:
+  - inputResources: 33000000
+    inputAmounts: 02000000
+    collectTime: 7
+    outputAmount: 1
   ageBelongsTo: 2
   tier: 0
   itemTypes: 00000000
-  pricePerProductText: 0
-  pricePerProduct: 0
-  incomePerSecondText: 0
-  incomePerSecond: 0
+  basePricePerProduct:
+    mantissa: 1
+    exponent: 36
+  pricePerProductExpText: 1.18280000686959E+36
+  pricePerProductText: 1,183AA
+  pricePerProduct:
+    mantissa: 1.18280000686959
+    exponent: 36
+  incomePerSecondText: 168,971G
+  incomePerSecond:
+    mantissa: 1.6897142955279856
+    exponent: 35
+  optimalPricePerProductText: 182,8G
+  optimalPricePerProduct:
+    mantissa: 1.8280000686959461
+    exponent: 35
+  optimalIncomePerSecondText: 32,743G
+  optimalPricePerSecond:
+    mantissa: 3.274285657121491
+    exponent: 34
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
   pricePerProductUntilLevel50:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
-  basePricePerProduct: 0
-  optimalPricePerProductText: 
-  optimalPricePerProduct: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0
+  - 1,857AA
+  - 2,915AA
+  - 4,577AA
+  - 7,186AA
+  - 11,283AA
+  - 17,714AA
+  - 27,811AA
+  - 43,663AA
+  - 68,55AA
+  - 107,624AA
+  - 168,969AA
+  - 265,282AA
+  - 416,492AA
+  - 653,893AA
+  - 1,027AB
+  - 1,612AB
+  - 2,53AB
+  - 3,973AB
+  - 6,237AB
+  - 9,793AB
+  - 15,375AB
+  - 24,138AB
+  - 37,897AB
+  - 59,498AB
+  - 93,412AB
+  - 146,657AB
+  - 230,251AB
+  - 361,495AB
+  - 567,547AB
+  - 891,048AB
+  - 1,399AC
+  - 2,196AC
+  - 3,448AC
+  - 5,414AC
+  - 8,5AC
+  - 13,344AC
+  - 20,951AC
+  - 32,893AC
+  - 51,641AC
+  - 81,077AC
+  - 127,291AC
+  - 199,847AC
+  - 313,76AC
+  - 492,603AC
+  - 773,386AC
+  - 1,214AD
+  - 1,906AD
+  - 2,993AD
+  - 4,699AD
+  - 17,386AD
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 3ab05f102b40e2249b212918f12c1c86, type: 3}
+  sourceImage: {fileID: 21300000, guid: 265d0afce5e87b54f83b84c3f102f7b5, type: 3}
+  icon: {fileID: 21300000, guid: eaa7012c2fdf4924b8d2aed34d148c4c, type: 3}

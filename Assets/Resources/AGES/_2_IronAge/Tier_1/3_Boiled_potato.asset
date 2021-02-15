@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Boiled_potato
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Boiled Potato
+  product: 52
+  foodAmount: 250
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 9
+  outputValue: 1
+  recipes:
+  - inputResources: 32000000
+    inputAmounts: 03000000
+    collectTime: 9
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 0
+  itemTypes: 03000000
+  basePricePerProduct:
+    mantissa: 3
+    exponent: 35
+  pricePerProductExpText: 3.41130001544952E+35
+  pricePerProductText: 341,13G
+  pricePerProduct:
+    mantissa: 3.41130001544952
+    exponent: 35
+  incomePerSecondText: 37,903G
+  incomePerSecond:
+    mantissa: 3.7903333504994663
+    exponent: 34
+  optimalPricePerProductText: 41,13G
+  optimalPricePerProduct:
+    mantissa: 4.113000154495239
+    exponent: 34
+  optimalIncomePerSecondText: 3,82G
+  optimalPricePerSecond:
+    mantissa: 3.819999933242798
+    exponent: 33
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 535,574G
+  - 840,851G
+  - 1,32AA
+  - 2,073AA
+  - 3,254AA
+  - 5,109AA
+  - 8,021AA
+  - 12,593AA
+  - 19,77AA
+  - 31,04AA
+  - 48,732AA
+  - 76,51AA
+  - 120,12AA
+  - 188,589AA
+  - 296,084AA
+  - 464,852AA
+  - 729,817AA
+  - 1,146AB
+  - 1,799AB
+  - 2,824AB
+  - 4,434AB
+  - 6,962AB
+  - 10,93AB
+  - 17,16AB
+  - 26,941AB
+  - 42,297AB
+  - 66,407AB
+  - 104,258AB
+  - 163,686AB
+  - 256,986AB
+  - 403,468AB
+  - 633,446AB
+  - 994,509AB
+  - 1,561AC
+  - 2,451AC
+  - 3,849AC
+  - 6,042AC
+  - 9,487AC
+  - 14,894AC
+  - 23,383AC
+  - 36,712AC
+  - 57,638AC
+  - 90,491AC
+  - 142,071AC
+  - 223,051AC
+  - 350,191AC
+  - 549,799AC
+  - 863,185AC
+  - 1,355AD
+  - 5,014AD
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: a3ce0fdf841065b47bc43a04c344db4b, type: 3}
+  sourceImage: {fileID: 21300000, guid: c722652dccfa9a64cb626c89aceac837, type: 3}
+  icon: {fileID: 21300000, guid: 452cf59e6d8737546bfe18f0eac10d56, type: 3}

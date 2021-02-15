@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Marble_statue
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Marble Statue
+  product: 66
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 120
+  outputValue: 1
+  recipes:
+  - inputResources: 3c000000
+    inputAmounts: 32000000
+    collectTime: 120
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 3
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 1.1
+    exponent: 46
+  pricePerProductExpText: 1.10024185406634E+46
+  pricePerProductText: 11,002AD
+  pricePerProduct:
+    mantissa: 1.10024185406634
+    exponent: 46
+  incomePerSecondText: 91,687AC
+  incomePerSecond:
+    mantissa: 9.1686821172195
+    exponent: 43
+  optimalPricePerProductText: 2,419AC
+  optimalPricePerProduct:
+    mantissa: 2.418540663409865
+    exponent: 42
+  optimalIncomePerSecondText: 1,348AB
+  optimalPricePerSecond:
+    mantissa: 1.3477497922298756
+    exponent: 39
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 17,274AD
+  - 27,12AD
+  - 42,578AD
+  - 66,848AD
+  - 104,951AD
+  - 164,773AD
+  - 258,694AD
+  - 406,149AD
+  - 637,654AD
+  - 1,001AE
+  - 1,572AE
+  - 2,468AE
+  - 3,874AE
+  - 6,083AE
+  - 9,55AE
+  - 14,993AE
+  - 23,539AE
+  - 36,956AE
+  - 58,021AE
+  - 91,092AE
+  - 143,015AE
+  - 224,533AE
+  - 352,517AE
+  - 553,452AE
+  - 868,92AE
+  - 1,364AF
+  - 2,142AF
+  - 3,363AF
+  - 5,279AF
+  - 8,289AF
+  - 13,013AF
+  - 20,43AF
+  - 32,076AF
+  - 50,359AF
+  - 79,064AF
+  - 124,13AF
+  - 194,884AF
+  - 305,968AF
+  - 480,369AF
+  - 754,18AF
+  - 1,184AG
+  - 1,859AG
+  - 2,919AG
+  - 4,582AG
+  - 7,194AG
+  - 11,295AG
+  - 17,733AG
+  - 27,84AG
+  - 43,709AG
+  - 161,724AG
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 9356860188971a84083c3ea09531b0b1, type: 3}

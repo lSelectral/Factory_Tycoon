@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Chariot
+  m_EditorClassIdentifier: 
+  Description: Chariots are wheeled horse powered vehicles that carry elit soldiers
+    to war. Both transporation and war
+  TranslatedName: Chariot
+  product: 47
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 35
+  outputValue: 1
+  recipes:
+  - inputResources: 180000001d00000026000000
+    inputAmounts: 020000000600000002000000
+    collectTime: 35
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 4
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 7
+    exponent: 34
+  pricePerProductExpText: 7.00006855008918E+34
+  pricePerProductText: 70,001G
+  pricePerProduct:
+    mantissa: 7.00006855008918
+    exponent: 34
+  incomePerSecondText: 2G
+  incomePerSecond:
+    mantissa: 2.0000195857397656
+    exponent: 33
+  optimalPricePerProductText: 685,501E
+  optimalPricePerProduct:
+    mantissa: 6.8550089182404665
+    exponent: 29
+  optimalIncomePerSecondText: 8,186E
+  optimalPricePerSecond:
+    mantissa: 8.185723032603606
+    exponent: 27
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 109,901G
+  - 172,545G
+  - 270,895G
+  - 425,305G
+  - 667,73G
+  - 1,048AA
+  - 1,646AA
+  - 2,584AA
+  - 4,057AA
+  - 6,369AA
+  - 10AA
+  - 15,7AA
+  - 24,649AA
+  - 38,699AA
+  - 60,757AA
+  - 95,389AA
+  - 149,76AA
+  - 235,124AA
+  - 369,144AA
+  - 579,556AA
+  - 909,903AA
+  - 1,429AB
+  - 2,243AB
+  - 3,521AB
+  - 5,528AB
+  - 8,679AB
+  - 13,627AB
+  - 21,394AB
+  - 33,589AB
+  - 52,734AB
+  - 82,793AB
+  - 129,985AB
+  - 204,076AB
+  - 320,399AB
+  - 503,026AB
+  - 789,751AB
+  - 1,24AC
+  - 1,947AC
+  - 3,056AC
+  - 4,798AC
+  - 7,533AC
+  - 11,827AC
+  - 18,569AC
+  - 29,153AC
+  - 45,771AC
+  - 71,86AC
+  - 112,82AC
+  - 177,128AC
+  - 278,09AC
+  - 1,029AD
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 3ab05f102b40e2249b212918f12c1c86, type: 3}
+  sourceImage: {fileID: 21300000, guid: 304eccbdedb4d4c4088e43371cda2703, type: 3}
+  icon: {fileID: 21300000, guid: 55a86d6bb6adb3443a495b926299f2b1, type: 3}

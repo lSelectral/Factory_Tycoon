@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Spear
+  m_EditorClassIdentifier: 
+  Description: Spear made a lot easier to hunting. Also largely used in wars most
+    of the history
+  TranslatedName: Spear
+  product: 6
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 7
+  outputValue: 1
+  recipes:
+  - inputResources: 0200000003000000
+    inputAmounts: 0200000002000000
+    collectTime: 7
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 1
+  itemTypes: 0200000004000000
+  basePricePerProduct:
+    mantissa: 3
+    exponent: 6
+  pricePerProductExpText: 3.08477350318432E+6
+  pricePerProductText: 3,085M
+  pricePerProduct:
+    mantissa: 3.08477350318432
+    exponent: 6
+  incomePerSecondText: 440,682K
+  incomePerSecond:
+    mantissa: 4.406819290263314
+    exponent: 5
+  optimalPricePerProductText: 84,774K
+  optimalPricePerProduct:
+    mantissa: 8.477350318431855
+    exponent: 4
+  optimalIncomePerSecondText: 9,359K
+  optimalPricePerSecond:
+    mantissa: 9.358999836444855
+    exponent: 3
+  isOptimal: 1
+  lockedByContracts:
+  - {fileID: 11400000, guid: 58f22fbc863cdab4bb68d0fbdb42f48d, type: 2}
+  unlockLevel: 6
+  xpAmount: 80
+  pricePerProductUntilLevel50:
+  - 4,843M
+  - 7,604M
+  - 11,938M
+  - 18,742M
+  - 29,425M
+  - 46,198M
+  - 72,531M
+  - 113,873M
+  - 178,781M
+  - 280,685M
+  - 440,676M
+  - 691,862M
+  - 1,086B
+  - 1,705B
+  - 2,677B
+  - 4,204B
+  - 6,6B
+  - 10,361B
+  - 16,267B
+  - 25,54B
+  - 40,097B
+  - 62,953B
+  - 98,836B
+  - 155,173B
+  - 243,621B
+  - 382,485B
+  - 600,502B
+  - 942,788B
+  - 1,48T
+  - 2,324T
+  - 3,648T
+  - 5,728T
+  - 8,993T
+  - 14,119T
+  - 22,167T
+  - 34,803T
+  - 54,64T
+  - 85,785T
+  - 134,682T
+  - 211,451T
+  - 331,978T
+  - 521,206T
+  - 818,293T
+  - 1,285A
+  - 2,017A
+  - 3,167A
+  - 4,972A
+  - 7,806A
+  - 12,255A
+  - 45,343A
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
+  sourceImage: {fileID: 21300000, guid: 14a2710916f32c9479082b1bc6a5cb5b, type: 3}
+  icon: {fileID: 21300000, guid: 3309f64568376734085e67a3c351aa24, type: 3}

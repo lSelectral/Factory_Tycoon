@@ -15,10 +15,12 @@ MonoBehaviour:
   contractName: Older and Sweeter
   description: Even in the ancient times, people wanted and searched for sweet drinks
     that disperse daily problems from their minds.
+  contractType: 0
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
-  dependentContracts: []
+  dependentContracts:
+  - {fileID: 11400000, guid: b353e95e95f471c40b49a2bf2c21fc23, type: 2}
   productsToUnlock: []
   requiredResources: 06000000
   requiredResourceAmounts: 1e000000

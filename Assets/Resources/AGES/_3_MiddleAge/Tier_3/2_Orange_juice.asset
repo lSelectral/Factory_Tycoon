@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Orange_juice
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Orange Juice
+  product: 86
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 1
+  outputValue: 1
+  recipes:
+  - inputResources: 4f000000
+    inputAmounts: 04000000
+    collectTime: 1
+    outputAmount: 1
+  ageBelongsTo: 3
+  tier: 2
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 0
+    exponent: 0
+  pricePerProductExpText: 2.19360008239746E+49
+  pricePerProductText: 21,936AE
+  pricePerProduct:
+    mantissa: 2.193600082397461
+    exponent: 49
+  incomePerSecondText: 21,936AE
+  incomePerSecond:
+    mantissa: 2.193600082397461
+    exponent: 49
+  optimalPricePerProductText: 21,936AE
+  optimalPricePerProduct:
+    mantissa: 2.193600082397461
+    exponent: 49
+  optimalIncomePerSecondText: 9,168AE
+  optimalPricePerSecond:
+    mantissa: 9.167999839782714
+    exponent: 48
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 34,44AE
+  - 54,07AE
+  - 84,89AE
+  - 133,277AE
+  - 209,245AE
+  - 328,515AE
+  - 515,769AE
+  - 809,757AE
+  - 1,271AF
+  - 1,996AF
+  - 3,134AF
+  - 4,92AF
+  - 7,724AF
+  - 12,127AF
+  - 19,039AF
+  - 29,892AF
+  - 46,93AF
+  - 73,68AF
+  - 115,678AF
+  - 181,615AF
+  - 285,135AF
+  - 447,662AF
+  - 702,829AF
+  - 1,103AG
+  - 1,732AG
+  - 2,72AG
+  - 4,27AG
+  - 6,704AG
+  - 10,526AG
+  - 16,525AG
+  - 25,945AG
+  - 40,733AG
+  - 63,951AG
+  - 100,403AG
+  - 157,633AG
+  - 247,483AG
+  - 388,548AG
+  - 610,021AG
+  - 957,733AG
+  - 1,504BA
+  - 2,361BA
+  - 3,706BA
+  - 5,819BA
+  - 9,136BA
+  - 14,343BA
+  - 22,519BA
+  - 35,354BA
+  - 55,506BA
+  - 87,145BA
+  - 322,436BA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 21300000, guid: 8a0f72e83db31c24d9ca76aabc32798b, type: 3}
+  icon: {fileID: 21300000, guid: 3de415822edca144fbc274dcdb371157, type: 3}

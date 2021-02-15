@@ -22,11 +22,11 @@ public class QuestManager : Singleton<QuestManager>
         currentQuestInfos = new List<QuestInfo>();
         questList = new List<GameObject>();
         completedQuests = new List<QuestBase>();
-        // FOR DEBUG
-        //for (int i = 0; i < questBases.Length; i++)
-        //{
-        //    questBases[i].OnAfterDeSerialize();
-        //}
+        // TODO FOR DEBUG. Remove it in production
+        for (int i = 0; i < questBases.Length; i++)
+        {
+            questBases[i].OnAfterDeSerialize();
+        }
 
         ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
         ResourceManager.Instance.OnCurrencyChanged += OnCurrencyChanged;
@@ -66,8 +66,10 @@ public class QuestManager : Singleton<QuestManager>
                     {
                         OnQuestCompleted(questBases[i],j);
                         questBases[i].completedIntervals.Add(j);
-                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
-                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
+                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + 
+                            " by completing " + questBases[i].questName + " Tier" + j.ToString());
+                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] 
+                            + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
 
                         questList[i].transform.Find("ProgressBar").GetChild(j).GetChild(0).GetComponent<Image>().fillAmount = 1;
 
@@ -88,8 +90,10 @@ public class QuestManager : Singleton<QuestManager>
                         completedQuests.Add(questBases[i]);
                         OnQuestCompleted(questBases[i],j);
                         questBases[i].completedIntervals.Add(j);
-                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
-                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
+                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " 
+                            + questBases[i].questName + " Tier" + j.ToString());
+                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] 
+                            + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
 
                         questList[i].transform.Find("ProgressBar").GetChild(j).GetChild(0).GetComponent<Image>().fillAmount = 1;
 
@@ -109,7 +113,8 @@ public class QuestManager : Singleton<QuestManager>
         for (int i = 0; i < questBases.Length; i++)
         {
             // For object produce and collect milestones
-            if (questBases[i].questType == QuestType.incremental && questBases[i].questAchiveRequirement == QuestAchivementRequirement.resource && questBases[i].resource == e.resource)
+            if (questBases[i].questType == QuestType.incremental && questBases[i].questAchiveRequirement == QuestAchivementRequirement.resource 
+                && questBases[i].resource == e.resource)
             {
                 for (int j = 0; j < questBases[i].intervals.Length; j++)
                 {
@@ -117,8 +122,10 @@ public class QuestManager : Singleton<QuestManager>
                     {
                         OnQuestCompleted(questBases[i],j);
                         questBases[i].completedIntervals.Add(j);
-                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
-                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
+                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " 
+                            + questBases[i].questName + " Tier" + j.ToString());
+                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] 
+                            + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
 
                         questList[i].transform.Find("ProgressBar").GetChild(j).GetChild(0).GetComponent<Image>().fillAmount = 1;
 
@@ -147,8 +154,10 @@ public class QuestManager : Singleton<QuestManager>
                     {
                         OnQuestCompleted(questBases[i],j);
                         questBases[i].completedIntervals.Add(j);
-                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
-                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
+                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " 
+                            + questBases[i].questName + " Tier" + j.ToString());
+                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] 
+                            + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
                     }
                 }
             }

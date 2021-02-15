@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Ballista
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Ballista
+  product: 71
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 40
+  outputValue: 1
+  recipes:
+  - inputResources: 130000000b00000005000000
+    inputAmounts: 140000000f00000005000000
+    collectTime: 40
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 4
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 6
+    exponent: 47
+  pricePerProductExpText: 6E+47
+  pricePerProductText: 600AD
+  pricePerProduct:
+    mantissa: 6
+    exponent: 47
+  incomePerSecondText: 15AD
+  incomePerSecond:
+    mantissa: 1.5
+    exponent: 46
+  optimalPricePerProductText: 9,445B
+  optimalPricePerProduct:
+    mantissa: 9.444673399226552
+    exponent: 18
+  optimalIncomePerSecondText: 29,605A
+  optimalPricePerSecond:
+    mantissa: 2.960502568187466
+    exponent: 16
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 942AD
+  - 1,479AE
+  - 2,322AE
+  - 3,645AE
+  - 5,723AE
+  - 8,986AE
+  - 14,107AE
+  - 22,149AE
+  - 34,773AE
+  - 54,594AE
+  - 85,713AE
+  - 134,57AE
+  - 211,274AE
+  - 331,701AE
+  - 520,77AE
+  - 817,609AE
+  - 1,284AF
+  - 2,015AF
+  - 3,164AF
+  - 4,968AF
+  - 7,799AF
+  - 12,245AF
+  - 19,224AF
+  - 30,182AF
+  - 47,385AF
+  - 74,395AF
+  - 116,8AF
+  - 183,376AF
+  - 287,9AF
+  - 452,003AF
+  - 709,645AF
+  - 1,114AG
+  - 1,749AG
+  - 2,746AG
+  - 4,312AG
+  - 6,769AG
+  - 10,628AG
+  - 16,685AG
+  - 26,196AG
+  - 41,128AG
+  - 64,571AG
+  - 101,376AG
+  - 159,161AG
+  - 249,883AG
+  - 392,316AG
+  - 615,936AG
+  - 967,02AG
+  - 1,518BA
+  - 2,384BA
+  - 8,819BA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
+  sourceImage: {fileID: 21300000, guid: 1afebd13f6cf94144b7b917ff7e2d90f, type: 3}
+  icon: {fileID: 21300000, guid: 9356860188971a84083c3ea09531b0b1, type: 3}

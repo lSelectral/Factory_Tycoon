@@ -25,7 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75f415f3230c9f04a88e998524a04a1a, type: 2}
   requiredResources: 
   requiredResourceAmounts: 
-  unlockLevel: 0
+  unlockLevel: 18
   icon: {fileID: 0}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 

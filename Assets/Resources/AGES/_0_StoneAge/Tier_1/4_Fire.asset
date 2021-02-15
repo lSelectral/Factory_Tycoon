@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Fire
+  m_EditorClassIdentifier: 
+  Description: One of the first step of human colonization
+  TranslatedName: Fire
+  product: 4
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 6
+  outputValue: 1
+  recipes:
+  - inputResources: 0100000002000000
+    inputAmounts: 0300000002000000
+    collectTime: 6
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 0
+  itemTypes: 01000000
+  basePricePerProduct:
+    mantissa: 6
+    exponent: 4
+  pricePerProductExpText: 7.22019004583359E+4
+  pricePerProductText: 72,202K
+  pricePerProduct:
+    mantissa: 7.22019004583359
+    exponent: 4
+  incomePerSecondText: 12,034K
+  incomePerSecond:
+    mantissa: 1.2033650076389315
+    exponent: 4
+  optimalPricePerProductText: 12,202K
+  optimalPricePerProduct:
+    mantissa: 1.2201900458335877
+    exponent: 4
+  optimalIncomePerSecondText: 878.599984645843
+  optimalPricePerSecond:
+    mantissa: 8.785999846458434
+    exponent: 2
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 5
+  xpAmount: 90
+  pricePerProductUntilLevel50:
+  - 113,357K
+  - 177,97K
+  - 279,414K
+  - 438,679K
+  - 688,727K
+  - 1,081M
+  - 1,698M
+  - 2,665M
+  - 4,185M
+  - 6,57M
+  - 10,314M
+  - 16,194M
+  - 25,424M
+  - 39,916M
+  - 62,668M
+  - 98,388M
+  - 154,47M
+  - 242,517M
+  - 380,752M
+  - 597,781M
+  - 938,516M
+  - 1,473B
+  - 2,313B
+  - 3,632B
+  - 5,702B
+  - 8,952B
+  - 14,055B
+  - 22,067B
+  - 34,645B
+  - 54,392B
+  - 85,396B
+  - 134,072B
+  - 210,493B
+  - 330,474B
+  - 518,844B
+  - 814,585B
+  - 1,279T
+  - 2,008T
+  - 3,152T
+  - 4,949T
+  - 7,77T
+  - 12,199T
+  - 19,153T
+  - 30,07T
+  - 47,21T
+  - 74,12T
+  - 116,368T
+  - 182,698T
+  - 286,835T
+  - 1,061A
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 07d042f517ba13442b3af063fe6fa374, type: 3}
+  sourceImage: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
+  icon: {fileID: 21300000, guid: a85d69e52ef0bba43bfb00fa50cfda66, type: 3}

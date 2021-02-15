@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Bronze_helmet
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Bronze Helmet
+  product: 37
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 12
+  outputValue: 1
+  recipes:
+  - inputResources: 1d000000
+    inputAmounts: 02000000
+    collectTime: 12
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 2
+  itemTypes: 02000000
+  basePricePerProduct:
+    mantissa: 3.1
+    exponent: 27
+  pricePerProductExpText: 3.10002084579371E+27
+  pricePerProductText: 3,1E
+  pricePerProduct:
+    mantissa: 3.10002084579371
+    exponent: 27
+  incomePerSecondText: 258,335D
+  incomePerSecond:
+    mantissa: 2.5833507048280917
+    exponent: 26
+  optimalPricePerProductText: 20,846C
+  optimalPricePerProduct:
+    mantissa: 2.084579371253034
+    exponent: 22
+  optimalIncomePerSecondText: 726,03B
+  optimalPricePerSecond:
+    mantissa: 7.260296097657659
+    exponent: 20
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 500
+  pricePerProductUntilLevel50:
+  - 4,867E
+  - 7,641E
+  - 11,997E
+  - 18,835E
+  - 29,571E
+  - 46,426E
+  - 72,889E
+  - 114,436E
+  - 179,664E
+  - 282,073E
+  - 442,854E
+  - 695,281E
+  - 1,092F
+  - 1,714F
+  - 2,691F
+  - 4,224F
+  - 6,632F
+  - 10,413F
+  - 16,348F
+  - 25,666F
+  - 40,296F
+  - 63,264F
+  - 99,325F
+  - 155,94F
+  - 244,825F
+  - 384,376F
+  - 603,47F
+  - 947,448F
+  - 1,487G
+  - 2,335G
+  - 3,667G
+  - 5,756G
+  - 9,038G
+  - 14,189G
+  - 22,277G
+  - 34,975G
+  - 54,91G
+  - 86,209G
+  - 135,348G
+  - 212,496G
+  - 333,619G
+  - 523,782G
+  - 822,338G
+  - 1,291AA
+  - 2,027AA
+  - 3,182AA
+  - 4,996AA
+  - 7,844AA
+  - 12,315AA
+  - 45,567AA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 21300000, guid: c7e60c1d14574ce42b70f209ce78081d, type: 3}
+  icon: {fileID: 21300000, guid: a6508b0e523350745985c34bd2858ad5, type: 3}

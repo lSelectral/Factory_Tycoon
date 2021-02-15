@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Boat
+  m_EditorClassIdentifier: 
+  Description: Ancient stone tablets used for writing.
+  TranslatedName: Boat
+  product: 32
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 20
+  outputValue: 1
+  recipes:
+  - inputResources: 130000001e000000
+    inputAmounts: 0500000001000000
+    collectTime: 20
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 1
+  itemTypes: 01000000
+  basePricePerProduct:
+    mantissa: 1.1
+    exponent: 24
+  pricePerProductExpText: 1.33494331818559E+24
+  pricePerProductText: 1,335D
+  pricePerProduct:
+    mantissa: 1.33494331818559
+    exponent: 24
+  incomePerSecondText: 66,747C
+  incomePerSecond:
+    mantissa: 6.67471659092795
+    exponent: 22
+  optimalPricePerProductText: 234,943C
+  optimalPricePerProduct:
+    mantissa: 2.349433181855905
+    exponent: 23
+  optimalIncomePerSecondText: 9,819C
+  optimalPricePerSecond:
+    mantissa: 9.819273765224743
+    exponent: 21
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 2,096D
+  - 3,291D
+  - 5,166D
+  - 8,111D
+  - 12,734D
+  - 19,992D
+  - 31,388D
+  - 49,279D
+  - 77,368D
+  - 121,467D
+  - 190,704D
+  - 299,405D
+  - 470,066D
+  - 738,003D
+  - 1,159E
+  - 1,819E
+  - 2,856E
+  - 4,484E
+  - 7,04E
+  - 11,052E
+  - 17,352E
+  - 27,243E
+  - 42,772E
+  - 67,151E
+  - 105,428E
+  - 165,521E
+  - 259,869E
+  - 407,994E
+  - 640,55E
+  - 1,006F
+  - 1,579F
+  - 2,479F
+  - 3,892F
+  - 6,11F
+  - 9,593F
+  - 15,061F
+  - 23,646F
+  - 37,124F
+  - 58,284F
+  - 91,506F
+  - 143,664F
+  - 225,553F
+  - 354,118F
+  - 555,966F
+  - 872,867F
+  - 1,37G
+  - 2,152G
+  - 3,378G
+  - 5,303G
+  - 19,622G
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: a612e7a3860288044bf5eca14761b913, type: 3}

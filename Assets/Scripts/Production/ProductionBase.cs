@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using System;
-using UnityEngine.EventSystems;
+﻿using System;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /* 
  * TODO add alternative way to create some products.
@@ -16,12 +16,18 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 {
     #region Class Variables
     public ScriptableProductionBase scriptableProductionBase;
-
     protected Dictionary<ContractBase, bool> contractStatueCheckDictionary;
-    internal ContractBase[] contracts;
+    protected ContractBase[] contracts;
     [SerializeField] protected bool isAutomated;
 
+    GameObject mainProductionPanel;
+    GameObject agePanel;
+
     protected bool isUpgradePanelActive;
+
+    protected Recipe[] recipes;
+    protected Recipe currentRecipe;
+    protected List<BaseResources> tempResourceList;
 
     // Scriptable object class variables
     [SerializeField] protected float collectTime;
@@ -30,17 +36,26 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     protected BaseResources producedResource;
     protected ItemType[] itemTypes;
     protected long foodAmount;
+    protected long attackAmount;
     protected float remainedCollectTime;
     protected bool isCharging;
     protected long outputValue;
     protected BigDouble pricePerProduct;
-    protected Sprite backgroundImage;
     protected int unlockLevel;
     protected float xpAmount;
     protected bool isLockedByContract;
+    protected float outputPerSecond;
+    protected int level;
+    protected BigDouble upgradeCost;
+    protected BigDouble incomePerSecond;
+    protected WorkingMode workingMode;
+    protected LTDescr toolAnimation;
 
     // Attached gameobject transforms
+    protected Transform subResourceIcons;
+    protected RectTransform tool;
     protected Image fillBar;
+    protected Sprite backgroundImage;
     protected TextMeshProUGUI nameText;
     protected Transform mainBtn;
     protected Button upgradeBtn;
@@ -48,14 +63,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     protected TextMeshProUGUI upgradeAmountText;
     protected TextMeshProUGUI levelText;
     protected TextMeshProUGUI workModeText;
-    protected float outputPerSecond;
-
-    protected int level;
-    protected BigDouble upgradeCost;
-    protected BigDouble incomePerSecond;
-    protected WorkingMode workingMode;
-    protected LTDescr toolAnimation;
-
     #endregion
 
     #region Properties
@@ -145,18 +152,26 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public Recipe[] Recipes { get => recipes; set => recipes = value; }
+    public Recipe CurrentRecipe { get => currentRecipe; set => currentRecipe = value; }
+
+    public List<BaseResources> RemainedResources
+    {
+        get { return tempResourceList; }
+        set { tempResourceList = value; }
+    }
+
     public ItemType[] ItemTypes { get => itemTypes; }
     public long FoodAmount { get => foodAmount; set => foodAmount = value; }
+    public long AttackAmount { get => attackAmount; set => attackAmount = value; }
+
 
     public Dictionary<ContractBase, bool> ContractStatueCheckDictionary { get => contractStatueCheckDictionary; set => contractStatueCheckDictionary = value; }
     internal ContractBase[] Contracts { get => contracts; set => contracts = value; }
 
     #endregion
 
-    GameObject mainProductionPanel;
-    GameObject agePanel;
-
-    internal virtual void Start()
+    protected virtual void Start()
     {
         IsAutomated = false;
         mainProductionPanel = transform.parent.parent.parent.parent.parent.gameObject;
@@ -165,8 +180,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         // Custom Events
         GameManager.Instance.OnLevelUp += OnLevelUp;
         ResourceManager.Instance.OnCurrencyChanged += OnCurrencyChanged;
-        //UpgradeSystem.Instance.OnMiningSpeedChanged += Instance_OnMiningSpeedChanged;
-        //UpgradeSystem.Instance.OnMiningYieldChanged += Instance_OnMiningYieldChanged;
         UpgradeSystem.Instance.OnEarnedCoinMultiplierChanged += Instance_OnEarnedCoinMultiplierChanged;
         UpgradeSystem.Instance.OnEarnedXpMultiplierChanged += Instance_OnEarnedXpMultiplierChanged;
 
@@ -181,11 +194,18 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
             }
         }
 
+        recipes = scriptableProductionBase.recipes;
+        if (recipes.Length > 0)
+            currentRecipe = recipes[0];
+        else
+            currentRecipe = new Recipe();
+
         collectTime = scriptableProductionBase.collectTime;
         _name = scriptableProductionBase.TranslatedName;
         resourceName = ResourceManager.Instance.GetValidNameForResource(scriptableProductionBase.product);
         producedResource = scriptableProductionBase.product;
         foodAmount = scriptableProductionBase.foodAmount;
+        attackAmount = scriptableProductionBase.attackAmount;
         itemTypes = scriptableProductionBase.itemTypes;
         outputValue = scriptableProductionBase.outputValue;
         pricePerProduct = scriptableProductionBase.pricePerProduct;
@@ -196,7 +216,8 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         outputPerSecond = outputValue * 1f / collectTime;
 
         if (upgradeCost == null || upgradeCost == new BigDouble())
-            upgradeCost = (outputValue * pricePerProduct * UpgradeSystem.STARTING_UPGRADE_COST_MULTIPLIER);
+            upgradeCost = (outputValue * pricePerProduct * 
+                UpgradeSystem.STARTING_UPGRADE_COST_MULTIPLIER);
 
         // Set lock text
         if (unlockLevel > GameManager.Instance.CurrentLevel)
@@ -282,6 +303,62 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         
     }
 
+    protected void Produce()
+    {
+        if (!isCharging && transform.Find("Level_Lock(Clone)") == null)
+        {
+            // If true it needs resource to start produce else it produce without input
+            if (currentRecipe.inputResources.Length > 0 && currentRecipe.inputAmounts[0] > 0 
+                && workingMode != WorkingMode.stopProduction)
+            {
+                for (int i = 0; i < currentRecipe.inputAmounts.Length; i++)
+                {
+                    int inputAmount = currentRecipe.inputAmounts[i];
+                    BaseResources inputResource = currentRecipe.inputResources[i];
+                    Debug.Log(inputResource);
+                    var q = ResourceManager.Instance.GetResourceAmount(inputResource);
+                    if (ResourceManager.Instance.GetResourceAmount(inputResource) 
+                        >= (inputAmount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier) 
+                        && tempResourceList.Contains(inputResource))
+                    {
+                        //Debug.Log(string.Format("{0} added to {1} recipe", input.Resource, producedResource));
+                        tempResourceList.Remove(inputResource);
+                        ResourceManager.Instance.ConsumeResource(inputResource, 
+                            (long)(inputAmount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier));
+
+                        if (subResourceIcons != null)
+                            subResourceIcons.GetChild(Array.IndexOf(currentRecipe.inputResources, inputResource))
+                                .GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                    }
+                    else if (ResourceManager.Instance.GetResourceAmount(inputResource) < inputAmount)
+                    {
+                        //Debug.Log("Not enough " + input.Resource);
+                    }
+                }
+
+                if (tempResourceList.Count == 0)
+                {
+                    //Debug.Log(_name + " recipe completed");
+                    isCharging = true;
+                    remainedCollectTime = collectTime;
+
+                    for (int i = 0; i < currentRecipe.inputAmounts.Length; i++)
+                    {
+                        subResourceIcons.GetChild(i).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                if (CheckIfPanelActive())
+                    toolAnimation = TweenAnimation.Instance.MoveTool(tool.gameObject);
+                isCharging = true;
+                if (remainedCollectTime == 0)
+                    remainedCollectTime = collectTime;
+            }
+        }
+    }
+
     internal virtual void SellResource()
     {
         ResourceManager.Instance.Currency += (outputValue * 1f * (pricePerProduct * 1f));
@@ -292,21 +369,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     {
         if (GameManager.Instance.CurrentLevel >= 0)
         {
-            //Array a = Enum.GetValues(typeof(WorkingMode));
-            //int j = 0;
-            //for (int i = 0; i < a.Length; i++)
-            //{
-            //    j = i + 1;
-            //    if ((WorkingMode)(a.GetValue(i)) == workingMode)
-            //        break;
-            //}
-            //if (j < a.Length)
-            //    workingMode = (WorkingMode)a.GetValue(j);
-            //else
-            //    workingMode = (WorkingMode)a.GetValue(j - a.Length);
-            //if (workingMode == WorkingMode.stopProduction && isMine)
-            //    workingMode = WorkingMode.production;
-
             workingMode = workingMode.Next();
             // Mines don't have stop production work mode
             if (workingMode == WorkingMode.stopProduction && isMine)
@@ -360,14 +422,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         else
             newUpgradeCost = UpgradeCost;
 
-
-        //Debug.Log("Upgrade Multiplier: " + upgradeMultiplier);
-        //Debug.Log("New Level: " + newLevel);
-        //Debug.Log("Output Value: " + newOutputValue);
-        //Debug.Log("Collect Time: " + newCollectTime);
-        //Debug.Log("Price Per Product: " + newPricePerProduct);
-        //Debug.Log("Upgrade Cost: " + newUpgradeCost);
-
         if (ResourceManager.Instance.Currency >= newUpgradeCost)
         {
             ResourceManager.Instance.Currency -= newUpgradeCost;
@@ -382,8 +436,12 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    // Check if currently this production panel active
-    // If not stop all animation on non visible elements
+
+    /// <summary>
+    /// Check if currently this production panel active
+    /// If not stop all animation on non visible elements
+    /// </summary>
+    /// <returns>True if parent panel is active</returns>
     internal virtual bool CheckIfPanelActive()
     {
         if ( GameManager.Instance.VisiblePanelForPlayer == mainProductionPanel &&

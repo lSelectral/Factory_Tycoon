@@ -27,7 +27,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 843f65c223f0ac44d9cd649ef1095fa7, type: 2}
   requiredResources: 000000000200000003000000
   requiredResourceAmounts: c8000000960000002c010000
-  unlockLevel: 0
+  unlockLevel: 30
   icon: {fileID: 21300000, guid: 312991b311b8ccc49adec5703787cb1b, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: Your civilization are able to hunt down animals more efficiently.

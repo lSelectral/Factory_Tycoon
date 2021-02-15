@@ -10,30 +10,18 @@ using UnityEngine.UI;
 /// </summary>
 public class ProductionManager : Singleton<ProductionManager>
 {
-    public List<ScriptableMine> mineList;
-    public List<ScriptableCompound> compoundList;
-    public List<ScriptableProductionBase> scriptableProductionUnitList;
+    public ScriptableProductionBase[] scriptableProductionUnitList;
+    public List<GameObject> instantiatedProductionUnits;
 
     public GameObject mainPanel;
     // Hide objects on screen but still work on background
-    public Transform temporaryMovementPanel;
-    public Transform contentHolderPrefab;
+    [SerializeField] Transform temporaryMovementPanel;
+    [SerializeField] Transform contentHolderPrefab;
 
-    public GameObject collapsablePanelPrefab;
+    [SerializeField] GameObject collapsablePanelPrefab;
 
-    public GameObject minePrefab;
-    public GameObject compoundPrefab;
-
-    public List<GameObject> instantiatedMines;
-    public List<GameObject> instantiatedCompounds;
-    public List<GameObject> instantiatedProductionUnits;
-
-    UnityEngine.Object[] assets;
-
-    public UnityEngine.Object[] Assets
-    {
-        get { return assets; }
-    }
+    [SerializeField] GameObject minePrefab;
+    [SerializeField] GameObject compoundPrefab;
 
     // Add tier containers to this list for force layout refreshing.
     List<GameObject> tierSeperatedContainers = new List<GameObject>();
@@ -68,14 +56,12 @@ public class ProductionManager : Singleton<ProductionManager>
         {
             _unit = Instantiate(compoundPrefab, tierSeperatedContainer);
             _unit.GetComponent<Compounds>().scriptableCompound = unit as ScriptableCompound;
-            instantiatedCompounds.Add(_unit);
             instantiatedProductionUnits.Add(_unit);
         }
         else if (unit as ScriptableMine != null)
         {
             _unit = Instantiate(minePrefab, tierSeperatedContainer);
             _unit.GetComponent<Mine_Btn>().scriptableMine = unit as ScriptableMine;
-            instantiatedMines.Add(_unit);
             instantiatedProductionUnits.Add(_unit);
         }
         _unit.GetComponent<ProductionBase>().scriptableProductionBase = unit;
@@ -102,16 +88,9 @@ public class ProductionManager : Singleton<ProductionManager>
 
     private void Awake()
     {
-        assets = Resources.LoadAll("AGES");
-        scriptableProductionUnitList = new List<ScriptableProductionBase>();
-
-        for (int i = 0; i < assets.Length; i++)
+        for (int i = 0; i < scriptableProductionUnitList.Length; i++)
         {
-            if (assets[i] as ScriptableProductionBase != null)
-            {
-                scriptableProductionUnitList.Add(assets[i] as ScriptableProductionBase);
-                InstantiateProductionUnit(assets[i] as ScriptableProductionBase);
-            }
+            InstantiateProductionUnit(scriptableProductionUnitList[i]);
         }
 
         // UNITY UI don't refresh layout when add element sometimes. So we are forcing it to refresh.
@@ -121,38 +100,30 @@ public class ProductionManager : Singleton<ProductionManager>
         }
 
     }
-    public BigDouble GET_OPTIMAL_PRICE_PER_PRODUCT(Compounds compound)
+
+    #region Helper Functions
+    public BigDouble GET_OPTIMAL_PRICE_PER_PRODUCT(ProductionBase productionUnit)
     {
         BigDouble pricePerProduct = 0f;
-        foreach (BaseResources res in compound.InputResources)
+        var inputResources = productionUnit.CurrentRecipe.inputResources;
+        var inputAmounts = productionUnit.CurrentRecipe.inputAmounts;
+        for (int i = 0; i < inputResources.Length; i++)
         {
-            var _mine = GetProductionUnitFromResource(res).GetComponent<Mine_Btn>();
-            if (_mine != null)
-            {
-                pricePerProduct += _mine.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.CollectTime / _mine.CollectTime;
-            }
-
-            var _compound = GetProductionUnitFromResource(res).GetComponent<Compounds>();
-            if (_compound != null)
-                pricePerProduct += _compound.PricePerProduct * compound.InputAmounts[Array.IndexOf(compound.InputResources, res)] * compound.CollectTime / _compound.CollectTime;
+            var _productionUnit = GetProductionUnitFromResource(inputResources[i]);
+            pricePerProduct += _productionUnit.PricePerProduct * inputAmounts[i] * _productionUnit.CollectTime / _productionUnit.CollectTime;
         }
         return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
     }
-
-    public BigDouble GET_OPTIMAL_PRICE_PER_PRODUCT_EDITOR(ScriptableCompound compound)
+    public BigDouble GET_OPTIMAL_PRICE_PER_PRODUCT_EDITOR(ScriptableProductionBase compound)
     {
         BigDouble pricePerProduct = 0f;
-        foreach (BaseResources res in compound.inputResources)
-        {
-            ScriptableMine _mine = GetScriptableProductionUnitFromResource(res) as ScriptableMine;
-            if (_mine != null)
-            {
-                pricePerProduct += _mine.pricePerProduct * compound.inputAmounts[Array.IndexOf(compound.inputResources, res)] * compound.collectTime / _mine.collectTime;
-            }
+        var inputResources = compound.recipes[0].inputResources;
+        var inputAmounts = compound.recipes[0].inputAmounts;
 
-            ScriptableCompound _compound = GetScriptableProductionUnitFromResource(res) as ScriptableCompound;
-            if (_compound != null)
-                pricePerProduct += _compound.pricePerProduct * compound.inputAmounts[Array.IndexOf(compound.inputResources, res)] * compound.collectTime / _compound.collectTime;
+        for (int i = 0; i < inputResources.Length; i++)
+        {
+            var productionUnit = GetScriptableProductionUnitFromResource(inputResources[i]);
+            pricePerProduct += productionUnit.pricePerProduct * inputAmounts[i] * compound.collectTime / productionUnit.collectTime;
         }
         return pricePerProduct * UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER;
     }
@@ -167,13 +138,6 @@ public class ProductionManager : Singleton<ProductionManager>
         return incomePerSecond * UpgradeSystem.Instance.INCOME_PRICE_MULTIPLIER;
     }
 
-    #region Helper Functions
-    ScriptableProductionBase[] GetProductionUnits()
-    {
-        var assets = Resources.LoadAll("AGES");
-        return assets.Where(a => (a as ScriptableProductionBase) != null).Cast<ScriptableProductionBase>().ToArray();
-    }
-
     public ProductionBase GetProductionUnitFromResource(BaseResources res)
     {
         var q = instantiatedProductionUnits.Where(u => u.GetComponent<ProductionBase>().ProducedResource == res).FirstOrDefault();
@@ -182,8 +146,7 @@ public class ProductionManager : Singleton<ProductionManager>
 
     public ScriptableProductionBase GetScriptableProductionUnitFromResource(BaseResources res)
     {
-        var q = GetProductionUnits().Where(u => u != null && u.product == res).FirstOrDefault();
-        return q != null ? q : null;
+        return scriptableProductionUnitList.Where(u => u != null && u.product == res).FirstOrDefault();
     }
     #endregion
 }
@@ -191,8 +154,17 @@ public class ProductionManager : Singleton<ProductionManager>
 [Serializable]
 public class Recipe
 {
-    public BaseResources[] inputResource;
-    public int[] inputAmount;
+    [SearchableEnum]
+    public BaseResources[] inputResources;
+    public int[] inputAmounts;
+    public float collectTime;
+    public int outputAmount;
+
+    public Recipe()
+    {
+        this.inputAmounts = new int[] { 0 };
+        this.inputResources = new BaseResources[] { BaseResources._0_berry };
+    }
 }
 
 public enum WorkingMode

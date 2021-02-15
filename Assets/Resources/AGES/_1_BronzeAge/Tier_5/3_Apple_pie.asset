@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Apple_pie
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Apple Pie
+  product: 48
+  foodAmount: 400
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 25
+  outputValue: 1
+  recipes:
+  - inputResources: 1900000027000000
+    inputAmounts: 0300000002000000
+    collectTime: 25
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 4
+  itemTypes: 03000000
+  basePricePerProduct:
+    mantissa: 3
+    exponent: 34
+  pricePerProductExpText: 3.00000914000035E+34
+  pricePerProductText: 30G
+  pricePerProduct:
+    mantissa: 3.00000914000035
+    exponent: 34
+  incomePerSecondText: 1,2G
+  incomePerSecond:
+    mantissa: 1.20000365600014
+    exponent: 33
+  optimalPricePerProductText: 91,4E
+  optimalPricePerProduct:
+    mantissa: 9.140000350177754
+    exponent: 28
+  optimalIncomePerSecondText: 3,056E
+  optimalPricePerSecond:
+    mantissa: 3.0559999473582384
+    exponent: 27
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 47,1G
+  - 73,947G
+  - 116,097G
+  - 182,273G
+  - 286,168G
+  - 449,284G
+  - 705,375G
+  - 1,107AA
+  - 1,739AA
+  - 2,73AA
+  - 4,286AA
+  - 6,729AA
+  - 10,564AA
+  - 16,585AA
+  - 26,039AA
+  - 40,881AA
+  - 64,183AA
+  - 100,767AA
+  - 158,204AA
+  - 248,38AA
+  - 389,956AA
+  - 612,231AA
+  - 961,203AA
+  - 1,509AB
+  - 2,369AB
+  - 3,72AB
+  - 5,84AB
+  - 9,169AB
+  - 14,395AB
+  - 22,6AB
+  - 35,482AB
+  - 55,707AB
+  - 87,46AB
+  - 137,313AB
+  - 215,581AB
+  - 338,463AB
+  - 531,386AB
+  - 834,276AB
+  - 1,31AC
+  - 2,056AC
+  - 3,229AC
+  - 5,069AC
+  - 7,958AC
+  - 12,494AC
+  - 19,616AC
+  - 30,797AC
+  - 48,351AC
+  - 75,911AC
+  - 119,181AC
+  - 440,969AC
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: a3ce0fdf841065b47bc43a04c344db4b, type: 3}
+  sourceImage: {fileID: 21300000, guid: 358f8498c0a22354f95a2021f0f2866b, type: 3}
+  icon: {fileID: 21300000, guid: 16acb90984c68104d9a1245670988f24, type: 3}

@@ -10,34 +10,8 @@ public class Compounds : ProductionBase
 {
     public ScriptableCompound scriptableCompound;
 
-    private BaseResources[] inputResources;
-    private int[] inputAmounts;
-    long attackAmount;
-    [SerializeField] private List<BaseResources> tempResourceList;
-    private float remainedBuildTime;
-
-    #region Properties
-    public List<BaseResources> RemainedResources
-    {
-        get { return tempResourceList; }
-        set { tempResourceList = value; }
-    }
-
-    public float RemainedBuildTime
-    {
-        get { return remainedBuildTime; }
-        set { remainedBuildTime = value; }
-    }
-
-    public BaseResources[] InputResources { get => inputResources; set => inputResources = value; }
-    public long AttackAmount { get => attackAmount; set => attackAmount = value; }
-    public int[] InputAmounts { get => inputAmounts; set => inputAmounts = value; }
-    #endregion
-
     Image icon;
-    Transform subResourceIcons;
-
-    internal override void Start()
+    protected override void Start()
     {
         // Events
         ResourceManager.Instance.OnPricePerProductChanged += OnPricePerProductChanged;
@@ -45,11 +19,8 @@ public class Compounds : ProductionBase
         UpgradeSystem.Instance.OnProductionSpeedChanged += OnProductionSpeedChanged;
         UpgradeSystem.Instance.OnProductionYieldChanged += OnProductionYieldChanged;
 
-        inputResources = scriptableCompound.inputResources;
-        tempResourceList = scriptableCompound.inputResources.ToList();
+
         itemTypes = scriptableCompound.itemTypes;
-        attackAmount = scriptableCompound.attackAmount;
-        inputAmounts = scriptableCompound.inputAmounts;
         fillBar = transform.Find("FillBar").transform.Find("Fill").GetComponent<Image>();
         levelText = transform.Find("Main_Panel").Find("levelText").GetComponent<TextMeshProUGUI>();
         nameText = transform.Find("Main_Panel").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
@@ -64,16 +35,7 @@ public class Compounds : ProductionBase
         //if (scriptableCompound.toolImage != null)
         //    transform.Find("").GetComponent<Image>().sprite = scriptableCompound.toolImage;
 
-        subResourceIcons = transform.Find("Main_Panel").Find("Sub_Resource_Icons");
-        if (subResourceIcons != null)
-        {
-            for (int i = 0; i < inputResources.Length; i++)
-            {
-                var icon = Instantiate(ResourceManager.Instance.iconPrefab, subResourceIcons);
-                icon.transform.Find("Frame").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(inputResources[i]);
-                icon.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = inputAmounts[i].ToString();
-            }
-        }
+        
 
         workModeBtn = transform.Find("WorkingModeBtn").GetComponent<Button>();
         workModeText = workModeBtn.GetComponentInChildren<TextMeshProUGUI>();
@@ -82,9 +44,21 @@ public class Compounds : ProductionBase
         SetWorkModeColor();
 
         base.Start();
+        tempResourceList = currentRecipe.inputResources.ToList();
         nameText.text = _name;
 
         upgradeAmountText.text = upgradeCost.ToString();
+
+        subResourceIcons = transform.Find("Main_Panel").Find("Sub_Resource_Icons");
+        if (subResourceIcons != null)
+        {
+            for (int i = 0; i < currentRecipe.inputResources.Length; i++)
+            {
+                var icon = Instantiate(ResourceManager.Instance.iconPrefab, subResourceIcons);
+                icon.transform.Find("Frame").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(currentRecipe.inputResources[i]);
+                icon.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = currentRecipe.inputAmounts[i].ToString();
+            }
+        }
     }
 
     #region Event Methods
@@ -119,10 +93,10 @@ public class Compounds : ProductionBase
 
         if (isCharging)
         {
-            if (remainedBuildTime > 0)
+            if (remainedCollectTime > 0)
             {
-                remainedBuildTime -= Time.deltaTime * UpgradeSystem.Instance.ProductionSpeedMultiplier;
-                fillBar.fillAmount = ((collectTime - remainedBuildTime) / collectTime);
+                remainedCollectTime -= Time.deltaTime * UpgradeSystem.Instance.ProductionSpeedMultiplier;
+                fillBar.fillAmount = ((collectTime - remainedCollectTime) / collectTime);
             }
             else
             {
@@ -130,59 +104,22 @@ public class Compounds : ProductionBase
 
                 if (workingMode == WorkingMode.production)
                 {
-                    ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier,0));
+                    ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier, 0));
                     if (CheckIfPanelActive())
                         StatSystem.Instance.PopupText(transform, outputValue, _name);
                 }
                 else if (workingMode == WorkingMode.sell)
                 {
-                    ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier,0));
+                    ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.ProductionYieldMultiplier, 0));
                     SellResource();
                     if (CheckIfPanelActive())
                         StatSystem.Instance.PopupText(transform, PricePerProduct, "Gold");
                 }
 
-                tempResourceList = inputResources.ToList();
+                tempResourceList = currentRecipe.inputResources.ToList();
                 GameManager.Instance.AddXP(scriptableCompound.xpAmount);
-                remainedBuildTime = 0;
+                remainedCollectTime = 0;
                 fillBar.fillAmount = 0;
-            }
-        }
-    }
-
-    void Produce()
-    {
-        if (!isCharging && workingMode != WorkingMode.stopProduction && transform.Find("Level_Lock(Clone)") == null)
-        {
-            var inputs = inputResources.Zip(inputAmounts, (resource, amount) => (Resource: resource, Amount: amount));
-            foreach (var (Resource, Amount) in inputs)
-            {
-                if (ResourceManager.Instance.GetResourceAmount(Resource) >= (Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier) && tempResourceList.Contains(Resource))
-                {
-                    //Debug.Log(string.Format("{0} added to {1} recipe", input.Resource, producedResource));
-                    //Debug.Log(input.Resource + " added to recipe");
-                    tempResourceList.Remove(Resource);
-                    ResourceManager.Instance.ConsumeResource(Resource, (long)(Amount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier));
-
-                    if (subResourceIcons != null)
-                        subResourceIcons.GetChild(Array.IndexOf(inputResources, Resource)).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
-                }
-                else if (ResourceManager.Instance.GetResourceAmount(Resource) < Amount)
-                {
-                    //Debug.Log("Not enough " + input.Resource);
-                }
-            }
-
-            if (tempResourceList.Count == 0)
-            {
-                //Debug.Log(_name + " recipe completed");
-                isCharging = true;
-                remainedBuildTime = collectTime;
-
-                foreach (var (Resource, Amount) in inputs)
-                {
-                    subResourceIcons.GetChild(Array.IndexOf(inputResources, Resource)).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
-                }
             }
         }
     }
@@ -190,6 +127,6 @@ public class Compounds : ProductionBase
     public override void OnPointerClick(PointerEventData eventData)
     {
         Produce();
-        if (isCharging) RemainedBuildTime -= .35f;
+        if (isCharging) RemainedCollectTime -= .35f;
     }
 }

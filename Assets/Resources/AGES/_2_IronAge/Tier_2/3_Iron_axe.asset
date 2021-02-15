@@ -13,88 +13,97 @@ MonoBehaviour:
   m_Name: 3_Iron_axe
   m_EditorClassIdentifier: 
   Description: 
-  test:
-    value: 0
-    tenPow: 0
-    aPow: 0
-  TranslatedName: Berry
-  product: 0
+  TranslatedName: "\u0130ron Axe"
+  product: 57
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  collectTime: 1
+  collectTime: 10
   outputValue: 1
-  lockedByContracts: []
-  backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
-  toolImage: {fileID: 0}
-  sourceImage: {fileID: 0}
-  icon: {fileID: 21300000, guid: b0b13b34b41cfb54cb2d4fda519a2756, type: 3}
-  unlockLevel: 8
-  xpAmount: 10
+  recipes:
+  - inputResources: 0200000035000000
+    inputAmounts: 0300000002000000
+    collectTime: 10
+    outputAmount: 1
   ageBelongsTo: 2
   tier: 1
   itemTypes: 00000000
-  pricePerProductText: 0
-  pricePerProduct: 0
-  incomePerSecondText: 0
-  incomePerSecond: 0
+  basePricePerProduct:
+    mantissa: 2.845
+    exponent: 38
+  pricePerProductExpText: 2.99943989241243E+38
+  pricePerProductText: 299,944AA
+  pricePerProduct:
+    mantissa: 2.99943989241243
+    exponent: 38
+  incomePerSecondText: 29,994AA
+  incomePerSecond:
+    mantissa: 2.99943989241243
+    exponent: 37
+  optimalPricePerProductText: 15,444AA
+  optimalPricePerProduct:
+    mantissa: 1.5443989241243155
+    exponent: 37
+  optimalIncomePerSecondText: 645,471G
+  optimalPricePerSecond:
+    mantissa: 6.454708496116306
+    exponent: 35
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
   pricePerProductUntilLevel50:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
-  basePricePerProduct: 0
-  optimalPricePerProductText: 
-  optimalPricePerProduct: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0
+  - 470,912AA
+  - 739,332AA
+  - 1,161AB
+  - 1,822AB
+  - 2,861AB
+  - 4,492AB
+  - 7,052AB
+  - 11,072AB
+  - 17,383AB
+  - 27,292AB
+  - 42,849AB
+  - 67,272AB
+  - 105,617AB
+  - 165,819AB
+  - 260,337AB
+  - 408,728AB
+  - 641,704AB
+  - 1,007AC
+  - 1,582AC
+  - 2,483AC
+  - 3,899AC
+  - 6,121AC
+  - 9,61AC
+  - 15,088AC
+  - 23,688AC
+  - 37,19AC
+  - 58,389AC
+  - 91,671AC
+  - 143,923AC
+  - 225,959AC
+  - 354,756AC
+  - 556,967AC
+  - 874,438AC
+  - 1,373AD
+  - 2,155AD
+  - 3,384AD
+  - 5,313AD
+  - 8,341AD
+  - 13,096AD
+  - 20,56AD
+  - 32,279AD
+  - 50,679AD
+  - 79,566AD
+  - 124,918AD
+  - 196,121AD
+  - 307,911AD
+  - 483,42AD
+  - 758,969AD
+  - 1,192AE
+  - 4,409AE
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
+  sourceImage: {fileID: 21300000, guid: eaa7012c2fdf4924b8d2aed34d148c4c, type: 3}
+  icon: {fileID: 21300000, guid: b0b13b34b41cfb54cb2d4fda519a2756, type: 3}

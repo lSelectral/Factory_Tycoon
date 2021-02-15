@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Rice_meal
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Rice Meal
+  product: 43
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 12
+  outputValue: 1
+  recipes:
+  - inputResources: 1c000000
+    inputAmounts: 03000000
+    collectTime: 12
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 3
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 3.3
+    exponent: 31
+  pricePerProductExpText: 3.30000000029614E+31
+  pricePerProductText: 33F
+  pricePerProduct:
+    mantissa: 3.30000000029614
+    exponent: 31
+  incomePerSecondText: 2,75F
+  incomePerSecond:
+    mantissa: 2.750000000246783
+    exponent: 30
+  optimalPricePerProductText: 2,961C
+  optimalPricePerProduct:
+    mantissa: 2.9613601112365724
+    exponent: 21
+  optimalIncomePerSecondText: 137,52B
+  optimalPricePerSecond:
+    mantissa: 1.3751999759674072
+    exponent: 20
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 51,81F
+  - 81,342F
+  - 127,706F
+  - 200,499F
+  - 314,784F
+  - 494,21F
+  - 775,91F
+  - 1,218G
+  - 1,913G
+  - 3,003G
+  - 4,714G
+  - 7,401G
+  - 11,62G
+  - 18,244G
+  - 28,642G
+  - 44,969G
+  - 70,601G
+  - 110,843G
+  - 174,023G
+  - 273,217G
+  - 428,95G
+  - 673,452G
+  - 1,057AA
+  - 1,66AA
+  - 2,606AA
+  - 4,092AA
+  - 6,424AA
+  - 10,086AA
+  - 15,834AA
+  - 24,86AA
+  - 39,03AA
+  - 61,278AA
+  - 96,206AA
+  - 151,044AA
+  - 237,139AA
+  - 372,308AA
+  - 584,523AA
+  - 917,701AA
+  - 1,441AB
+  - 2,262AB
+  - 3,551AB
+  - 5,576AB
+  - 8,754AB
+  - 13,744AB
+  - 21,577AB
+  - 33,877AB
+  - 53,186AB
+  - 83,502AB
+  - 131,098AB
+  - 485,064AB
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: a3ce0fdf841065b47bc43a04c344db4b, type: 3}
+  sourceImage: {fileID: 21300000, guid: 79e72b18f6eed43439a243f5f34fdf94, type: 3}
+  icon: {fileID: 21300000, guid: 85e99ed24618d324fa53fcab5cbce7a5, type: 3}

@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 1_Potato
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Potato
+  product: 50
+  foodAmount: 300
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
+  outputValue: 3
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+  ageBelongsTo: 2
+  tier: 0
+  itemTypes: 0300000000000000
+  basePricePerProduct:
+    mantissa: 5
+    exponent: 33
+  pricePerProductExpText: 5E+33
+  pricePerProductText: 5G
+  pricePerProduct:
+    mantissa: 5
+    exponent: 33
+  incomePerSecondText: 1G
+  incomePerSecond:
+    mantissa: 1
+    exponent: 33
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 7,85G
+  - 12,325G
+  - 19,349G
+  - 30,379G
+  - 47,695G
+  - 74,88G
+  - 117,562G
+  - 184,573G
+  - 289,779G
+  - 454,953G
+  - 714,276G
+  - 1,121AA
+  - 1,761AA
+  - 2,764AA
+  - 4,34AA
+  - 6,813AA
+  - 10,697AA
+  - 16,794AA
+  - 26,367AA
+  - 41,396AA
+  - 64,992AA
+  - 102,038AA
+  - 160,2AA
+  - 251,514AA
+  - 394,877AA
+  - 619,957AA
+  - 973,332AA
+  - 1,528AB
+  - 2,399AB
+  - 3,767AB
+  - 5,914AB
+  - 9,285AB
+  - 14,577AB
+  - 22,885AB
+  - 35,93AB
+  - 56,41AB
+  - 88,564AB
+  - 139,046AB
+  - 218,302AB
+  - 342,734AB
+  - 538,092AB
+  - 844,804AB
+  - 1,326AC
+  - 2,082AC
+  - 3,269AC
+  - 5,133AC
+  - 8,059AC
+  - 12,652AC
+  - 19,863AC
+  - 73,495AC
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 21300000, guid: e4c3aa7b966f34f49bcac030376d2ee3, type: 3}
+  icon: {fileID: 21300000, guid: c722652dccfa9a64cb626c89aceac837, type: 3}

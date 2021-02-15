@@ -15,15 +15,18 @@ MonoBehaviour:
   contractName: Basic Protection and Fire source
   description: Leaves are multi purpose tool that can be use for feeding the fire,
     creating clothings and making house outside of caves.
+  contractType: 0
   contractReward: 30
   contractRewardType: 1
   resourceToRewarded: 0
   dependentContracts:
   - {fileID: 11400000, guid: 90338f01cf1c37a4d99d7cb751d815ea, type: 2}
   productsToUnlock: []
-  requiredResources: 
-  requiredResourceAmounts: 
-  unlockLevel: 2
+  requiredResources: 01000000
+  requiredResourceAmounts:
+  - mantissa: 0
+    exponent: 0
+  unlockLevel: 1
   icon: {fileID: 21300000, guid: c11fa297dd331de418654209c490f7e6, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>. You unlocked the one of the
     many ways that going to civilization.

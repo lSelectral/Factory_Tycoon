@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 0_Sand
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Sand
+  product: 20
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 5
+  outputValue: 1
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+  ageBelongsTo: 0
+  tier: 4
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 2.5
+    exponent: 17
+  pricePerProductExpText: 2.5E+17
+  pricePerProductText: 250AA
+  pricePerProduct:
+    mantissa: 2.5
+    exponent: 17
+  incomePerSecondText: 50AA
+  incomePerSecond:
+    mantissa: 5
+    exponent: 16
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 0
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 392,5AA
+  - 616,225AA
+  - 967,473AA
+  - 1,519AB
+  - 2,385AB
+  - 3,744AB
+  - 5,878AB
+  - 9,229AB
+  - 14,489AB
+  - 22,748AB
+  - 35,714AB
+  - 56,071AB
+  - 88,031AB
+  - 138,209AB
+  - 216,988AB
+  - 340,671AB
+  - 534,853AB
+  - 839,719AB
+  - 1,318BA
+  - 2,07BA
+  - 3,25BA
+  - 5,102BA
+  - 8,01BA
+  - 12,576BA
+  - 19,744BA
+  - 30,998BA
+  - 48,667BA
+  - 76,407BA
+  - 119,958BA
+  - 188,335BA
+  - 295,685BA
+  - 464,226BA
+  - 728,835BA
+  - 1,144BB
+  - 1,797BB
+  - 2,821BB
+  - 4,428BB
+  - 6,952BB
+  - 10,915BB
+  - 17,137BB
+  - 26,905BB
+  - 42,24BB
+  - 66,317BB
+  - 104,118BB
+  - 163,465BB
+  - 256,64BB
+  - 402,925BB
+  - 632,592BB
+  - 993,17BB
+  - 3,675CA
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: a3f4461a49e22334fbdf22204209f51d, type: 3}
+  icon: {fileID: 21300000, guid: a3f4461a49e22334fbdf22204209f51d, type: 3}

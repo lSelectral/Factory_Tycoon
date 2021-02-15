@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Contract", menuName = "Contract")]
 public class ContractBase : ScriptableObject
@@ -8,13 +9,13 @@ public class ContractBase : ScriptableObject
     public ContractType contractType;
     public float contractReward;
     public ContractRewardType contractRewardType;
-    [Tooltip("Chosen resource will rewarded if contract reward type is set to Unit Speed Up")] 
-    public BaseResources resourceToRewarded;
+    [Tooltip("Chosen resource will rewarded if contract reward type is set to Unit Speed Up")]
+    [SearchableEnum] public BaseResources resourceToRewarded;
 
     public ContractBase[] dependentContracts;
     public ScriptableProductionBase[] productsToUnlock;
-    public BaseResources[] requiredResources;
-    public int[] requiredResourceAmounts;
+    [SearchableEnum] public BaseResources[] requiredResources;
+    public BigDouble[] requiredResourceAmounts;
 
     public int unlockLevel;
 
@@ -31,5 +32,13 @@ public class ContractBase : ScriptableObject
     {
         if (contractName == "")
             contractName = name;
+        if (requiredResources == null || requiredResources.Length == 0)
+            requiredResources = new BaseResources[] { BaseResources._0_stick };
+
+        if (requiredResources.Length > requiredResourceAmounts.Length)
+            Array.Resize(ref requiredResourceAmounts, requiredResources.Length);
+
+        if (requiredResourceAmounts.Length == 0 || requiredResourceAmounts[0] == 0)
+            requiredResourceAmounts = new BigDouble[] { new BigDouble(10) };
     }
 }

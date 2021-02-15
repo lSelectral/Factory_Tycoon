@@ -15,6 +15,7 @@ MonoBehaviour:
   contractName: Meteor Shower
   description: RUN! RUN! Big fire stones falling upon us. Animals, people and homes
     are getting crushed. You should help your people to restore their home and belongings.
+  contractType: 0
   contractReward: 4.5e+18
   contractRewardType: 0
   resourceToRewarded: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
   requiredResources: 01000000090000000e000000
   requiredResourceAmounts: 640000003c00000096000000
   unlockLevel: 19
-  icon: {fileID: 21300000, guid: c36b676d9432d764f9df07f9addb1732, type: 3}
+  icon: {fileID: 21300000, guid: bc6f0c0f77ad8114b80a71fff3ff65a2, type: 3}
   rewardPanelHeader: '<color=red>Congrulations!</color> Your people are praising
     you for your great leadership. '
   rewardPanelDescription: In their worst moment you helped all of them. They pray

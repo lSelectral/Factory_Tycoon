@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Bronze_axe
+  m_EditorClassIdentifier: 
+  Description: More durable and more stronger version of stone axe.
+  TranslatedName: Bronze Axe
+  product: 33
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 9
+  outputValue: 1
+  recipes:
+  - inputResources: 020000001d000000
+    inputAmounts: 0300000002000000
+    collectTime: 9
+    outputAmount: 1
+  ageBelongsTo: 1
+  tier: 1
+  itemTypes: 0000000002000000
+  basePricePerProduct:
+    mantissa: 4
+    exponent: 24
+  pricePerProductExpText: 4.0156343452844E+24
+  pricePerProductText: 4,016D
+  pricePerProduct:
+    mantissa: 4.0156343452844
+    exponent: 24
+  incomePerSecondText: 446,182C
+  incomePerSecond:
+    mantissa: 4.461815939204888
+    exponent: 23
+  optimalPricePerProductText: 15,634C
+  optimalPricePerProduct:
+    mantissa: 1.5634345284397755
+    exponent: 22
+  optimalIncomePerSecondText: 726,03B
+  optimalPricePerSecond:
+    mantissa: 7.260296097657659
+    exponent: 20
+  isOptimal: 1
+  lockedByContracts:
+  - {fileID: 11400000, guid: 1e939b1da8fbc2a489664dca405ea2c1, type: 2}
+  - {fileID: 11400000, guid: 6cf492b5906911c4183d2fbc605c2bf6, type: 2}
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 6,305D
+  - 9,898D
+  - 15,54D
+  - 24,398D
+  - 38,305D
+  - 60,138D
+  - 94,417D
+  - 148,235D
+  - 232,729D
+  - 365,385D
+  - 573,655D
+  - 900,638D
+  - 1,414E
+  - 2,22E
+  - 3,485E
+  - 5,472E
+  - 8,591E
+  - 13,488E
+  - 21,176E
+  - 33,247E
+  - 52,197E
+  - 81,95E
+  - 128,661E
+  - 201,998E
+  - 317,136E
+  - 497,904E
+  - 781,709E
+  - 1,227F
+  - 1,927F
+  - 3,025F
+  - 4,749F
+  - 7,457F
+  - 11,707F
+  - 18,38F
+  - 28,856F
+  - 45,305F
+  - 71,128F
+  - 111,671F
+  - 175,324F
+  - 275,259F
+  - 432,156F
+  - 678,485F
+  - 1,065G
+  - 1,672G
+  - 2,626G
+  - 4,122G
+  - 6,472G
+  - 10,161G
+  - 15,953G
+  - 59,025G
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 3ab05f102b40e2249b212918f12c1c86, type: 3}
+  sourceImage: {fileID: 21300000, guid: d8f8b774f8adee645890e0c7bb4a01cd, type: 3}
+  icon: {fileID: 21300000, guid: ee502034ad782db41ac1547bfa0e4794, type: 3}

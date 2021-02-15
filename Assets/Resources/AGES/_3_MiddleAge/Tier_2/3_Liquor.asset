@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Liquor
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Liquor
+  product: 82
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 25
+  outputValue: 1
+  recipes:
+  - inputResources: 00000000090000001c0000002a000000
+    inputAmounts: 02000000030000000300000004000000
+    collectTime: 25
+    outputAmount: 1
+  ageBelongsTo: 3
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 1.8
+    exponent: 52
+  pricePerProductExpText: 1.8E+52
+  pricePerProductText: 18AF
+  pricePerProduct:
+    mantissa: 1.8
+    exponent: 52
+  incomePerSecondText: 720AE
+  incomePerSecond:
+    mantissa: 7.2
+    exponent: 50
+  optimalPricePerProductText: 219,36F
+  optimalPricePerProduct:
+    mantissa: 2.193600082463333
+    exponent: 32
+  optimalIncomePerSecondText: 1,834F
+  optimalPricePerSecond:
+    mantissa: 1.8335999680975543
+    exponent: 30
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 28,26AF
+  - 44,368AF
+  - 69,658AF
+  - 109,363AF
+  - 171,7AF
+  - 269,569AF
+  - 423,224AF
+  - 664,462AF
+  - 1,043AG
+  - 1,638AG
+  - 2,571AG
+  - 4,037AG
+  - 6,338AG
+  - 9,951AG
+  - 15,623AG
+  - 24,528AG
+  - 38,509AG
+  - 60,46AG
+  - 94,922AG
+  - 149,027AG
+  - 233,973AG
+  - 367,337AG
+  - 576,72AG
+  - 905,45AG
+  - 1,422BA
+  - 2,232BA
+  - 3,504BA
+  - 5,501BA
+  - 8,637BA
+  - 13,56BA
+  - 21,289BA
+  - 33,424BA
+  - 52,476BA
+  - 82,387BA
+  - 129,348BA
+  - 203,077BA
+  - 318,831BA
+  - 500,564BA
+  - 785,886BA
+  - 1,234BB
+  - 1,937BB
+  - 3,041BB
+  - 4,775BB
+  - 7,496BB
+  - 11,769BB
+  - 18,478BB
+  - 29,011BB
+  - 45,547BB
+  - 71,508BB
+  - 264,581BB
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: a3ce0fdf841065b47bc43a04c344db4b, type: 3}
+  sourceImage: {fileID: 21300000, guid: 7c4bf82af88be9f48a2019475c285678, type: 3}
+  icon: {fileID: 21300000, guid: 1db30898a96449346bb8f8273fe7662b, type: 3}

@@ -200,7 +200,14 @@ public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEq
     public string ToLetterExpression()
     {
         string[] suffix = new string[]
-            { "", "K", "M", "G", "T", "P", "E", "AA", "AB", "BA", "BB", "CA", "CB", "CC" };
+            { "", "K", "M", "B", "T", "A", "B", "C", "D", "E", "F", "G", 
+            "AA", "AB", "AC", "AD", "AE", "AF", "AG",
+            "BA", "BB", "BC", "BD", "BE", "BF", "BG", 
+            "CA", "CB", "CC", "CD", "CE", "CF", "CG", 
+            "DA", "DB", "DC", "DD", "DE", "DF", "DG", 
+            "EA", "EB", "EC", "ED", "EE", "EF", "EG", 
+            "FA", "FB", "FC", "FD", "FE", "FF", "FG", 
+            "GA", "GB", "GC", "GD", "GE", "GF", "GG"};
 
         int scale = 0;
         double value = this.mantissa;
@@ -214,6 +221,12 @@ public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEq
                 return this.ToString("E");
         }
 
+        while (exponent > 0)
+        {
+            exponent--;
+            value *= 10;
+        }
+
         if (scale > 0)
             return value.ToString("0.###") + suffix[scale];
         else
@@ -223,6 +236,7 @@ public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEq
     public override string ToString()
     {
         return ToLetterExpression();
+        //return BigNumber.FormatBigDouble(this, "E", null);
     }
 
     public string ToString(string format)
@@ -645,7 +659,8 @@ public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEq
             return double.NaN;
         }
 
-        //UN-SAFETY: Most incremental game cases are log(number := 1 or greater, base := 2 or greater). We assume this to be true and thus only need to return a number, not a BigDouble, and don't do any other kind of error checking.
+        //UN-SAFETY: Most incremental game cases are log(number := 1 or greater, base := 2 or greater). 
+        //We assume this to be true and thus only need to return a number, not a BigDouble, and don't do any other kind of error checking.
         return 2.30258509299404568402 / Math.Log(@base) * Log10(value);
     }
 
@@ -948,15 +963,15 @@ public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEq
             var numDigits = (int)Math.Ceiling(Math.Log10(Math.Abs(value.Mantissa)));
             var rounded = Math.Round(value.Mantissa * Math.Pow(10, len - numDigits)) * Math.Pow(10, numDigits - len);
 
-            // When number gets far too big just use 1 significant digit. 
-            var mantissa = ToFixed(rounded, /*Math.Max(len - numDigits, 0)*/1);
+            var mantissa = ToFixed(rounded, Math.Max(len - numDigits, 0));
             if (mantissa != "0" && places < 0)
             {
                 mantissa = mantissa.TrimEnd('0', '.');
             }
             return mantissa + "E" + (value.Exponent >= 0 ? "+" : "")
-                    + value.Exponent;
+                   + value.Exponent;
         }
+
 
         private static string FormatFixed(BigDouble value, int places)
         {

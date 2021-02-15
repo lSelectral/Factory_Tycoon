@@ -22,7 +22,7 @@ MonoBehaviour:
   productsToUnlock: []
   requiredResources: 
   requiredResourceAmounts: 
-  unlockLevel: 0
+  unlockLevel: 30
   icon: {fileID: 0}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 

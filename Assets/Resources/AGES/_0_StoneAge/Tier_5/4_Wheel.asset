@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 4_Wheel
+  m_EditorClassIdentifier: 
+  Description: Pinnacle Of Humanity
+  TranslatedName: Wheel
+  product: 24
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 15
+  outputValue: 1
+  recipes:
+  - inputResources: 03000000
+    inputAmounts: 06000000
+    collectTime: 15
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 4
+  itemTypes: 0100000000000000
+  basePricePerProduct:
+    mantissa: 6
+    exponent: 21
+  pricePerProductExpText: 6E+21
+  pricePerProductText: 6C
+  pricePerProduct:
+    mantissa: 6
+    exponent: 21
+  incomePerSecondText: 400B
+  incomePerSecond:
+    mantissa: 4
+    exponent: 20
+  optimalPricePerProductText: 462,713K
+  optimalPricePerProduct:
+    mantissa: 4.627125173807145
+    exponent: 5
+  optimalIncomePerSecondText: 8,595K
+  optimalPricePerSecond:
+    mantissa: 8.594999849796295
+    exponent: 3
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 14
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 9,42C
+  - 14,789C
+  - 23,219C
+  - 36,454C
+  - 57,233C
+  - 89,856C
+  - 141,075C
+  - 221,487C
+  - 347,735C
+  - 545,944C
+  - 857,132C
+  - 1,346D
+  - 2,113D
+  - 3,317D
+  - 5,208D
+  - 8,176D
+  - 12,836D
+  - 20,153D
+  - 31,641D
+  - 49,676D
+  - 77,991D
+  - 122,446D
+  - 192,24D
+  - 301,817D
+  - 473,852D
+  - 743,948D
+  - 1,168E
+  - 1,834E
+  - 2,879E
+  - 4,52E
+  - 7,096E
+  - 11,141E
+  - 17,492E
+  - 27,462E
+  - 43,116E
+  - 67,692E
+  - 106,277E
+  - 166,855E
+  - 261,962E
+  - 411,28E
+  - 645,71E
+  - 1,014F
+  - 1,592F
+  - 2,499F
+  - 3,923F
+  - 6,159F
+  - 9,67F
+  - 15,182F
+  - 23,836F
+  - 88,194F
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}
+  sourceImage: {fileID: 21300000, guid: 071ddc35fa59fdc46ad26bda501def00, type: 3}
+  icon: {fileID: 21300000, guid: 74e4325309cdc1a439acead97e079ba5, type: 3}

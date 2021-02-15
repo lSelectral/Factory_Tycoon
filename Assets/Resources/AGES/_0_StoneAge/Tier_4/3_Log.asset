@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 3_Log
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Log
+  product: 19
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 12
+  outputValue: 3
+  recipes:
+  - inputResources: 08000000
+    inputAmounts: 01000000
+    collectTime: 12
+    outputAmount: 3
+  ageBelongsTo: 0
+  tier: 3
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 3.1
+    exponent: 16
+  pricePerProductExpText: 3.10000014334093E+16
+  pricePerProductText: 31A
+  pricePerProduct:
+    mantissa: 3.10000014334093
+    exponent: 16
+  incomePerSecondText: 7,75A
+  incomePerSecond:
+    mantissa: 7.750000358352326
+    exponent: 15
+  optimalPricePerProductText: 1,433B
+  optimalPricePerProduct:
+    mantissa: 1.4334093174495017
+    exponent: 9
+  optimalIncomePerSecondText: 99,847M
+  optimalPricePerSecond:
+    mantissa: 9.984725184696755
+    exponent: 7
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 0
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 48,67A
+  - 76,412A
+  - 119,967A
+  - 188,348A
+  - 295,706A
+  - 464,258A
+  - 728,886A
+  - 1,144B
+  - 1,797B
+  - 2,821B
+  - 4,429B
+  - 6,953B
+  - 10,916B
+  - 17,138B
+  - 26,906B
+  - 42,243B
+  - 66,322B
+  - 104,125B
+  - 163,477B
+  - 256,658B
+  - 402,953B
+  - 632,637B
+  - 993,24B
+  - 1,559C
+  - 2,448C
+  - 3,844C
+  - 6,035C
+  - 9,474C
+  - 14,875C
+  - 23,353C
+  - 36,665C
+  - 57,564C
+  - 90,376C
+  - 141,89C
+  - 222,767C
+  - 349,744C
+  - 549,097C
+  - 862,083C
+  - 1,353D
+  - 2,125D
+  - 3,336D
+  - 5,238D
+  - 8,223D
+  - 12,911D
+  - 20,27D
+  - 31,823D
+  - 49,963D
+  - 78,441D
+  - 123,153D
+  - 455,667D
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 74c82ad20e545d243a0098c3d9268a7f, type: 3}
+  sourceImage: {fileID: 21300000, guid: ad50ae9e7e998424e8995cd300c73075, type: 3}
+  icon: {fileID: 21300000, guid: 4f9bf3a93fb0cf74c8bb315b8a6787a8, type: 3}

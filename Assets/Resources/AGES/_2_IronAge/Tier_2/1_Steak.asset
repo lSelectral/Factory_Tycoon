@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Steak
+  m_EditorClassIdentifier: 
+  Description: Main product for all bread and cake types of food
+  TranslatedName: Steak
+  product: 55
+  foodAmount: 800
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 12
+  outputValue: 1
+  recipes:
+  - inputResources: 0700000032000000
+    inputAmounts: 0100000002000000
+    collectTime: 12
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 1
+  itemTypes: 03000000
+  basePricePerProduct:
+    mantissa: 9
+    exponent: 36
+  pricePerProductExpText: 9.03656000137329E+36
+  pricePerProductText: 9,037AA
+  pricePerProduct:
+    mantissa: 9.03656000137329
+    exponent: 36
+  incomePerSecondText: 753,047G
+  incomePerSecond:
+    mantissa: 7.530466667811076
+    exponent: 35
+  optimalPricePerProductText: 36,56G
+  optimalPricePerProduct:
+    mantissa: 3.6560001373291007
+    exponent: 34
+  optimalIncomePerSecondText: 3,82G
+  optimalPricePerSecond:
+    mantissa: 3.819999933242798
+    exponent: 33
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 14,187AA
+  - 22,274AA
+  - 34,971AA
+  - 54,904AA
+  - 86,199AA
+  - 135,332AA
+  - 212,472AA
+  - 333,58AA
+  - 523,721AA
+  - 822,242AA
+  - 1,291AB
+  - 2,027AB
+  - 3,182AB
+  - 4,996AB
+  - 7,843AB
+  - 12,314AB
+  - 19,333AB
+  - 30,353AB
+  - 47,654AB
+  - 74,816AB
+  - 117,462AB
+  - 184,415AB
+  - 289,531AB
+  - 454,564AB
+  - 713,666AB
+  - 1,12AC
+  - 1,759AC
+  - 2,762AC
+  - 4,336AC
+  - 6,808AC
+  - 10,688AC
+  - 16,78AC
+  - 26,345AC
+  - 41,361AC
+  - 64,937AC
+  - 101,951AC
+  - 160,063AC
+  - 251,299AC
+  - 394,539AC
+  - 619,427AC
+  - 972,5AC
+  - 1,527AD
+  - 2,397AD
+  - 3,763AD
+  - 5,909AD
+  - 9,277AD
+  - 14,564AD
+  - 22,866AD
+  - 35,899AD
+  - 132,828AD
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 74ffedf3f879cd340baa39e79f507e0f, type: 3}
+  sourceImage: {fileID: 21300000, guid: 4cf8bd73b8fa94444b12c108b38ce61a, type: 3}
+  icon: {fileID: 21300000, guid: f25343c70cdf29549a28f4686a0ea4e4, type: 3}

@@ -13,88 +13,97 @@ MonoBehaviour:
   m_Name: 0_Fish
   m_EditorClassIdentifier: 
   Description: 
-  test:
-    value: 0
-    tenPow: 0
-    aPow: 0
-  TranslatedName: Berry
-  product: 0
-  foodAmount: 0
+  TranslatedName: Fish
+  product: 16
+  foodAmount: 25
   housingAmount: 0
   attackAmount: 0
-  collectTime: 20
+  collectTime: 15
   outputValue: 4
-  lockedByContracts: []
-  backgroundImage: {fileID: 0}
-  toolImage: {fileID: 21300000, guid: 886132581bedf634e86642620aed90a5, type: 3}
-  sourceImage: {fileID: 0}
-  icon: {fileID: 21300000, guid: b4d8b576f89e53d4187397b07a5af715, type: 3}
-  unlockLevel: 0
-  xpAmount: 10
+  recipes:
+  - inputResources: 06000000
+    inputAmounts: 01000000
+    collectTime: 15
+    outputAmount: 4
   ageBelongsTo: 0
   tier: 3
-  itemTypes: 00000000
-  pricePerProductText: 207,73
-  pricePerProduct: 207.72728
-  incomePerSecondText: 41,55
-  incomePerSecond: 41.545456
-  pricePerProductUntilLevel50:
-  - 326.13184
-  - 512.027
-  - 803.8824
-  - 1262.0953
-  - 1981.4897
-  - 3110.939
-  - 4884.1743
-  - 7668.154
-  - 12039.002
-  - 18901.234
-  - 29674.94
-  - 46589.656
-  - 73145.766
-  - 114838.86
-  - 180297.02
-  - 283066.3
-  - 444414.12
-  - 697730.2
-  - 1095436.4
-  - 1719835.1
-  - 2700141.2
-  - 4239222
-  - 6655579
-  - 10449259
-  - 16405337
-  - 25756380
-  - 40437516
-  - 63486904
-  - 99674440
-  - 156488880
-  - 245687550
-  - 385729470
-  - 605595260
-  - 950784600
-  - 1.4927318e+9
-  - 2.3435889e+9
-  - 3.6794348e+9
-  - 5.7767127e+9
-  - 9.069439e+9
-  - 1.423902e+10
-  - 2.2355261e+10
-  - 3.509776e+10
-  - 5.5103484e+10
-  - 8.651248e+10
-  - 1.3582459e+11
-  - 2.1324461e+11
-  - 3.3479403e+11
-  - 5.2562664e+11
-  - 8.2523383e+11
-  - 3.0533652e+12
-  isFixedArraySize: 1
-  inputResources: 00000000
-  inputAmounts: 01000000
-  basePricePerProduct: 0
-  optimalPricePerProductText: 207,73
-  optimalPricePerProduct: 207.72728
-  optimalIncomePerSecondText: 8,68
-  optimalPricePerSecond: 8.681818
+  itemTypes: 03000000
+  basePricePerProduct:
+    mantissa: 1.1
+    exponent: 14
+  pricePerProductExpText: 1.10000030208747E+14
+  pricePerProductText: 110T
+  pricePerProduct:
+    mantissa: 1.10000030208747
+    exponent: 14
+  incomePerSecondText: 29,333T
+  incomePerSecond:
+    mantissa: 2.93333413889992
+    exponent: 13
+  optimalPricePerProductText: 30,209M
+  optimalPricePerProduct:
+    mantissa: 3.020874736947602
+    exponent: 7
+  optimalIncomePerSecondText: 1,683M
+  optimalPricePerSecond:
+    mantissa: 1.6834049394618933
+    exponent: 6
   isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 0
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 172,7T
+  - 271,139T
+  - 425,688T
+  - 668,331T
+  - 1,049A
+  - 1,647A
+  - 2,586A
+  - 4,061A
+  - 6,375A
+  - 10,009A
+  - 15,714A
+  - 24,671A
+  - 38,734A
+  - 60,812A
+  - 95,475A
+  - 149,895A
+  - 235,335A
+  - 369,476A
+  - 580,078A
+  - 910,723A
+  - 1,43B
+  - 2,245B
+  - 3,524B
+  - 5,533B
+  - 8,687B
+  - 13,639B
+  - 21,413B
+  - 33,619B
+  - 52,782B
+  - 82,867B
+  - 130,102B
+  - 204,259B
+  - 320,687B
+  - 503,479B
+  - 790,462B
+  - 1,241C
+  - 1,948C
+  - 3,059C
+  - 4,803C
+  - 7,54C
+  - 11,838C
+  - 18,586C
+  - 29,18C
+  - 45,812C
+  - 71,925C
+  - 112,922C
+  - 177,287C
+  - 278,341C
+  - 436,995C
+  - 1,617D
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 886132581bedf634e86642620aed90a5, type: 3}
+  sourceImage: {fileID: 21300000, guid: 0b7241a580970ac4ea60724c6f62d8d2, type: 3}
+  icon: {fileID: 21300000, guid: 0766ff7b7984dc442940cc7853393813, type: 3}

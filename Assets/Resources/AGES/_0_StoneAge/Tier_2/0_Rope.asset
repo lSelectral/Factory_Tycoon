@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 0_Rope
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Rope
+  product: 5
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 5
+  outputValue: 1
+  recipes:
+  - inputResources: 01000000
+    inputAmounts: 02000000
+    collectTime: 5
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 4
+    exponent: 5
+  pricePerProductExpText: 4.00685500025749E+5
+  pricePerProductText: 400,686K
+  pricePerProduct:
+    mantissa: 4.00685500025749
+    exponent: 5
+  incomePerSecondText: 80,137K
+  incomePerSecond:
+    mantissa: 8.01371000051498
+    exponent: 4
+  optimalPricePerProductText: 685.500025749206
+  optimalPricePerProduct:
+    mantissa: 6.8550002574920645
+    exponent: 2
+  optimalIncomePerSecondText: 114.599997997284
+  optimalPricePerSecond:
+    mantissa: 1.145999979972839
+    exponent: 2
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 0
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 629,076K
+  - 987,65K
+  - 1,551M
+  - 2,434M
+  - 3,822M
+  - 6,001M
+  - 9,421M
+  - 14,791M
+  - 23,222M
+  - 36,459M
+  - 57,24M
+  - 89,867M
+  - 141,091M
+  - 221,513M
+  - 347,775M
+  - 546,007M
+  - 857,231M
+  - 1,346B
+  - 2,113B
+  - 3,317B
+  - 5,208B
+  - 8,177B
+  - 12,838B
+  - 20,156B
+  - 31,644B
+  - 49,682B
+  - 78B
+  - 122,46B
+  - 192,262B
+  - 301,852B
+  - 473,907B
+  - 744,034B
+  - 1,168T
+  - 1,834T
+  - 2,879T
+  - 4,521T
+  - 7,097T
+  - 11,143T
+  - 17,494T
+  - 27,466T
+  - 43,121T
+  - 67,7T
+  - 106,289T
+  - 166,874T
+  - 261,992T
+  - 411,328T
+  - 645,785T
+  - 1,014A
+  - 1,592A
+  - 5,89A
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 426d7a491e233464190ce1e42792da9d, type: 3}

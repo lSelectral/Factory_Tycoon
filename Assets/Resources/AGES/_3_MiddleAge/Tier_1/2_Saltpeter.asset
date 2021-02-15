@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 2_Saltpeter
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Saltpeter
+  product: 76
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 9
+  outputValue: 1
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+    collectTime: 9
+    outputAmount: 1
+  ageBelongsTo: 3
+  tier: 0
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 7.2
+    exponent: 46
+  pricePerProductExpText: 7.2E+46
+  pricePerProductText: 72AD
+  pricePerProduct:
+    mantissa: 7.2
+    exponent: 46
+  incomePerSecondText: 8AD
+  incomePerSecond:
+    mantissa: 7.999999999999999
+    exponent: 45
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 113,04AD
+  - 177,473AD
+  - 278,632AD
+  - 437,453AD
+  - 686,801AD
+  - 1,078AE
+  - 1,693AE
+  - 2,658AE
+  - 4,173AE
+  - 6,551AE
+  - 10,286AE
+  - 16,148AE
+  - 25,353AE
+  - 39,804AE
+  - 62,492AE
+  - 98,113AE
+  - 154,038AE
+  - 241,839AE
+  - 379,687AE
+  - 596,109AE
+  - 935,891AE
+  - 1,469AF
+  - 2,307AF
+  - 3,622AF
+  - 5,686AF
+  - 8,927AF
+  - 14,016AF
+  - 22,005AF
+  - 34,548AF
+  - 54,24AF
+  - 85,157AF
+  - 133,697AF
+  - 209,904AF
+  - 329,55AF
+  - 517,393AF
+  - 812,308AF
+  - 1,275AG
+  - 2,002AG
+  - 3,144AG
+  - 4,935AG
+  - 7,749AG
+  - 12,165AG
+  - 19,099AG
+  - 29,986AG
+  - 47,078AG
+  - 73,912AG
+  - 116,042AG
+  - 182,187AG
+  - 286,033AG
+  - 1,058BA
+  backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
+  toolImage: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
+  sourceImage: {fileID: 21300000, guid: 2b94cf94e3ae7b1469273a537be0984b, type: 3}
+  icon: {fileID: 21300000, guid: 5b58351cb891f7b41b9970b7afa5ee68, type: 3}

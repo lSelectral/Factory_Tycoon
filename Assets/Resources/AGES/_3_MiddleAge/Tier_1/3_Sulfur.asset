@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 3_Sulfur
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Sulfur
+  product: 77
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 8
+  outputValue: 2
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+    collectTime: 8
+    outputAmount: 2
+  ageBelongsTo: 3
+  tier: 0
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 1.6
+    exponent: 47
+  pricePerProductExpText: 1.6E+47
+  pricePerProductText: 160AD
+  pricePerProduct:
+    mantissa: 1.6
+    exponent: 47
+  incomePerSecondText: 40AD
+  incomePerSecond:
+    mantissa: 4
+    exponent: 46
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 251,2AD
+  - 394,384AD
+  - 619,183AD
+  - 972,117AD
+  - 1,526AE
+  - 2,396AE
+  - 3,762AE
+  - 5,906AE
+  - 9,273AE
+  - 14,559AE
+  - 22,857AE
+  - 35,885AE
+  - 56,34AE
+  - 88,454AE
+  - 138,872AE
+  - 218,029AE
+  - 342,306AE
+  - 537,42AE
+  - 843,75AE
+  - 1,325AF
+  - 2,08AF
+  - 3,265AF
+  - 5,126AF
+  - 8,048AF
+  - 12,636AF
+  - 19,839AF
+  - 31,147AF
+  - 48,9AF
+  - 76,773AF
+  - 120,534AF
+  - 189,239AF
+  - 297,105AF
+  - 466,454AF
+  - 732,333AF
+  - 1,15AG
+  - 1,805AG
+  - 2,834AG
+  - 4,449AG
+  - 6,986AG
+  - 10,967AG
+  - 17,219AG
+  - 27,034AG
+  - 42,443AG
+  - 66,635AG
+  - 104,618AG
+  - 164,25AG
+  - 257,872AG
+  - 404,859AG
+  - 635,629AG
+  - 2,352BA
+  backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
+  toolImage: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
+  sourceImage: {fileID: 21300000, guid: 14a2710916f32c9479082b1bc6a5cb5b, type: 3}
+  icon: {fileID: 21300000, guid: bb5e42897acacad42b733e7575c69ceb, type: 3}

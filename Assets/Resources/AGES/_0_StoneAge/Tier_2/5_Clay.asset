@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 5_Clay
+  m_EditorClassIdentifier: 
+  Description: Everyone wants to play with mud and clay. All you need is creativity
+  TranslatedName: Clay
+  product: 10
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 7
+  outputValue: 3
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+  ageBelongsTo: 0
+  tier: 1
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 2
+    exponent: 9
+  pricePerProductExpText: 2E+9
+  pricePerProductText: 2B
+  pricePerProduct:
+    mantissa: 2
+    exponent: 9
+  incomePerSecondText: 857,143M
+  incomePerSecond:
+    mantissa: 8.57142857142857
+    exponent: 8
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 4
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 3,14B
+  - 4,93B
+  - 7,74B
+  - 12,151B
+  - 19,078B
+  - 29,952B
+  - 47,025B
+  - 73,829B
+  - 115,912B
+  - 181,981B
+  - 285,711B
+  - 448,566B
+  - 704,248B
+  - 1,106T
+  - 1,736T
+  - 2,725T
+  - 4,279T
+  - 6,718T
+  - 10,547T
+  - 16,559T
+  - 25,997T
+  - 40,815T
+  - 64,08T
+  - 100,606T
+  - 157,951T
+  - 247,983T
+  - 389,333T
+  - 611,253T
+  - 959,667T
+  - 1,507AA
+  - 2,365AA
+  - 3,714AA
+  - 5,831AA
+  - 9,154AA
+  - 14,372AA
+  - 22,564AA
+  - 35,426AA
+  - 55,618AA
+  - 87,321AA
+  - 137,093AA
+  - 215,237AA
+  - 337,922AA
+  - 530,537AA
+  - 832,943AA
+  - 1,308AB
+  - 2,053AB
+  - 3,223AB
+  - 5,061AB
+  - 7,945AB
+  - 29,398AB
+  backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: e0bac1a6e442285499d5717095d7290c, type: 3}
+  icon: {fileID: 21300000, guid: b18e6f55744a8764297239d877029038, type: 3}

@@ -12,7 +12,7 @@ public class QuestBase : ScriptableObject
 
     public QuestType questType;
 
-    public BaseResources resource;
+    [SearchableEnum] public BaseResources resource;
 
     public QuestAchivementRequirement questAchiveRequirement;
 

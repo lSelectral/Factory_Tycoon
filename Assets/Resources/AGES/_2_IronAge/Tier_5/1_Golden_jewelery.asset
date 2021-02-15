@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Golden_jewelery
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Golden Jewelery
+  product: 70
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 24
+  outputValue: 1
+  recipes:
+  - inputResources: 2e000000
+    inputAmounts: 08000000
+    collectTime: 24
+    outputAmount: 1
+  ageBelongsTo: 2
+  tier: 4
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 3
+    exponent: 46
+  pricePerProductExpText: 3.00000000000501E+46
+  pricePerProductText: 30AD
+  pricePerProduct:
+    mantissa: 3.00000000000501
+    exponent: 46
+  incomePerSecondText: 1,25AD
+  incomePerSecond:
+    mantissa: 1.2500000000020877
+    exponent: 45
+  optimalPricePerProductText: 50,139G
+  optimalPricePerProduct:
+    mantissa: 5.013943049785401
+    exponent: 34
+  optimalIncomePerSecondText: 436,571F
+  optimalPricePerSecond:
+    mantissa: 4.365714213169195
+    exponent: 32
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 47,1AD
+  - 73,947AD
+  - 116,097AD
+  - 182,272AD
+  - 286,167AD
+  - 449,282AD
+  - 705,373AD
+  - 1,107AE
+  - 1,739AE
+  - 2,73AE
+  - 4,286AE
+  - 6,728AE
+  - 10,564AE
+  - 16,585AE
+  - 26,039AE
+  - 40,88AE
+  - 64,182AE
+  - 100,766AE
+  - 158,203AE
+  - 248,379AE
+  - 389,955AE
+  - 612,229AE
+  - 961,2AE
+  - 1,509AF
+  - 2,369AF
+  - 3,72AF
+  - 5,84AF
+  - 9,169AF
+  - 14,395AF
+  - 22,6AF
+  - 35,482AF
+  - 55,707AF
+  - 87,46AF
+  - 137,312AF
+  - 215,581AF
+  - 338,461AF
+  - 531,385AF
+  - 834,274AF
+  - 1,31AG
+  - 2,056AG
+  - 3,229AG
+  - 5,069AG
+  - 7,958AG
+  - 12,494AG
+  - 19,616AG
+  - 30,797AG
+  - 48,351AG
+  - 75,911AG
+  - 119,18AG
+  - 440,968AG
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 0}
+  sourceImage: {fileID: 0}
+  icon: {fileID: 21300000, guid: 1d62da573f3e40e4794ee44f90b30625, type: 3}

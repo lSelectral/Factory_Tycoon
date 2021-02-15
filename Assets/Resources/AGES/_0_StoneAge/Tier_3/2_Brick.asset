@@ -13,88 +13,97 @@ MonoBehaviour:
   m_Name: 2_Brick
   m_EditorClassIdentifier: 
   Description: 
-  test:
-    value: 0
-    tenPow: 0
-    aPow: 0
   TranslatedName: Brick
-  product: 9
+  product: 13
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
-  collectTime: 1
+  collectTime: 6
   outputValue: 1
+  recipes:
+  - inputResources: 0a000000
+    inputAmounts: 02000000
+    collectTime: 6
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 2
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 2
+    exponent: 11
+  pricePerProductExpText: 2.15668572017125E+11
+  pricePerProductText: 215,669B
+  pricePerProduct:
+    mantissa: 2.15668572017125
+    exponent: 11
+  incomePerSecondText: 35,945B
+  incomePerSecond:
+    mantissa: 3.5944762002854165
+    exponent: 10
+  optimalPricePerProductText: 15,669B
+  optimalPricePerProduct:
+    mantissa: 1.5668572017124718
+    exponent: 10
+  optimalIncomePerSecondText: 3,274B
+  optimalPricePerSecond:
+    mantissa: 3.274285657065254
+    exponent: 9
+  isOptimal: 1
   lockedByContracts: []
+  unlockLevel: 5
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 338,6B
+  - 531,601B
+  - 834,614B
+  - 1,31T
+  - 2,057T
+  - 3,23T
+  - 5,071T
+  - 7,961T
+  - 12,499T
+  - 19,624T
+  - 30,809T
+  - 48,371T
+  - 75,942T
+  - 119,229T
+  - 187,19T
+  - 293,888T
+  - 461,404T
+  - 724,404T
+  - 1,137A
+  - 1,786A
+  - 2,803A
+  - 4,401A
+  - 6,91A
+  - 10,849A
+  - 17,033A
+  - 26,741A
+  - 41,983A
+  - 65,914A
+  - 103,485A
+  - 162,471A
+  - 255,08A
+  - 400,476A
+  - 628,747A
+  - 987,133A
+  - 1,55B
+  - 2,433B
+  - 3,82B
+  - 5,998B
+  - 9,416B
+  - 14,783B
+  - 23,21B
+  - 36,44B
+  - 57,21B
+  - 89,82B
+  - 141,017B
+  - 221,397B
+  - 347,593B
+  - 545,721B
+  - 856,782B
+  - 3,17C
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}
   sourceImage: {fileID: 21300000, guid: b18e6f55744a8764297239d877029038, type: 3}
   icon: {fileID: 21300000, guid: 966263a09293ab040b421553cbab8bc0, type: 3}
-  unlockLevel: 5
-  xpAmount: 10
-  ageBelongsTo: 0
-  tier: 2
-  itemTypes: 00000000
-  pricePerProductText: 0
-  pricePerProduct: 0
-  incomePerSecondText: 0
-  incomePerSecond: 0
-  pricePerProductUntilLevel50:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  isFixedArraySize: 1
-  inputResources: 
-  inputAmounts: 
-  basePricePerProduct: 0
-  optimalPricePerProductText: 
-  optimalPricePerProduct: 0
-  optimalIncomePerSecondText: 
-  optimalPricePerSecond: 0
-  isOptimal: 0

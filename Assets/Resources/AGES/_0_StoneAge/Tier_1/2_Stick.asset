@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: 2_Stick
   m_EditorClassIdentifier: 
   Description: Dead child trees.
-  test:
-    value: 0
-    tenPow: 0
-    aPow: 0
   TranslatedName: Stick
   product: 2
   foodAmount: 0
@@ -24,68 +20,87 @@ MonoBehaviour:
   attackAmount: 0
   collectTime: 3.5
   outputValue: 1
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+  ageBelongsTo: 0
+  tier: 0
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 7
+    exponent: 2
+  pricePerProductText: 700
+  pricePerProduct:
+    mantissa: 7
+    exponent: 2
+  incomePerSecondText: 200
+  incomePerSecond:
+    mantissa: 1.9999999999999996
+    exponent: 2
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
   lockedByContracts: []
+  unlockLevel: 3
+  xpAmount: 30
+  pricePerProductUntilLevel50:
+  - 10.9900003671646
+  - 17.2543011528969
+  - 27.0892537150722
+  - 42.5301297535513
+  - 66.7723059438697
+  - 104.832523834222
+  - 164.587067918414
+  - 258.401705264845
+  - 405.690690819515
+  - 636.934405865962
+  - 999.987050618099
+  - 1,57K
+  - 2,465K
+  - 3,87K
+  - 6,076K
+  - 9,539K
+  - 1,498K
+  - 2,351K
+  - 3,691K
+  - 5,796K
+  - 9,099K
+  - 1,429K
+  - 2,243K
+  - 3,521K
+  - 5,528K
+  - 8,679K
+  - 1,363M
+  - 2,139M
+  - 3,359M
+  - 5,273M
+  - 8,279M
+  - 1,3M
+  - 2,041M
+  - 3,204M
+  - 5,03M
+  - 7,897M
+  - 1,24M
+  - 1,947M
+  - 3,056M
+  - 4,798M
+  - 7,533M
+  - 1,183G
+  - 1,857G
+  - 2,915G
+  - 4,577G
+  - 7,186G
+  - 1,128G
+  - 1,771G
+  - 2,781G
+  - 1,029G
   backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
   icon: {fileID: 21300000, guid: 4f9bf3a93fb0cf74c8bb315b8a6787a8, type: 3}
-  unlockLevel: 3
-  xpAmount: 30
-  ageBelongsTo: 0
-  tier: 0
-  itemTypes: 00000000
-  pricePerProductText: 650
-  pricePerProduct: 650
-  incomePerSecondText: 185,71
-  incomePerSecond: 185.71428
-  pricePerProductUntilLevel50:
-  - 1020.50006
-  - 1602.1852
-  - 2515.431
-  - 3949.2266
-  - 6200.286
-  - 9734.449
-  - 15283.086
-  - 23994.445
-  - 37671.28
-  - 59143.914
-  - 92855.945
-  - 145783.84
-  - 228880.64
-  - 359342.62
-  - 564167.94
-  - 885743.7
-  - 1390617.6
-  - 2183269.8
-  - 3427733.5
-  - 5381542
-  - 8449021
-  - 13264963
-  - 20825992
-  - 32696808
-  - 51333990
-  - 80594370
-  - 126533160
-  - 198657070
-  - 311891620
-  - 489669860
-  - 768781700
-  - 1.2069873e+9
-  - 1.8949701e+9
-  - 2.9751032e+9
-  - 4.670912e+9
-  - 7.333332e+9
-  - 1.1513332e+10
-  - 1.807593e+10
-  - 2.8379212e+10
-  - 4.4555362e+10
-  - 6.995192e+10
-  - 1.09824524e+11
-  - 1.7242451e+11
-  - 2.7070649e+11
-  - 4.2500922e+11
-  - 6.672645e+11
-  - 1.0476053e+12
-  - 1.6447403e+12
-  - 2.5822424e+12
-  - 9.554297e+12

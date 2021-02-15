@@ -13,88 +13,97 @@ MonoBehaviour:
   m_Name: 1_Bow
   m_EditorClassIdentifier: 
   Description: In the good hands, can bring down foes from distance
-  test:
-    value: 0
-    tenPow: 0
-    aPow: 0
   TranslatedName: Bow
-  product: 11
+  product: 12
   foodAmount: 0
   housingAmount: 0
   attackAmount: 300
-  collectTime: 15
+  collectTime: 12
   outputValue: 1
+  recipes:
+  - inputResources: 02000000050000000b000000
+    inputAmounts: 020000000300000003000000
+    collectTime: 12
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 2
+  itemTypes: 0400000002000000
+  basePricePerProduct:
+    mantissa: 6
+    exponent: 11
+  pricePerProductExpText: 9.5647367059565E+11
+  pricePerProductText: 956,474B
+  pricePerProduct:
+    mantissa: 9.5647367059565
+    exponent: 11
+  incomePerSecondText: 79,706B
+  incomePerSecond:
+    mantissa: 7.970613921630418
+    exponent: 10
+  optimalPricePerProductText: 356,474B
+  optimalPricePerProduct:
+    mantissa: 3.5647367059564976
+    exponent: 11
+  optimalIncomePerSecondText: 24,83B
+  optimalPricePerSecond:
+    mantissa: 2.483033787711542
+    exponent: 10
+  isOptimal: 1
   lockedByContracts: []
+  unlockLevel: 7
+  xpAmount: 120
+  pricePerProductUntilLevel50:
+  - 1,502T
+  - 2,358T
+  - 3,701T
+  - 5,811T
+  - 9,124T
+  - 14,324T
+  - 22,489T
+  - 35,308T
+  - 55,433T
+  - 87,03T
+  - 136,637T
+  - 214,521T
+  - 336,797T
+  - 528,772T
+  - 830,172T
+  - 1,303A
+  - 2,046A
+  - 3,213A
+  - 5,044A
+  - 7,919A
+  - 12,433A
+  - 19,519A
+  - 30,645A
+  - 48,113A
+  - 75,538A
+  - 118,594A
+  - 186,193A
+  - 292,323A
+  - 458,948A
+  - 720,548A
+  - 1,131B
+  - 1,776B
+  - 2,788B
+  - 4,378B
+  - 6,873B
+  - 10,791B
+  - 16,942B
+  - 26,599B
+  - 41,76B
+  - 65,563B
+  - 102,934B
+  - 161,607B
+  - 253,722B
+  - 398,344B
+  - 625,4B
+  - 981,878B
+  - 1,542C
+  - 2,42C
+  - 3,8C
+  - 14,059C
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}
   sourceImage: {fileID: 21300000, guid: 1def90f1eb4941f4fbebffc2f8d1fbb2, type: 3}
   icon: {fileID: 21300000, guid: 848c5226927b69148825ba61d21eacce, type: 3}
-  unlockLevel: 7
-  xpAmount: 120
-  ageBelongsTo: 0
-  tier: 2
-  itemTypes: 0400000002000000
-  pricePerProductText: 17,26M
-  pricePerProduct: 17260162
-  incomePerSecondText: 1,15M
-  incomePerSecond: 1150677.5
-  pricePerProductUntilLevel50:
-  - 27098456
-  - 42544576
-  - 66794988
-  - 104868136
-  - 164642980
-  - 258489490
-  - 405828500
-  - 637150800
-  - 1.0003268e+9
-  - 1.5705132e+9
-  - 2.4657057e+9
-  - 3.871158e+9
-  - 6.0777185e+9
-  - 9.542018e+9
-  - 1.4980968e+10
-  - 2.352012e+10
-  - 3.692659e+10
-  - 5.797475e+10
-  - 9.102036e+10
-  - 1.4290197e+11
-  - 2.243561e+11
-  - 3.522391e+11
-  - 5.530154e+11
-  - 8.6823417e+11
-  - 1.3631277e+12
-  - 2.1401106e+12
-  - 3.3599738e+12
-  - 5.275159e+12
-  - 8.282e+12
-  - 1.300274e+13
-  - 2.0414303e+13
-  - 3.2050455e+13
-  - 5.0319216e+13
-  - 7.9001175e+13
-  - 1.2403185e+14
-  - 1.9473001e+14
-  - 3.0572614e+14
-  - 4.7999004e+14
-  - 7.535844e+14
-  - 1.1831275e+15
-  - 1.8575103e+15
-  - 2.916291e+15
-  - 4.5785774e+15
-  - 7.1883665e+15
-  - 1.1285736e+16
-  - 1.7718606e+16
-  - 2.7818213e+16
-  - 4.3674595e+16
-  - 6.8569114e+16
-  - 2.5370573e+17
-  isFixedArraySize: 1
-  inputResources: 0900000002000000
-  inputAmounts: 0800000005000000
-  basePricePerProduct: 16000000
-  optimalPricePerProductText: 1,26M
-  optimalPricePerProduct: 1260162.8
-  optimalIncomePerSecondText: 25,71K
-  optimalPricePerSecond: 25713.064
-  isOptimal: 1

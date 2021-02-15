@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Tin_ore
+  m_EditorClassIdentifier: 
+  Description: One of the frist ore. Can be found  without digging.
+  TranslatedName: Tin Ore
+  product: 27
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 6.5
+  outputValue: 3
+  recipes:
+  - inputResources: 03000000
+    inputAmounts: 02000000
+    collectTime: 6.5
+    outputAmount: 3
+  ageBelongsTo: 1
+  tier: 0
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 2
+    exponent: 19
+  pricePerProductExpText: 2.00000000000001E+19
+  pricePerProductText: 20B
+  pricePerProduct:
+    mantissa: 2.00000000000001
+    exponent: 19
+  incomePerSecondText: 9,231B
+  incomePerSecond:
+    mantissa: 9.230769230769278
+    exponent: 18
+  optimalPricePerProductText: 66,836K
+  optimalPricePerProduct:
+    mantissa: 6.683625251054764
+    exponent: 4
+  optimalIncomePerSecondText: 8,595K
+  optimalPricePerSecond:
+    mantissa: 8.594999849796295
+    exponent: 3
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 31,4B
+  - 49,298B
+  - 77,398B
+  - 121,515B
+  - 190,778B
+  - 299,521B
+  - 470,249B
+  - 738,291B
+  - 1,159C
+  - 1,82C
+  - 2,857C
+  - 4,486C
+  - 7,042C
+  - 11,057C
+  - 17,359C
+  - 27,254C
+  - 42,788C
+  - 67,178C
+  - 105,469C
+  - 165,586C
+  - 259,97C
+  - 408,153C
+  - 640,8C
+  - 1,006D
+  - 1,58D
+  - 2,48D
+  - 3,893D
+  - 6,113D
+  - 9,597D
+  - 15,067D
+  - 23,655D
+  - 37,138D
+  - 58,307D
+  - 91,542D
+  - 143,72D
+  - 225,641D
+  - 354,256D
+  - 556,183D
+  - 873,207D
+  - 1,371E
+  - 2,152E
+  - 3,379E
+  - 5,305E
+  - 8,329E
+  - 13,077E
+  - 20,531E
+  - 32,234E
+  - 50,607E
+  - 79,454E
+  - 293,978E
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
+  sourceImage: {fileID: 21300000, guid: 19cda5e5a9540f54b88c6a0ca2aeee80, type: 3}
+  icon: {fileID: 21300000, guid: 265d0afce5e87b54f83b84c3f102f7b5, type: 3}

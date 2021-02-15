@@ -17,10 +17,12 @@ MonoBehaviour:
     other than just gathering and hunting. And they found farming. People planted
     the seeds they found and with the help of rains they were able to grow their
     own food. '
+  contractType: 0
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
-  dependentContracts: []
+  dependentContracts:
+  - {fileID: 11400000, guid: 6a7c1c259b26821408519c0af1ed4dff, type: 2}
   productsToUnlock: []
   requiredResources: 0000000006000000
   requiredResourceAmounts: 320000001e000000

@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Copper_ore
+  m_EditorClassIdentifier: 
+  Description: One of the frist ore. Can be found  without need of any tool..
+  TranslatedName: Copper Ore
+  product: 26
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 6
+  outputValue: 2
+  recipes:
+  - inputResources: 03000000
+    inputAmounts: 02000000
+    collectTime: 6
+    outputAmount: 2
+  ageBelongsTo: 1
+  tier: 0
+  itemTypes: 00000000
+  basePricePerProduct:
+    mantissa: 6
+    exponent: 18
+  pricePerProductExpText: 6.00000000000006E+18
+  pricePerProductText: 6B
+  pricePerProduct:
+    mantissa: 6.00000000000006
+    exponent: 18
+  incomePerSecondText: 2B
+  incomePerSecond:
+    mantissa: 2.00000000000002
+    exponent: 18
+  optimalPricePerProductText: 61,695K
+  optimalPricePerProduct:
+    mantissa: 6.169500231742859
+    exponent: 4
+  optimalIncomePerSecondText: 8,595K
+  optimalPricePerSecond:
+    mantissa: 8.594999849796295
+    exponent: 3
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 11
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 9,42B
+  - 14,789B
+  - 23,219B
+  - 36,454B
+  - 57,233B
+  - 89,856B
+  - 141,075B
+  - 221,487B
+  - 347,735B
+  - 545,944B
+  - 857,132B
+  - 1,346C
+  - 2,113C
+  - 3,317C
+  - 5,208C
+  - 8,176C
+  - 12,836C
+  - 20,153C
+  - 31,641C
+  - 49,676C
+  - 77,991C
+  - 122,446C
+  - 192,24C
+  - 301,817C
+  - 473,852C
+  - 743,948C
+  - 1,168D
+  - 1,834D
+  - 2,879D
+  - 4,52D
+  - 7,096D
+  - 11,141D
+  - 17,492D
+  - 27,462D
+  - 43,116D
+  - 67,692D
+  - 106,277D
+  - 166,855D
+  - 261,962D
+  - 411,28D
+  - 645,71D
+  - 1,014E
+  - 1,592E
+  - 2,499E
+  - 3,923E
+  - 6,159E
+  - 9,67E
+  - 15,182E
+  - 23,836E
+  - 88,194E
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
+  sourceImage: {fileID: 21300000, guid: 19cda5e5a9540f54b88c6a0ca2aeee80, type: 3}
+  icon: {fileID: 21300000, guid: 14fdcdfe7024c01409deeeb8efad9a6c, type: 3}

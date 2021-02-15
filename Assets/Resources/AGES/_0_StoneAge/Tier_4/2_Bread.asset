@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 2_Bread
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Bread
+  product: 18
+  foodAmount: 50
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 10
+  outputValue: 1
+  recipes:
+  - inputResources: 11000000
+    inputAmounts: 03000000
+    collectTime: 10
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 3
+  itemTypes: 03000000
+  basePricePerProduct:
+    mantissa: 6
+    exponent: 15
+  pricePerProductExpText: 1.22456669012706E+16
+  pricePerProductText: 12,246A
+  pricePerProduct:
+    mantissa: 1.224566690127055
+    exponent: 16
+  incomePerSecondText: 1,225A
+  incomePerSecond:
+    mantissa: 1.224566690127055
+    exponent: 15
+  optimalPricePerProductText: 6,246A
+  optimalPricePerProduct:
+    mantissa: 6.245666901270549
+    exponent: 15
+  optimalIncomePerSecondText: 696,089T
+  optimalPricePerSecond:
+    mantissa: 6.960888767242431
+    exponent: 14
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 0
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 19,226A
+  - 30,184A
+  - 47,389A
+  - 74,401A
+  - 116,81A
+  - 183,392A
+  - 287,925A
+  - 452,043A
+  - 709,708A
+  - 1,114B
+  - 1,749B
+  - 2,746B
+  - 4,312B
+  - 6,77B
+  - 10,629B
+  - 16,687B
+  - 26,199B
+  - 41,132B
+  - 64,577B
+  - 101,385B
+  - 159,175B
+  - 249,905B
+  - 392,351B
+  - 615,991B
+  - 967,106B
+  - 1,518C
+  - 2,384C
+  - 3,743C
+  - 5,876C
+  - 9,225C
+  - 14,483C
+  - 22,739C
+  - 35,7C
+  - 56,049C
+  - 87,998C
+  - 138,156C
+  - 216,905C
+  - 340,541C
+  - 534,65C
+  - 839,4C
+  - 1,318D
+  - 2,069D
+  - 3,248D
+  - 5,1D
+  - 8,007D
+  - 12,571D
+  - 19,736D
+  - 30,986D
+  - 48,648D
+  - 179,998D
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: f25343c70cdf29549a28f4686a0ea4e4, type: 3}
+  icon: {fileID: 21300000, guid: d4aa4135b425fcb448cba02a822b6694, type: 3}

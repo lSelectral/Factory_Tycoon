@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730b3d00c46c32d4f95c549b2908eb81, type: 3}
+  m_Name: 1_Leather_armor
+  m_EditorClassIdentifier: 
+  Description: Basic protection from human and animals. Also keep you warm.
+  TranslatedName: Leather Armor
+  product: 21
+  foodAmount: 0
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 20
+  outputValue: 1
+  recipes:
+  - inputResources: 0f000000
+    inputAmounts: 04000000
+    collectTime: 20
+    outputAmount: 1
+  ageBelongsTo: 0
+  tier: 4
+  itemTypes: 02000000
+  basePricePerProduct:
+    mantissa: 1.1
+    exponent: 19
+  pricePerProductExpText: 1.10006093348288E+19
+  pricePerProductText: 11,001B
+  pricePerProduct:
+    mantissa: 1.10006093348288
+    exponent: 19
+  incomePerSecondText: 550,03A
+  incomePerSecond:
+    mantissa: 5.500304667414399
+    exponent: 17
+  optimalPricePerProductText: 609,335T
+  optimalPricePerProduct:
+    mantissa: 6.093348287973097
+    exponent: 14
+  optimalIncomePerSecondText: 12,733T
+  optimalPricePerSecond:
+    mantissa: 1.2733363883452755
+    exponent: 13
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 13
+  xpAmount: 25
+  pricePerProductUntilLevel50:
+  - 17,271B
+  - 27,115B
+  - 42,571B
+  - 66,837B
+  - 104,934B
+  - 164,746B
+  - 258,651B
+  - 406,082B
+  - 637,549B
+  - 1,001C
+  - 1,571C
+  - 2,467C
+  - 3,874C
+  - 6,082C
+  - 9,548C
+  - 14,99C
+  - 23,535C
+  - 36,95C
+  - 58,011C
+  - 91,077C
+  - 142,991C
+  - 224,496C
+  - 352,459C
+  - 553,361C
+  - 868,777C
+  - 1,364D
+  - 2,141D
+  - 3,362D
+  - 5,278D
+  - 8,287D
+  - 13,011D
+  - 20,427D
+  - 32,071D
+  - 50,351D
+  - 79,051D
+  - 124,109D
+  - 194,852D
+  - 305,917D
+  - 480,29D
+  - 754,056D
+  - 1,184E
+  - 1,859E
+  - 2,918E
+  - 4,581E
+  - 7,193E
+  - 11,293E
+  - 17,73E
+  - 27,836E
+  - 43,702E
+  - 161,697E
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 74ffedf3f879cd340baa39e79f507e0f, type: 3}
+  sourceImage: {fileID: 21300000, guid: c7e60c1d14574ce42b70f209ce78081d, type: 3}
+  icon: {fileID: 21300000, guid: 143130a3c014b5e44a31e4519625068a, type: 3}

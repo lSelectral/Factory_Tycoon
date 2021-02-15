@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257a9df483099a64baa0d95684d3b8eb, type: 3}
+  m_Name: 1_Milk
+  m_EditorClassIdentifier: 
+  Description: 
+  TranslatedName: Milk
+  product: 65
+  foodAmount: 150
+  housingAmount: 0
+  attackAmount: 0
+  collectTime: 8
+  outputValue: 1
+  recipes:
+  - inputResources: 00000000
+    inputAmounts: 00000000
+  ageBelongsTo: 2
+  tier: 3
+  itemTypes: 03000000
+  basePricePerProduct:
+    mantissa: 1
+    exponent: 43
+  pricePerProductExpText: 1E+43
+  pricePerProductText: 10AC
+  pricePerProduct:
+    mantissa: 1
+    exponent: 43
+  incomePerSecondText: 1,25AC
+  incomePerSecond:
+    mantissa: 1.25
+    exponent: 42
+  optimalPricePerProductText: 0
+  optimalPricePerProduct:
+    mantissa: 0
+    exponent: 0
+  optimalIncomePerSecondText: 8.68181784192393
+  optimalPricePerSecond:
+    mantissa: 8.681817841923934
+    exponent: 0
+  isOptimal: 1
+  lockedByContracts: []
+  unlockLevel: 8
+  xpAmount: 10
+  pricePerProductUntilLevel50:
+  - 15,7AC
+  - 24,649AC
+  - 38,699AC
+  - 60,757AC
+  - 95,389AC
+  - 149,761AC
+  - 235,124AC
+  - 369,145AC
+  - 579,558AC
+  - 909,906AC
+  - 1,429AD
+  - 2,243AD
+  - 3,521AD
+  - 5,528AD
+  - 8,68AD
+  - 13,627AD
+  - 21,394AD
+  - 33,589AD
+  - 52,734AD
+  - 82,793AD
+  - 129,985AD
+  - 204,076AD
+  - 320,4AD
+  - 503,028AD
+  - 789,754AD
+  - 1,24AE
+  - 1,947AE
+  - 3,056AE
+  - 4,798AE
+  - 7,533AE
+  - 11,827AE
+  - 18,569AE
+  - 29,153AE
+  - 45,771AE
+  - 71,86AE
+  - 112,82AE
+  - 177,128AE
+  - 278,091AE
+  - 436,603AE
+  - 685,467AE
+  - 1,076AF
+  - 1,69AF
+  - 2,653AF
+  - 4,165AF
+  - 6,539AF
+  - 10,266AF
+  - 16,117AF
+  - 25,304AF
+  - 39,727AF
+  - 146,989AF
+  backgroundImage: {fileID: 0}
+  toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
+  sourceImage: {fileID: 21300000, guid: 55a31c57de13ee4468063a27ae8191d3, type: 3}
+  icon: {fileID: 21300000, guid: 0715fa2942a863040ae2b6d92e6c8cbf, type: 3}
