@@ -1,101 +1,135 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-
-public class ScriptableContractCreatorWindow : EditorWindow
+using System;
+[CanEditMultipleObjects]
+[CustomEditor(typeof(ContractBase))]
+public class ScriptableContractCreatorWindow : Editor
 {
-    [MenuItem("Window/Contract Creator")]
-    public static void ShowWindow()
+    SerializedObject so;
+
+    SerializedProperty contractName; 
+    SerializedProperty description;
+    SerializedProperty contractType; 
+
+    SerializedProperty contractReward;
+    SerializedProperty contractRewardType;
+    SerializedProperty resourceToRewarded;
+
+    SerializedProperty dependentContracts;
+    SerializedProperty productsToUnlock;
+    SerializedProperty requiredResources;
+    SerializedProperty requiredResourceAmounts;
+
+    SerializedProperty unlockLevel;
+    SerializedProperty icon;
+
+    SerializedProperty rewardPanelHeader;
+    SerializedProperty rewardPanelDescription;
+
+    SerializedProperty mainPageToGo;
+    SerializedProperty pageNameToGo;
+    
+    SerializedProperty xpReward;
+
+    SerializedProperty ageBelongsTo;
+    SerializedProperty history;
+
+    private void OnEnable()
     {
-        GetWindow<ScriptableContractCreatorWindow>("Contract Creator");
+        so = serializedObject;
+
+        contractName = so.FindProperty("contractName");
+        description = so.FindProperty("description");
+        contractType = so.FindProperty("contractType");
+         
+        contractReward = so.FindProperty("contractReward");
+        contractRewardType = so.FindProperty("contractRewardType");
+        resourceToRewarded = so.FindProperty("resourceToRewarded");
+
+        dependentContracts = so.FindProperty("dependentContracts");
+        productsToUnlock = so.FindProperty("productsToUnlock");
+        requiredResources = so.FindProperty("requiredResources");
+        requiredResourceAmounts = so.FindProperty("requiredResourceAmounts");
+
+        unlockLevel = so.FindProperty("unlockLevel");
+        icon = so.FindProperty("icon");
+
+        rewardPanelHeader = so.FindProperty("rewardPanelHeader");
+        rewardPanelDescription = so.FindProperty("rewardPanelDescription");
+
+        mainPageToGo = so.FindProperty("mainPageToGo");
+        pageNameToGo = so.FindProperty("pageNameToGo");
+        xpReward = so.FindProperty("xpReward");
+
+        ageBelongsTo = so.FindProperty("ageBelongsTo");
+        history = so.FindProperty("history");
     }
 
-    public string contractName;
-    public string description;
-
-    public long contractReward;
-    public ContractRewardType contractRewardType;
-    public ScriptableCompound[] compoundsToUnlock;
-    public ScriptableMine[] minesToUnlock;
-    public BaseResources[] requiredResources;
-    public int[] requiredResourceAmounts;
-
-    public int unlockLevel;
-
-    public Sprite icon;
-    public string rewardPanelHeader = "<color=red>Congrulations</color>";
-    public string rewardPanelDescription;
-    public string pageNameToGo;
-    public long xpReward;
-
-
-    void OnGUI()
+    public override void OnInspectorGUI()
     {
-        // "target" can be any class derrived from ScriptableObject 
-        // (could be EditorWindow, MonoBehaviour, etc)
-        ScriptableObject target = this;
-        SerializedObject so = new SerializedObject(target);
+        EditorGUILayout.PropertyField(contractName);
+        EditorGUILayout.PropertyField(description);
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Seperator
+        EditorGUILayout.PropertyField(contractType);
+        var contractTypeValue = (ContractType)contractType.enumValueIndex;
 
-        SerializedProperty cN = so.FindProperty("contractName");
-        SerializedProperty dT = so.FindProperty("description");
-        SerializedProperty uL = so.FindProperty("unlockLevel");
-        SerializedProperty ico = so.FindProperty("icon");
-        SerializedProperty rPH = so.FindProperty("rewardPanelHeader");
-        SerializedProperty rPD = so.FindProperty("rewardPanelDescription");
-        SerializedProperty pNTG = so.FindProperty("pageNameToGo");
-        SerializedProperty xpRew = so.FindProperty("xpReward");
+        EditorGUILayout.PropertyField(contractReward);
+        EditorGUILayout.PropertyField(contractRewardType);
+        var contractRewardTypeValue = (ContractRewardType)contractRewardType.enumValueIndex;
 
-        SerializedProperty rR = so.FindProperty("requiredResources");
-        SerializedProperty rRA = so.FindProperty("requiredResourceAmounts");
-        SerializedProperty cR = so.FindProperty("contractReward");
-        SerializedProperty cTU = so.FindProperty("compoundsToUnlock");
-        SerializedProperty mTU = so.FindProperty("minesToUnlock");
-        SerializedProperty cRT = so.FindProperty("contractRewardType");
+        if (contractRewardTypeValue == ContractRewardType.unitSpeedUp)
+            EditorGUILayout.PropertyField(resourceToRewarded);
 
-        EditorGUILayout.PropertyField(cN, true);
-        EditorGUILayout.PropertyField(dT, true);
+        EditorGUILayout.PropertyField(dependentContracts, true);
 
-        EditorGUILayout.PropertyField(rR, true);
-        EditorGUILayout.PropertyField(rRA, true);
-        EditorGUILayout.PropertyField(uL, true);
-        EditorGUILayout.PropertyField(ico,true);
-        EditorGUILayout.PropertyField(rPH,true);
-        EditorGUILayout.PropertyField(rPD,true);
-        EditorGUILayout.PropertyField(pNTG,true);
-        EditorGUILayout.PropertyField(xpRew,true);
+        if (contractRewardTypeValue == ContractRewardType.unlockProductionUnit)
+            EditorGUILayout.PropertyField(productsToUnlock, true);
 
-        EditorGUILayout.PropertyField(cRT, true);
+        EditorGUILayout.PropertyField(requiredResources, true);
+        EditorGUILayout.PropertyField(requiredResourceAmounts, true);
 
-        //if (contractRewardType == ContractRewardType.unlockMine)
-        //    EditorGUILayout.PropertyField(mTU, true);
-        //else if (contractRewardType == ContractRewardType.unlockCompound)
-        //    EditorGUILayout.PropertyField(cTU, true);
-        //else if (contractRewardType != ContractRewardType.automate)
-        //    EditorGUILayout.PropertyField(cR, true);
+        if (requiredResources.arraySize == 0 || requiredResourceAmounts.arraySize == 0)
+            EditorGUILayout.HelpBox("Required resource type or size can't be 0", MessageType.Error, true);
+        if (requiredResources.arraySize != requiredResourceAmounts.arraySize)
+            EditorGUILayout.HelpBox("Resource type and amount array size can't be different", MessageType.Error, true);
 
-        so.ApplyModifiedProperties();
-    }
+        EditorGUILayout.PropertyField(unlockLevel);
+        EditorGUILayout.PropertyField(icon);
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Seperator
 
-    private void OnValidate()
-    {
-        if (requiredResources.Length != requiredResourceAmounts.Length)
-        {
-            Debug.LogError("Required Resources and respective amounts array must be on same size");
-        }
+        EditorGUILayout.PropertyField(rewardPanelHeader);
+        EditorGUILayout.LabelField("PREVIEW");
 
-        var isPageNameToGoValid = false;
+        EditorGUILayout.PropertyField(rewardPanelDescription);
+        EditorGUILayout.LabelField("PREVIEW");
+
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Seperator
+        EditorGUILayout.PropertyField(mainPageToGo);
+        EditorGUILayout.PropertyField(pageNameToGo);
+
+        bool _isPageNameToGoValid = false;
         for (int i = 0; i < ProductionManager.Instance.mainPanel.transform.childCount; i++)
         {
             var c = ProductionManager.Instance.mainPanel.transform.GetChild(i);
-            if (c.name == pageNameToGo)
+            if (c.name == pageNameToGo.stringValue)
             {
-                isPageNameToGoValid = true;
+                _isPageNameToGoValid = true;
                 break;
             }
             else
-                isPageNameToGoValid = false;
+                _isPageNameToGoValid = false;
         }
-        if (!isPageNameToGoValid)
-            Debug.LogError("Given page name to is invalid");
+
+        if (!_isPageNameToGoValid)
+            EditorGUILayout.HelpBox("Page name is not exist.", MessageType.Error, true);
+
+        EditorGUILayout.PropertyField(xpReward);
+
+        EditorGUILayout.PropertyField(ageBelongsTo);
+        EditorGUILayout.PropertyField(history);
+
+
+        so.ApplyModifiedProperties();
     }
 }

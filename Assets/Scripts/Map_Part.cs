@@ -54,25 +54,8 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     public bool IsPlayerOwned { get => isPlayerOwned; set => isPlayerOwned = value; }
     #endregion
 
-    //Dictionary<ScriptableMine, int> mineLevelDict;
-    //Dictionary<ScriptableCompound, int> compoundLevelDict;
-
     private void Awake()
     {
-        //mineLevelDict = new Dictionary<ScriptableMine, int>();
-        //compoundLevelDict = new Dictionary<ScriptableCompound, int>();
-
-        //foreach (var mine in ProductionManager.Instance.mineList)
-        //{
-        //    mineLevelDict.Add(mine, 1);
-        //}
-        //foreach (var compound in ProductionManager.Instance.compoundList)
-        //{
-        //    compoundLevelDict.Add(compound, 1);
-        //}
-
-        
-
         if (scriptableMap != null)
         {
             countryName = scriptableMap.countryName;
@@ -113,9 +96,7 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
             moneyAmount = new BigDouble(Mathf.Pow(countryLevel, Random.Range(1, 9)),0);
             combatLives = 3;
             connectedMapParts = new Map_Part[] { this };
-            //resourceValueDict = ResourceManager.Instance.resourceValueDict;
             resourceValueDict = new Dictionary<BaseResources, BigDouble>();
-
 
             for (int i = 0; i < ProductionManager.Instance.scriptableProductionUnitList.Length; i++)
             {

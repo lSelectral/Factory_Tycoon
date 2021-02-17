@@ -30,9 +30,9 @@ public class TutorialManager : Singleton<TutorialManager>
     private void Start()
     {
         //ShowCharacter(new string[] { "HELLO WORLD", "KNEEL BEFORE ME. I'm your great lord. I came this world over eons ago. And now I will conquer all lands" });
-        ShowTutorialForPanel(debugPanelREMOVE,
-            new string[] { "HELLO WORLD", "KNEEL BEFORE ME. I'm your great lord. I came this world over eons ago. And now I will conquer all lands" },
-            6f);
+        //ShowTutorialForPanel(debugPanelREMOVE,
+        //    new string[] { "HELLO WORLD", "KNEEL BEFORE ME. I'm your great lord. I came this world over eons ago. And now I will conquer all lands" },
+        //    6f);
     }
 
     public void ShowTutorialForPanel(GameObject panel, string[] textArray, float waitTime)

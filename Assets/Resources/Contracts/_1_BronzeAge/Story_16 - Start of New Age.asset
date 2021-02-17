@@ -23,13 +23,16 @@ MonoBehaviour:
   dependentContracts: []
   productsToUnlock:
   - {fileID: 11400000, guid: 75f415f3230c9f04a88e998524a04a1a, type: 2}
-  requiredResources: 
-  requiredResourceAmounts: 
+  requiredResources: 02000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
   unlockLevel: 18
   icon: {fileID: 0}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 
-  pageNameToGo: 
+  pageNameToGo: _1_BronzeAge
+  isPageNameToGoValid: 1
   xpReward: 0
-  ageBelongsTo: 0
+  ageBelongsTo: 1
   history: 0

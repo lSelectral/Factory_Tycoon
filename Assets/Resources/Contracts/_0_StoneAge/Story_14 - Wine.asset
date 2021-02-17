@@ -23,7 +23,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b353e95e95f471c40b49a2bf2c21fc23, type: 2}
   productsToUnlock: []
   requiredResources: 06000000
-  requiredResourceAmounts: 1e000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
   unlockLevel: 18
   icon: {fileID: 21300000, guid: cfbed7c25c038434e830d5a8a63a3ba3, type: 3}
   rewardPanelHeader: <color=red>Congrulations.</color> Now your people can make sweet
@@ -31,7 +33,8 @@ MonoBehaviour:
   rewardPanelDescription: Wine is precious product and high trade value. Produce
     sometimes to festive to your people but selling is the best option for wine.
     Don't hesitate to leave your
-  pageNameToGo: _0_stoneAge
+  pageNameToGo: _0_StoneAge
+  isPageNameToGoValid: 1
   xpReward: 0
   ageBelongsTo: 0
   history: 0

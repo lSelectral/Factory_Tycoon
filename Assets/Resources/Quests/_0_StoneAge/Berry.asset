@@ -18,6 +18,16 @@ MonoBehaviour:
   questType: 2
   resource: 0
   questAchiveRequirement: 4
-  intervals: 64000000e803000010270000a086010040420f00
+  intervals:
+  - mantissa: 1
+    exponent: 2
+  - mantissa: 1
+    exponent: 3
+  - mantissa: 1
+    exponent: 4
+  - mantissa: 1
+    exponent: 5
+  - mantissa: 1
+    exponent: 6
   completedIntervals: 
   rewardAmounts: 32000000000000006400000000000000c8000000000000005e01000000000000f401000000000000

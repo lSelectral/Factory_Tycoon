@@ -25,6 +25,8 @@ public class ContractManager : Singleton<ContractManager>
     /* Show number of activated contracts in contract panel */
     [SerializeField] private GameObject activeContractCounter;
     [SerializeField] private GameObject contractFinishedInfoPanel;
+
+    [SerializeField] TabGroup mainPanels;
     [SerializeField] private GameObject productionPanel;
     [SerializeField] private GameObject ProductionPanelBtn;
 
@@ -208,7 +210,7 @@ public class ContractManager : Singleton<ContractManager>
         OnContractRewarded(contractHolder);
 
         GameManager.Instance.AddXP(contractHolder.contract.xpReward);
-        ShowCompletedContract(contractHolder.contract, contractHolder.contract.pageNameToGo);
+        ShowCompletedContract(contractHolder.contract);
         // Move completed contract to completed contracts panel
         contractHolder.transform.SetParent(completedContractPanel.transform);
     }
@@ -244,48 +246,53 @@ public class ContractManager : Singleton<ContractManager>
     {
         var contract = contractHolder.contract;
         // Give reward according to contract reward type
-        if (contract.contractRewardType == ContractRewardType.Currency)
-            ResourceManager.Instance.Currency += contract.contractReward;
 
-        else if (contract.contractRewardType == ContractRewardType.PremiumCurrency)
-            ResourceManager.Instance.PremiumCurrency += contract.contractReward;
-
-        else if (contract.contractRewardType == ContractRewardType.incresedCoinEarning)
-            UpgradeSystem.Instance.EarnedCoinMultiplier += contract.contractReward;
-
-        else if (contract.contractRewardType == ContractRewardType.miningSpeedUp)
-            UpgradeSystem.Instance.MiningSpeedMultiplier += contract.contractReward;
-
-        else if (contract.contractRewardType == ContractRewardType.miningYieldUpgrade)
-            UpgradeSystem.Instance.MiningYieldMultiplier += contract.contractReward;
-
-        else if (contract.contractRewardType == ContractRewardType.productionEfficiencyUpgrade)
-            UpgradeSystem.Instance.ProductionEfficiencyMultiplier += contract.contractReward;
-
-        else if (contract.contractRewardType == ContractRewardType.productionSpeedUp)
-            UpgradeSystem.Instance.ProductionSpeedMultiplier += contract.contractReward;
-
-        else if (contract.contractRewardType == ContractRewardType.productionYieldUpgrade)
-            UpgradeSystem.Instance.ProductionYieldMultiplier += contract.contractReward;
-
-        else if (contract.contractRewardType == ContractRewardType.unitSpeedUp)
-            UpgradeSystem.Instance.SpeedUpDictionaryValue = new KeyValuePair<BaseResources, float>(contract.resourceToRewarded, contract.contractReward);
-
-        else if (contract.contractRewardType == ContractRewardType.unlockProductionUnit)
+        switch (contract.contractRewardType)
         {
-            for (int j = 0; j < ProductionManager.Instance.instantiatedProductionUnits.Count; j++)
-            {
-                var unit = ProductionManager.Instance.instantiatedProductionUnits[j].GetComponent<ProductionBase>();
-                if (contract.productsToUnlock != null && contract.productsToUnlock.Contains(unit.scriptableProductionBase))
+            case ContractRewardType.Currency:
+                ResourceManager.Instance.Currency += contract.contractReward;
+                break;
+            case ContractRewardType.PremiumCurrency:
+                ResourceManager.Instance.PremiumCurrency += contract.contractReward;
+                break;
+            case ContractRewardType.miningSpeedUp:
+                UpgradeSystem.Instance.MiningSpeedMultiplier += contract.contractReward;
+                break;
+            case ContractRewardType.productionSpeedUp:
+                UpgradeSystem.Instance.ProductionSpeedMultiplier += contract.contractReward;
+                break;
+            case ContractRewardType.miningYieldUpgrade:
+                UpgradeSystem.Instance.MiningYieldMultiplier += contract.contractReward;
+                break;
+            case ContractRewardType.productionYieldUpgrade:
+                UpgradeSystem.Instance.ProductionYieldMultiplier += contract.contractReward;
+                break;
+            case ContractRewardType.productionEfficiencyUpgrade:
+                UpgradeSystem.Instance.ProductionEfficiencyMultiplier += contract.contractReward;
+                break;
+            case ContractRewardType.incresedCoinEarning:
+                UpgradeSystem.Instance.EarnedCoinMultiplier += contract.contractReward;
+                break;
+            case ContractRewardType.unlockProductionUnit:
                 {
-                    unit.ContractStatueCheckDictionary[contract] = true;
-                    if (!unit.ContractStatueCheckDictionary.ContainsValue(false))
+                    for (int j = 0; j < ProductionManager.Instance.instantiatedProductionUnits.Count; j++)
                     {
-                        unit.IsLockedByContract = false;
-                        Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
+                        var unit = ProductionManager.Instance.instantiatedProductionUnits[j].GetComponent<ProductionBase>();
+                        if (contract.productsToUnlock != null && contract.productsToUnlock.Contains(unit.scriptableProductionBase))
+                        {
+                            unit.ContractStatueCheckDictionary[contract] = true;
+                            if (!unit.ContractStatueCheckDictionary.ContainsValue(false))
+                            {
+                                unit.IsLockedByContract = false;
+                                Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
+                            }
+                        }
                     }
                 }
-            }
+                break;
+            case ContractRewardType.unitSpeedUp:
+                UpgradeSystem.Instance.SpeedUpDictionaryValue = new KeyValuePair<BaseResources, float>(contract.resourceToRewarded, contract.contractReward);
+                break;
         }
     }
 
@@ -319,17 +326,8 @@ public class ContractManager : Singleton<ContractManager>
     /// TODO Need some fix for all pages (Production page access has no problem)
     /// </summary>
     /// <param name="pageName">Production page name to go</param>
-    void SetPageSettings(string pageName)
+    void GoToPage(string pageName)
     {
-        if (pageName == "Map")
-        {
-            productionPanel.transform.parent.parent.parent.Find("Bottom_Panel").Find("Map").GetComponent<TabButton>().OnPointerClick(null);
-            return;
-        }
-
-        // Navigate from any page to production page
-        ProductionPanelBtn.GetComponent<TabButton>().OnPointerClick(null);
-
         // Go to page in production
         for (int i = 0; i < productionPanel.transform.childCount; i++)
         {
@@ -352,14 +350,42 @@ public class ContractManager : Singleton<ContractManager>
         }
         PageManager.Instance.minePageInfoText.text = pageName;
     }
-    void ShowCompletedContract(ContractBase contract, string pageName)
+
+    void GoToPage(AvailableMainPages page, string subPage = "")
+    {
+        switch (page)
+        {
+            case AvailableMainPages.Production:
+                mainPanels.tabButtons[0].OnPointerClick(null);
+                break;
+            case AvailableMainPages.Quest:
+                mainPanels.tabButtons[1].OnPointerClick(null);
+                break;
+            case AvailableMainPages.Contract:
+                mainPanels.tabButtons[2].OnPointerClick(null);
+                break;
+            case AvailableMainPages.Resource:
+                mainPanels.tabButtons[3].OnPointerClick(null);
+                break;
+            case AvailableMainPages.Map:
+                mainPanels.tabButtons[4].OnPointerClick(null);
+                break;
+            case AvailableMainPages.Shop:
+                mainPanels.tabButtons[5].OnPointerClick(null);
+                break;
+        }
+        if (subPage != "" && page == AvailableMainPages.Production)
+            GoToPage(subPage);
+    }
+
+    void ShowCompletedContract(ContractBase contract)
     {
         var panel = contractFinishedInfoPanel.transform;
         panel.Find("Icon").GetComponent<Image>().sprite = contract.icon;
         panel.Find("HEADER").GetComponent<TextMeshProUGUI>().text = contract.rewardPanelHeader;
         panel.Find("Description").GetComponent<TextMeshProUGUI>().text = contract.rewardPanelDescription;
         panel.Find("OK_Btn").GetComponent<Button>().onClick.AddListener(() => { contractFinishedInfoPanel.SetActive(false); });
-        panel.Find("GoToPage_Btn").GetComponent<Button>().onClick.AddListener(() => { SetPageSettings(pageName); contractFinishedInfoPanel.SetActive(false); });
+        panel.Find("GoToPage_Btn").GetComponent<Button>().onClick.AddListener(() => { GoToPage(contract.mainPageToGo ,contract.pageNameToGo); contractFinishedInfoPanel.SetActive(false); });
         contractFinishedInfoPanel.SetActive(true);
     }
 
@@ -381,6 +407,16 @@ public class ContractManager : Singleton<ContractManager>
     }
 }
 
+public enum AvailableMainPages
+{
+    Production,
+    Quest,
+    Contract,
+    Resource,
+    Map,
+    Shop,
+}
+
 public enum ContractRewardType
 {
     Currency,
@@ -392,7 +428,6 @@ public enum ContractRewardType
     productionEfficiencyUpgrade,
     incresedCoinEarning,
     unlockProductionUnit,
-    automate,
     unitSpeedUp,
 }
 
@@ -431,7 +466,6 @@ public enum ContractType
 //    public static ContractBase BERRY_COLLECTOR_CONTRACT => G("");
 //    public static ContractBase MINING_CONTRACT { get { return G(""); } }
 //    public static ContractBase WAR_BRINGER_CONTRACT => G("");
-
 //}
 
 //public class BronzeAgeContracts : Contracts

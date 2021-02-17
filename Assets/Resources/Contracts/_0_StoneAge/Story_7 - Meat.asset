@@ -16,6 +16,7 @@ MonoBehaviour:
   description: There was no vegetarian in stone age. So everyone could eat meat.
     With access of spear, group of people started to hunt down animals and gethered
     their meat.
+  contractType: 0
   contractReward: 0
   contractRewardType: 8
   resourceToRewarded: 0
@@ -24,14 +25,17 @@ MonoBehaviour:
   productsToUnlock:
   - {fileID: 11400000, guid: 2155c9f0a17bae940a478f7d25a62aa6, type: 2}
   requiredResources: 08000000
-  requiredResourceAmounts: 05000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
   unlockLevel: 6
   icon: {fileID: 21300000, guid: 90d1fe8195b84c9479d9b2b1af71a5e2, type: 3}
   rewardPanelHeader: <color=red>Congrulations.</color> Your people can now taste
     delicious meat.
   rewardPanelDescription: Meat will strengthen your people and give power for better
     and stronger preys.
-  pageNameToGo: _0_stoneAge
+  pageNameToGo: _0_StoneAge
+  isPageNameToGoValid: 1
   xpReward: 2500
   ageBelongsTo: 0
   history: -5999

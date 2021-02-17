@@ -21,7 +21,7 @@ public class ResourceManager : Singleton<ResourceManager>
     public class OnCurrencyChangedEventArgs: EventArgs
     {
         public BigDouble currency;
-        public BigDouble premiumCurrency;
+        //public BigDouble premiumCurrency;
     }
 
     public event EventHandler<OnCurrencyChangedEventArgs> OnCurrencyChanged;
@@ -55,8 +55,8 @@ public class ResourceManager : Singleton<ResourceManager>
     [SerializeField] BigDouble currency,totalResource, premiumCurrency, foodAmount, attackAmount = new BigDouble();
     [SerializeField] BigDouble smoothCurrency,smoothPremiumCurency = new BigDouble();
     [SerializeField] BigDouble smoothVelocityCurrency,smoothVelocityPremiumCurrency = new BigDouble();
-    public float premiumCurrencySmoothTime;
-    public float currencySmoothTime;
+    float premiumCurrencySmoothTime;
+    float currencySmoothTime;
 
     #region Panels and Prefabs
     [SerializeField] private GameObject resourcePanel;
@@ -92,14 +92,14 @@ public class ResourceManager : Singleton<ResourceManager>
         }
         set
         {
-            BigDouble newValue;
-            newValue = (value * UpgradeSystem.Instance.EarnedCoinMultiplier) - currency;
-            currency = value;
-            //if (!isLoadingFromSaveFile)
-            //{
-                SaveSystem.Instance.totalEarnedCurrency += newValue;
-                OnCurrencyChanged?.Invoke(this, new OnCurrencyChangedEventArgs() { currency = currency, premiumCurrency = premiumCurrency });
-            //}
+            BigDouble newValue = value - currency;
+            currency = value * UpgradeSystem.Instance.EarnedCoinMultiplier;
+
+            if (newValue > 0)
+                SaveSystem.Instance.totalEarnedCurrency += newValue * UpgradeSystem.Instance.EarnedCoinMultiplier;
+            else if (newValue < 0)
+                SaveSystem.Instance.totalSpendedCurrency += newValue * UpgradeSystem.Instance.EarnedCoinMultiplier;
+            OnCurrencyChanged?.Invoke(this, new OnCurrencyChangedEventArgs() { currency = currency/*, premiumCurrency = premiumCurrency*/ });
         }
     }
 
@@ -111,12 +111,14 @@ public class ResourceManager : Singleton<ResourceManager>
         }
         set
         {
+            BigDouble newValue = value - premiumCurrency;
             premiumCurrency = value;
-            //if (!isLoadingFromSaveFile)
-            //{
-                SaveSystem.Instance.totalEarnedPremiumCurrency += value - premiumCurrency;
-                OnCurrencyChanged?.Invoke(this, new OnCurrencyChangedEventArgs() { currency = currency, premiumCurrency = premiumCurrency });
-            //}
+
+            if (newValue > 0)
+                SaveSystem.Instance.totalEarnedPremiumCurrency += newValue;
+            else if (newValue < 0)
+                SaveSystem.Instance.totalSpendedPremiumCurrency += newValue;
+            //OnCurrencyChanged?.Invoke(this, new OnCurrencyChangedEventArgs() { currency = currency, premiumCurrency = premiumCurrency });
         }
     }
 

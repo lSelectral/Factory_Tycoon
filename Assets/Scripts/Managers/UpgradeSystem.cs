@@ -258,10 +258,10 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
             for (int i = 0; i < maximumUpgradeAmount-1; i++)
             {
                 newMineLevel++;
-                Debug.Log("New mine level is: " + newMineLevel);
-                newUpgradeCost = GetNewUpgradeCost(newUpgradeCost, mineLevel);
+                //Debug.Log("New mine level is: " + newMineLevel);
+                newUpgradeCost = GetNewUpgradeCost(newUpgradeCost, newMineLevel);
                 totalUpgradeCost += newUpgradeCost;
-                Debug.Log("New upgrade cost for: " + newMineLevel.ToString() + " level is " + newUpgradeCost);
+                //Debug.Log("New upgrade cost for: " + newMineLevel.ToString() + " level is " + newUpgradeCost);
             }
         }
         return totalUpgradeCost;

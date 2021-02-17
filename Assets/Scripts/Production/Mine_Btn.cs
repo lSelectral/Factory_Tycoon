@@ -11,26 +11,9 @@ public class Mine_Btn : ProductionBase
     {
         base.Start();
 
-        // Set gameobject hierarchy
-        fillBar = transform.Find("GameObject").transform.Find("Outline").transform.Find("Fill").GetComponent<Image>();
-        nameText = transform.Find("GameObject").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
-        nameText.text = _name;
-        mainBtn = transform.Find("Button");
-        upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
-        upgradeAmountText = transform.Find("Upgrade_Btn").Find("upgradeText").GetComponent<TextMeshProUGUI>();
-        levelText = transform.Find("LevelText").GetComponent<TextMeshProUGUI>();
-        workModeBtn = transform.Find("Sell_Btn").GetComponent<Button>();
         workModeBtn.onClick.AddListener(() => ChangeWorkingMode(true));
-        workModeText = workModeBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        transform.Find("Button").Find("Background").GetComponent<Image>().sprite = backgroundImage;
-        if (scriptableMine.sourceImage != null)
-            transform.Find("Button").Find("SourceImage").GetComponent<Image>().sprite = scriptableMine.sourceImage;
-        if (scriptableMine.toolImage != null)
-            transform.Find("Button").Find("Tool").GetComponent<Image>().sprite = scriptableMine.toolImage;
-        tool = transform.Find("Button").Find("Tool").GetComponent<RectTransform>();
-        transform.Find("GameObject").Find("Icon").GetComponent<Image>().sprite = scriptableMine.icon;
 
-        Transform itemTypePanel = transform.Find("GameObject").Find("UnitTypePanel");
+        Transform itemTypePanel = transform.Find("UnitTypePanel");
 
         // Add item type icons to panel
         for (int i = 0; i < itemTypes.Length; i++)
@@ -51,7 +34,6 @@ public class Mine_Btn : ProductionBase
 
         upgradeBtn.onClick.AddListener(() => ShowUpgradePanel());
         workingMode = WorkingMode.sell;
-        levelText.text = "Level " + level.ToString();
         workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString());
 
         SetWorkModeColor();
@@ -74,7 +56,7 @@ public class Mine_Btn : ProductionBase
 
     #endregion
 
-    internal override void Update()
+    protected override void Update()
     {
         if (unlockLevel <= GameManager.Instance.CurrentLevel && !isLockedByContract)
         {

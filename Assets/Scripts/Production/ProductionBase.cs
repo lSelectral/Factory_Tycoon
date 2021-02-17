@@ -52,17 +52,20 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     protected LTDescr toolAnimation;
 
     // Attached gameobject transforms
-    protected Transform subResourceIcons;
-    protected RectTransform tool;
+    protected Transform resourceBoard; // Only for compound
+    protected Transform statPanel;
+
     protected Image fillBar;
-    protected Sprite backgroundImage;
-    protected TextMeshProUGUI nameText;
-    protected Transform mainBtn;
+
+    protected TextMeshProUGUI outputTextOnIcon;
+    protected TextMeshProUGUI nameLevelText; // Name - Level {Level}
+
     protected Button upgradeBtn;
-    protected Button workModeBtn;
     protected TextMeshProUGUI upgradeAmountText;
-    protected TextMeshProUGUI levelText;
+    protected Button workModeBtn;
     protected TextMeshProUGUI workModeText;
+
+    protected RectTransform tool;
     #endregion
 
     #region Properties
@@ -80,7 +83,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     public int Level
     {
         get { return level; }
-        set { level = value; levelText.text = "LEVEL " + level.ToString(); }
+        set { level = value; SetNameLevelText(Level); }
     }
 
     public BigDouble UpgradeCost
@@ -128,7 +131,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         set { workingMode = value; workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString()); }
     }
 
-    public long OutputValue { get => outputValue; set { outputValue = value; OutputPerSecond = OutputPerSecond; } }
+    public long OutputValue { get => outputValue; set { outputValue = value; OutputPerSecond = OutputPerSecond; outputTextOnIcon.text = outputValue.ToString(); } }
 
     public bool IsUpgradePanelActive
     {
@@ -176,6 +179,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         IsAutomated = false;
         mainProductionPanel = transform.parent.parent.parent.parent.parent.gameObject;
         agePanel = transform.parent.parent.parent.gameObject;
+
         #region DONE
         // Custom Events
         GameManager.Instance.OnLevelUp += OnLevelUp;
@@ -209,7 +213,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         itemTypes = scriptableProductionBase.itemTypes;
         outputValue = scriptableProductionBase.outputValue;
         pricePerProduct = scriptableProductionBase.pricePerProduct;
-        backgroundImage = scriptableProductionBase.backgroundImage;
         unlockLevel = scriptableProductionBase.unlockLevel;
         level = 1;
         xpAmount = scriptableProductionBase.xpAmount * 1f;
@@ -232,6 +235,36 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         }
         #endregion
 
+        if (transform.Find("ResourceBoard") != null)
+            resourceBoard = transform.Find("ResourceBoard");
+        statPanel = transform.Find("StatPanel");
+
+        transform.Find("SourceImage").GetComponent<Image>().sprite = scriptableProductionBase.sourceImage;
+        if (transform.Find("Tool") != null)
+        {
+            transform.Find("Tool").GetComponent<Image>().sprite = scriptableProductionBase.toolImage;
+            tool = transform.Find("Tool").GetComponent<RectTransform>();
+        }
+
+        transform.Find("Icon").GetComponent<Image>().sprite = scriptableProductionBase.icon;
+        fillBar = transform.Find("Icon").GetChild(0).GetComponent<Image>();
+        fillBar.fillAmount = 0;
+        fillBar.sprite = scriptableProductionBase.icon;
+
+        outputTextOnIcon = fillBar.GetComponentInChildren<TextMeshProUGUI>();
+        outputTextOnIcon.text = outputValue.ToString();
+        nameLevelText = transform.Find("Background").GetComponentInChildren<TextMeshProUGUI>();
+        SetNameLevelText(level);
+
+        upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
+        upgradeAmountText = upgradeBtn.GetComponentInChildren<TextMeshProUGUI>();
+        workModeBtn = transform.Find("WorkingModeBtn").GetComponent<Button>();
+        workModeText = workModeBtn.GetComponentInChildren<TextMeshProUGUI>();
+    }
+
+    void SetNameLevelText(long level)
+    {
+        nameLevelText.text = string.Format("{0} - LEVEL {1}", _name, level);
     }
 
     internal void OnCurrencyChanged(object sender, ResourceManager.OnCurrencyChangedEventArgs e)
@@ -298,7 +331,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     #endregion
 
-    internal virtual void Update()
+    protected virtual void Update()
     {
         
     }
@@ -315,7 +348,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
                 {
                     int inputAmount = currentRecipe.inputAmounts[i];
                     BaseResources inputResource = currentRecipe.inputResources[i];
-                    Debug.Log(inputResource);
                     var q = ResourceManager.Instance.GetResourceAmount(inputResource);
                     if (ResourceManager.Instance.GetResourceAmount(inputResource) 
                         >= (inputAmount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier) 
@@ -326,9 +358,9 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
                         ResourceManager.Instance.ConsumeResource(inputResource, 
                             (long)(inputAmount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier));
 
-                        if (subResourceIcons != null)
-                            subResourceIcons.GetChild(Array.IndexOf(currentRecipe.inputResources, inputResource))
-                                .GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                        if (resourceBoard != null)
+                            resourceBoard.GetChild(Array.IndexOf(currentRecipe.inputResources, inputResource))
+                                .GetChild(0).gameObject.SetActive(true);
                     }
                     else if (ResourceManager.Instance.GetResourceAmount(inputResource) < inputAmount)
                     {
@@ -344,7 +376,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
                     for (int i = 0; i < currentRecipe.inputAmounts.Length; i++)
                     {
-                        subResourceIcons.GetChild(i).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
+                        resourceBoard.GetChild(i).GetChild(0).gameObject.SetActive(false);
                     }
                 }
             }

@@ -11,7 +11,7 @@ public class CustomEditorWindow : EditorWindow
         GetWindow<CustomEditorWindow>("DebugWindow");
     }
 
-    BaseResources resource = BaseResources._0_stone;
+    [SearchableEnum] BaseResources resource = BaseResources._0_stone;
 
     string resourceAmountString = "Add Resource Amount";
 
@@ -87,6 +87,17 @@ public class CustomEditorWindow : EditorWindow
                 tempList.Add(assets[i] as ContractBase);
             }
             ContractManager.Instance.contracts = tempList.ToArray();
+        }
+
+        if (GUILayout.Button("Add Quests To Quest Manager"))
+        {
+            var assets = Resources.LoadAll("Quests");
+            var tempList = new List<QuestBase>();
+            for (int i = 0; i < assets.Length; i++)
+            {
+                tempList.Add(assets[i] as QuestBase);
+            }
+            QuestManager.Instance.questBases = tempList.ToArray();
         }
 
         // Automatically create automation contracts

@@ -17,6 +17,7 @@ MonoBehaviour:
     chaning invention. Fire. Fire protected humanity from wild over thousand years.
     People able to cook food and boil water for protecting from germs. Gave light
     to humans in pinch darkness.
+  contractType: 0
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
@@ -25,14 +26,19 @@ MonoBehaviour:
   productsToUnlock:
   - {fileID: 11400000, guid: 7b8a8f68e9367c24fa21230b8d4868f3, type: 2}
   requiredResources: 0100000002000000
-  requiredResourceAmounts: 0a00000005000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
+  - mantissa: 0
+    exponent: 0
   unlockLevel: 4
   icon: {fileID: 21300000, guid: 5095792a3bffeba409c289dbf7c3178b, type: 3}
   rewardPanelHeader: <color=red>Congrulations.</color> Your people now have the power
     to control the fire.
   rewardPanelDescription: Now your people can cook, boil, see even in the pinch darkness
     and can protect themselves terror of night. Your people will love this invention.
-  pageNameToGo: _0_stoneAge
+  pageNameToGo: _0_StoneAge
+  isPageNameToGoValid: 1
   xpReward: 750
   ageBelongsTo: 0
   history: -60000

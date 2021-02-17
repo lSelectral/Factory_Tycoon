@@ -23,7 +23,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b08591abe4cbd094a9b564782695d6cb, type: 2}
   productsToUnlock: []
   requiredResources: 01000000090000000e000000
-  requiredResourceAmounts: 640000003c00000096000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
+  - mantissa: 0
+    exponent: 0
+  - mantissa: 0
+    exponent: 0
   unlockLevel: 19
   icon: {fileID: 21300000, guid: bc6f0c0f77ad8114b80a71fff3ff65a2, type: 3}
   rewardPanelHeader: '<color=red>Congrulations!</color> Your people are praising
@@ -31,7 +37,8 @@ MonoBehaviour:
   rewardPanelDescription: In their worst moment you helped all of them. They pray
     to gods for you. Your people swore, they wil never forget that and work even
     harder until their last breath.
-  pageNameToGo: _0_stoneAge
+  pageNameToGo: _0_StoneAge
+  isPageNameToGoValid: 1
   xpReward: 5e+10
   ageBelongsTo: 0
   history: -50000

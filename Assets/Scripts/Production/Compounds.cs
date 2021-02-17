@@ -19,44 +19,25 @@ public class Compounds : ProductionBase
         UpgradeSystem.Instance.OnProductionSpeedChanged += OnProductionSpeedChanged;
         UpgradeSystem.Instance.OnProductionYieldChanged += OnProductionYieldChanged;
 
+        base.Start();
 
         itemTypes = scriptableCompound.itemTypes;
-        fillBar = transform.Find("FillBar").transform.Find("Fill").GetComponent<Image>();
-        levelText = transform.Find("Main_Panel").Find("levelText").GetComponent<TextMeshProUGUI>();
-        nameText = transform.Find("Main_Panel").transform.Find("Mine_Name").GetComponent<TextMeshProUGUI>();
-        icon = transform.Find("Main_Panel").Find("Icon").GetComponent<Image>();
-        upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
         upgradeBtn.onClick.AddListener(() => ShowUpgradePanel());
-        upgradeAmountText = upgradeBtn.GetComponentInChildren<TextMeshProUGUI>();
-        icon.sprite = scriptableCompound.icon;
 
-        if (scriptableCompound.sourceImage != null)
-            transform.Find("Source").GetComponent<Image>().sprite = scriptableCompound.sourceImage;
-        //if (scriptableCompound.toolImage != null)
-        //    transform.Find("").GetComponent<Image>().sprite = scriptableCompound.toolImage;
-
-        
-
-        workModeBtn = transform.Find("WorkingModeBtn").GetComponent<Button>();
-        workModeText = workModeBtn.GetComponentInChildren<TextMeshProUGUI>();
         workModeBtn.onClick.AddListener(() => ChangeWorkingMode());
 
         SetWorkModeColor();
 
-        base.Start();
         tempResourceList = currentRecipe.inputResources.ToList();
-        nameText.text = _name;
-
         upgradeAmountText.text = upgradeCost.ToString();
 
-        subResourceIcons = transform.Find("Main_Panel").Find("Sub_Resource_Icons");
-        if (subResourceIcons != null)
+        if (resourceBoard != null)
         {
             for (int i = 0; i < currentRecipe.inputResources.Length; i++)
             {
-                var icon = Instantiate(ResourceManager.Instance.iconPrefab, subResourceIcons);
-                icon.transform.Find("Frame").Find("Icon").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(currentRecipe.inputResources[i]);
-                icon.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = currentRecipe.inputAmounts[i].ToString();
+                resourceBoard.GetChild(i).GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(currentRecipe.inputResources[i]);
+                resourceBoard.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().text = currentRecipe.inputAmounts[i].ToString();
+                resourceBoard.GetChild(i).gameObject.SetActive(true);
             }
         }
     }
@@ -84,7 +65,7 @@ public class Compounds : ProductionBase
 
     #endregion
 
-    internal override void Update()
+    protected override void Update()
     {
         if (isAutomated)
         {

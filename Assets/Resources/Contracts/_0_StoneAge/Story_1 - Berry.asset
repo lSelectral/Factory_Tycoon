@@ -16,7 +16,7 @@ MonoBehaviour:
   description: If you feed your people well, they will work better. Collect 20 <color=green>Berry</color>
   contractType: 0
   contractReward: 1.05
-  contractRewardType: 10
+  contractRewardType: 0
   resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
@@ -30,7 +30,9 @@ MonoBehaviour:
   rewardPanelDescription: Now your people have full stomach, they are able to collect
     faster. Don't forget tockpiling resource is always good idea. When winter comes,
     that will save your life.
-  pageNameToGo: _0_stoneAge
+  mainPageToGo: 0
+  pageNameToGo: _0_StoneAge
+  isPageNameToGoValid: 1
   xpReward: 50
   ageBelongsTo: 0
   history: -600000

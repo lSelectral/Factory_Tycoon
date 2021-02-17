@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Collect all sticks and logs you can. Winter is coming soon to our
     door and we will absouletly need fire, if you don't want to your people perish
     in harsh winter cold.
+  contractType: 0
   contractReward: 5000
   contractRewardType: 0
   resourceToRewarded: 0
@@ -23,7 +24,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42d663740b4448c4f98e1522df978381, type: 2}
   productsToUnlock: []
   requiredResources: 02000000
-  requiredResourceAmounts: 1e000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
   unlockLevel: 3
   icon: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}
   rewardPanelHeader: '<color=red>Congrulations.</color> Now your people have enough
@@ -32,7 +35,8 @@ MonoBehaviour:
     that wood feed fire and keep our people warm throught to winter. But don't  get
     excited too much now. We have still long way to prepare for harsh and deadly
     winter cold.
-  pageNameToGo: _0_stoneAge
+  pageNameToGo: _0_StoneAge
+  isPageNameToGoValid: 1
   xpReward: 150
   ageBelongsTo: 0
   history: -600000

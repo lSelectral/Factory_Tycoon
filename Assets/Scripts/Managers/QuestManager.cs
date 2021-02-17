@@ -6,162 +6,115 @@ using UnityEngine.UI;
 public class QuestManager : Singleton<QuestManager>
 {
     [SerializeField] GameObject questFillBarPrefab;
-    public QuestBase[] questBases;
     [SerializeField] GameObject questPrefab;
+
     [SerializeField] GameObject questPanel;
     [SerializeField] GameObject completedQuestPanel;
 
+    public QuestBase[] questBases;
     public List<GameObject> questList;
     public List<QuestBase> completedQuests;
-    public List<QuestInfo> currentQuestInfos;
-
-    Object[] assets;
+    public List<QuestHolder> instantiatedQuests;
 
     private void Awake()
     {
-        currentQuestInfos = new List<QuestInfo>();
+        instantiatedQuests = new List<QuestHolder>();
         questList = new List<GameObject>();
         completedQuests = new List<QuestBase>();
         // TODO FOR DEBUG. Remove it in production
-        for (int i = 0; i < questBases.Length; i++)
-        {
-            questBases[i].OnAfterDeSerialize();
-        }
+        //for (int i = 0; i < questBases.Length; i++)
+        //{
+        //    questBases[i].OnAfterDeSerialize();
+        //}
 
         ResourceManager.Instance.OnResourceAmountChanged += OnResourceAmountChanged;
         ResourceManager.Instance.OnCurrencyChanged += OnCurrencyChanged;
         GameManager.Instance.OnLevelUp += OnLevelUp;
 
-        assets = Resources.LoadAll("Quests");
-
-        for (int i = 0; i < assets.Length; i++)
+        for (int i = 0; i < questBases.Length; i++)
         {
-            var asset = assets[i];
+            var quest = questBases[i];
 
-            if (asset as QuestBase != null)
+            var _quest = Instantiate(questPrefab, questPanel.transform);
+            _quest.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = quest.questName;
+            _quest.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = quest.description;
+            _quest.AddComponent<QuestHolder>();
+            _quest.GetComponent<QuestHolder>().questBase = quest;
+            _quest.GetComponent<QuestHolder>().completedIntervals = new List<int>();
+
+            for (int j = 0; j < quest.intervals.Length; j++)
             {
-                var quest = asset as QuestBase;
-                var _quest = Instantiate(questPrefab, questPanel.transform);
-                _quest.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = quest.questName;
-                _quest.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = quest.description;
+                Instantiate(questFillBarPrefab, _quest.transform.Find("ProgressBar"));
+            }
+            instantiatedQuests.Add(_quest.GetComponent<QuestHolder>());
+            questList.Add(_quest);
+        }
+    }
 
-                for (int j = 0; j < quest.intervals.Length; j++)
+    /// <summary>
+    /// Check Quest method for quickly checking required value depending to quest.
+    /// </summary>
+    /// <param name="questType">Quest type that should match</param>
+    /// <param name="questAchivementRequirement">Quest Achievement requirement that should match</param>
+    /// <param name="valueToPass">Value that should be equal or higher</param>
+    /// <param name="resourceForQuest">Only required for resource quest</param>
+    /// <param name="resourceAmount">Only required for resource quest. Should be higher than 0. Value doesn't matter.</param>
+    void CheckQuest(QuestType questType, QuestAchivementRequirement questAchivementRequirement, BigDouble valueToPass,
+                    BaseResources? resourceForQuest = null, bool isResourceQuest = false)
+    {
+        for (int i = 0; i < instantiatedQuests.Count; i++)
+        {
+            QuestHolder quest = instantiatedQuests[i];
+            QuestBase questBase = instantiatedQuests[i].questBase;
+
+            if (questBase.questType == questType && questBase.questAchiveRequirement == questAchivementRequirement)
+            {
+                if (questAchivementRequirement == QuestAchivementRequirement.earnResource && resourceForQuest != null)
+                    continue;
+                else if (questAchivementRequirement == QuestAchivementRequirement.spendResource && resourceForQuest != null)
+                    continue;
+                TempFunction(quest, questBase, i, valueToPass);
+            }
+        }
+    }
+
+    void TempFunction(QuestHolder quest, QuestBase questBase, int i, BigDouble valueToPass)
+    {
+        for (int j = 0; j < questBase.intervals.Length; j++)
+        {
+            if (!quest.completedIntervals.Contains(j) && valueToPass >= questBase.intervals[j])
+            {
+                OnQuestIntervalCompleted(questBase, j);
+                quest.completedIntervals.Add(j);
+
+                string rewardString = string.Format("You earned {0} {1} by completing {2} Tier {3}", 
+                    questBase.rewardAmounts[j], questBase.rewardType, questBase.questName, j.ToString());
+                Debug.Log(rewardString);
+                PopupManager.Instance.PopupPanel(questBase.questName + " Reward", rewardString);
+                questList[i].transform.Find("ProgressBar").GetChild(j).GetChild(0).GetComponent<Image>().fillAmount = 1;
+
+                if (quest.completedIntervals.Count == questBase.intervals.Length)
                 {
-                    Instantiate(questFillBarPrefab, _quest.transform.Find("ProgressBar"));
+                    Debug.Log("Quest Completed fully");
+                    quest.transform.SetParent(completedQuestPanel.transform);
                 }
-                questList.Add(_quest);
             }
         }
     }
 
     private void OnCurrencyChanged(object sender, ResourceManager.OnCurrencyChangedEventArgs e)
     {
-        for (int i = 0; i < questBases.Length; i++)
-        {
-            if (questBases[i].questType == QuestType.incremental && questBases[i].questAchiveRequirement == QuestAchivementRequirement.currency)
-            {
-                for (int j = 0; j < questBases[i].intervals.Length; j++)
-                {
-                    if (!questBases[i].completedIntervals.Contains(j) && SaveSystem.Instance.totalEarnedCurrency >= questBases[i].intervals[j])
-                    {
-                        OnQuestCompleted(questBases[i],j);
-                        questBases[i].completedIntervals.Add(j);
-                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + 
-                            " by completing " + questBases[i].questName + " Tier" + j.ToString());
-                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] 
-                            + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
-
-                        questList[i].transform.Find("ProgressBar").GetChild(j).GetChild(0).GetComponent<Image>().fillAmount = 1;
-
-                        if (questBases[i].completedIntervals.Count == questBases[i].intervals.Length)
-                        {
-                            Debug.Log("Quest Completed fully");
-                            questList[i].transform.SetParent(completedQuestPanel.transform);
-                        }
-                    }
-                }
-            }
-            else if (questBases[i].questType == QuestType.incremental && questBases[i].questAchiveRequirement == QuestAchivementRequirement.premiumCurrency)
-            {
-                for (int j = 0; j < questBases[i].intervals.Length; j++)
-                {
-                    if (!questBases[i].completedIntervals.Contains(j) && SaveSystem.Instance.totalEarnedPremiumCurrency >= questBases[i].intervals[j])
-                    {
-                        completedQuests.Add(questBases[i]);
-                        OnQuestCompleted(questBases[i],j);
-                        questBases[i].completedIntervals.Add(j);
-                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " 
-                            + questBases[i].questName + " Tier" + j.ToString());
-                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] 
-                            + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
-
-                        questList[i].transform.Find("ProgressBar").GetChild(j).GetChild(0).GetComponent<Image>().fillAmount = 1;
-
-                        if (questBases[i].completedIntervals.Count == questBases[i].intervals.Length)
-                        {
-                            Debug.Log("Quest Completed fully");
-                            questList[i].transform.SetParent(completedQuestPanel.transform);
-                        }
-                    }
-                }
-            }
-        }
+        CheckQuest(QuestType.incremental, QuestAchivementRequirement.earnCurreny, SaveSystem.Instance.totalEarnedCurrency);
     }
 
     private void OnResourceAmountChanged(object sender, ResourceManager.OnResourceAmountChangedEventArgs e)
     {
-        for (int i = 0; i < questBases.Length; i++)
-        {
-            // For object produce and collect milestones
-            if (questBases[i].questType == QuestType.incremental && questBases[i].questAchiveRequirement == QuestAchivementRequirement.resource 
-                && questBases[i].resource == e.resource)
-            {
-                for (int j = 0; j < questBases[i].intervals.Length; j++)
-                {
-                    if (!questBases[i].completedIntervals.Contains(j) && e.resourceAmount >= questBases[i].intervals[j])
-                    {
-                        OnQuestCompleted(questBases[i],j);
-                        questBases[i].completedIntervals.Add(j);
-                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " 
-                            + questBases[i].questName + " Tier" + j.ToString());
-                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] 
-                            + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
-
-                        questList[i].transform.Find("ProgressBar").GetChild(j).GetChild(0).GetComponent<Image>().fillAmount = 1;
-
-                        if (questBases[i].completedIntervals.Count == questBases[i].intervals.Length)
-                        {
-                            Debug.Log("Quest Completed fully");
-                            questList[i].transform.SetParent(completedQuestPanel.transform);
-                            questList[i].AddComponent<LayoutElement>();
-                        }
-                    }
-                }
-            }
-        }
+        CheckQuest(QuestType.incremental, QuestAchivementRequirement.earnResource, e.resourceAmount, e.resource, true);
     }
 
     private void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
     {
-        for (int i = 0; i < questBases.Length; i++)
-        {
-            // For object produce and collect milestones
-            if (questBases[i].questType == QuestType.incremental && questBases[i].questAchiveRequirement == QuestAchivementRequirement.level)
-            {
-                for (int j = 0; j < questBases[i].intervals.Length; j++)
-                {
-                    if (!questBases[i].completedIntervals.Contains(j) && e.currentLevel == questBases[i].intervals[j])
-                    {
-                        OnQuestCompleted(questBases[i],j);
-                        questBases[i].completedIntervals.Add(j);
-                        Debug.Log("You earned " + questBases[i].rewardAmounts[j] + " " + questBases[i].rewardType + " by completing " 
-                            + questBases[i].questName + " Tier" + j.ToString());
-                        PopupManager.Instance.PopupPanel(questBases[i].questName + " Reward", "You earned " + questBases[i].rewardAmounts[j] 
-                            + " " + questBases[i].rewardType + " by completing " + questBases[i].questName + " Tier" + j.ToString());
-                    }
-                }
-            }
-        }
+        CheckQuest(QuestType.incremental, QuestAchivementRequirement.gainLevel, e.currentLevel);
     }
 
     /// <summary>
@@ -169,7 +122,7 @@ public class QuestManager : Singleton<QuestManager>
     /// </summary>
     /// <param name="quest">Quest that completed fully or partially</param>
     /// <param name="completedQuestInterval">Part of the quest</param>
-    void OnQuestCompleted(QuestBase quest, int completedQuestInterval)
+    void OnQuestIntervalCompleted(QuestBase quest, int completedQuestInterval)
     {
         switch (quest.rewardType)
         {
@@ -185,30 +138,28 @@ public class QuestManager : Singleton<QuestManager>
         }
     }
 }
-/* TODO implement this class for holding quest infos.
- Shouldn't change scriptable object value it will crash the build */
-public class QuestInfo
-{
-    public QuestBase questBase;
-    public int[] completedIntervals;
-}
 
 public enum QuestType
 {
     single = 1,
     incremental = 2,
     repeatable = 3,
-
 }
 
 public enum QuestAchivementRequirement
 {
-    resource = 4,
-    currency = 5,
-    premiumCurrency,
-    level,
-    totalResource,
-    contract,
+    earnCurreny,
+    spendCurrency,
+
+    earnPremiumCurrency,
+    spendPremiumCurrency,
+
+    earnResource,
+    spendResource,
+
+    gainLevel,
+
+    completeContract,
 }
 
 public enum RewardType

@@ -16,7 +16,7 @@ public class QuestBase : ScriptableObject
 
     public QuestAchivementRequirement questAchiveRequirement;
 
-    public int[] intervals = { 100, 1000, 10000, 100000, 1000000 };
+    public BigDouble[] intervals = { 100, 1000, 10000, 100000, 1000000 };
 
     public List<int> completedIntervals;
 
