@@ -64,6 +64,8 @@ public class ContractManager : Singleton<ContractManager>
     {
         if (contract.contractName == "" || contract.unlockLevel != GameManager.Instance.CurrentLevel) return;
 
+        if ((int)GameManager.Instance.currentAge < (int)contract.ageBelongsTo) return;
+
         // Instantiate prefab and enter information from scriptable object
         var _contract = Instantiate(contractPrefab, contractPanel.transform);
         _contract.AddComponent<ContractHolder>();
@@ -283,7 +285,10 @@ public class ContractManager : Singleton<ContractManager>
                             unit.ContractStatueCheckDictionary[contract] = true;
                             if (!unit.ContractStatueCheckDictionary.ContainsValue(false))
                             {
-                                unit.IsLockedByContract = false;
+                                if (unit.transform.Find("Level_Lock(Clone)") == null)
+                                {
+                                    unit.IsUnlocked= true;
+                                }
                                 Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
                             }
                         }

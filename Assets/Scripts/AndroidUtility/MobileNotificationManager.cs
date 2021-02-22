@@ -9,6 +9,10 @@ public class MobileNotificationManager : MonoBehaviour
     AndroidNotificationChannel androidNotificationChannel;
     AndroidNotificationChannel andoridImportantNotificationChannel;
 
+    AndroidNotification newContractNotification;
+    AndroidNotification needUpgradeNotification;
+    AndroidNotification newResourcesAvailableNotification;
+
     AndroidNotification returnToGameNotification;
     AndroidNotification animalHungryNotification;
     AndroidNotification needLoveNotification;
@@ -48,6 +52,13 @@ public class MobileNotificationManager : MonoBehaviour
 
         #endregion
 
+        returnToGameNotification = new AndroidNotification()
+        {
+            Title = "Your people is waiting for you.",
+            Text = "They can't wait for new technology they get.",
+            RepeatInterval = new TimeSpan(0,30,0), // Every 30 minute
+        };
+
         AndroidNotification androidNotification = new AndroidNotification
         {
             Title = "Farm is waiting for you",
@@ -56,7 +67,7 @@ public class MobileNotificationManager : MonoBehaviour
             FireTime = DateTime.Now.AddSeconds(30),
         };
         int identifier = AndroidNotificationCenter.SendNotification(androidNotification, "default_channel");
-
+        
         needLoveNotification = new AndroidNotification
         {
             Title = "Your farm need some love",

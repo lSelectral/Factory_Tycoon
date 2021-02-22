@@ -17,7 +17,7 @@ MonoBehaviour:
     than all animals
   contractType: 1
   contractReward: 3
-  contractRewardType: 8
+  contractRewardType: 0
   resourceToRewarded: 0
   dependentContracts:
   - {fileID: 11400000, guid: e3925044e93d2d7428fceb926c38a45a, type: 2}
@@ -37,6 +37,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 312991b311b8ccc49adec5703787cb1b, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: Your civilization are able to hunt down animals more efficiently.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 5000

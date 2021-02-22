@@ -26,10 +26,14 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     BigDouble foodAmount;
     BigDouble moneyAmount;
     int combatLives;
+    bool isLeaderOfCountries;
     [SerializeField] bool isPlayerOwned;
 
     public int pixelSize;
 
+    /// <summary>
+    /// Connected Map Parts will 
+    /// </summary>
     [SerializeField] Map_Part[] connectedMapParts;
 
     Dictionary<BaseResources, BigDouble> resourceValueDict;
@@ -44,14 +48,18 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
     public string CountryName { get => countryName; set => countryName = value; }
     public int CountryLevel { get => countryLevel; set { countryLevel = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); } }
     public Age CurrentAgeOfNation { get => currentAgeOfNation; set => currentAgeOfNation = value; }
-    public BigDouble AttackPower { get => attackPower; set { attackPower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); } }
+    public BigDouble AttackPower { get => attackPower; set { attackPower = value * UpgradeSystem.Instance.CombatPowerMultiplier; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); } }
     public BigDouble FoodAmount { get => foodAmount; set => foodAmount = value; }
     public BigDouble MoneyAmount { get => moneyAmount; set => moneyAmount = value; }
-    public BigDouble DefensePower { get => defensePower; set { defensePower = value; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); }}
+    public BigDouble DefensePower { get => defensePower; set { defensePower = value * UpgradeSystem.Instance.DefensePowerMultiplier; MapManager.Instance.SetupInfoPanel(MapManager.Instance.clickedMapPart); }}
     public int CombatLives { get => combatLives; set { combatLives = Mathf.Clamp(value,0,3); } }
     public Dictionary<BaseResources, BigDouble> ResourceValueDict { get => resourceValueDict; set => resourceValueDict = value; }
     public Map_Part[] ConnectedMapParts { get => connectedMapParts; set => connectedMapParts = value; }
     public bool IsPlayerOwned { get => isPlayerOwned; set => isPlayerOwned = value; }
+    /// <summary>
+    /// This bool indicates if this country is the leader of all connected countries.
+    /// </summary>
+    public bool IsLeaderOfCountries { get => isLeaderOfCountries; set => isLeaderOfCountries = value; }
     #endregion
 
     private void Awake()
@@ -81,9 +89,8 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
                     resourceValueDict.Add(scriptableUnit.product, new BigDouble(1, 2));
             }
 
-
             // Add extra resource for every tribe if has one. Resource amount is related to area size of country
-            resourceValueDict[scriptableMap.specificResource] += pixelSize; 
+            resourceValueDict[scriptableMap.specificResource] += (pixelSize / 2); 
         }
         else
         {
@@ -118,24 +125,20 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
         MapManager.Instance.allMaps.Add(this);
         if (MapManager.Instance.playerCurrentMapPart.ToList().Contains(this))
             isPlayerOwned = true;
-        InvokeRepeating("CountryProduction", 2f, 5f);
     }
 
-    private void OnDefensePowerMultiplierChanged(object sender, UpgradeSystem.OnDefensePowerMultiplierChangedEventArgs e)
+    private void OnCombatPowerMultiplierChanged(object sender, EventArgs e)
     {
         if (isPlayerOwned)
-        {
-            DefensePower = (defensePower * e.defensePowerMultiplier);
-        }
+            AttackPower = attackPower;
     }
 
-    private void OnCombatPowerMultiplierChanged(object sender, UpgradeSystem.OnCombatPowerMultiplierChangedEventArgs e)
+    private void OnDefensePowerMultiplierChanged(object sender, EventArgs e)
     {
         if (isPlayerOwned)
-        {
-            AttackPower = (attackPower * e.combatPowerMultiplier);
-        }
+            DefensePower = defensePower;
     }
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -145,11 +148,9 @@ public class Map_Part : MonoBehaviour, IPointerClickHandler
 
     void CountryProduction()
     {
-        for (int i = 0; i < ProductionManager.Instance.scriptableProductionUnitList.Length; i++)
+        for (int i = 0; i < resourceValueDict.Keys.Count; i++)
         {
-            var productionUnit = ProductionManager.Instance.scriptableProductionUnitList[i];
-            if (resourceValueDict.ContainsKey(productionUnit.product))
-                resourceValueDict[productionUnit.product] += Mathf.CeilToInt(productionUnit.outputValue * 1f / productionUnit.collectTime);
+            resourceValueDict[resourceValueDict.Keys.ElementAt(i)] += 1;
         }
 
         moneyAmount += 500;

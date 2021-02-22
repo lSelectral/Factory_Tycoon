@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UpgradeSystem : Singleton<UpgradeSystem>
 {
-    //[Range(1, 10)] public float timeSlider;
+    [Range(1, 10)] public float timeSlider = 1f;
     public GameObject upgradePanel;
     private Dictionary<BaseResources, float> speedUpDictionary;
 
@@ -21,10 +21,10 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         }
     }
 
-    //private void Update()
-    //{
-    //    Time.timeScale = timeSlider;
-    //}
+    private void Update()
+    {
+        Time.timeScale = timeSlider;
+    }
 
     public int upgradeMultiplier;
 
@@ -79,19 +79,9 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
     public event EventHandler<OnEarnedXpMultiplierChangedEventArgs> OnEarnedXpMultiplierChanged;
 
-    public class OnCombatPowerMultiplierChangedEventArgs : EventArgs
-    {
-        public float combatPowerMultiplier;
-    }
+    public event EventHandler OnCombatPowerMultiplierChanged;
 
-    public event EventHandler<OnCombatPowerMultiplierChangedEventArgs> OnCombatPowerMultiplierChanged;
-
-    public class OnDefensePowerMultiplierChangedEventArgs : EventArgs
-    {
-        public float defensePowerMultiplier;
-    }
-
-    public event EventHandler<OnDefensePowerMultiplierChangedEventArgs> OnDefensePowerMultiplierChanged;
+    public event EventHandler OnDefensePowerMultiplierChanged;
 
     [SerializeField] private float miningSpeedMultiplier = 1;
     [SerializeField] private float miningYieldMultiplier = 1;
@@ -128,13 +118,25 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
             OnEarnedXpMultiplierChanged?.Invoke(this, new OnEarnedXpMultiplierChangedEventArgs() { earnedXpMultiplier = earnedXPMultiplier }); }
     }
 
-    public float CombatPowerMultiplier { get => combatPowerMultiplier;
-        set { combatPowerMultiplier = value;
-            OnCombatPowerMultiplierChanged?.Invoke(this, new OnCombatPowerMultiplierChangedEventArgs() { combatPowerMultiplier = combatPowerMultiplier }); } }
+    public float CombatPowerMultiplier
+    {
+        get => combatPowerMultiplier;
+        set
+        {
+            combatPowerMultiplier = value;
+            OnCombatPowerMultiplierChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
 
     public float DefensePowerMultiplier { get => defensePowerMultiplier;
         set { defensePowerMultiplier = value;
-            OnDefensePowerMultiplierChanged?.Invoke(this, new OnDefensePowerMultiplierChangedEventArgs() { defensePowerMultiplier = defensePowerMultiplier }); } }
+            OnDefensePowerMultiplierChanged?.Invoke(this, EventArgs.Empty); } }
+
+    public float contractRewardMultiplier;
+    public float contractXPMultiplier;
+
+    public float questRewardMultiplier;
+    public float questXPMultiplier;
 
     #endregion
 
@@ -227,6 +229,8 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     // Calculate maximum upgrade for maximum buying capacity
     public int GetMaximumUpgradeAmount(BigDouble oldUpgradeCost, int mineLevel)
     {
+        if (oldUpgradeCost > ResourceManager.Instance.Currency) return 0;
+
         var currency = ResourceManager.Instance.Currency - oldUpgradeCost;
         var newUpgradeCost = oldUpgradeCost;
         //var level = mineLevel++;
@@ -289,10 +293,14 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         var btn4 = multiplierPanel.GetChild(3).GetComponent<Button>();
 
         // I had to write this cursed code for fucking bug of unity.
-        btn1.onClick.AddListener(() => { btn1.GetComponent<Image>().color = Color.green; ChangeButtonColor(btn2); ChangeButtonColor(btn3); ChangeButtonColor(btn4); });
-        btn2.onClick.AddListener(() => { btn2.GetComponent<Image>().color = Color.green; ChangeButtonColor(btn1); ChangeButtonColor(btn3); ChangeButtonColor(btn4); });
-        btn3.onClick.AddListener(() => { btn3.GetComponent<Image>().color = Color.green; ChangeButtonColor(btn1); ChangeButtonColor(btn2); ChangeButtonColor(btn4); });
-        btn4.onClick.AddListener(() => { btn4.GetComponent<Image>().color = Color.green; ChangeButtonColor(btn1); ChangeButtonColor(btn2); ChangeButtonColor(btn3); });
+        btn1.onClick.AddListener(() => { btn1.GetComponent<Image>().color = Color.green; 
+            ChangeButtonColor(btn2); ChangeButtonColor(btn3); ChangeButtonColor(btn4); });
+        btn2.onClick.AddListener(() => { btn2.GetComponent<Image>().color = Color.green; 
+            ChangeButtonColor(btn1); ChangeButtonColor(btn3); ChangeButtonColor(btn4); });
+        btn3.onClick.AddListener(() => { btn3.GetComponent<Image>().color = Color.green; 
+            ChangeButtonColor(btn1); ChangeButtonColor(btn2); ChangeButtonColor(btn4); });
+        btn4.onClick.AddListener(() => { btn4.GetComponent<Image>().color = Color.green; 
+            ChangeButtonColor(btn1); ChangeButtonColor(btn2); ChangeButtonColor(btn3); });
     }
 
     void ChangeButtonColor(Button btn)
@@ -304,7 +312,8 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     /// Setup the upgrade panel infos according to upgrade multiplier
     /// </summary>
     /// <param name="levelUpgradeMultiplier">How many level will be upgraded. If 0 max upgrade will be applied</param>
-    public void SetUpgradePanel(int levelUpgradeMultiplier, long outputValue, int mineLevel, float collectTime, BigDouble pricePerProduct, BigDouble upgradeCost, string name, bool hideBottomPanel = true)
+    public void SetUpgradePanel(int levelUpgradeMultiplier, long outputValue, int mineLevel, float collectTime, 
+        BigDouble pricePerProduct, BigDouble upgradeCost, string name, bool hideBottomPanel = true)
     {
         var newLevel = mineLevel + levelUpgradeMultiplier;
         var newOutputValue = GetNewOutputAmount(levelUpgradeMultiplier, outputValue, mineLevel);
@@ -341,13 +350,15 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
             string.Format("LEVEL\n{0} <color=green>--> {1}</color>", mineLevel, newLevel);
          
         propertiesPanel.Find("Top").Find("Output_Amount").GetComponentInChildren<TextMeshProUGUI>().text =
-            string.Format("Output\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(outputValue), ResourceManager.Instance.CurrencyToString(newOutputValue));
+            string.Format("Output\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(outputValue), 
+            ResourceManager.Instance.CurrencyToString(newOutputValue));
 
         propertiesPanel.Find("Mid").Find("CollectTime").GetComponentInChildren<TextMeshProUGUI>().text =
-            string.Format("Collect Time\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(collectTime), ResourceManager.Instance.CurrencyToString(newCollectTime));
+            string.Format("Collect Time\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(collectTime), 
+            ResourceManager.Instance.CurrencyToString(newCollectTime));
 
         propertiesPanel.Find("Mid").Find("PricePerProduct").GetComponentInChildren<TextMeshProUGUI>().text =
-            string.Format("Price Per Product\n{0} <color=green>--> {1}</color>", (pricePerProduct).ToLetterExpression(), (newPricePerProduct).ToString());
+            string.Format("Price Per Product\n{0} <color=green>--> {1}</color>", (pricePerProduct), (newPricePerProduct));
 
         if (!hideBottomPanel)
         {
@@ -372,10 +383,10 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
         var multiplierPanel = panel.transform.Find("Multiplier_Panel");
 
-        var btn1 = multiplierPanel.GetChild(0).GetComponent<Button>();
-        var btn2 = multiplierPanel.GetChild(1).GetComponent<Button>();
-        var btn3 = multiplierPanel.GetChild(2).GetComponent<Button>();
-        var btn4 = multiplierPanel.GetChild(3).GetComponent<Button>();
+        var btn1 = multiplierPanel.GetChild(0).GetComponent<Button>(); // 1x Buy
+        var btn2 = multiplierPanel.GetChild(1).GetComponent<Button>(); // 5x Buy
+        var btn3 = multiplierPanel.GetChild(2).GetComponent<Button>(); // 20x Buy
+        var btn4 = multiplierPanel.GetChild(3).GetComponent<Button>(); // Maximum Buy
 
         btn1.onClick.RemoveAllListeners();
         btn2.onClick.RemoveAllListeners();
@@ -387,10 +398,10 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         btn3.onClick.AddListener(() => { tempAction(20); });
         btn4.onClick.AddListener(() => { tempAction(GetMaximumUpgradeAmount(upgradeCost, level)); });
 
+        panel.transform.Find("BuyBtn").GetComponent<Button>().onClick.RemoveAllListeners();
         panel.transform.Find("BuyBtn").GetComponent<Button>().onClick.AddListener(() =>
         {
             UpgradeMine();
-            //ExecuteEvents.Execute(btn4.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
             tempAction(UpgradeSystem.Instance.upgradeMultiplier);
         });
     }

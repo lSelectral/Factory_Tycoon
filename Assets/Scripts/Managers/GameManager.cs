@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Linq;
-using System.IO;
 using System;
 
 /// <summary>
@@ -20,14 +18,12 @@ using System;
 
 public class GameManager : Singleton<GameManager>
 {
+    public Age currentAge = Age._0_StoneAge;
     [SerializeField] int requiredXPforFirstLevel;
     [SerializeField] private GameObject levelObject;
     public GameObject levelLock;
     private Image fillBar;
     private TextMeshProUGUI levelText;
-
-    private float smoothCurrentXp;
-    private float smoothCurrentXpVelocity;
 
     /// <summary>
     /// This variable holds value for panel that player currently see.
@@ -97,7 +93,9 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-
+    float smoothCurrentXP;
+    float startTimeXP;
+    float oldXPValue;
     public float CurrentXP
     {
         get
@@ -106,6 +104,8 @@ public class GameManager : Singleton<GameManager>
         }
         set
         {
+            startTimeXP = Time.time;
+            oldXPValue = currentXP;
             this.currentXP = value;
             while (currentXP >= requiredXPForNextLevel)
             {
@@ -114,7 +114,7 @@ public class GameManager : Singleton<GameManager>
                 CalculateRequiredXPforNextLevel();
                 OnLevelUp(this, new OnLevelUpEventArgs { currentLevel = currentLevel });
                 if (!SaveSystem.Instance.isLoading)
-                    PopupManager.Instance.PopupPanel("You reached Level " + currentLevel.ToString(), "With unlocking new levels you will be able to build new buildings");
+                    PopupManager.Instance.PopupPanel("You reached Level " + currentLevel.ToString(), "With unlocking new levels you will be able to produce new technologies");
                 levelText.text = "LVL " + currentLevel.ToString();
             }
         }
@@ -160,8 +160,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        smoothCurrentXp = Mathf.SmoothDamp(smoothCurrentXp, currentXP, ref smoothCurrentXpVelocity, .5f);
-        fillBar.fillAmount = smoothCurrentXp / requiredXPForNextLevel;
+        smoothCurrentXP = Mathf.SmoothStep(oldXPValue, currentXP, Time.time - startTimeXP);
+        fillBar.fillAmount = smoothCurrentXP / requiredXPForNextLevel;
     }
 
     public void AddXP(float value) { CurrentXP += value * UpgradeSystem.Instance.EarnedXPMultiplier; }

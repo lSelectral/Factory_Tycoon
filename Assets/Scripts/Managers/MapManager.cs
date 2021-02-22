@@ -128,25 +128,8 @@ public class MapManager : Singleton<MapManager>
     {
         List<BigDouble> mapResourceAmounts = new List<BigDouble>();
         List<BaseResources> mapResourceTypes = new List<BaseResources>();
-        //if (!map.IsPlayerOwned)
-        //{
-        //    mapResourceAmounts = new List<long>(map.ResourceValueDict.Values);
-        //    mapResourceTypes = new List<BaseResources>(map.ResourceValueDict.Keys);
-        //    Debug.Log("Not player owned map");
-        //    DebugList(mapResourceAmounts);
-        //}
-        //else
-        //{
-        //    mapResourceAmounts = new List<long>(ResourceManager.Instance.resourceValueDict.Values);
-        //    mapResourceTypes = new List<BaseResources>(ResourceManager.Instance.resourceValueDict.Keys);
-        //    Debug.Log("Player owned map");
-        //    DebugList(mapResourceAmounts);
-        //}
         mapResourceAmounts = new List<BigDouble>(map.ResourceValueDict.Values);
         mapResourceTypes = new List<BaseResources>(map.ResourceValueDict.Keys);
-        //Debug.Log(mapResourceTypes.Count);
-        //DebugList(mapResourceTypes);
-        //DebugList(mapResourceAmounts);
         int j = 0;
         var panelCount = Mathf.CeilToInt(mapResourceTypes.Count / 2);
         for (int i = 0; i < panelCount; i++)
@@ -157,7 +140,6 @@ public class MapManager : Singleton<MapManager>
 
             if (mapResourceTypes.Count > j + 1)
             {
-                //Debug.Log(mapResourceTypes[j + 1]);
                 resource.transform.Find("Right").Find("Image").GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(mapResourceTypes[j + 1]);
                 resource.transform.Find("Right").Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text = mapResourceAmounts[j + 1].ToString();
             }
@@ -165,13 +147,5 @@ public class MapManager : Singleton<MapManager>
         }
     }
 
-    public void DebugList<T>(List<T> listToDebug)
-    {
-        string debugText = listToDebug.ToString() + " count: " + listToDebug.Count + "\n" ;
-        for (int i = 0; i < listToDebug.Count; i++)
-        {
-            debugText += listToDebug[i] + "\n";
-        }
-        Debug.Log(debugText);
-    }
+    
 }

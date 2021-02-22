@@ -22,12 +22,12 @@ public class ContractBase : ScriptableObject
     [PreviewSprite] public Sprite icon;
     [TextArea] public string rewardPanelHeader = "<color=red>Congrulations</color>";
     [TextArea] public string rewardPanelDescription;
-    public AvailableMainPages mainPageToGo = AvailableMainPages.Production;
+    [SearchableEnum] public AvailableMainPages mainPageToGo = AvailableMainPages.Production;
     public string pageNameToGo;
     [HideInInspector] public bool isPageNameToGoValid;
     public float xpReward;
 
-    public Age ageBelongsTo;
+    [SearchableEnum] public Age ageBelongsTo;
     public int history;
 
     private void OnValidate()
@@ -37,10 +37,12 @@ public class ContractBase : ScriptableObject
         if (requiredResources == null || requiredResources.Length == 0)
             requiredResources = new BaseResources[] { BaseResources._0_stick };
 
+        if (requiredResourceAmounts == null || requiredResourceAmounts[0] == 0)
+            requiredResourceAmounts = new BigDouble[] { new BigDouble(10) };
+
         if (requiredResources != null && requiredResources.Length > requiredResourceAmounts.Length)
             Array.Resize(ref requiredResourceAmounts, requiredResources.Length);
 
-        if (requiredResourceAmounts.Length == 0 || requiredResourceAmounts[0] == 0)
-            requiredResourceAmounts = new BigDouble[] { new BigDouble(10) };
+        
     }
 }

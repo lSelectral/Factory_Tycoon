@@ -1,16 +1,14 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using System;
 using System.Linq;
-using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class Compounds : ProductionBase
 {
     public ScriptableCompound scriptableCompound;
 
-    Image icon;
     protected override void Start()
     {
         // Events
@@ -21,23 +19,17 @@ public class Compounds : ProductionBase
 
         base.Start();
 
-        itemTypes = scriptableCompound.itemTypes;
-        upgradeBtn.onClick.AddListener(() => ShowUpgradePanel());
-
         workModeBtn.onClick.AddListener(() => ChangeWorkingMode());
-
-        SetWorkModeColor();
-
         tempResourceList = currentRecipe.inputResources.ToList();
-        upgradeAmountText.text = upgradeCost.ToString();
-
         if (resourceBoard != null)
         {
+            resourceIconListForCompounds = new List<GameObject>();
             for (int i = 0; i < currentRecipe.inputResources.Length; i++)
             {
                 resourceBoard.GetChild(i).GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(currentRecipe.inputResources[i]);
                 resourceBoard.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().text = currentRecipe.inputAmounts[i].ToString();
                 resourceBoard.GetChild(i).gameObject.SetActive(true);
+                resourceIconListForCompounds.Add(resourceBoard.GetChild(i).GetChild(0).gameObject);
             }
         }
     }
@@ -103,11 +95,5 @@ public class Compounds : ProductionBase
                 fillBar.fillAmount = 0;
             }
         }
-    }
-
-    public override void OnPointerClick(PointerEventData eventData)
-    {
-        Produce();
-        if (isCharging) RemainedCollectTime -= .35f;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Google.Play.Review;
 
+// TODO Use Review method at the end of stone age.
 public class InAppReview : Singleton<InAppReview>
 {
     // Create instance of ReviewManager

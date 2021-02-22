@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,7 +18,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     #region Class Variables
     public ScriptableProductionBase scriptableProductionBase;
     protected Dictionary<ContractBase, bool> contractStatueCheckDictionary;
-    protected ContractBase[] contracts;
+    [SerializeField] protected ContractBase[] contracts;
     [SerializeField] protected bool isAutomated;
 
     GameObject mainProductionPanel;
@@ -28,22 +29,23 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     protected Recipe[] recipes;
     protected Recipe currentRecipe;
     protected List<BaseResources> tempResourceList;
+    protected List<GameObject> resourceIconListForCompounds; // Just quick access to icon for compounds
 
     // Scriptable object class variables
     [SerializeField] protected float collectTime;
     protected string _name;
+    protected bool isUnlocked = false;
     protected string resourceName;
     protected BaseResources producedResource;
     protected ItemType[] itemTypes;
     protected long foodAmount;
     protected long attackAmount;
-    protected float remainedCollectTime;
+    [SerializeField] protected float remainedCollectTime;
     protected bool isCharging;
     protected long outputValue;
     protected BigDouble pricePerProduct;
     protected int unlockLevel;
     protected float xpAmount;
-    protected bool isLockedByContract;
     protected float outputPerSecond;
     protected int level;
     protected BigDouble upgradeCost;
@@ -54,6 +56,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     // Attached gameobject transforms
     protected Transform resourceBoard; // Only for compound
     protected Transform statPanel;
+    protected Transform itemTypePanel;
 
     protected Image fillBar;
 
@@ -119,12 +122,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         set { pricePerProduct = value; }
     }
 
-    public bool IsLockedByContract
-    {
-        get { return isLockedByContract; }
-        set { isLockedByContract = value; }
-    }
-
     public WorkingMode WorkingMode
     {
         get { return workingMode; }
@@ -168,15 +165,15 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     public long FoodAmount { get => foodAmount; set => foodAmount = value; }
     public long AttackAmount { get => attackAmount; set => attackAmount = value; }
 
-
     public Dictionary<ContractBase, bool> ContractStatueCheckDictionary { get => contractStatueCheckDictionary; set => contractStatueCheckDictionary = value; }
     internal ContractBase[] Contracts { get => contracts; set => contracts = value; }
+    public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
 
     #endregion
 
     protected virtual void Start()
     {
-        IsAutomated = false;
+        IsAutomated = true;
         mainProductionPanel = transform.parent.parent.parent.parent.parent.gameObject;
         agePanel = transform.parent.parent.parent.gameObject;
 
@@ -187,8 +184,9 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         UpgradeSystem.Instance.OnEarnedCoinMultiplierChanged += Instance_OnEarnedCoinMultiplierChanged;
         UpgradeSystem.Instance.OnEarnedXpMultiplierChanged += Instance_OnEarnedXpMultiplierChanged;
 
-        if (scriptableProductionBase.lockedByContracts != null)
-            contracts = scriptableProductionBase.lockedByContracts;
+        contracts = ContractManager.Instance.contracts.Where(c => c.contractRewardType == ContractRewardType.unlockProductionUnit 
+        && c.productsToUnlock.Contains(scriptableProductionBase)).ToArray();
+
         contractStatueCheckDictionary = new Dictionary<ContractBase, bool>();
         if (contracts != null)
         {
@@ -233,6 +231,8 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
             var lockText = Instantiate(GameManager.Instance.levelLock, transform);
             lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + contracts[0].contractName + " Contract";
         }
+        else 
+            isUnlocked = true;
         #endregion
 
         if (transform.Find("ResourceBoard") != null)
@@ -244,6 +244,22 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         {
             transform.Find("Tool").GetComponent<Image>().sprite = scriptableProductionBase.toolImage;
             tool = transform.Find("Tool").GetComponent<RectTransform>();
+        }
+        itemTypePanel = transform.Find("UnitTypePanel");
+
+        // Add item type icons to panel
+        for (int i = 0; i < itemTypes.Length; i++)
+        {
+            var res = Instantiate(ResourceManager.Instance.iconPrefab, itemTypePanel);
+            Destroy(res.transform.GetChild(1).gameObject);
+
+            // Set recttransform values
+            var rect = res.transform.GetChild(0).GetComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            res.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromItemType(itemTypes[i]);
         }
 
         transform.Find("Icon").GetComponent<Image>().sprite = scriptableProductionBase.icon;
@@ -258,8 +274,12 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
         upgradeBtn = transform.Find("Upgrade_Btn").GetComponent<Button>();
         upgradeAmountText = upgradeBtn.GetComponentInChildren<TextMeshProUGUI>();
+        upgradeAmountText.text = "$" + upgradeCost.ToString();
+        upgradeBtn.onClick.AddListener(() => ShowUpgradePanel());
         workModeBtn = transform.Find("WorkingModeBtn").GetComponent<Button>();
         workModeText = workModeBtn.GetComponentInChildren<TextMeshProUGUI>();
+
+        SetWorkModeColor();
     }
 
     void SetNameLevelText(long level)
@@ -267,7 +287,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         nameLevelText.text = string.Format("{0} - LEVEL {1}", _name, level);
     }
 
-    internal void OnCurrencyChanged(object sender, ResourceManager.OnCurrencyChangedEventArgs e)
+    protected void OnCurrencyChanged(object sender, ResourceManager.OnCurrencyChangedEventArgs e)
     {
         
     }
@@ -283,16 +303,6 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     {
         PricePerProduct *= e.earnedCoinMultiplier;
     }
-
-    //internal void Instance_OnMiningYieldChanged(object sender, UpgradeSystem.OnMiningYieldChangedEventArgs e)
-    //{
-    //    OutputValue *= e.miningYield;
-    //}
-
-    //internal void Instance_OnMiningSpeedChanged(object sender, UpgradeSystem.OnMiningSpeedChangedEventArgs e)
-    //{
-    //    CollectTime /= e.miningSpeed;
-    //}
 
     internal void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
     {
@@ -314,18 +324,8 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
                 }
 
             }
-            // Needed code for creating automation contracts when unit unlocked
-            //else
-            //{
-            //    var contracts = ContractManager.Instance.contracts;
-            //    for (int i = 0; i < contracts.Length; i++)
-            //    {
-            //        if (contracts[i].contractRewardType == ContractRewardType.automate && contracts[i].minesToUnlock[0] == scriptableProductionBase)
-            //        {
-            //            ContractManager.Instance.CreateContract(contracts[i]);
-            //        }
-            //    }
-            //}
+            else
+                isUnlocked = true;
         }
     }
 
@@ -338,11 +338,10 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     protected void Produce()
     {
-        if (!isCharging && transform.Find("Level_Lock(Clone)") == null)
+        if (!isCharging && isUnlocked && workingMode != WorkingMode.stopProduction)
         {
             // If true it needs resource to start produce else it produce without input
-            if (currentRecipe.inputResources.Length > 0 && currentRecipe.inputAmounts[0] > 0 
-                && workingMode != WorkingMode.stopProduction)
+            if (currentRecipe.inputResources.Length > 0 && currentRecipe.inputAmounts[0] > 0 )
             {
                 for (int i = 0; i < currentRecipe.inputAmounts.Length; i++)
                 {
@@ -358,9 +357,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
                         ResourceManager.Instance.ConsumeResource(inputResource, 
                             (long)(inputAmount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier));
 
-                        if (resourceBoard != null)
-                            resourceBoard.GetChild(Array.IndexOf(currentRecipe.inputResources, inputResource))
-                                .GetChild(0).gameObject.SetActive(true);
+                        resourceIconListForCompounds[i].SetActive(true);
                     }
                     else if (ResourceManager.Instance.GetResourceAmount(inputResource) < inputAmount)
                     {
@@ -374,16 +371,13 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
                     isCharging = true;
                     remainedCollectTime = collectTime;
 
-                    for (int i = 0; i < currentRecipe.inputAmounts.Length; i++)
-                    {
-                        resourceBoard.GetChild(i).GetChild(0).gameObject.SetActive(false);
-                    }
+                    resourceIconListForCompounds.ForEach(r => r.SetActive(false));
                 }
             }
             else
             {
                 if (CheckIfPanelActive())
-                    toolAnimation = TweenAnimation.Instance.MoveTool(tool.gameObject);
+                    toolAnimation = TweenAnimation.Instance.MoveTool(tool.gameObject, collectTime);
                 isCharging = true;
                 if (remainedCollectTime == 0)
                     remainedCollectTime = collectTime;
@@ -391,13 +385,27 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    internal virtual void SellResource()
+    protected virtual void SellResource()
     {
         ResourceManager.Instance.Currency += (outputValue * 1f * (pricePerProduct * 1f));
         ResourceManager.Instance.ConsumeResource(producedResource, outputValue);
     }
 
-    internal void ChangeWorkingMode(bool isMine = false)
+    public BigDouble IdleEarn(int idleTime, bool isSelling, float multiplier = 1) // Multiplier for lowering rate in compounds
+    {
+        if (isSelling) // Selling Resource
+        {
+            BigDouble value = (outputValue * pricePerProduct * idleTime * multiplier);
+            return new BigDouble(value.Mantissa, value.Exponent);
+        }
+        else // Producing Resource
+        {
+            BigDouble value = (outputValue * idleTime / collectTime * multiplier);
+            return new BigDouble(Mathf.CeilToInt((float)value.Mantissa), value.Exponent);
+        }
+    }
+
+    protected void ChangeWorkingMode(bool isMine = false)
     {
         if (GameManager.Instance.CurrentLevel >= 0)
         {
@@ -415,7 +423,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     /// When player change work mode
     /// button color change according to that
     /// </summary>
-    internal void SetWorkModeColor()
+    protected void SetWorkModeColor()
     {
         if (workingMode == WorkingMode.production)
             workModeBtn.GetComponent<Image>().color = Color.green;
@@ -427,19 +435,21 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     public virtual void OnPointerClick(PointerEventData eventData)
     {
+        if (isCharging) remainedCollectTime -= .35f;
+        Produce();
     }
 
-    internal virtual void ShowUpgradePanel()
+    protected virtual void ShowUpgradePanel()
     {
         UpgradeSystem.Instance.ShowUpgradePanel(SetUpgradePanel, Upgrade, IsUpgradePanelActive, UpgradeCost, Level);
     }
 
-    internal virtual void SetUpgradePanel(int levelUpgradeMultiplier)
+    protected virtual void SetUpgradePanel(int levelUpgradeMultiplier)
     {
         UpgradeSystem.Instance.SetUpgradePanel(levelUpgradeMultiplier, OutputValue, Level, CollectTime, PricePerProduct, UpgradeCost, _name);
     }
 
-    internal virtual void Upgrade()
+    protected virtual void Upgrade()
     {
         var upgradeMultiplier = UpgradeSystem.Instance.upgradeMultiplier;
         var newLevel = level + upgradeMultiplier;

@@ -1,7 +1,6 @@
-﻿using UnityEditor;
-using UnityEditor.UIElements;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [CustomPropertyDrawer(typeof(Recipe))]
 public class CustomListDrawer : PropertyDrawer
@@ -15,8 +14,15 @@ public class CustomListDrawer : PropertyDrawer
         var collectTime = property.FindPropertyRelative("collectTime");
         var outputAmount = property.FindPropertyRelative("outputAmount");
 
-        EditorGUILayout.BeginHorizontal(new GUIStyle() { alignment = TextAnchor.MiddleLeft, margin = new RectOffset(30,10,0,0)
-            , stretchHeight = true, fontSize = 12, richText = true });
+        EditorGUILayout.BeginHorizontal(new GUIStyle()
+        {
+            alignment = TextAnchor.MiddleLeft,
+            margin = new RectOffset(30, 10, 0, 0)
+            ,
+            stretchHeight = true,
+            fontSize = 12,
+            richText = true
+        });
 
         EditorGUILayout.PropertyField(inputResources, true, GUILayout.MinWidth(350));
         EditorGUILayout.PropertyField(inputAmounts, true, GUILayout.MinWidth(350));
@@ -36,3 +42,4 @@ public class CustomListDrawer : PropertyDrawer
     }
 
 }
+#endif

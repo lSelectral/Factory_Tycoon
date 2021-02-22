@@ -33,6 +33,7 @@ MonoBehaviour:
   rewardPanelDescription: Wine is precious product and high trade value. Produce
     sometimes to festive to your people but selling is the best option for wine.
     Don't hesitate to leave your
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 0

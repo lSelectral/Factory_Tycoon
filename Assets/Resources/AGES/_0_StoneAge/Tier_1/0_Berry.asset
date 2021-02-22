@@ -19,12 +19,12 @@ MonoBehaviour:
   foodAmount: 1
   housingAmount: 0
   attackAmount: 0
-  collectTime: 1
+  collectTime: 2.2
   outputValue: 1
   recipes:
   - inputResources: 00000000
     inputAmounts: 00000000
-    collectTime: 1
+    collectTime: 2.2
     outputAmount: 1
   ageBelongsTo: 0
   tier: 0
@@ -37,18 +37,18 @@ MonoBehaviour:
   pricePerProduct:
     mantissa: 5
     exponent: 0
-  incomePerSecondText: 5
+  incomePerSecondText: 2.27272722346724
   incomePerSecond:
-    mantissa: 5
+    mantissa: 2.272727223467237
     exponent: 0
   optimalPricePerProductText: 0
   optimalPricePerProduct:
     mantissa: 0
     exponent: 0
-  optimalIncomePerSecondText: 19.099999666214
+  optimalIncomePerSecondText: 9.54999983310699
   optimalPricePerSecond:
-    mantissa: 1.909999966621399
-    exponent: 1
+    mantissa: 9.549999833106995
+    exponent: 0
   isOptimal: 0
   lockedByContracts: []
   unlockLevel: 0

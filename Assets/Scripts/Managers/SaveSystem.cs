@@ -86,7 +86,7 @@ public class SaveSystem : Singleton<SaveSystem>
                 remainedChargeTime = unit.RemainedCollectTime,
                 currentLevel = unit.Level,
                 isAutomated = unit.IsAutomated,
-                isLockedByContract = unit.IsLockedByContract,
+                isUnlocked = unit.IsUnlocked,
                 outputAmount = unit.OutputValue,
                 upgradeAmount = unit.UpgradeCost,
                 workingMode = unit.WorkingMode
@@ -116,27 +116,17 @@ public class SaveSystem : Singleton<SaveSystem>
         //    savedMaps.Add(mapSave);
         //}
 
-        var contractManagerSave = new ContractManagerSave()
-        {
-            activatedContracts = ContractManager.Instance.activatedContracts,
-            completedContracts = ContractManager.Instance.completedContracts,
-            contracts = ContractManager.Instance.contracts,
-        };
-
-        var questManagerSave = new QuestManagerSave()
-        {
-            completedQuestList = QuestManager.Instance.completedQuests,
-            quests = QuestManager.Instance.questBases,
-        };
-
         // Save all game values as one single object for later json conversion
         SaveObject saveObject = new SaveObject()
         {
             resourceList = resourceList,
             instantiatedProductionUnits = savedProductionUnits,
 
-            contractManagerSave = contractManagerSave,
-            questManagerSave = questManagerSave,
+            activatedContracts = ContractManager.Instance.activatedContracts,
+            completedContracts = ContractManager.Instance.completedContracts,
+            completedQuestList = QuestManager.Instance.completedQuests,
+            instantiatedQuestList = QuestManager.Instance.instantiatedQuests,
+
             mapSaves = savedMaps,
 
             currency = ResourceManager.Instance.Currency,
@@ -155,7 +145,7 @@ public class SaveSystem : Singleton<SaveSystem>
             
             lastExitTime = DateTime.Now,
     };
-
+        
         string saveText = JsonUtility.ToJson(saveObject);
         File.WriteAllText(Application.persistentDataPath + "/SAVES/save.txt", saveText);
         Debug.Log(String.Format("Game data saved to {0}", Application.persistentDataPath + "/SAVES" + "/save.txt"));
@@ -174,7 +164,7 @@ public class SaveSystem : Singleton<SaveSystem>
             Debug.Log(string.Format("You were out of game for: {0} minutes and {1:00} seconds", (int)totalExitTime / 60, (int)totalExitTime % 60));
 
             BigDouble idleEarnedCurrency = new BigDouble();
-            BigDouble idleEarnedResource = new BigDouble();
+            Dictionary<BaseResources, BigDouble> idleEarnedResourceDict = new Dictionary<BaseResources, BigDouble>();
 
             // Load all variables
             GameManager.Instance.CurrentLevel = saveObject.currentLevel;
@@ -191,12 +181,11 @@ public class SaveSystem : Singleton<SaveSystem>
                 ResourceManager.Instance.AddResource(Res, Amount);
             }
 
-            ContractManager.Instance.activatedContracts = saveObject.contractManagerSave.activatedContracts;
-            ContractManager.Instance.contracts = saveObject.contractManagerSave.contracts;
-            ContractManager.Instance.completedContracts = saveObject.contractManagerSave.completedContracts;
+            ContractManager.Instance.activatedContracts = saveObject.activatedContracts;
+            ContractManager.Instance.completedContracts = saveObject.completedContracts;
 
-            QuestManager.Instance.completedQuests = saveObject.questManagerSave.completedQuestList;
-            QuestManager.Instance.questBases = saveObject.questManagerSave.quests;
+            QuestManager.Instance.completedQuests = saveObject.completedQuestList;
+            QuestManager.Instance.instantiatedQuests = saveObject.instantiatedQuestList;
 
             ResourceManager.Instance.Currency = saveObject.currency;
             ResourceManager.Instance.PremiumCurrency = saveObject.premiumCurrency;
@@ -204,7 +193,6 @@ public class SaveSystem : Singleton<SaveSystem>
             GameManager.Instance.CurrentXP = saveObject.currentXP;
             GameManager.Instance.RequiredXPforNextLevel = saveObject.requiredXPforNextLevel;
             GameManager.Instance.CurrentLevel = saveObject.currentLevel;
-
 
             var savedProductionUnitInfos = ProductionManager.Instance.instantiatedProductionUnits.Zip(
                 saveObject.instantiatedProductionUnits, (instance, save) => (Instance: instance, Save: save));
@@ -217,9 +205,28 @@ public class SaveSystem : Singleton<SaveSystem>
                 unit.CollectTime = Save.chargeTime;
                 unit.RemainedCollectTime = Save.remainedChargeTime;
                 unit.WorkingMode = Save.workingMode;
-                unit.IsLockedByContract = Save.isLockedByContract;
+                unit.IsUnlocked = Save.isUnlocked;
                 unit.OutputValue = Save.outputAmount;
                 unit.IsAutomated = Save.isAutomated;
+            }
+
+            for (int i = 0; i < ProductionManager.Instance.instantiatedProductionUnits.Count; i++)
+            {
+                var unit = ProductionManager.Instance.instantiatedProductionUnits[i].GetComponent<ProductionBase>();
+                if (unit.GetComponent<Mine_Btn>() != null)
+                {
+                    if (unit.WorkingMode == WorkingMode.sell)
+                        idleEarnedCurrency += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, true);
+                    else
+                        idleEarnedResourceDict[unit.ProducedResource] += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, false);
+                }
+                else   // Currently compounds, Idle production won't use any resource. But production rate is x10 slower
+                {
+                    if (unit.WorkingMode == WorkingMode.sell)
+                        idleEarnedCurrency += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, true, .1f);
+                    else
+                        idleEarnedResourceDict[unit.ProducedResource] += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, false, .1f);
+                }
             }
 
             this.totalEarnedCurrency = saveObject.totalEarnedCurrency;
@@ -228,6 +235,9 @@ public class SaveSystem : Singleton<SaveSystem>
             this.totalProducedResource = saveObject.totalProducedResource;
             this.totalSpendedCurrency = saveObject.totalSpendedCurrency;
             this.totalSpendedPremiumCurrency = saveObject.totalSpendedPremiumCurrency;
+
+            ResourceManager.Instance.Currency += idleEarnedCurrency;
+
             isLoading = false;
         }
     }
@@ -254,10 +264,13 @@ public class SaveSystem : Singleton<SaveSystem>
 
         public List<ProductionUnitSave> instantiatedProductionUnits;
 
-        public List<MapSave> mapSaves;
+        public List<ContractHolder> activatedContracts;
+        public List<ContractHolder> completedContracts;
 
-        public ContractManagerSave contractManagerSave;
-        public QuestManagerSave questManagerSave;
+        public List<QuestHolder> instantiatedQuestList;
+        public List<QuestBase> completedQuestList;
+
+        public List<MapSave> mapSaves;
 
         public float currentXP;
         public long requiredXPforNextLevel;
@@ -286,7 +299,7 @@ public class ProductionUnitSave
     public bool isAutomated;
     public long outputAmount;
     public WorkingMode workingMode;
-    public bool isLockedByContract;
+    public bool isUnlocked;
 }
 
 [Serializable]
@@ -300,26 +313,4 @@ public class MapSave
     public BigDouble moneyAmount;
     public int currentLives;
     public List<BigDouble> resourceAmounts;
-}
-
-[Serializable]
-public class ContractManagerSave
-{
-    public ContractBase[] contracts;
-    public List<ContractHolder> activatedContracts;
-    public List<ContractHolder> completedContracts;
-    public Dictionary<ContractBase, List<BaseResources>> tempResourceDictionary;
-}
-
-[Serializable]
-public class QuestManagerSave
-{
-    public QuestBase[] quests;
-    public List<QuestBase> completedQuestList;
-}
-
-[Serializable]
-public class QuestSave
-{
-    public QuestBase questBase;
 }

@@ -27,7 +27,6 @@ public class ScriptableMineEditorDrawer : Editor
     SerializedProperty _incomePerSecond;
     SerializedProperty _incomePerSecondText;
 
-    SerializedProperty _lockedByContracts;
     SerializedProperty _unlockLevel;
     SerializedProperty xpAmount;
     SerializedProperty pricePerProductionUntilLevel50;
@@ -64,7 +63,6 @@ public class ScriptableMineEditorDrawer : Editor
         _incomePerSecond = serializedObject.FindProperty("incomePerSecond");
         _incomePerSecondText = serializedObject.FindProperty("incomePerSecondText");
 
-        _lockedByContracts = serializedObject.FindProperty("lockedByContracts");
         _unlockLevel = serializedObject.FindProperty("unlockLevel");
         xpAmount = serializedObject.FindProperty("xpAmount");
         pricePerProductionUntilLevel50 = serializedObject.FindProperty("pricePerProductUntilLevel50");
@@ -122,7 +120,6 @@ public class ScriptableMineEditorDrawer : Editor
         }
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Seperator
 
-        EditorGUILayout.PropertyField(_lockedByContracts);
         EditorGUILayout.PropertyField(_unlockLevel);
         EditorGUILayout.PropertyField(xpAmount);
         EditorGUILayout.PropertyField(pricePerProductionUntilLevel50);

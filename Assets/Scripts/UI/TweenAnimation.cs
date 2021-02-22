@@ -80,12 +80,24 @@ public class TweenAnimation : Singleton<TweenAnimation>
         LeanTween.alpha(obj.GetComponent<RectTransform>(), 0f, 1.2f).setOnComplete(() => { LeanTween.alpha(obj.GetComponent<RectTransform>(), 1f, 1f); });
     }
 
-    public LTDescr MoveTool(GameObject obj, Vector3? startAngle = null, Vector3? endAngle = null, float time = 1f)
+    public LTDescr MoveTool(GameObject obj, float collectTime, Vector3? startAngle = null, Vector3? endAngle = null)
     {
-        startAngle = new Vector3(0,0,35);
-        endAngle = new Vector3(0, 0, -45);
-        LeanTween.rotate(obj, startAngle.Value, 0f);
-        var t = LeanTween.rotate(obj, endAngle.Value-startAngle.Value, time).setOnComplete(() => LeanTween.rotate(obj, startAngle.Value-endAngle.Value, 0f)).setLoopPingPong();
+        if (startAngle == null)
+            startAngle = new Vector3(0,0,35);
+        if (endAngle == null)
+            endAngle = new Vector3(0, 0, -45);
+
+        float time = collectTime/2;
+
+        if (collectTime >= 3.5f)
+            time = collectTime / 4;
+        else if (collectTime >= 12f)
+            time = collectTime / 6;
+        else if (collectTime >= 24f)
+            time = collectTime / 8;
+
+        //LeanTween.rotate(obj, startAngle.Value, 0.1f);
+        var t = LeanTween.rotate(obj, endAngle.Value-startAngle.Value, time).setOnComplete(() => LeanTween.rotate(obj, startAngle.Value-endAngle.Value, 0.1f)).setLoopPingPong();
         return t;
     }
 

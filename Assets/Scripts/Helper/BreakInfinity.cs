@@ -197,16 +197,21 @@ public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEq
         return result;
     }
 
-    public string ToLetterExpression()
+    //public string ToLetterExpression()
+    //{
+        
+    //}
+
+    public override string ToString()
     {
         string[] suffix = new string[]
-            { "", "K", "M", "B", "T", "A", "B", "C", "D", "E", "F", "G", 
+            { "", "K", "M", "B", "T", "A", "B", "C", "D", "E", "F", "G",
             "AA", "AB", "AC", "AD", "AE", "AF", "AG",
-            "BA", "BB", "BC", "BD", "BE", "BF", "BG", 
-            "CA", "CB", "CC", "CD", "CE", "CF", "CG", 
-            "DA", "DB", "DC", "DD", "DE", "DF", "DG", 
-            "EA", "EB", "EC", "ED", "EE", "EF", "EG", 
-            "FA", "FB", "FC", "FD", "FE", "FF", "FG", 
+            "BA", "BB", "BC", "BD", "BE", "BF", "BG",
+            "CA", "CB", "CC", "CD", "CE", "CF", "CG",
+            "DA", "DB", "DC", "DD", "DE", "DF", "DG",
+            "EA", "EB", "EC", "ED", "EE", "EF", "EG",
+            "FA", "FB", "FC", "FD", "FE", "FF", "FG",
             "GA", "GB", "GC", "GD", "GE", "GF", "GG"};
 
         int scale = 0;
@@ -228,14 +233,9 @@ public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEq
         }
 
         if (scale > 0)
-            return value.ToString("0.###") + suffix[scale];
+            return value.ToString("0.##") + suffix[scale];
         else
-            return BigNumber.FormatBigDouble(this, null, null);
-    }
-
-    public override string ToString()
-    {
-        return ToLetterExpression();
+            return BigNumber.FormatBigDouble(this, "G", null);
         //return BigNumber.FormatBigDouble(this, "E", null);
     }
 
@@ -939,7 +939,7 @@ public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEq
             var format = places > 0 ? $"G{places}" : "G";
             if (value.Exponent < 21 && value.Exponent > -7)
             {
-                return value.ToDouble().ToString(format, CultureInfo.InvariantCulture);
+                return value.ToDouble().ToString(/*format*/ "0", CultureInfo.InvariantCulture);
             }
 
             return value.Mantissa.ToString(format, CultureInfo.InvariantCulture)

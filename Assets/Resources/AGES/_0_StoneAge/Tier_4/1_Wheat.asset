@@ -23,6 +23,8 @@ MonoBehaviour:
   recipes:
   - inputResources: 00000000
     inputAmounts: 00000000
+    collectTime: 18
+    outputAmount: 4
   ageBelongsTo: 0
   tier: 3
   itemTypes: 00000000
@@ -34,7 +36,7 @@ MonoBehaviour:
   pricePerProduct:
     mantissa: 8.2
     exponent: 14
-  incomePerSecondText: 182,222T
+  incomePerSecondText: 182,22T
   incomePerSecond:
     mantissa: 1.8222222222222222
     exponent: 14
@@ -48,59 +50,59 @@ MonoBehaviour:
     exponent: 0
   isOptimal: 1
   lockedByContracts: []
-  unlockLevel: 0
+  unlockLevel: 10
   xpAmount: 10
   pricePerProductUntilLevel50:
-  - 1,287A
-  - 2,021A
-  - 3,173A
-  - 4,982A
-  - 7,822A
+  - 1,29A
+  - 2,02A
+  - 3,17A
+  - 4,98A
+  - 7,82A
   - 12,28A
   - 19,28A
   - 30,27A
-  - 47,524A
-  - 74,612A
-  - 117,141A
-  - 183,912A
-  - 288,742A
-  - 453,324A
-  - 711,719A
-  - 1,117B
-  - 1,754B
-  - 2,754B
-  - 4,324B
-  - 6,789B
-  - 10,659B
-  - 16,734B
-  - 26,273B
-  - 41,248B
+  - 47,52A
+  - 74,61A
+  - 117,14A
+  - 183,91A
+  - 288,74A
+  - 453,32A
+  - 711,72A
+  - 1,12B
+  - 1,75B
+  - 2,75B
+  - 4,32B
+  - 6,79B
+  - 10,66B
+  - 16,73B
+  - 26,27B
+  - 41,25B
   - 64,76B
-  - 101,673B
-  - 159,626B
-  - 250,614B
-  - 393,463B
-  - 617,737B
-  - 969,848B
-  - 1,523C
-  - 2,391C
-  - 3,753C
-  - 5,893C
-  - 9,251C
-  - 14,525C
-  - 22,803C
-  - 35,801C
-  - 56,208C
-  - 88,247C
-  - 138,548C
+  - 101,67B
+  - 159,63B
+  - 250,61B
+  - 393,46B
+  - 617,74B
+  - 969,85B
+  - 1,52C
+  - 2,39C
+  - 3,75C
+  - 5,89C
+  - 9,25C
+  - 14,52C
+  - 22,8C
+  - 35,8C
+  - 56,21C
+  - 88,25C
+  - 138,55C
   - 217,52C
-  - 341,507C
-  - 536,165C
+  - 341,51C
+  - 536,17C
   - 841,78C
-  - 1,322D
-  - 2,075D
-  - 3,258D
-  - 12,053D
+  - 1,32D
+  - 2,07D
+  - 3,26D
+  - 12,05D
   backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
   toolImage: {fileID: 21300000, guid: 0e068830a70f6ea4e80f64082e8b83da, type: 3}
   sourceImage: {fileID: 21300000, guid: c7af687facaf01c4995adbbd9ee40c64, type: 3}

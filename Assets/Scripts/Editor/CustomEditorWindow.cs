@@ -23,7 +23,7 @@ public class CustomEditorWindow : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.BeginVertical("Add Resource");
+        GUILayout.BeginVertical();
         resourceAmountString = EditorGUILayout.TextField("Resource Amout", resourceAmountString);
         GUILayout.Label("Add Resource", EditorStyles.boldLabel);
 

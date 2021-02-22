@@ -23,6 +23,8 @@ MonoBehaviour:
   recipes:
   - inputResources: 00000000
     inputAmounts: 00000000
+    collectTime: 5
+    outputAmount: 1
   ageBelongsTo: 0
   tier: 4
   itemTypes: 00000000
@@ -30,11 +32,11 @@ MonoBehaviour:
     mantissa: 2.5
     exponent: 17
   pricePerProductExpText: 2.5E+17
-  pricePerProductText: 250AA
+  pricePerProductText: 250A
   pricePerProduct:
     mantissa: 2.5
     exponent: 17
-  incomePerSecondText: 50AA
+  incomePerSecondText: 50A
   incomePerSecond:
     mantissa: 5
     exponent: 16
@@ -48,59 +50,59 @@ MonoBehaviour:
     exponent: 0
   isOptimal: 1
   lockedByContracts: []
-  unlockLevel: 0
+  unlockLevel: 13
   xpAmount: 10
   pricePerProductUntilLevel50:
-  - 392,5AA
-  - 616,225AA
-  - 967,473AA
-  - 1,519AB
-  - 2,385AB
-  - 3,744AB
-  - 5,878AB
-  - 9,229AB
-  - 14,489AB
-  - 22,748AB
-  - 35,714AB
-  - 56,071AB
-  - 88,031AB
-  - 138,209AB
-  - 216,988AB
-  - 340,671AB
-  - 534,853AB
-  - 839,719AB
-  - 1,318BA
-  - 2,07BA
-  - 3,25BA
-  - 5,102BA
-  - 8,01BA
-  - 12,576BA
-  - 19,744BA
-  - 30,998BA
-  - 48,667BA
-  - 76,407BA
-  - 119,958BA
-  - 188,335BA
-  - 295,685BA
-  - 464,226BA
-  - 728,835BA
-  - 1,144BB
-  - 1,797BB
-  - 2,821BB
-  - 4,428BB
-  - 6,952BB
-  - 10,915BB
-  - 17,137BB
-  - 26,905BB
-  - 42,24BB
-  - 66,317BB
-  - 104,118BB
-  - 163,465BB
-  - 256,64BB
-  - 402,925BB
-  - 632,592BB
-  - 993,17BB
-  - 3,675CA
+  - 392,5A
+  - 616,23A
+  - 967,47A
+  - 1,52B
+  - 2,38B
+  - 3,74B
+  - 5,88B
+  - 9,23B
+  - 14,49B
+  - 22,75B
+  - 35,71B
+  - 56,07B
+  - 88,03B
+  - 138,21B
+  - 216,99B
+  - 340,67B
+  - 534,85B
+  - 839,72B
+  - 1,32C
+  - 2,07C
+  - 3,25C
+  - 5,1C
+  - 8,01C
+  - 12,58C
+  - 19,74C
+  - 31C
+  - 48,67C
+  - 76,41C
+  - 119,96C
+  - 188,33C
+  - 295,69C
+  - 464,23C
+  - 728,83C
+  - 1,14D
+  - 1,8D
+  - 2,82D
+  - 4,43D
+  - 6,95D
+  - 10,92D
+  - 17,14D
+  - 26,9D
+  - 42,24D
+  - 66,32D
+  - 104,12D
+  - 163,47D
+  - 256,64D
+  - 402,93D
+  - 632,59D
+  - 993,17D
+  - 3,67E
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: a3f4461a49e22334fbdf22204209f51d, type: 3}

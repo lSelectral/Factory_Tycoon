@@ -10,7 +10,7 @@ public class ScriptableProductionBase : ScriptableObject
 {
     [TextArea] public string Description;
     public string TranslatedName;
-    public BaseResources product;
+    [SearchableEnum] public BaseResources product;
 
     // If product is food, enter how much food it will give
     public long foodAmount;
@@ -54,8 +54,6 @@ public class ScriptableProductionBase : ScriptableObject
 
     [Tooltip("Check if real income per second is greater than minimum value")]
     [ReadOnly] [SerializeField] protected bool isOptimal;
-
-    public ContractBase[] lockedByContracts;
 
     [Header("GAME MECHANIC INFO")]
     public int unlockLevel;

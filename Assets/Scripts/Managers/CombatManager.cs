@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using TMPro;
 
 /// <summary>
 /// 
@@ -30,7 +31,8 @@ using System;
 
 public class CombatManager : Singleton<CombatManager>
 {
-    [SerializeField] GameObject warLog;
+    [SerializeField] Transform warLogPanel;
+    [SerializeField] GameObject warLogPrefab;
 
     #region Events
     public class OnWarStartedEventArgs : EventArgs
@@ -122,6 +124,7 @@ public class CombatManager : Singleton<CombatManager>
             winner = winner
         });
         Debug.Log(string.Format("Winner: <color=red>{0}</color>",winner));
+        WriteWarLog(winner[0].CountryName, loser[0].CountryName, false);
         return winner;
     }
 
@@ -266,8 +269,14 @@ public class CombatManager : Singleton<CombatManager>
         AttackCountry(attackerCountry, defenderCountry, defenderCountry[random.Next(defenderCountry.Length - 1)]);
     }
 
-    public void WriteWarLog()
+    public void WriteWarLog(string winnerName, string loserName, bool isConquered)
     {
+        var log = Instantiate(warLogPrefab, warLogPanel);
+        var text = log.GetComponentInChildren<TextMeshProUGUI>();
 
+        if (!isConquered)
+            text.text = string.Format("<color=#00ffffff>{0}</color> defeated the <color=red>{1}</color>", winnerName, loserName);
+        else
+            text.text = string.Format("<color=#00ffffff>{0}</color> conquered the <color=red>{1}</color>", winnerName, loserName);
     }
 }

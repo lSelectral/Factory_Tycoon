@@ -84,6 +84,8 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
+    float startTimeCurrency;
+    BigDouble oldCurrencyValue;
     public BigDouble Currency
     {
         get
@@ -92,6 +94,8 @@ public class ResourceManager : Singleton<ResourceManager>
         }
         set
         {
+            oldCurrencyValue = currency;
+            startTimeCurrency = Time.time;
             BigDouble newValue = value - currency;
             currency = value * UpgradeSystem.Instance.EarnedCoinMultiplier;
 
@@ -103,6 +107,8 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
+    float startTimePremiumCurrency;
+    BigDouble oldPremiumCurrencyValue;
     public BigDouble PremiumCurrency
     {
         get
@@ -111,6 +117,8 @@ public class ResourceManager : Singleton<ResourceManager>
         }
         set
         {
+            oldPremiumCurrencyValue = premiumCurrency;
+            startTimePremiumCurrency = Time.time;
             BigDouble newValue = value - premiumCurrency;
             premiumCurrency = value;
 
@@ -301,14 +309,12 @@ public class ResourceManager : Singleton<ResourceManager>
 
     void Update()
     {
-        smoothCurrency = SmoothDamp(smoothCurrency, currency, ref smoothVelocityCurrency, currencySmoothTime);
+        smoothCurrency = SmoothStep(oldCurrencyValue, currency, Time.time - startTimeCurrency);
         currencyText.text = smoothCurrency.ToString();
+        //currencyText.text = string.Format("<mspace=35>{0}</mspace>", smoothCurrency.ToString()); //Constant space between letters. Not pretty result.
 
-        smoothPremiumCurency = SmoothDamp(smoothPremiumCurency, premiumCurrency, ref smoothVelocityPremiumCurrency, premiumCurrencySmoothTime);
+        smoothPremiumCurency = SmoothStep(oldPremiumCurrencyValue, premiumCurrency, Time.time - startTimePremiumCurrency);
         premiumCurrencyText.text = smoothPremiumCurency.ToString();
-
-        //smoothTotalResource = SmoothDamp(smoothTotalResource, totalResource, ref smoothVelocityTotalResource, smoothTime);
-        //totalResourceText.text = "Total Resource\n" + CurrencyToString((smoothTotalResource), 0);
     }
 
     public void SetNewPricePerProduct(BaseResources res, BigDouble newPrice)
@@ -389,35 +395,108 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public static BigDouble SmoothDamp(BigDouble current, BigDouble target, ref BigDouble currentVelocity, float smoothTime)
+    // Interpolates between /min/ and /max/ with smoothing at the limits.
+    public BigDouble SmoothStep(BigDouble from, BigDouble to, BigDouble t)
     {
-        var deltaTime = Time.deltaTime;
-        smoothTime = Mathf.Max(0.0001f, smoothTime);
-        float num = 2f / smoothTime;
-
-        float num2 = num * deltaTime;
-        float num3 = 1f / (num2 + 1f + num2 * 0.48f * num2 + num2 * num2 * 0.235f * 0.235f);
-        BigDouble num4 = current - target;
-        BigDouble num5 = target;
-        BigDouble num6 = BigDouble.PositiveInfinity * smoothTime;
-
-        num4 = ClampBigDouble(num4, -num6, num6);
-        target = current - num4;
-        BigDouble num7 = (currentVelocity + num * num4) * deltaTime;
-        currentVelocity = (currentVelocity - num * num7) * num3;
-        BigDouble num8 = target + (num4 + num7) * num3;
-        if (num5 - current > 0f == num8 > num5)
-        {
-            num8 = num5;
-            currentVelocity = (num8 - num5) / deltaTime;
-        }
-        return num8;
+        t = Clamp01(t);
+        t = -2.0F * t * t * t + 3.0F * t * t;
+        return to * t + from * (1F - t);
     }
 
-    public static BigDouble ClampBigDouble(BigDouble value, BigDouble min, BigDouble max)
+    // Clamps value between 0 and 1 and returns value
+    BigDouble Clamp01(BigDouble value)
     {
-        return (value < min) ? min : (value > max) ? max : value;
+        if (value < 0)
+            return 0;
+        else if (value > 1)
+            return 1;
+        else
+            return value;
     }
+
+    //public static BigDouble SmoothDamp(BigDouble current, BigDouble target, ref BigDouble currentVelocity, float smoothTime)
+    //{
+    //    var deltaTime = Time.deltaTime;
+    //    smoothTime = Mathf.Max(0.0001f, smoothTime);
+    //    float num = 2f / smoothTime;
+
+    //    float num2 = num * deltaTime;
+    //    float num3 = 1f / (num2 + 1f + num2 * 0.48f * num2 + num2 * num2 * 0.235f * 0.235f);
+    //    BigDouble num4 = current - target;
+    //    BigDouble num5 = target;
+    //    BigDouble num6 = BigDouble.PositiveInfinity * smoothTime;
+
+    //    num4 = ClampBigDouble(num4, -num6, num6);
+    //    target = current - num4;
+    //    BigDouble num7 = (currentVelocity + num * num4) * deltaTime;
+    //    currentVelocity = (currentVelocity - num * num7) * num3;
+    //    BigDouble num8 = target + (num4 + num7) * num3;
+    //    if (num5 - current > 0f == num8 > num5)
+    //    {
+    //        num8 = num5;
+    //        currentVelocity = (num8 - num5) / deltaTime;
+    //    }
+    //    return num8;
+    //}
+
+    //public static BigDouble ClampBigDouble(BigDouble value, BigDouble min, BigDouble max)
+    //{
+    //    return (value < min) ? min : (value > max) ? max : value;
+    //}
+}
+
+public enum ArtifactPart
+{
+    Head,
+    Chest,
+    Arm,
+    Leg,
+    Weapon,
+    Trophy,
+    Amulet,
+    Ring,
+    All,
+}
+
+public enum ArtifactTier
+{
+    common,
+    rare,
+    epic,
+    legendary,
+    onlyYouHaveIt
+}
+
+public enum ArtifactSet
+{
+    none,
+    toughAsStone, // Full stone age set
+    dawnOfMetal, // Full bronze age set
+    ironFist, // Iron age set
+    holyDualWieldSet, // Medieval Age Set
+    rangedTeslaScienceSet, // Industrial Age Set
+    heavyMachinerySet, // Early Modern Age Set
+}
+
+public enum ArtifacPower
+{
+    attackPower,
+    defensePower,
+    gatheringSpeed, // Raw resource
+    warItemProductionSpeed,
+    foodProductionSpeed,
+    foodProductionYield,
+    tradingGoodProductionSpeed,
+    contractRewardMultiplier,
+    contractXPMultiplier,
+    questRewardMultiplier,
+    questXPMultiplier,
+    allXPMultiplier,
+    allCurrencyMultiplier,
+
+    higherTierArtifactEarnChance, // High tier artifact gain chance
+    
+    unTouchable, // Low chance money and resources won't reset
 }
 
 public enum ItemType

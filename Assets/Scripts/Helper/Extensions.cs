@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class Extensions
 {
@@ -22,6 +23,16 @@ public static class Extensions
     public static int GetPreviousIndex<T>(this T[] item, int currentIndex) where T : class
     {
         return (currentIndex == 0) ? item.Length - 1 : currentIndex-1;
+    }
+
+    public static void DebugList<T>(List<T> listToDebug) where T : class
+    {
+        string debugText = listToDebug.ToString() + " count: " + listToDebug.Count + "\n";
+        for (int i = 0; i < listToDebug.Count; i++)
+        {
+            debugText += listToDebug[i] + "\n";
+        }
+        Debug.Log(debugText);
     }
 
 }
@@ -45,4 +56,27 @@ static class StringExtensions
             yield return s.Substring(i, Math.Min(partLength, s.Length - i));
     }
 
+}
+
+public static class RectTransformExtensions
+{
+    public static void SetLeft(this RectTransform rt, float left)
+    {
+        rt.offsetMin = new Vector2(left, rt.offsetMin.y);
+    }
+
+    public static void SetRight(this RectTransform rt, float right)
+    {
+        rt.offsetMax = new Vector2(-right, rt.offsetMax.y);
+    }
+
+    public static void SetTop(this RectTransform rt, float top)
+    {
+        rt.offsetMax = new Vector2(rt.offsetMax.x, -top);
+    }
+
+    public static void SetBottom(this RectTransform rt, float bottom)
+    {
+        rt.offsetMin = new Vector2(rt.offsetMin.x, bottom);
+    }
 }
