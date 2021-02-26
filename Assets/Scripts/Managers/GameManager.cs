@@ -18,7 +18,6 @@ using System;
 
 public class GameManager : Singleton<GameManager>
 {
-    public Age currentAge = Age._0_StoneAge;
     [SerializeField] int requiredXPforFirstLevel;
     [SerializeField] private GameObject levelObject;
     public GameObject levelLock;
@@ -142,11 +141,13 @@ public class GameManager : Singleton<GameManager>
         #if UNITY_ANDROID
             LocalisationSystem.currentLanguage = Application.systemLanguage;
         #endif
+        Input.multiTouchEnabled = false;
+        //Application.targetFrameRate = 60;
+
 
         visiblePanelForPlayer = ProductionManager.Instance.mainPanel.transform.parent.gameObject;
         visibleSubPanelForPlayer = ProductionManager.Instance.mainPanel.transform.Find("_0_StoneAge").gameObject;
 
-        Input.multiTouchEnabled = false;
         requiredXPForNextLevel = requiredXPforFirstLevel;
         fillBar = levelObject.transform.Find("Outline").Find("Fill").GetComponent<Image>();
         levelText = levelObject.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();

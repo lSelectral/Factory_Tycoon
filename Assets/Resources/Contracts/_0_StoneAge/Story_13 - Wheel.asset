@@ -15,6 +15,8 @@ MonoBehaviour:
   contractName: Story_1
   description: 
   contractType: 0
+  storyIndex: 13
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
@@ -29,6 +31,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: e85b1ad766159684f98b9338b2f0acfe, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 0

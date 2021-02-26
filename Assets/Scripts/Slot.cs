@@ -7,37 +7,40 @@ public class Slot : MonoBehaviour, IPointerDownHandler
     public ScriptableArtifact artifact;
     [SerializeField] Sprite defaultSprite;
     [SerializeField] bool isCharacterSlot;
+    public bool isInventorySlot;
     public ArtifactPart artifactPart; // Shows what type of artifact part contains
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isCharacterSlot)
+        if (!isInventorySlot)
         {
-            Debug.Log("Selected character slot is this");
-            SlotManager.Instance.selectedCharacterSlot = this;
+            //Debug.Log("Selected character slot is this");
+            SlotManager.Instance.lastSelectedSlot = this;
         }
 
-        if (isCharacterSlot && artifact == null) // Empty character slot. Open inventory
+        if (!isInventorySlot && artifact == null) // Empty character slot. Open inventory
         {
-            Debug.Log("Showing item panel from character slot");
+            //Debug.Log("Showing item panel from character slot");
             SlotManager.Instance.ShowItemPanel(artifactPart);
         }
-        else if (!isCharacterSlot && artifact != null) // Standard slot and there is item in it
+        else if (isInventorySlot && artifact != null) // Standard slot and there is item in it
         {
-            Debug.Log("Showing equip panel from standard slot");
+            //Debug.Log("Showing equip panel from standard slot");
             SlotManager.Instance.SetEquipPanel(artifact, () =>
             {
-                ChangeSlotInfos(this, SlotManager.Instance.selectedCharacterSlot);
+                if (artifact.bodyPart != SlotManager.Instance.lastSelectedSlot.artifactPart) return;
+                ChangeSlotInfos(this, SlotManager.Instance.lastSelectedSlot);
                 SlotManager.Instance.instantiatedSlots.Remove(this);
+                if (SlotManager.Instance.lastSelectedSlot.isCharacterSlot) SlotManager.Instance.OnArtifactEquipped(artifact);
             });
         }
 
-        else if (isCharacterSlot && artifact != null) // Unequip item from character slot.
+        else if (!isInventorySlot && artifact != null) // Unequip item from character slot.
         {
-            Debug.Log("Showing unequip panel from character slot");
+            //Debug.Log("Showing unequip panel from character slot");
             SlotManager.Instance.SetEquipPanel(artifact, () =>
             {
-                Debug.Log(artifact);
+                if (isCharacterSlot) SlotManager.Instance.OnArtifactUnEquipped(artifact);
                 var slot = SlotManager.Instance.InstantiateSlot(artifact);
                 ChangeSlotInfos(this, slot);
                 SlotManager.Instance.instantiatedSlots.Add(slot);
@@ -54,7 +57,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler
 
     public void SetSlot(ScriptableArtifact _artifact = null) // Set slot state according to own values
     {
-        if (_artifact == null && !isCharacterSlot) // Standard slot
+        if (_artifact == null && isInventorySlot) // Standard slot
         {
             Destroy(gameObject);
             return;

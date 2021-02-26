@@ -96,8 +96,8 @@ public class TweenAnimation : Singleton<TweenAnimation>
         else if (collectTime >= 24f)
             time = collectTime / 8;
 
-        //LeanTween.rotate(obj, startAngle.Value, 0.1f);
-        var t = LeanTween.rotate(obj, endAngle.Value-startAngle.Value, time).setOnComplete(() => LeanTween.rotate(obj, startAngle.Value-endAngle.Value, 0.1f)).setLoopPingPong();
+        LeanTween.rotate(obj, startAngle.Value, 0f);
+        var t = LeanTween.rotate(obj, endAngle.Value-startAngle.Value, time).setOnComplete(() => LeanTween.rotate(obj, startAngle.Value-endAngle.Value, 0f)).setLoopPingPong();
         return t;
     }
 

@@ -10,7 +10,9 @@ public class ScriptableContractCreatorWindow : Editor
 
     SerializedProperty contractName; 
     SerializedProperty description;
-    SerializedProperty contractType; 
+    SerializedProperty contractType;
+    SerializedProperty storyIndex;
+    SerializedProperty totalStoryCount;
 
     SerializedProperty contractReward;
     SerializedProperty contractRewardType;
@@ -42,7 +44,9 @@ public class ScriptableContractCreatorWindow : Editor
         contractName = so.FindProperty("contractName");
         description = so.FindProperty("description");
         contractType = so.FindProperty("contractType");
-         
+        storyIndex = so.FindProperty("storyIndex");
+        totalStoryCount = so.FindProperty("totalStoryCount");
+
         contractReward = so.FindProperty("contractReward");
         contractRewardType = so.FindProperty("contractRewardType");
         resourceToRewarded = so.FindProperty("resourceToRewarded");
@@ -73,6 +77,11 @@ public class ScriptableContractCreatorWindow : Editor
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Seperator
         EditorGUILayout.PropertyField(contractType);
         var contractTypeValue = (ContractType)contractType.enumValueIndex;
+        if (contractTypeValue == ContractType.story)
+        {
+            EditorGUILayout.PropertyField(storyIndex);
+            EditorGUILayout.PropertyField(totalStoryCount);
+        }
 
         EditorGUILayout.PropertyField(contractReward);
         EditorGUILayout.PropertyField(contractRewardType);

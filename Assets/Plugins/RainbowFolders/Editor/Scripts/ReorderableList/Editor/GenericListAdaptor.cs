@@ -82,7 +82,7 @@ namespace Borodar.ReorderableList {
 
 		/// <inheritdoc/>
 		public virtual void Add() {
-			_list.Add(default(T));
+			_list.Add(default);
 		}
 		/// <inheritdoc/>
 		public virtual void Insert(int index) {

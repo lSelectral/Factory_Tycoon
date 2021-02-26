@@ -16,6 +16,12 @@ using UnityEngine.UI;
 
 public class ContractManager : Singleton<ContractManager>
 {
+    public class OnContractCompletedEventArgs : EventArgs { public ContractBase contract; }
+    public event EventHandler<OnContractCompletedEventArgs> OnContractCompletedEvent;
+
+    public class OnStoryCompletedEventArgs : EventArgs { public ContractBase contract; }
+    public event EventHandler<OnStoryCompletedEventArgs> OnStoryCompletedEvent;
+
     [SerializeField] private GameObject contractPrefab;
 
     // Panels
@@ -34,6 +40,10 @@ public class ContractManager : Singleton<ContractManager>
     public List<ContractHolder> instantiatedContracts;
     public List<ContractHolder> activatedContracts;
     public List<ContractHolder> completedContracts;
+
+    public ContractBase activeStoryContract;
+
+    public ContractBase stoneAgeLastStory, bronzeAgeLastStory, ironAgeLastStory, middleAgeLastStory;
 
     // This list purely for optimization. When new resources produced. If it is not needed don't fire methods for less CPU usage.
     // CheckAvailableResources method fire, when every resource collected. So its call should be minimized.
@@ -64,7 +74,7 @@ public class ContractManager : Singleton<ContractManager>
     {
         if (contract.contractName == "" || contract.unlockLevel != GameManager.Instance.CurrentLevel) return;
 
-        if ((int)GameManager.Instance.currentAge < (int)contract.ageBelongsTo) return;
+        if ((int)PrestigeSystem.Instance.CurrentAge < (int)contract.ageBelongsTo) return;
 
         // Instantiate prefab and enter information from scriptable object
         var _contract = Instantiate(contractPrefab, contractPanel.transform);
@@ -130,7 +140,6 @@ public class ContractManager : Singleton<ContractManager>
             _contract.transform.SetParent(completedContractPanel.transform);
         }
 
-
         instantiatedContracts.Add(contractHolder);
     }
 
@@ -143,7 +152,7 @@ public class ContractManager : Singleton<ContractManager>
     /// </param>
     void CheckAvailableResources(BaseResources _resource)
     {
-        if (!requiredResourcesForContracts.Contains(_resource)) return;
+        if (!requiredResourcesForContracts.Contains(_resource)) return; // If added resource don't needed break
 
         for (int i = 0; i < activatedContracts.Count; i++)
         {
@@ -195,9 +204,18 @@ public class ContractManager : Singleton<ContractManager>
 
     void OnContractCompleted(ContractHolder contractHolder)
     {
+        var contract = contractHolder.contract;
+
         // Remove resources from list that doesn't needed anymore
-        for (int i = 0; i < contractHolder.contract.requiredResourceAmounts.Length; i++)
+        for (int i = 0; i < contract.requiredResourceAmounts.Length; i++)
             requiredResourcesForContracts.Remove(contractHolder.contract.requiredResources[i]);
+
+        if (contract.contractType == ContractType.story)
+            activeStoryContract = null;
+
+        OnContractCompletedEvent?.Invoke(this, new OnContractCompletedEventArgs() { contract = contract });
+        if (contract.contractType == ContractType.story)
+            OnStoryCompletedEvent?.Invoke(this, new OnStoryCompletedEventArgs() { contract = contract });
 
         activatedContracts.Remove(contractHolder);
         completedContracts.Add(contractHolder);
@@ -211,8 +229,8 @@ public class ContractManager : Singleton<ContractManager>
 
         OnContractRewarded(contractHolder);
 
-        GameManager.Instance.AddXP(contractHolder.contract.xpReward);
-        ShowCompletedContract(contractHolder.contract);
+        GameManager.Instance.AddXP(contract.xpReward);
+        ShowCompletedContract(contract);
         // Move completed contract to completed contracts panel
         contractHolder.transform.SetParent(completedContractPanel.transform);
     }
@@ -285,11 +303,11 @@ public class ContractManager : Singleton<ContractManager>
                             unit.ContractStatueCheckDictionary[contract] = true;
                             if (!unit.ContractStatueCheckDictionary.ContainsValue(false))
                             {
-                                if (unit.transform.Find("Level_Lock(Clone)") == null)
+                                if (unit.transform.Find("Level_Lock(Clone)") != null)
                                 {
-                                    unit.IsUnlocked= true;
+                                    Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
+                                    unit.IsLockedByContract = false;
                                 }
-                                Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
                             }
                         }
                     }
@@ -315,6 +333,8 @@ public class ContractManager : Singleton<ContractManager>
         if (!activatedContracts.Contains(contractHolder))
         {
             activatedContracts.Add(contractHolder);
+            if (contractHolder.contract.contractType == ContractType.story)
+                activeStoryContract = contractHolder.contract;
 
             contractHolder.GetComponent<Image>().color = new Color(11 / 256f, 253 / 256f, 54 / 256f);
             contractHolder.transform.SetAsFirstSibling();

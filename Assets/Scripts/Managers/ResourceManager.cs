@@ -275,6 +275,13 @@ public class ResourceManager : Singleton<ResourceManager>
         {
             resourceTextDict.Add(res, new TextMeshProUGUI());
         }
+
+        UpgradeSystem.Instance.OnCombatPowerMultiplierChanged += OnCombatPowerMultiplierChanged;
+    }
+
+    private void OnCombatPowerMultiplierChanged(object sender, UpgradeSystem.OnCombatPowerMultiplierChangedEventArgs e)
+    {
+        AttackAmount *= e.changeAmount;
     }
 
     private void Start()

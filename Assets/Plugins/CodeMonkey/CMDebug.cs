@@ -24,7 +24,7 @@ namespace CodeMonkey
     {
 
         // Creates a World Text object at the world position
-        public static void Text(string text, Vector3 localPosition = default(Vector3), Transform parent = null, int fontSize = 40, Color? color = null, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = UtilsClass.sortingOrderDefault)
+        public static void Text(string text, Vector3 localPosition = default, Transform parent = null, int fontSize = 40, Color? color = null, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = UtilsClass.sortingOrderDefault)
         {
             UtilsClass.CreateWorldText(text, parent, localPosition, fontSize, color, textAnchor, textAlignment, sortingOrder);
         }
@@ -54,7 +54,7 @@ namespace CodeMonkey
         }
 
         // Text Updater always following mouse
-        public static void MouseTextUpdater(Func<string> GetTextFunc, Vector3 positionOffset = default(Vector3))
+        public static void MouseTextUpdater(Func<string> GetTextFunc, Vector3 positionOffset = default)
         {
             GameObject gameObject = new GameObject();
             FunctionUpdater.Create(() =>

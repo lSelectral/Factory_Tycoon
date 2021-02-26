@@ -24,9 +24,9 @@ MonoBehaviour:
     - UnityUseLocationNotificationTrigger
     values:
     - True
-    - 7
-    - False
-    - False
+    - -1
+    - True
+    - True
     - -1
     - False
     - False
@@ -36,7 +36,7 @@ MonoBehaviour:
     - UnityNotificationAndroidUseCustomActivity
     - UnityNotificationAndroidCustomActivityString
     values:
-    - False
+    - True
     - False
     - com.unity3d.player.UnityPlayerActivity
   TrackedResourceAssets: []

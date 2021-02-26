@@ -17,6 +17,8 @@ MonoBehaviour:
     to interest in arts. People carved cave walls with illustrations of daily life
     interest. Like hunting and gathering..
   contractType: 0
+  storyIndex: 10
+  totalStoryCount: 15
   contractReward: 1.1
   contractRewardType: 2
   resourceToRewarded: 0
@@ -34,6 +36,7 @@ MonoBehaviour:
     in your tribe.
   rewardPanelDescription: Artists increase moral of your people. And let them create
     new things. Maybe something valuable.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 15000

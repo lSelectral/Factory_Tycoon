@@ -17,6 +17,8 @@ MonoBehaviour:
     Spearhead tribe preparing to invade your lands for wealth. Get ready your weapons.
     Losing not an option. '
   contractType: 0
+  storyIndex: 9
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
@@ -36,6 +38,7 @@ MonoBehaviour:
   rewardPanelDescription: Battle of Stonested was the first war between humans. Your
     victory will carve into legend. You slaughtered all spearhead tribe, so their
     land is now yours.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 0

@@ -56,9 +56,10 @@ public class Map : MonoBehaviour
                 else if (difference < 0)
                     transform.localScale = new Vector3(transform.localScale.x - difference, transform.localScale.y - difference, 0);
                 // Bring map to center for not exposing the emty parts when zooming.
-                mapRect.offsetMin = new Vector2(0, 0);
-                mapRect.offsetMax = new Vector2(0, 0);
-                transform.localScale = new Vector3(Mathf.Clamp(transform.localScale.x, 1f, 5f), Mathf.Clamp(transform.localScale.y, 1f, 5f));
+                //mapRect.offsetMin = new Vector2(0, 0);
+                //mapRect.offsetMax = new Vector2(1, 1);
+                    mapRect.localPosition = new Vector3(.5f, .5f);
+                transform.localScale = new Vector3(Mathf.Clamp(transform.localScale.x, .67f, 5f), Mathf.Clamp(transform.localScale.y, .67f, 5f));
             }
         }
         //#elif UNITY_EDITOR || UNITY_PC || UNITY_WEBGL
@@ -69,10 +70,11 @@ public class Map : MonoBehaviour
                         transform.localScale = new Vector3(transform.localScale.x + .2f, transform.localScale.y + .2f, 0);
                     else if (wheelScrollForce < 0)
                         transform.localScale = new Vector3(transform.localScale.x - .2f, transform.localScale.y - .2f, 0);
-                    // Bring map to center for not exposing the emty parts when zooming.
-                    mapRect.offsetMin = new Vector2(0, 0);
-                    mapRect.offsetMax = new Vector2(0, 0);
-                    transform.localScale = new Vector3(Mathf.Clamp(transform.localScale.x, 1f, 5f), Mathf.Clamp(transform.localScale.y, 1f, 5f));
+            // Bring map to center for not exposing the emty parts when zooming.
+            //mapRect.offsetMin = new Vector2(0, 0);
+            //mapRect.offsetMax = new Vector2(1, 1);
+                    mapRect.localPosition = new Vector3(.5f, .5f);
+                    transform.localScale = new Vector3(Mathf.Clamp(transform.localScale.x, .67f, 5f), Mathf.Clamp(transform.localScale.y, .67f, 5f));
                 }
         //#endif
         #endregion

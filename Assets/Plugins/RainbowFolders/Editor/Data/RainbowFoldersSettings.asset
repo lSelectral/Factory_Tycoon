@@ -293,3 +293,33 @@ MonoBehaviour:
     IsRecursive: 0
     SmallIcon: {fileID: 2800000, guid: ef396e4944982d147bd4c8a5c3c9ed67, type: 3}
     LargeIcon: {fileID: 0}
+  - Type: 1
+    Key: Assets/Resources/AGES/_2_IronAge/Tier_5
+    IsRecursive: 0
+    SmallIcon: {fileID: 2800000, guid: ef396e4944982d147bd4c8a5c3c9ed67, type: 3}
+    LargeIcon: {fileID: 0}
+  - Type: 1
+    Key: Assets/Resources/AGES/_4_IndustrialAge/Tier_5
+    IsRecursive: 0
+    SmallIcon: {fileID: 2800000, guid: ef396e4944982d147bd4c8a5c3c9ed67, type: 3}
+    LargeIcon: {fileID: 0}
+  - Type: 1
+    Key: Assets/Resources/AGES/_4_IndustrialAge/Tier_6
+    IsRecursive: 0
+    SmallIcon: {fileID: 2800000, guid: 826650dd40208fd4c875312bc1d35f17, type: 3}
+    LargeIcon: {fileID: 0}
+  - Type: 1
+    Key: Assets/Resources/AGES/_5_ModernAge/Tier_5
+    IsRecursive: 0
+    SmallIcon: {fileID: 2800000, guid: ef396e4944982d147bd4c8a5c3c9ed67, type: 3}
+    LargeIcon: {fileID: 0}
+  - Type: 1
+    Key: Assets/Resources/AGES/_5_ModernAge/Tier_6
+    IsRecursive: 0
+    SmallIcon: {fileID: 2800000, guid: 826650dd40208fd4c875312bc1d35f17, type: 3}
+    LargeIcon: {fileID: 0}
+  - Type: 1
+    Key: Assets/Resources/Artifacts
+    IsRecursive: 0
+    SmallIcon: {fileID: 2800000, guid: 779c52d7047f74a49a3a208a235fae23, type: 3}
+    LargeIcon: {fileID: 0}

@@ -3,7 +3,11 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.Events;
+using System.Linq;
 
+/// <summary>
+/// Slot manager is manager for both artifact and slots
+/// </summary>
 public class SlotManager : Singleton<SlotManager>
 {
     public ScriptableArtifact[] scriptableArtifacts; // Holder for artifact obj
@@ -11,7 +15,16 @@ public class SlotManager : Singleton<SlotManager>
 
     // Panels
     public GameObject artifactSelectionPanel;
-    public Transform itemPanel;
+    [SerializeField] Transform itemPanel;
+    [SerializeField] Transform characterStatPanel;
+
+    // Everything related to character stat panel
+    TextMeshProUGUI combatText;
+    TextMeshProUGUI defenseText;
+    TextMeshProUGUI goldBonusText;
+    TextMeshProUGUI foodBonusText;
+    TextMeshProUGUI populationBonusText;
+    TextMeshProUGUI allXPBonusText;
 
     // Everything related to equip panel
     public Transform artifactEquipPanel;
@@ -25,10 +38,28 @@ public class SlotManager : Singleton<SlotManager>
 
     public GameObject slotPrefab; // Prefab for slots
 
-    public Slot selectedCharacterSlot; // Currently selected slot
+    public Slot lastSelectedSlot; // Currently selected slot
+
+    void SetCharacterStatTexts()
+    {
+        combatText.text = UpgradeSystem.Instance.CombatPowerMultiplier.ToString();
+        defenseText.text = UpgradeSystem.Instance.DefensePowerMultiplier.ToString();
+        goldBonusText.text = UpgradeSystem.Instance.EarnedCoinMultiplier.ToString();
+        foodBonusText.text = "NONE";
+        populationBonusText.text = "NONE";
+        allXPBonusText.text = UpgradeSystem.Instance.EarnedXPMultiplier.ToString();
+    }
 
     private void Awake()
     {
+        // Set text transforms for character stat panel
+        combatText = characterStatPanel.transform.Find("CombatText").GetComponent<TextMeshProUGUI>();
+        defenseText = characterStatPanel.transform.Find("DefenseText").GetComponent<TextMeshProUGUI>();
+        goldBonusText = characterStatPanel.transform.Find("GoldText").GetComponent<TextMeshProUGUI>();
+        foodBonusText = characterStatPanel.transform.Find("FoodText").GetComponent<TextMeshProUGUI>();
+        populationBonusText = characterStatPanel.transform.Find("PopulationText").GetComponent<TextMeshProUGUI>();
+        allXPBonusText = characterStatPanel.transform.Find("XPText").GetComponent<TextMeshProUGUI>();
+
         // Set transforms for equip panel
         headerText = artifactEquipPanel.Find("Header").GetComponent<TextMeshProUGUI>();
         icon = artifactEquipPanel.Find("Icon").GetChild(0).GetComponent<Image>();
@@ -44,33 +75,46 @@ public class SlotManager : Singleton<SlotManager>
     {
         for (int i = 0; i < scriptableArtifacts.Length; i++)
         {
-            var slot = InstantiateSlot(scriptableArtifacts[i]);
-            slot.gameObject.SetActive(false);
-            instantiatedSlots.Add(slot);
+            InstantiateSlot(scriptableArtifacts[i]);
         }
+        SetCharacterStatTexts();
     }
 
     public Slot InstantiateSlot(ScriptableArtifact _artifact)
     {
         var obj = Instantiate(slotPrefab, itemPanel);
         var slot = obj.GetComponent<Slot>();
+        slot.isInventorySlot = true;
         slot.artifactPart = _artifact.bodyPart;
         slot.artifact = _artifact;
         slot.transform.GetChild(0).GetComponent<Image>().sprite = _artifact.icon;
+        obj.SetActive(false);
+        instantiatedSlots.Add(slot);
         return slot;
     }
 
-    public void ShowItemPanel(ArtifactPart artifactPart)
+    public void AddRandomArtifactToInventory(Age age)
+    {
+        var _scriptableArtifacts = scriptableArtifacts.Where(a => a.ageBelongsTo == age).ToArray();
+        var slot = InstantiateSlot(_scriptableArtifacts[UnityEngine.Random.Range(0,_scriptableArtifacts.Length)]);
+        ShowItemPanel(artifactPart);
+    }
+
+    ArtifactPart artifactPart;
+    public void ShowItemPanel(ArtifactPart artifactPart, Age? age = null)
     {
         artifactSelectionPanel.SetActive(true);
-
+        this.artifactPart = artifactPart;
         for (int i = 0; i < instantiatedSlots.Count; i++)
         {
             var slot = instantiatedSlots[i];
+            if (age != null && slot.artifact.ageBelongsTo != age) return;
             if (slot.artifact.bodyPart == artifactPart)
                 slot.gameObject.SetActive(true);
             else if (artifactPart == ArtifactPart.All)
                 slot.gameObject.SetActive(true);
+            else
+                slot.gameObject.SetActive(false);
         }
     }
 
@@ -94,14 +138,14 @@ public class SlotManager : Singleton<SlotManager>
         equipBtn.GetComponentInChildren<TextMeshProUGUI>().text = equipBtnText;
     }
 
-    string GetRarityText(string text, ArtifactTier rarity)
+    public string GetRarityText(string text, ArtifactTier rarity)
     {
         switch (rarity)
         {
             case ArtifactTier.common:
                 return text;
             case ArtifactTier.rare:
-                return string.Format("<color=blue>{0}</color>", text);
+                return string.Format("<color=#00bbff>{0}</color>", text);
             case ArtifactTier.epic:
                 return string.Format("<color=purple>{0}</color>", text);
             case ArtifactTier.legendary:
@@ -158,6 +202,7 @@ public class SlotManager : Singleton<SlotManager>
             case ArtifacPower.unTouchable:
                 break;
         }
+        SetCharacterStatTexts();
     }
 
     public void OnArtifactUnEquipped(ScriptableArtifact artifact)
@@ -205,5 +250,6 @@ public class SlotManager : Singleton<SlotManager>
             case ArtifacPower.unTouchable:
                 break;
         }
+        SetCharacterStatTexts();
     }
 }

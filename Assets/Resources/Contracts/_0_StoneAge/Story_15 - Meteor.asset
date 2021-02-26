@@ -16,6 +16,8 @@ MonoBehaviour:
   description: RUN! RUN! Big fire stones falling upon us. Animals, people and homes
     are getting crushed. You should help your people to restore their home and belongings.
   contractType: 0
+  storyIndex: 15
+  totalStoryCount: 15
   contractReward: 4.5e+18
   contractRewardType: 0
   resourceToRewarded: 0
@@ -37,6 +39,7 @@ MonoBehaviour:
   rewardPanelDescription: In their worst moment you helped all of them. They pray
     to gods for you. Your people swore, they wil never forget that and work even
     harder until their last breath.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 5e+10

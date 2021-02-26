@@ -14,8 +14,10 @@ public class TutorialManager : Singleton<TutorialManager>
 
     [SerializeField] GameObject tutorialBlockPanel; // Disabled as default
     [SerializeField] Canvas canvas;
+
     public bool isTutorialActive;
     bool isCharacterTextCompleted;
+    bool isEligibleForNexText; // If player didn't do the specified action, it is false.
 
     int currentIndex; // Hold value of text array. Used when character have multiple things to say.
 
@@ -29,13 +31,11 @@ public class TutorialManager : Singleton<TutorialManager>
 
     private void Start()
     {
-        //ShowCharacter(new string[] { "HELLO WORLD", "KNEEL BEFORE ME. I'm your great lord. I came this world over eons ago. And now I will conquer all lands" });
         //ShowTutorialForPanel(debugPanelREMOVE,
-        //    new string[] { "HELLO WORLD", "KNEEL BEFORE ME. I'm your great lord. I came this world over eons ago. And now I will conquer all lands" },
-        //    6f);
+        //    new string[] { "HELLO WORLD", "KNEEL BEFORE ME. I'm your great lord. I came this world over eons ago. And now I will conquer all lands" });
     }
 
-    public void ShowTutorialForPanel(GameObject panel, string[] textArray, float waitTime)
+    public void ShowTutorialForPanel(GameObject panel, string[] textArray)
     {
         isTutorialActive = true;
 

@@ -34,7 +34,12 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     // Scriptable object class variables
     [SerializeField] protected float collectTime;
     protected string _name;
-    protected bool isUnlocked = false;
+
+    protected bool isLockedByContract;
+    protected bool isLockedByLevel;
+    protected bool isLockedByAge;
+    protected bool isUnlocked = true;
+
     protected string resourceName;
     protected BaseResources producedResource;
     protected ItemType[] itemTypes;
@@ -57,6 +62,8 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     protected Transform resourceBoard; // Only for compound
     protected Transform statPanel;
     protected Transform itemTypePanel;
+    protected Image sourceImage;
+    protected Image icon;
 
     protected Image fillBar;
 
@@ -167,9 +174,20 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     public Dictionary<ContractBase, bool> ContractStatueCheckDictionary { get => contractStatueCheckDictionary; set => contractStatueCheckDictionary = value; }
     internal ContractBase[] Contracts { get => contracts; set => contracts = value; }
-    public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
+    public bool IsUnlocked { get => isUnlocked; set { isUnlocked = value; } }
+    public bool IsLockedByContract { get => isLockedByContract; set { isLockedByContract = value; CheckIfIsUnlocked(); } }
+    public bool IsLockedByLevel { get => isLockedByLevel; set { isLockedByLevel = value; CheckIfIsUnlocked(); } }
+    public bool IsLockedByAge { get => isLockedByAge; set { isLockedByAge = value; CheckIfIsUnlocked(); } }
 
     #endregion
+
+    void CheckIfIsUnlocked()
+    {
+        if (!isLockedByAge && !isLockedByContract && !isLockedByLevel)
+            isUnlocked = true;
+        else
+            isUnlocked = false;
+    }
 
     protected virtual void Start()
     {
@@ -225,21 +243,27 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         {
             var lockText = Instantiate(GameManager.Instance.levelLock, transform);
             lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT LEVEL " + unlockLevel.ToString();
+            IsLockedByLevel = true;
         }
-        else if (contracts != null && contracts.Length > 0)
+        if (contracts != null && contracts.Length > 0)
         {
-            var lockText = Instantiate(GameManager.Instance.levelLock, transform);
-            lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + contracts[0].contractName + " Contract";
+            IsLockedByContract = true;
+            if (IsLockedByLevel == false)
+            {
+                var lockText = Instantiate(GameManager.Instance.levelLock, transform);
+                lockText.GetComponentInChildren<TextMeshProUGUI>().text = "UNLOCKED AT COMPLETION OF " + contracts[0].contractName + " Contract";
+            }
         }
-        else 
-            isUnlocked = true;
+        else if ((int)scriptableProductionBase.ageBelongsTo > (int)PrestigeSystem.Instance.CurrentAge)
+            IsLockedByAge = true;
         #endregion
 
         if (transform.Find("ResourceBoard") != null)
             resourceBoard = transform.Find("ResourceBoard");
         statPanel = transform.Find("StatPanel");
 
-        transform.Find("SourceImage").GetComponent<Image>().sprite = scriptableProductionBase.sourceImage;
+        sourceImage = transform.Find("SourceImage").GetComponent<Image>();
+        sourceImage.sprite = scriptableProductionBase.sourceImage;
         if (transform.Find("Tool") != null)
         {
             transform.Find("Tool").GetComponent<Image>().sprite = scriptableProductionBase.toolImage;
@@ -262,7 +286,8 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
             res.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromItemType(itemTypes[i]);
         }
 
-        transform.Find("Icon").GetComponent<Image>().sprite = scriptableProductionBase.icon;
+        icon = transform.Find("Icon").GetComponent<Image>();
+        icon.sprite = scriptableProductionBase.icon;
         fillBar = transform.Find("Icon").GetChild(0).GetComponent<Image>();
         fillBar.fillAmount = 0;
         fillBar.sprite = scriptableProductionBase.icon;
@@ -306,12 +331,12 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     internal void OnLevelUp(object sender, GameManager.OnLevelUpEventArgs e)
     {
-        if (transform.Find("Level_Lock(Clone)") != null && unlockLevel == e.currentLevel)
+        if (isLockedByLevel && unlockLevel == e.currentLevel)
         {
             Destroy(transform.Find("Level_Lock(Clone)").gameObject);
-
+            IsLockedByLevel = false;
             // Check if there is contract for that unit hasn't completed yet
-            if (contracts != null && contractStatueCheckDictionary.ContainsValue(false))
+            if (IsLockedByContract)
             {
                 for (int i = 0; i < contracts.Length; i++)
                 {
@@ -325,7 +350,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
             }
             else
-                isUnlocked = true;
+                IsLockedByContract = false;
         }
     }
 
@@ -439,42 +464,34 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         Produce();
     }
 
+    // upgradeValues store values that returned from SetUpgradePanel. By storing values, don't need to recalculate same values.
+    (int level, long outputValue, float collectTime, BigDouble pricePerProduct, BigDouble upgradeCost) upgradeValues;
+
     protected virtual void ShowUpgradePanel()
     {
         UpgradeSystem.Instance.ShowUpgradePanel(SetUpgradePanel, Upgrade, IsUpgradePanelActive, UpgradeCost, Level);
     }
 
-    protected virtual void SetUpgradePanel(int levelUpgradeMultiplier)
+    void SetUpgradePanel(int levelUpgradeMultiplier)
     {
-        UpgradeSystem.Instance.SetUpgradePanel(levelUpgradeMultiplier, OutputValue, Level, CollectTime, PricePerProduct, UpgradeCost, _name);
+        upgradeValues = UpgradeSystem.Instance.SetUpgradePanel(levelUpgradeMultiplier, OutputValue, Level, CollectTime, PricePerProduct, UpgradeCost, _name);
     }
 
     protected virtual void Upgrade()
     {
-        var upgradeMultiplier = UpgradeSystem.Instance.upgradeMultiplier;
-        var newLevel = level + upgradeMultiplier;
-        var newOutputValue = UpgradeSystem.Instance.GetNewOutputAmount(upgradeMultiplier, OutputValue, level);
-        var newCollectTime = UpgradeSystem.Instance.GetNewCollectTime(upgradeMultiplier, collectTime);
-        BigDouble newPricePerProduct = UpgradeSystem.Instance.GetNewPricePerProduct(upgradeMultiplier, pricePerProduct, level);
-
-        BigDouble newUpgradeCost = new BigDouble();
-
-        if (upgradeMultiplier > 1)
-            newUpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(upgradeMultiplier, UpgradeCost, level);
-        else
-            newUpgradeCost = UpgradeCost;
+        BigDouble newUpgradeCost = upgradeValues.upgradeCost;
 
         if (ResourceManager.Instance.Currency >= newUpgradeCost)
         {
             ResourceManager.Instance.Currency -= newUpgradeCost;
 
-            Level = newLevel;
-            OutputValue = newOutputValue;
-            CollectTime = newCollectTime;
-            PricePerProduct = newPricePerProduct;
+            Level = upgradeValues.level;
+            OutputValue = upgradeValues.outputValue;
+            CollectTime = upgradeValues.collectTime;
+            PricePerProduct = upgradeValues.pricePerProduct;
             ResourceManager.Instance.SetNewPricePerProduct(producedResource, pricePerProduct);
             UpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(newUpgradeCost, Level);
-            SetUpgradePanel(upgradeMultiplier);
+            SetUpgradePanel(UpgradeSystem.Instance.upgradeMultiplier);
         }
     }
 

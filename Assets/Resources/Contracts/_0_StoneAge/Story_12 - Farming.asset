@@ -18,6 +18,8 @@ MonoBehaviour:
     the seeds they found and with the help of rains they were able to grow their
     own food. '
   contractType: 0
+  storyIndex: 12
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
@@ -36,6 +38,7 @@ MonoBehaviour:
     people learned how to farm.
   rewardPanelDescription: Now your people can grow their own foods and build home
     wherever farming possible. Farming is almost mark for new era for human history.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 0

@@ -17,6 +17,8 @@ MonoBehaviour:
     Also need to defend themselves against predators and another humans. Thus people
     invented spear and used it to hunt down enemies and predators.
   contractType: 0
+  storyIndex: 6
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 8
   resourceToRewarded: 0
@@ -37,6 +39,7 @@ MonoBehaviour:
   rewardPanelDescription: Your people can defend themselves against predators and
     collect meat from all kind of animals. Your people grow stronger everyday. Congrulations
     GREAT LEADER!.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 1200

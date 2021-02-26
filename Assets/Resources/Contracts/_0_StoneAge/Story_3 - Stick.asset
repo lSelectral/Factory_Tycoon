@@ -17,6 +17,8 @@ MonoBehaviour:
     door and we will absouletly need fire, if you don't want to your people perish
     in harsh winter cold.
   contractType: 0
+  storyIndex: 3
+  totalStoryCount: 15
   contractReward: 5000
   contractRewardType: 0
   resourceToRewarded: 0
@@ -35,6 +37,7 @@ MonoBehaviour:
     that wood feed fire and keep our people warm throught to winter. But don't  get
     excited too much now. We have still long way to prepare for harsh and deadly
     winter cold.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 150

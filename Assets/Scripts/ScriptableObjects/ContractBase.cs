@@ -7,6 +7,8 @@ public class ContractBase : ScriptableObject
     public string contractName;
     [TextArea] public string description;
     public ContractType contractType;
+    public int storyIndex;
+    public int totalStoryCount;
     public float contractReward;
     public ContractRewardType contractRewardType;
     [Tooltip("Chosen resource will rewarded if contract reward type is set to Unit Speed Up")]

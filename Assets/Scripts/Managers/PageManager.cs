@@ -16,9 +16,9 @@ public class PageManager : Singleton<PageManager>
         SetPageSettings();
     }
 
-    private void Update()
+    private void Update() // TODO implement boolean that will disable swipe functionality when unwanted (When some menus are open ETC.)
     {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         if (!TutorialManager.Instance.isTutorialActive)
         {
             if (Input.GetMouseButtonDown(0))
@@ -42,7 +42,7 @@ public class PageManager : Singleton<PageManager>
                 }
             }
         }
-#endif
+//#endif
 
 //#if UNITY_ANDROID
 //        if (Input.touchCount == 1)

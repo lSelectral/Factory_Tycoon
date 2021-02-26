@@ -16,6 +16,8 @@ MonoBehaviour:
   description: Leaves are multi purpose tool that can be use for feeding the fire,
     creating clothings and making house outside of caves.
   contractType: 0
+  storyIndex: 2
+  totalStoryCount: 15
   contractReward: 30
   contractRewardType: 1
   resourceToRewarded: 0
@@ -32,6 +34,7 @@ MonoBehaviour:
     many ways that going to civilization.
   rewardPanelDescription: 'Now your people one step closer to the civilization. People
     can protect themselves better from cold and feed fire without wasting much resource. '
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 75

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -210,3 +211,37 @@ public enum Tier
     Tier_4,
     Tier_5,
 }
+
+
+
+
+//public class moneyScript : MonoBehaviour
+//{
+//    public class Money
+//    {
+//        public static float money = 0;
+//    }
+//    void Update()
+//    {
+//        Money.money = Money.money + 0.5f;
+//    }
+//}
+
+//public class Gui : MonoBehaviour
+//{
+//    public Text changingText;
+//    void Update()
+//    {
+//        changingText.text = moneyScript.Money.money.ToString();
+//    }
+//}
+//First, please don't get offended for what I will say, but you should first practice some basic C# skills. You don't know how class and instance works.If, you would have clear idea about basic C# skills you would get what I meant. 
+
+//Your problem is you are creatin** Money** class inside the** moneyScript** class but you are trying to reference **Money** class without referencing** moneyScript** class.
+
+//You can fix this problem by changing **GUI** class Update function like this:
+    
+
+//    changingText.text = moneyScript.Money.money.ToString();
+
+

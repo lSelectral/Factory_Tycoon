@@ -116,10 +116,15 @@ public class CustomEditorWindow : EditorWindow
         //UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER = c1;
         //UpgradeSystem.Instance.INCOME_PRICE_MULTIPLIER = c2;
 
-        //if (GUILayout.Button("Create Multiple UI Image"))
-        //{
-        //    CreateUiImage();
-        //}
+        if (GUILayout.Button("Create Multiple UI Image"))
+        {
+            CreateUiImage();
+        }
+
+        if (GUILayout.Button("Set Anchor"))
+        {
+            SetAnchor();
+        }
 
         //if (GUILayout.Button("Set Pixel Size of Maps"))
         //    SetPixelSizeAmount();
@@ -142,23 +147,36 @@ public class CustomEditorWindow : EditorWindow
 
     void CreateUiImage()
     {
-        var assets = Resources.LoadAll("MAP_2");
+        var assets = Resources.LoadAll("MAP_SLICES");
 
         for (int i = 0; i < assets.Length; i++)
         {
             var asset = assets[i] as Sprite;
-            if (asset != null && asset.name != "Katman_1")
+            if (asset != null && asset.name != "MAP_MAIN")
             {
                 var obj = new GameObject("Part_" + i);
                 obj.transform.SetParent(MapManager.Instance.mapTransform);
+                obj.transform.localPosition = new Vector2(.5f, .5f);
                 obj.AddComponent<Image>();
                 obj.GetComponent<Image>().sprite = asset;
                 var rect = obj.GetComponent<RectTransform>();
-                rect.anchorMin = Vector2.zero;
-                rect.anchorMax = Vector2.one;
+                rect.anchorMin = new Vector2(.5f,.5f);
+                rect.anchorMax = new Vector2(.5f, .5f);
                 obj.transform.localScale = Vector3.one;
+                obj.GetComponent<Image>().SetNativeSize();
             }
         }
+    }
+
+    void SetAnchor()
+    {
+        //for (int i = 0; i < MapManager.Instance.mapTransform.childCount; i++)
+        //{
+            var obj = MapManager.Instance.mapTransform.GetChild(1);
+            var rect = obj.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(rect.rect.xMin, rect.rect.yMin);
+            rect.anchorMax = new Vector2(rect.rect.xMax, rect.rect.yMax);
+        //}
     }
 
 

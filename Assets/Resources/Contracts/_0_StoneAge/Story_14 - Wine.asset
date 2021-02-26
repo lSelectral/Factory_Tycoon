@@ -16,6 +16,8 @@ MonoBehaviour:
   description: Even in the ancient times, people wanted and searched for sweet drinks
     that disperse daily problems from their minds.
   contractType: 0
+  storyIndex: 14
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0

@@ -18,6 +18,8 @@ MonoBehaviour:
     People able to cook food and boil water for protecting from germs. Gave light
     to humans in pinch darkness.
   contractType: 0
+  storyIndex: 4
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
@@ -37,6 +39,7 @@ MonoBehaviour:
     to control the fire.
   rewardPanelDescription: Now your people can cook, boil, see even in the pinch darkness
     and can protect themselves terror of night. Your people will love this invention.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 750

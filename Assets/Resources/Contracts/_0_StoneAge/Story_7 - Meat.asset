@@ -17,6 +17,8 @@ MonoBehaviour:
     With access of spear, group of people started to hunt down animals and gethered
     their meat.
   contractType: 0
+  storyIndex: 7
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 8
   resourceToRewarded: 0
@@ -34,6 +36,7 @@ MonoBehaviour:
     delicious meat.
   rewardPanelDescription: Meat will strengthen your people and give power for better
     and stronger preys.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 2500

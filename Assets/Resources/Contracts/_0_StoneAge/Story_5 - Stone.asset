@@ -17,6 +17,8 @@ MonoBehaviour:
     very useful for people. Flinstones helped people make fire. Throwing rocks is
     good way to get food from tree and protecting from small animals.
   contractType: 0
+  storyIndex: 5
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
@@ -33,6 +35,7 @@ MonoBehaviour:
     all kind of rock now.
   rewardPanelDescription: Stone strengthens your peoples stick weapons, help reaching
     food in high places and can even serve as home when collectied many of them.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 750

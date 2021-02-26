@@ -17,6 +17,8 @@ MonoBehaviour:
     than caves. Your people should start making homes from stick, leather, brick
     and mud. Whatever they found.
   contractType: 0
+  storyIndex: 11
+  totalStoryCount: 15
   contractReward: 1.1
   contractRewardType: 3
   resourceToRewarded: 0
@@ -40,6 +42,7 @@ MonoBehaviour:
   rewardPanelDescription: They will have more comfartable home than caves. And this
     will improve their working performance. Also in their home people are much happier
     than before.
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 35000

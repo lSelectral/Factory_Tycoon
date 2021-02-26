@@ -16,6 +16,8 @@ MonoBehaviour:
   description: Axe beside its known way to use for cutting foes down. It can be quite
     useful for cutting trees down too.
   contractType: 0
+  storyIndex: 8
+  totalStoryCount: 15
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
@@ -32,6 +34,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 74c82ad20e545d243a0098c3d9268a7f, type: 3}
   rewardPanelHeader: '<color=red>Congrulations.</color> Your '
   rewardPanelDescription: 
+  mainPageToGo: 0
   pageNameToGo: _0_StoneAge
   isPageNameToGoValid: 1
   xpReward: 0
