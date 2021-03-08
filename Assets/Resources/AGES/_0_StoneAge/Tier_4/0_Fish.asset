@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: 
   TranslatedName: Fish
   product: 16
+  prefferedWorkerType: 0
+  minimumWorker: 2
   foodAmount: 25
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 15
   outputValue: 4
   recipes:
@@ -36,73 +39,72 @@ MonoBehaviour:
   pricePerProduct:
     mantissa: 1.10000030208747
     exponent: 14
-  incomePerSecondText: 29,333T
+  incomePerSecondText: 29,33T
   incomePerSecond:
     mantissa: 2.93333413889992
     exponent: 13
-  optimalPricePerProductText: 30,209M
+  optimalPricePerProductText: 30,21M
   optimalPricePerProduct:
     mantissa: 3.020874736947602
     exponent: 7
-  optimalIncomePerSecondText: 1,683M
+  optimalIncomePerSecondText: 1,68M
   optimalPricePerSecond:
     mantissa: 1.6834049394618933
     exponent: 6
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 0
   xpAmount: 10
   pricePerProductUntilLevel50:
   - 172,7T
-  - 271,139T
-  - 425,688T
-  - 668,331T
-  - 1,049A
-  - 1,647A
-  - 2,586A
-  - 4,061A
-  - 6,375A
-  - 10,009A
-  - 15,714A
-  - 24,671A
-  - 38,734A
-  - 60,812A
-  - 95,475A
-  - 149,895A
-  - 235,335A
-  - 369,476A
-  - 580,078A
-  - 910,723A
+  - 271,14T
+  - 425,69T
+  - 668,33T
+  - 1,05A
+  - 1,65A
+  - 2,59A
+  - 4,06A
+  - 6,38A
+  - 10,01A
+  - 15,71A
+  - 24,67A
+  - 38,73A
+  - 60,81A
+  - 95,47A
+  - 149,9A
+  - 235,34A
+  - 369,48A
+  - 580,08A
+  - 910,72A
   - 1,43B
-  - 2,245B
-  - 3,524B
-  - 5,533B
-  - 8,687B
-  - 13,639B
-  - 21,413B
-  - 33,619B
-  - 52,782B
-  - 82,867B
-  - 130,102B
-  - 204,259B
-  - 320,687B
-  - 503,479B
-  - 790,462B
-  - 1,241C
-  - 1,948C
-  - 3,059C
-  - 4,803C
+  - 2,24B
+  - 3,52B
+  - 5,53B
+  - 8,69B
+  - 13,64B
+  - 21,41B
+  - 33,62B
+  - 52,78B
+  - 82,87B
+  - 130,1B
+  - 204,26B
+  - 320,69B
+  - 503,48B
+  - 790,46B
+  - 1,24C
+  - 1,95C
+  - 3,06C
+  - 4,8C
   - 7,54C
-  - 11,838C
-  - 18,586C
+  - 11,84C
+  - 18,59C
   - 29,18C
-  - 45,812C
-  - 71,925C
-  - 112,922C
-  - 177,287C
-  - 278,341C
-  - 436,995C
-  - 1,617D
+  - 45,81C
+  - 71,92C
+  - 112,92C
+  - 177,29C
+  - 278,34C
+  - 437C
+  - 1,62D
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 886132581bedf634e86642620aed90a5, type: 3}
   sourceImage: {fileID: 21300000, guid: 0b7241a580970ac4ea60724c6f62d8d2, type: 3}

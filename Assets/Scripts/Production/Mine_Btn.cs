@@ -79,7 +79,7 @@ public class Mine_Btn : ProductionBase
                 if (CheckIfPanelActive())
                 {
                     if (workingMode == WorkingMode.production)
-                        StatSystem.Instance.PopupText(transform, OutputValue, resourceName);
+                        StatSystem.Instance.PopupText(transform, outputValueWhenStart, resourceName);
                     else if (workingMode == WorkingMode.sell)
                         StatSystem.Instance.PopupText(transform, pricePerProduct, "Gold");
                 }
@@ -109,14 +109,14 @@ public class Mine_Btn : ProductionBase
         switch (workingMode)
         {
             case WorkingMode.production:
-                /*resourceAmount = */ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier,0));
+                /*resourceAmount = */ResourceManager.Instance.AddResource(producedResource, outputValueWhenStart * UpgradeSystem.Instance.MiningYieldMultiplier);
                 break;
             case WorkingMode.sell:
-                ResourceManager.Instance.AddResource(producedResource, new BigDouble(outputValue * UpgradeSystem.Instance.MiningYieldMultiplier,0));
+                ResourceManager.Instance.AddResource(producedResource, (outputValueWhenStart * UpgradeSystem.Instance.MiningYieldMultiplier));
                 SellResource();
                 break;
         }
-        //resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValue * UpgradeSystem.Instance.MiningYieldMultiplier));
+        //resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValueWhenStart * UpgradeSystem.Instance.MiningYieldMultiplier));
         //currency = incomeAmount;
         //ResourceManager.Instance.Currency += incomeAmount;
         GameManager.Instance.AddXP(XPAmount);

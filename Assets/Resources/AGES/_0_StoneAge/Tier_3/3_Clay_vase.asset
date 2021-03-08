@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: Product of creativity. Multi purpose storage  tool.
   TranslatedName: Clay Vase
   product: 14
+  prefferedWorkerType: 0
+  minimumWorker: 2
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 16
   outputValue: 1
   recipes:
@@ -32,77 +35,76 @@ MonoBehaviour:
     mantissa: 6.9
     exponent: 12
   pricePerProductExpText: 6.98356571742466E+12
-  pricePerProductText: 6,984T
+  pricePerProductText: 6,98T
   pricePerProduct:
     mantissa: 6.98356571742466
     exponent: 12
-  incomePerSecondText: 436,473B
+  incomePerSecondText: 436,47B
   incomePerSecond:
     mantissa: 4.364728573390412
     exponent: 11
-  optimalPricePerProductText: 83,566B
+  optimalPricePerProductText: 83,57B
   optimalPricePerProduct:
     mantissa: 8.356571742466517
     exponent: 10
-  optimalIncomePerSecondText: 3,274B
+  optimalIncomePerSecondText: 3,27B
   optimalPricePerSecond:
     mantissa: 3.274285657065254
     exponent: 9
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 8
   xpAmount: 25
   pricePerProductUntilLevel50:
-  - 10,964T
-  - 17,214T
-  - 27,026T
+  - 10,96T
+  - 17,21T
+  - 27,03T
   - 42,43T
-  - 66,616T
-  - 104,586T
-  - 164,201T
-  - 257,795T
-  - 404,738T
-  - 635,439T
-  - 997,639T
-  - 1,566A
-  - 2,459A
-  - 3,861A
-  - 6,061A
-  - 9,516A
-  - 14,941A
-  - 23,457A
-  - 36,827A
-  - 57,819A
-  - 90,776A
-  - 142,518A
-  - 223,753A
-  - 351,293A
+  - 66,62T
+  - 104,59T
+  - 164,2T
+  - 257,8T
+  - 404,74T
+  - 635,44T
+  - 997,64T
+  - 1,57A
+  - 2,46A
+  - 3,86A
+  - 6,06A
+  - 9,52A
+  - 14,94A
+  - 23,46A
+  - 36,83A
+  - 57,82A
+  - 90,78A
+  - 142,52A
+  - 223,75A
+  - 351,29A
   - 551,53A
-  - 865,902A
-  - 1,359B
-  - 2,134B
-  - 3,351B
-  - 5,261B
+  - 865,9A
+  - 1,36B
+  - 2,13B
+  - 3,35B
+  - 5,26B
   - 8,26B
-  - 12,968B
-  - 20,359B
-  - 31,964B
-  - 50,184B
-  - 78,789B
-  - 123,699B
-  - 194,207B
-  - 304,905B
-  - 478,701B
+  - 12,97B
+  - 20,36B
+  - 31,96B
+  - 50,18B
+  - 78,79B
+  - 123,7B
+  - 194,21B
+  - 304,9B
+  - 478,7B
   - 751,56B
   - 1,18C
-  - 1,853C
-  - 2,908C
-  - 4,566C
-  - 7,169C
-  - 11,255C
-  - 17,671C
-  - 27,743C
-  - 102,651C
+  - 1,85C
+  - 2,91C
+  - 4,57C
+  - 7,17C
+  - 11,26C
+  - 17,67C
+  - 27,74C
+  - 102,65C
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: ce4978279312e60459d25e3804fe4eae, type: 3}
   sourceImage: {fileID: 21300000, guid: b18e6f55744a8764297239d877029038, type: 3}

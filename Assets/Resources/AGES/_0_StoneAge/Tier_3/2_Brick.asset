@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: 
   TranslatedName: Brick
   product: 13
+  prefferedWorkerType: 0
+  minimumWorker: 2
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 6
   outputValue: 1
   recipes:
@@ -32,76 +35,75 @@ MonoBehaviour:
     mantissa: 2
     exponent: 11
   pricePerProductExpText: 2.15668572017125E+11
-  pricePerProductText: 215,669B
+  pricePerProductText: 215,67B
   pricePerProduct:
     mantissa: 2.15668572017125
     exponent: 11
-  incomePerSecondText: 35,945B
+  incomePerSecondText: 35,94B
   incomePerSecond:
     mantissa: 3.5944762002854165
     exponent: 10
-  optimalPricePerProductText: 15,669B
+  optimalPricePerProductText: 15,67B
   optimalPricePerProduct:
     mantissa: 1.5668572017124718
     exponent: 10
-  optimalIncomePerSecondText: 3,274B
+  optimalIncomePerSecondText: 3,27B
   optimalPricePerSecond:
     mantissa: 3.274285657065254
     exponent: 9
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 5
   xpAmount: 10
   pricePerProductUntilLevel50:
   - 338,6B
-  - 531,601B
-  - 834,614B
+  - 531,6B
+  - 834,61B
   - 1,31T
-  - 2,057T
+  - 2,06T
   - 3,23T
-  - 5,071T
-  - 7,961T
-  - 12,499T
-  - 19,624T
-  - 30,809T
-  - 48,371T
-  - 75,942T
-  - 119,229T
+  - 5,07T
+  - 7,96T
+  - 12,5T
+  - 19,62T
+  - 30,81T
+  - 48,37T
+  - 75,94T
+  - 119,23T
   - 187,19T
-  - 293,888T
-  - 461,404T
-  - 724,404T
-  - 1,137A
-  - 1,786A
-  - 2,803A
-  - 4,401A
+  - 293,89T
+  - 461,4T
+  - 724,4T
+  - 1,14A
+  - 1,79A
+  - 2,8A
+  - 4,4A
   - 6,91A
-  - 10,849A
-  - 17,033A
-  - 26,741A
-  - 41,983A
-  - 65,914A
-  - 103,485A
-  - 162,471A
+  - 10,85A
+  - 17,03A
+  - 26,74A
+  - 41,98A
+  - 65,91A
+  - 103,48A
+  - 162,47A
   - 255,08A
-  - 400,476A
-  - 628,747A
-  - 987,133A
+  - 400,48A
+  - 628,75A
+  - 987,13A
   - 1,55B
-  - 2,433B
+  - 2,43B
   - 3,82B
-  - 5,998B
-  - 9,416B
-  - 14,783B
+  - 6B
+  - 9,42B
+  - 14,78B
   - 23,21B
   - 36,44B
   - 57,21B
   - 89,82B
-  - 141,017B
-  - 221,397B
-  - 347,593B
-  - 545,721B
-  - 856,782B
+  - 141,02B
+  - 221,4B
+  - 347,59B
+  - 545,72B
+  - 856,78B
   - 3,17C
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}

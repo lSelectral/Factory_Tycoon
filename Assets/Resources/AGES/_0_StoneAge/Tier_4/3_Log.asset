@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: 
   TranslatedName: Log
   product: 19
+  prefferedWorkerType: 0
+  minimumWorker: 4
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 12
   outputValue: 3
   recipes:
@@ -40,69 +43,68 @@ MonoBehaviour:
   incomePerSecond:
     mantissa: 7.750000358352326
     exponent: 15
-  optimalPricePerProductText: 1,433B
+  optimalPricePerProductText: 1,43B
   optimalPricePerProduct:
     mantissa: 1.4334093174495017
     exponent: 9
-  optimalIncomePerSecondText: 99,847M
+  optimalIncomePerSecondText: 99,85M
   optimalPricePerSecond:
     mantissa: 9.984725184696755
     exponent: 7
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 0
   xpAmount: 10
   pricePerProductUntilLevel50:
   - 48,67A
-  - 76,412A
-  - 119,967A
-  - 188,348A
-  - 295,706A
-  - 464,258A
-  - 728,886A
-  - 1,144B
-  - 1,797B
-  - 2,821B
-  - 4,429B
-  - 6,953B
-  - 10,916B
-  - 17,138B
-  - 26,906B
-  - 42,243B
-  - 66,322B
-  - 104,125B
-  - 163,477B
-  - 256,658B
-  - 402,953B
-  - 632,637B
+  - 76,41A
+  - 119,97A
+  - 188,35A
+  - 295,71A
+  - 464,26A
+  - 728,89A
+  - 1,14B
+  - 1,8B
+  - 2,82B
+  - 4,43B
+  - 6,95B
+  - 10,92B
+  - 17,14B
+  - 26,91B
+  - 42,24B
+  - 66,32B
+  - 104,13B
+  - 163,48B
+  - 256,66B
+  - 402,95B
+  - 632,64B
   - 993,24B
-  - 1,559C
-  - 2,448C
-  - 3,844C
-  - 6,035C
-  - 9,474C
-  - 14,875C
-  - 23,353C
-  - 36,665C
-  - 57,564C
-  - 90,376C
+  - 1,56C
+  - 2,45C
+  - 3,84C
+  - 6,03C
+  - 9,47C
+  - 14,87C
+  - 23,35C
+  - 36,66C
+  - 57,56C
+  - 90,38C
   - 141,89C
-  - 222,767C
-  - 349,744C
-  - 549,097C
-  - 862,083C
-  - 1,353D
-  - 2,125D
-  - 3,336D
-  - 5,238D
-  - 8,223D
-  - 12,911D
+  - 222,77C
+  - 349,74C
+  - 549,1C
+  - 862,08C
+  - 1,35D
+  - 2,12D
+  - 3,34D
+  - 5,24D
+  - 8,22D
+  - 12,91D
   - 20,27D
-  - 31,823D
-  - 49,963D
-  - 78,441D
-  - 123,153D
-  - 455,667D
+  - 31,82D
+  - 49,96D
+  - 78,44D
+  - 123,15D
+  - 455,67D
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 74c82ad20e545d243a0098c3d9268a7f, type: 3}
   sourceImage: {fileID: 21300000, guid: ad50ae9e7e998424e8995cd300c73075, type: 3}

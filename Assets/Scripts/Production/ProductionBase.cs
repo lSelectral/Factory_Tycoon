@@ -43,15 +43,26 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     protected string resourceName;
     protected BaseResources producedResource;
     protected ItemType[] itemTypes;
-    protected long foodAmount;
-    protected long attackAmount;
+
+    protected bool isRunning; // If there is no worker set it to false
+    protected WorkerType currentWorkerType = WorkerType.Standard;
+    protected WorkerType prefferedWorkerType;
+    protected BigDouble currentWorkerCount;
+    protected BigDouble maxWorkerCount;
+    protected sbyte minWorkerCount;
+
+    protected BigDouble foodAmount;
+    protected BigDouble attackAmount;
+    protected BigDouble defenseAmount;
+    protected float housingAmount;
     [SerializeField] protected float remainedCollectTime;
     protected bool isCharging;
-    protected long outputValue;
+    protected BigDouble outputValue;
+    protected BigDouble outputValueWhenStart; // Set this value just when unit start to produce so upgrades take effect in next loop
     protected BigDouble pricePerProduct;
     protected int unlockLevel;
     protected float xpAmount;
-    protected float outputPerSecond;
+    protected BigDouble outputPerSecond;
     protected int level;
     protected BigDouble upgradeCost;
     protected BigDouble incomePerSecond;
@@ -108,7 +119,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         set { isAutomated = value; }
     }
 
-    public float OutputPerSecond
+    public BigDouble OutputPerSecond
     {
         get { return outputPerSecond; }
         set
@@ -135,7 +146,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         set { workingMode = value; workModeText.text = ResourceManager.Instance.GetValidName(workingMode.ToString()); }
     }
 
-    public long OutputValue { get => outputValue; set { outputValue = value; OutputPerSecond = OutputPerSecond; outputTextOnIcon.text = outputValue.ToString(); } }
+    public BigDouble OutputValue { get => outputValue; set { outputValue = value; OutputPerSecond = OutputPerSecond; outputTextOnIcon.text = outputValue.ToString(); } }
 
     public bool IsUpgradePanelActive
     {
@@ -169,15 +180,23 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     }
 
     public ItemType[] ItemTypes { get => itemTypes; }
-    public long FoodAmount { get => foodAmount; set => foodAmount = value; }
-    public long AttackAmount { get => attackAmount; set => attackAmount = value; }
-
+    public BigDouble FoodAmount { get => foodAmount; set => foodAmount = value; }
+    public BigDouble AttackAmount { get => attackAmount; set => attackAmount = value; }
+    public BigDouble DefenseAmount { get => defenseAmount; set => defenseAmount = value; }
     public Dictionary<ContractBase, bool> ContractStatueCheckDictionary { get => contractStatueCheckDictionary; set => contractStatueCheckDictionary = value; }
     internal ContractBase[] Contracts { get => contracts; set => contracts = value; }
     public bool IsUnlocked { get => isUnlocked; set { isUnlocked = value; } }
     public bool IsLockedByContract { get => isLockedByContract; set { isLockedByContract = value; CheckIfIsUnlocked(); } }
     public bool IsLockedByLevel { get => isLockedByLevel; set { isLockedByLevel = value; CheckIfIsUnlocked(); } }
     public bool IsLockedByAge { get => isLockedByAge; set { isLockedByAge = value; CheckIfIsUnlocked(); } }
+
+    public BigDouble CurrentWorkerCount { get => currentWorkerCount; set => currentWorkerCount = value; }
+    public WorkerType PrefferedWorkerType { get => prefferedWorkerType; set => prefferedWorkerType = value; }
+    public bool IsRunning { get => isRunning; set => isRunning = value; }
+    public BigDouble MaxWorkerCount { get => maxWorkerCount; }
+    public WorkerType CurrentWorkerType { get => currentWorkerType; set => currentWorkerType = value; }
+    public float HousingAmount { get => housingAmount; set => housingAmount = value; }
+    public sbyte MinWorkerCount { get => minWorkerCount; set => minWorkerCount = value; }
 
     #endregion
 
@@ -224,8 +243,14 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         _name = scriptableProductionBase.TranslatedName;
         resourceName = ResourceManager.Instance.GetValidNameForResource(scriptableProductionBase.product);
         producedResource = scriptableProductionBase.product;
+        prefferedWorkerType = scriptableProductionBase.prefferedWorkerType;
+        minWorkerCount = scriptableProductionBase.minimumWorkerCount;
+        maxWorkerCount = minWorkerCount;
+        currentWorkerCount = scriptableProductionBase.minimumWorkerCount;
         foodAmount = scriptableProductionBase.foodAmount;
+        housingAmount = scriptableProductionBase.housingAmount;
         attackAmount = scriptableProductionBase.attackAmount;
+        defenseAmount = scriptableProductionBase.defenseAmount;
         itemTypes = scriptableProductionBase.itemTypes;
         outputValue = scriptableProductionBase.outputValue;
         pricePerProduct = scriptableProductionBase.pricePerProduct;
@@ -393,6 +418,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
                 if (tempResourceList.Count == 0)
                 {
                     //Debug.Log(_name + " recipe completed");
+                    outputValueWhenStart = outputValue;
                     isCharging = true;
                     remainedCollectTime = collectTime;
 
@@ -401,6 +427,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
             }
             else
             {
+                outputValueWhenStart = outputValue;
                 if (CheckIfPanelActive())
                     toolAnimation = TweenAnimation.Instance.MoveTool(tool.gameObject, collectTime);
                 isCharging = true;
@@ -465,11 +492,11 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     }
 
     // upgradeValues store values that returned from SetUpgradePanel. By storing values, don't need to recalculate same values.
-    (int level, long outputValue, float collectTime, BigDouble pricePerProduct, BigDouble upgradeCost) upgradeValues;
+    (int level, BigDouble outputValue, float collectTime, BigDouble pricePerProduct, BigDouble upgradeCost) upgradeValues;
 
     protected virtual void ShowUpgradePanel()
     {
-        UpgradeSystem.Instance.ShowUpgradePanel(SetUpgradePanel, Upgrade, IsUpgradePanelActive, UpgradeCost, Level);
+        UpgradeSystem.Instance.ShowUpgradePanel(this, SetUpgradePanel, Upgrade, IsUpgradePanelActive, UpgradeCost, Level);
     }
 
     void SetUpgradePanel(int levelUpgradeMultiplier)
@@ -495,6 +522,19 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    protected virtual void SetWorker()
+    {
+
+    }
+
+    protected virtual void OnWorkerTypeChanged(int index)
+    {
+        WorkerType workerType = (WorkerType)index;
+        if (prefferedWorkerType == workerType)
+        {
+
+        }
+    }
 
     /// <summary>
     /// Check if currently this production panel active

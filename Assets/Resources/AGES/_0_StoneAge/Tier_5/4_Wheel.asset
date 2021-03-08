@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: Pinnacle Of Humanity
   TranslatedName: Wheel
   product: 24
+  prefferedWorkerType: 0
+  minimumWorker: 2
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 15
   outputValue: 1
   recipes:
@@ -40,69 +43,68 @@ MonoBehaviour:
   incomePerSecond:
     mantissa: 4
     exponent: 20
-  optimalPricePerProductText: 462,713K
+  optimalPricePerProductText: 462,71K
   optimalPricePerProduct:
     mantissa: 4.627125173807145
     exponent: 5
-  optimalIncomePerSecondText: 8,595K
+  optimalIncomePerSecondText: 8,59K
   optimalPricePerSecond:
     mantissa: 8.594999849796295
     exponent: 3
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 14
   xpAmount: 25
   pricePerProductUntilLevel50:
   - 9,42C
-  - 14,789C
-  - 23,219C
-  - 36,454C
-  - 57,233C
-  - 89,856C
-  - 141,075C
-  - 221,487C
-  - 347,735C
-  - 545,944C
-  - 857,132C
-  - 1,346D
-  - 2,113D
-  - 3,317D
-  - 5,208D
-  - 8,176D
-  - 12,836D
-  - 20,153D
-  - 31,641D
-  - 49,676D
-  - 77,991D
-  - 122,446D
+  - 14,79C
+  - 23,22C
+  - 36,45C
+  - 57,23C
+  - 89,86C
+  - 141,07C
+  - 221,49C
+  - 347,73C
+  - 545,94C
+  - 857,13C
+  - 1,35D
+  - 2,11D
+  - 3,32D
+  - 5,21D
+  - 8,18D
+  - 12,84D
+  - 20,15D
+  - 31,64D
+  - 49,68D
+  - 77,99D
+  - 122,45D
   - 192,24D
-  - 301,817D
-  - 473,852D
-  - 743,948D
-  - 1,168E
-  - 1,834E
-  - 2,879E
+  - 301,82D
+  - 473,85D
+  - 743,95D
+  - 1,17E
+  - 1,83E
+  - 2,88E
   - 4,52E
-  - 7,096E
-  - 11,141E
-  - 17,492E
-  - 27,462E
-  - 43,116E
-  - 67,692E
-  - 106,277E
-  - 166,855E
-  - 261,962E
+  - 7,1E
+  - 11,14E
+  - 17,49E
+  - 27,46E
+  - 43,12E
+  - 67,69E
+  - 106,28E
+  - 166,85E
+  - 261,96E
   - 411,28E
   - 645,71E
-  - 1,014F
-  - 1,592F
-  - 2,499F
-  - 3,923F
-  - 6,159F
+  - 1,01F
+  - 1,59F
+  - 2,5F
+  - 3,92F
+  - 6,16F
   - 9,67F
-  - 15,182F
-  - 23,836F
-  - 88,194F
+  - 15,18F
+  - 23,84F
+  - 88,19F
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}
   sourceImage: {fileID: 21300000, guid: 071ddc35fa59fdc46ad26bda501def00, type: 3}

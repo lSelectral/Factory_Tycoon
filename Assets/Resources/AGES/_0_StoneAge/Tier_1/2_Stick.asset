@@ -15,20 +15,26 @@ MonoBehaviour:
   Description: Dead child trees.
   TranslatedName: Stick
   product: 2
+  prefferedWorkerType: 0
+  minimumWorker: 1
   foodAmount: 0
-  housingAmount: 0
+  housingAmount: 5
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 3.5
   outputValue: 1
   recipes:
   - inputResources: 00000000
     inputAmounts: 00000000
+    collectTime: 3.5
+    outputAmount: 1
   ageBelongsTo: 0
   tier: 0
-  itemTypes: 00000000
+  itemTypes: 05000000
   basePricePerProduct:
     mantissa: 7
     exponent: 2
+  pricePerProductExpText: 7E+2
   pricePerProductText: 700
   pricePerProduct:
     mantissa: 7
@@ -41,65 +47,64 @@ MonoBehaviour:
   optimalPricePerProduct:
     mantissa: 0
     exponent: 0
-  optimalIncomePerSecondText: 8.68181784192393
+  optimalIncomePerSecondText: 9
   optimalPricePerSecond:
     mantissa: 8.681817841923934
     exponent: 0
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 3
   xpAmount: 30
   pricePerProductUntilLevel50:
-  - 10.9900003671646
-  - 17.2543011528969
-  - 27.0892537150722
-  - 42.5301297535513
-  - 66.7723059438697
-  - 104.832523834222
-  - 164.587067918414
-  - 258.401705264845
-  - 405.690690819515
-  - 636.934405865962
-  - 999.987050618099
-  - 1,57K
-  - 2,465K
-  - 3,87K
-  - 6,076K
-  - 9,539K
-  - 1,498K
-  - 2,351K
-  - 3,691K
-  - 5,796K
-  - 9,099K
-  - 1,429K
-  - 2,243K
-  - 3,521K
-  - 5,528K
-  - 8,679K
-  - 1,363M
-  - 2,139M
-  - 3,359M
-  - 5,273M
-  - 8,279M
-  - 1,3M
-  - 2,041M
-  - 3,204M
-  - 5,03M
-  - 7,897M
-  - 1,24M
-  - 1,947M
-  - 3,056M
-  - 4,798M
-  - 7,533M
-  - 1,183G
-  - 1,857G
-  - 2,915G
-  - 4,577G
-  - 7,186G
-  - 1,128G
-  - 1,771G
-  - 2,781G
-  - 1,029G
+  - 1,1K
+  - 1,73K
+  - 2,71K
+  - 4,25K
+  - 6,68K
+  - 10,48K
+  - 16,46K
+  - 25,84K
+  - 40,57K
+  - 63,69K
+  - 100K
+  - 157K
+  - 246,49K
+  - 386,98K
+  - 607,57K
+  - 953,88K
+  - 1,5M
+  - 2,35M
+  - 3,69M
+  - 5,8M
+  - 9,1M
+  - 14,29M
+  - 22,43M
+  - 35,21M
+  - 55,28M
+  - 86,79M
+  - 136,27M
+  - 213,94M
+  - 335,88M
+  - 527,34M
+  - 827,92M
+  - 1,3B
+  - 2,04B
+  - 3,2B
+  - 5,03B
+  - 7,9B
+  - 12,4B
+  - 19,47B
+  - 30,56B
+  - 47,98B
+  - 75,33B
+  - 118,27B
+  - 185,69B
+  - 291,53B
+  - 457,7B
+  - 718,59B
+  - 1,13T
+  - 1,77T
+  - 2,78T
+  - 10,29T
   backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: c19114b323cd679469a79ab0df2070ac, type: 3}

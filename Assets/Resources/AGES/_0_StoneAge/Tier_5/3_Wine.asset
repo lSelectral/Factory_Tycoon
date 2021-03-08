@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: Life was always stressful. Relax and chill.
   TranslatedName: Wine
   product: 23
+  prefferedWorkerType: 0
+  minimumWorker: 2
   foodAmount: 100
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 25
   outputValue: 1
   recipes:
@@ -40,69 +43,68 @@ MonoBehaviour:
   incomePerSecond:
     mantissa: 5.600000199646
     exponent: 19
-  optimalPricePerProductText: 49,912T
+  optimalPricePerProductText: 49,91T
   optimalPricePerProduct:
     mantissa: 4.991150171865165
     exponent: 13
-  optimalIncomePerSecondText: 1,668T
+  optimalIncomePerSecondText: 1,67T
   optimalPricePerSecond:
     mantissa: 1.6679211144584662
     exponent: 12
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 14
   xpAmount: 10000
   pricePerProductUntilLevel50:
-  - 2,198C
-  - 3,451C
-  - 5,418C
-  - 8,506C
-  - 13,354C
-  - 20,967C
-  - 32,917C
+  - 2,2C
+  - 3,45C
+  - 5,42C
+  - 8,51C
+  - 13,35C
+  - 20,97C
+  - 32,92C
   - 51,68C
-  - 81,138C
-  - 127,387C
-  - 199,997C
-  - 313,996C
-  - 492,974C
-  - 773,969C
-  - 1,215D
-  - 1,908D
-  - 2,995D
-  - 4,702D
-  - 7,383D
-  - 11,591D
-  - 18,198D
-  - 28,571D
-  - 44,856D
-  - 70,424D
-  - 110,566D
-  - 173,588D
-  - 272,533D
-  - 427,877D
-  - 671,767D
-  - 1,055E
-  - 1,656E
+  - 81,14C
+  - 127,39C
+  - 200C
+  - 314C
+  - 492,97C
+  - 773,97C
+  - 1,22D
+  - 1,91D
+  - 3D
+  - 4,7D
+  - 7,38D
+  - 11,59D
+  - 18,2D
+  - 28,57D
+  - 44,86D
+  - 70,42D
+  - 110,57D
+  - 173,59D
+  - 272,53D
+  - 427,88D
+  - 671,77D
+  - 1,05E
+  - 1,66E
   - 2,6E
-  - 4,081E
-  - 6,408E
+  - 4,08E
+  - 6,41E
   - 10,06E
-  - 15,795E
-  - 24,798E
-  - 38,933E
-  - 61,124E
-  - 95,965E
-  - 150,666E
-  - 236,545E
-  - 371,376E
+  - 15,79E
+  - 24,8E
+  - 38,93E
+  - 61,12E
+  - 95,97E
+  - 150,67E
+  - 236,55E
+  - 371,38E
   - 583,06E
-  - 915,405E
-  - 1,437F
-  - 2,256F
-  - 3,543F
-  - 5,562F
-  - 20,578F
+  - 915,4E
+  - 1,44F
+  - 2,26F
+  - 3,54F
+  - 5,56F
+  - 20,58F
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: 7c4bf82af88be9f48a2019475c285678, type: 3}

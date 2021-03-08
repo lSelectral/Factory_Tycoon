@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 using System.Linq;
+using System.ComponentModel;
 
 public class ResourceManager : Singleton<ResourceManager>
 {
@@ -33,6 +34,13 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public event EventHandler<OnPricePerProductChangedEventArgs> OnPricePerProductChanged;
 
+    public class OnPopulationChangedEventArgs : EventArgs
+    {
+        public BigDouble population;
+    }
+
+    public event EventHandler<OnPopulationChangedEventArgs> OnPopulationChangedEvent;
+
     #endregion
 
     [Header("Item Type Images")]
@@ -50,9 +58,12 @@ public class ResourceManager : Singleton<ResourceManager>
     public Dictionary<BaseResources, BigDouble> resourceNewPricePerProductDictionary;
     IEnumerable<BaseResources> resources;
 
+    public Dictionary<WorkerType, BigDouble> totalWorkertypeDictionary;
+    public Dictionary<WorkerType, BigDouble> availableWrokerTypeDictionary;
+
     // Player related variable and smoothing values
-    [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText;
-    [SerializeField] BigDouble currency,totalResource, premiumCurrency, foodAmount, attackAmount = new BigDouble();
+    [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText, populationText;
+    [SerializeField] BigDouble currency,totalResource, premiumCurrency, foodAmount, attackAmount, population = new BigDouble();
     [SerializeField] BigDouble smoothCurrency,smoothPremiumCurency = new BigDouble();
     [SerializeField] BigDouble smoothVelocityCurrency,smoothVelocityPremiumCurrency = new BigDouble();
     float premiumCurrencySmoothTime;
@@ -146,6 +157,19 @@ public class ResourceManager : Singleton<ResourceManager>
         {
             attackAmount = value;
             attackAmountText.text = attackAmount.ToString();
+        }
+    }
+
+    public BigDouble Population
+    {
+        get { return population; }
+        set
+        {
+            availableWrokerTypeDictionary[WorkerType.Standard] += value - population;
+            population = value;
+            OnPopulationChangedEvent?.Invoke(this, new OnPopulationChangedEventArgs() { population = this.population });
+            populationText.text = population.ToString();
+            totalWorkertypeDictionary[WorkerType.Standard] = value;
         }
     }
     #endregion
@@ -255,6 +279,7 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         foodAmountText.text ="0";
         attackAmountText.text = "0";
+        populationText.text = "0";
 
         resources = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>();
 
@@ -274,6 +299,17 @@ public class ResourceManager : Singleton<ResourceManager>
         foreach (var res in resources)
         {
             resourceTextDict.Add(res, new TextMeshProUGUI());
+        }
+
+
+        totalWorkertypeDictionary = new Dictionary<WorkerType, BigDouble>();
+        availableWrokerTypeDictionary = new Dictionary<WorkerType, BigDouble>();
+        var workerTypes = Enum.GetValues(typeof(WorkerType)).Cast<WorkerType>();
+        foreach (WorkerType worker in workerTypes)
+        {
+            if (worker == WorkerType.None || worker == WorkerType.Fill) continue;
+            totalWorkertypeDictionary.Add(worker, 0);
+            availableWrokerTypeDictionary.Add(worker, 0);
         }
 
         UpgradeSystem.Instance.OnCombatPowerMultiplierChanged += OnCombatPowerMultiplierChanged;
@@ -303,11 +339,14 @@ public class ResourceManager : Singleton<ResourceManager>
             resourceInfo.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteFromResource(resource);
 
             resourceInfo.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(() =>
-            { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
+            { arrayCounter -= 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = 
+                CurrencyToString(resourceIncrementArray[arrayCounter]); });
             resourceInfo.transform.GetChild(3).GetChild(2).GetComponent<Button>().onClick.AddListener(() =>
-            { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = CurrencyToString(resourceIncrementArray[arrayCounter]); });
+            { arrayCounter += 1; arrayCounter = Mathf.Clamp(arrayCounter, 0, resourceIncrementArray.Length - 1); text.text = 
+                CurrencyToString(resourceIncrementArray[arrayCounter]); });
 
-            resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => { AddResource(resource, new BigDouble(resourceIncrementArray[arrayCounter], 0)); });
+            resourceInfo.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => 
+            { AddResource(resource, new BigDouble(resourceIncrementArray[arrayCounter], 0)); });
             resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
             resourceTextDict[resource].text = (GetResourceAmount(resource)).ToString();
         }
@@ -337,15 +376,14 @@ public class ResourceManager : Singleton<ResourceManager>
         OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource], isConsumed = false });
         resourceTextDict[resource].text = resourceValueDict[resource].ToString();
 
-        Mine_Btn _mine = ProductionManager.Instance.GetProductionUnitFromResource(resource).GetComponent<Mine_Btn>();
-        if (_mine != null && _mine.ItemTypes.Contains(ItemType.food))
-            FoodAmount += amount * _mine.FoodAmount;
+        ProductionBase productionUnit = ProductionManager.Instance.GetProductionUnitFromResource(resource);
 
-        var _compound = ProductionManager.Instance.GetProductionUnitFromResource(resource).GetComponent<Compounds>();
-        if (_compound != null && _compound.ItemTypes.Contains(ItemType.food))
-            FoodAmount += amount * _compound.FoodAmount;
-        if (_compound != null && _compound.ItemTypes.Contains(ItemType.warItem))
-            AttackAmount += amount * _compound.AttackAmount;
+        if (productionUnit.ItemTypes.Contains(ItemType.food))
+            FoodAmount += productionUnit.FoodAmount * amount;
+        if (productionUnit.ItemTypes.Contains(ItemType.housing))
+            Population += productionUnit.HousingAmount * amount;
+        if (productionUnit.ItemTypes.Contains(ItemType.warItem))
+            AttackAmount += productionUnit.AttackAmount;
 
         return amount;
     }
@@ -357,17 +395,14 @@ public class ResourceManager : Singleton<ResourceManager>
         resourceTextDict[resource].text = (resourceValueDict[resource]).ToString();
         OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource], isConsumed = true });
 
-        Mine_Btn _mine = ProductionManager.Instance.GetProductionUnitFromResource(resource).GetComponent<Mine_Btn>();
-        if (_mine != null && _mine.ItemTypes.Contains(ItemType.food))
-            FoodAmount -= _mine.FoodAmount * amount;
+        ProductionBase productionUnit = ProductionManager.Instance.GetProductionUnitFromResource(resource);
 
-        
-        var _compound = ProductionManager.Instance.GetProductionUnitFromResource(resource).GetComponent<Compounds>();
-
-        if (_compound != null && _compound.ItemTypes.Contains(ItemType.food))
-            FoodAmount -= _compound.FoodAmount * amount;
-        if (_compound != null && _compound.ItemTypes.Contains(ItemType.warItem))
-            AttackAmount -= _compound.AttackAmount * amount;
+        if (productionUnit.ItemTypes.Contains(ItemType.food))
+            FoodAmount -= productionUnit.FoodAmount * amount;
+        if (productionUnit.ItemTypes.Contains(ItemType.housing))
+            Population -= productionUnit.HousingAmount * amount;
+        if (productionUnit.ItemTypes.Contains(ItemType.warItem))
+            AttackAmount -= productionUnit.AttackAmount;
     }
 
     public BigDouble GetResourceAmount(BaseResources resource)
@@ -402,6 +437,11 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
+    public BigDouble GetAvailableWorker(WorkerType workerType)
+    {
+        return availableWrokerTypeDictionary[workerType];
+    }
+
     // Interpolates between /min/ and /max/ with smoothing at the limits.
     public BigDouble SmoothStep(BigDouble from, BigDouble to, BigDouble t)
     {
@@ -420,36 +460,6 @@ public class ResourceManager : Singleton<ResourceManager>
         else
             return value;
     }
-
-    //public static BigDouble SmoothDamp(BigDouble current, BigDouble target, ref BigDouble currentVelocity, float smoothTime)
-    //{
-    //    var deltaTime = Time.deltaTime;
-    //    smoothTime = Mathf.Max(0.0001f, smoothTime);
-    //    float num = 2f / smoothTime;
-
-    //    float num2 = num * deltaTime;
-    //    float num3 = 1f / (num2 + 1f + num2 * 0.48f * num2 + num2 * num2 * 0.235f * 0.235f);
-    //    BigDouble num4 = current - target;
-    //    BigDouble num5 = target;
-    //    BigDouble num6 = BigDouble.PositiveInfinity * smoothTime;
-
-    //    num4 = ClampBigDouble(num4, -num6, num6);
-    //    target = current - num4;
-    //    BigDouble num7 = (currentVelocity + num * num4) * deltaTime;
-    //    currentVelocity = (currentVelocity - num * num7) * num3;
-    //    BigDouble num8 = target + (num4 + num7) * num3;
-    //    if (num5 - current > 0f == num8 > num5)
-    //    {
-    //        num8 = num5;
-    //        currentVelocity = (num8 - num5) / deltaTime;
-    //    }
-    //    return num8;
-    //}
-
-    //public static BigDouble ClampBigDouble(BigDouble value, BigDouble min, BigDouble max)
-    //{
-    //    return (value < min) ? min : (value > max) ? max : value;
-    //}
 }
 
 public enum ArtifactPart
@@ -504,6 +514,23 @@ public enum ArtifacPower
     higherTierArtifactEarnChance, // High tier artifact gain chance
     
     unTouchable, // Low chance money and resources won't reset
+}
+
+public enum WorkerType
+{
+    None, // Production unit will be stopped
+    Fill, // Production unit worker capacity will be fulled, if possible, with preffered worker type otherwise standard, if it is not possible to than what comes first.
+    Standard, // Has no special talent
+    Gatherer, // Grant more resource if chosen in gathering jobs
+    Cook, // Cooking jobs grant tastier food (More food)
+    Warrior, // Trained fearless soldiers have greater defense/attack stat
+    Miner, // Miner able to mine more resource than usual workers
+    Blacksmith, // Blacksmiths can forge better weapon/armor
+    Artist, // Artists can paint and create immense art. (Increase in value)
+    Engineer, // Engineers design better products and make the workflow faster.
+    Chemist, // Chemists can improve formula and produce much more resource from less.
+    Scientist, // Scientist can research new technologies efficiently.
+    Robot,
 }
 
 public enum ItemType

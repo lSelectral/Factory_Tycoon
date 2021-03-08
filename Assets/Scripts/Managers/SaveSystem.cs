@@ -297,7 +297,7 @@ public class ProductionUnitSave
     public BigDouble upgradeAmount;
     public int currentLevel;
     public bool isAutomated;
-    public long outputAmount;
+    public BigDouble outputAmount;
     public WorkingMode workingMode;
     public bool isUnlocked;
 }

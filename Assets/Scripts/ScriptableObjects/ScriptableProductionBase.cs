@@ -12,6 +12,9 @@ public class ScriptableProductionBase : ScriptableObject
     public string TranslatedName;
     [SearchableEnum] public BaseResources product;
 
+    [SearchableEnum] public WorkerType prefferedWorkerType;
+    public sbyte minimumWorkerCount = 1;
+
     // If product is food, enter how much food it will give
     public long foodAmount;
 
@@ -20,6 +23,8 @@ public class ScriptableProductionBase : ScriptableObject
 
     // If product is weapon, enter how much attack it will give
     public long attackAmount;
+
+    public long defenseAmount;
 
     public float collectTime;
 
@@ -81,6 +86,9 @@ public class ScriptableProductionBase : ScriptableObject
     /// </summary>
     public virtual void OnValidate()
     {
+        if (prefferedWorkerType == WorkerType.Fill || prefferedWorkerType == WorkerType.None)
+            prefferedWorkerType = WorkerType.Gatherer;
+
         if (ResourceManager.Instance == null) return;
         //if (!isValidate) return;
         _name = name;

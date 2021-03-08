@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: Shelter for first humans
   TranslatedName: Hut
   product: 22
+  prefferedWorkerType: 0
+  minimumWorker: 3
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 25
   outputValue: 1
   recipes:
@@ -32,7 +35,7 @@ MonoBehaviour:
     mantissa: 1.2
     exponent: 20
   pricePerProductExpText: 1.20000571381974E+20
-  pricePerProductText: 120,001B
+  pricePerProductText: 120B
   pricePerProduct:
     mantissa: 1.20000571381974
     exponent: 20
@@ -40,69 +43,68 @@ MonoBehaviour:
   incomePerSecond:
     mantissa: 4.80002285527896
     exponent: 18
-  optimalPricePerProductText: 571,382T
+  optimalPricePerProductText: 571,38T
   optimalPricePerProduct:
     mantissa: 5.713819735680542
     exponent: 14
-  optimalIncomePerSecondText: 12,737T
+  optimalIncomePerSecondText: 12,74T
   optimalPricePerSecond:
     mantissa: 1.2736638169873835
     exponent: 13
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 12
   xpAmount: 25
   pricePerProductUntilLevel50:
-  - 188,401B
-  - 295,789B
-  - 464,389B
-  - 729,091B
-  - 1,145C
-  - 1,797C
-  - 2,822C
+  - 188,4B
+  - 295,79B
+  - 464,39B
+  - 729,09B
+  - 1,14C
+  - 1,8C
+  - 2,82C
   - 4,43C
-  - 6,955C
-  - 10,919C
-  - 17,143C
-  - 26,914C
-  - 42,255C
+  - 6,95C
+  - 10,92C
+  - 17,14C
+  - 26,91C
+  - 42,26C
   - 66,34C
-  - 104,155C
-  - 163,523C
-  - 256,731C
-  - 403,067C
-  - 632,815C
+  - 104,15C
+  - 163,52C
+  - 256,73C
+  - 403,07C
+  - 632,82C
   - 993,52C
   - 1,56D
-  - 2,449D
-  - 3,845D
-  - 6,036D
-  - 9,477D
-  - 14,879D
+  - 2,45D
+  - 3,84D
+  - 6,04D
+  - 9,48D
+  - 14,88D
   - 23,36D
-  - 36,675D
+  - 36,68D
   - 57,58D
-  - 90,401D
+  - 90,4D
   - 141,93D
-  - 222,829D
-  - 349,842D
-  - 549,252D
-  - 862,326D
-  - 1,354E
-  - 2,126E
-  - 3,337E
-  - 5,239E
-  - 8,226E
-  - 12,914E
-  - 20,275E
-  - 31,832E
-  - 49,977E
-  - 78,464E
-  - 123,188E
-  - 193,405E
-  - 303,646E
-  - 476,724E
-  - 1,764F
+  - 222,83D
+  - 349,84D
+  - 549,25D
+  - 862,33D
+  - 1,35E
+  - 2,13E
+  - 3,34E
+  - 5,24E
+  - 8,23E
+  - 12,91E
+  - 20,28E
+  - 31,83E
+  - 49,98E
+  - 78,46E
+  - 123,19E
+  - 193,4E
+  - 303,65E
+  - 476,72E
+  - 1,76F
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 07d042f517ba13442b3af063fe6fa374, type: 3}
   sourceImage: {fileID: 21300000, guid: c7e60c1d14574ce42b70f209ce78081d, type: 3}

@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: After you done with meat, you can use this part too.
   TranslatedName: Leather
   product: 15
+  prefferedWorkerType: 0
+  minimumWorker: 2
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 15
   outputValue: 2
   recipes:
@@ -36,73 +39,72 @@ MonoBehaviour:
   pricePerProduct:
     mantissa: 2.50000604174947
     exponent: 13
-  incomePerSecondText: 3,333T
+  incomePerSecondText: 3,33T
   incomePerSecond:
     mantissa: 3.333341388999293
     exponent: 12
-  optimalPricePerProductText: 60,417M
+  optimalPricePerProductText: 60,42M
   optimalPricePerProduct:
     mantissa: 6.041749473895204
     exponent: 7
-  optimalIncomePerSecondText: 1,683M
+  optimalIncomePerSecondText: 1,68M
   optimalPricePerSecond:
     mantissa: 1.6834049394618933
     exponent: 6
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 9
   xpAmount: 25
   pricePerProductUntilLevel50:
   - 39,25T
-  - 61,623T
-  - 96,748T
-  - 151,894T
-  - 238,473T
-  - 374,403T
-  - 587,812T
-  - 922,865T
-  - 1,449A
-  - 2,275A
-  - 3,571A
-  - 5,607A
-  - 8,803A
-  - 13,821A
-  - 21,699A
-  - 34,067A
-  - 53,485A
-  - 83,972A
-  - 131,836A
-  - 206,983A
-  - 324,963A
-  - 510,192A
-  - 801,002A
-  - 1,258B
-  - 1,974B
+  - 61,62T
+  - 96,75T
+  - 151,89T
+  - 238,47T
+  - 374,4T
+  - 587,81T
+  - 922,87T
+  - 1,45A
+  - 2,27A
+  - 3,57A
+  - 5,61A
+  - 8,8A
+  - 13,82A
+  - 21,7A
+  - 34,07A
+  - 53,49A
+  - 83,97A
+  - 131,84A
+  - 206,98A
+  - 324,96A
+  - 510,19A
+  - 801A
+  - 1,26B
+  - 1,97B
   - 3,1B
-  - 4,867B
-  - 7,641B
-  - 11,996B
-  - 18,834B
-  - 29,569B
-  - 46,423B
-  - 72,884B
-  - 114,427B
-  - 179,651B
-  - 282,052B
-  - 442,822B
+  - 4,87B
+  - 7,64B
+  - 12B
+  - 18,83B
+  - 29,57B
+  - 46,42B
+  - 72,88B
+  - 114,43B
+  - 179,65B
+  - 282,05B
+  - 442,82B
   - 695,23B
-  - 1,092C
-  - 1,714C
+  - 1,09C
+  - 1,71C
   - 2,69C
-  - 4,224C
-  - 6,632C
-  - 10,412C
-  - 16,347C
-  - 25,664C
-  - 40,293C
-  - 63,259C
-  - 99,317C
-  - 367,474C
+  - 4,22C
+  - 6,63C
+  - 10,41C
+  - 16,35C
+  - 25,66C
+  - 40,29C
+  - 63,26C
+  - 99,32C
+  - 367,47C
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
   sourceImage: {fileID: 21300000, guid: f9de7d4c7b8b6f446a795da4aa99fe4a, type: 3}

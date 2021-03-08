@@ -10,9 +10,11 @@ public class ScriptableCompoundEditorDrawer : Editor
     SerializedProperty _translatedName;
     SerializedProperty _product;
     SerializedProperty _itemTypes;
+    SerializedProperty _minimumWorker;
     SerializedProperty _foodAmount;
     SerializedProperty _housingAmount;
     SerializedProperty _attackAmount;
+    SerializedProperty _defenseAmount;
     SerializedProperty _collectTime;
     SerializedProperty _outputValue;
 
@@ -47,9 +49,11 @@ public class ScriptableCompoundEditorDrawer : Editor
         _translatedName = serializedObject.FindProperty("TranslatedName");
         _product = serializedObject.FindProperty("product");
         _itemTypes = serializedObject.FindProperty("itemTypes");
+        _minimumWorker = serializedObject.FindProperty("minimumWorkerCount");
         _foodAmount = serializedObject.FindProperty("foodAmount");
         _housingAmount = serializedObject.FindProperty("housingAmount");
         _attackAmount = serializedObject.FindProperty("attackAmount");
+        _defenseAmount = serializedObject.FindProperty("defenseAmount");
         _collectTime = serializedObject.FindProperty("collectTime");
         _outputValue = serializedObject.FindProperty("outputValue");
         _recipes = serializedObject.FindProperty("recipes");
@@ -90,18 +94,22 @@ public class ScriptableCompoundEditorDrawer : Editor
             var el = _itemTypes.GetArrayElementAtIndex(i);
             itemList.Add((ItemType)el.enumValueIndex);
         }
-
+        EditorGUILayout.PropertyField(_minimumWorker);
         if (itemList.Contains(ItemType.food))
             EditorGUILayout.PropertyField(_foodAmount);
         if (itemList.Contains(ItemType.warItem))
+        {
             EditorGUILayout.PropertyField(_attackAmount);
+            EditorGUILayout.PropertyField(_defenseAmount);
+        }
+
         if (itemList.Contains(ItemType.housing))
             EditorGUILayout.PropertyField(_housingAmount);
 
         EditorGUILayout.PropertyField(_collectTime, new GUIContent("Collect Time", (Texture)Resources.Load("clock")));
         EditorGUILayout.PropertyField(_outputValue, new GUIContent("Output Value", (Texture)Resources.Load("Dice")));
         EditorGUILayout.PropertyField(_recipes);
-        
+
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Seperator
 
 
@@ -138,10 +146,5 @@ public class ScriptableCompoundEditorDrawer : Editor
 
 
         serializedObject.ApplyModifiedProperties();
-    }
-
-    private void OnValidate()
-    {
-
     }
 }

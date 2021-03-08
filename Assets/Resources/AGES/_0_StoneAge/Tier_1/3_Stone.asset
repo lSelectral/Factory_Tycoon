@@ -15,23 +15,26 @@ MonoBehaviour:
   Description: Stone can be found everywhere.  Mostly used tool in stone age obviously.
   TranslatedName: Stone
   product: 3
+  prefferedWorkerType: 0
+  minimumWorker: 2
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 4
   outputValue: 2
   recipes:
   - inputResources: 01000000
     inputAmounts: 00000000
+    collectTime: 4
+    outputAmount: 2
   ageBelongsTo: 0
   tier: 0
   itemTypes: 00000000
   basePricePerProduct:
     mantissa: 4.5
     exponent: 3
-  pricePerProductExpText:
-    mantissa: 0
-    exponent: 0
+  pricePerProductExpText: 4.5E+3
   pricePerProductText: 4,5K
   pricePerProduct:
     mantissa: 4.5
@@ -44,65 +47,64 @@ MonoBehaviour:
   optimalPricePerProduct:
     mantissa: 0
     exponent: 0
-  optimalIncomePerSecondText: 114.599997997284
+  optimalIncomePerSecondText: 115
   optimalPricePerSecond:
     mantissa: 1.145999979972839
     exponent: 2
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 4
   xpAmount: 75
   pricePerProductUntilLevel50:
-  - 7,065K
-  - 1,109K
-  - 1,741K
-  - 2,734K
-  - 4,293K
-  - 6,739K
-  - 1,058K
-  - 1,661K
-  - 2,608K
-  - 4,095K
-  - 6,428K
-  - 1,009M
-  - 1,585M
-  - 2,488M
-  - 3,906M
-  - 6,132M
-  - 9,627M
-  - 1,511M
-  - 2,373M
-  - 3,726M
-  - 5,849M
-  - 9,183M
-  - 1,442M
-  - 2,264M
-  - 3,554M
-  - 5,58M
-  - 8,76M
-  - 1,375G
-  - 2,159G
-  - 3,39G
-  - 5,322G
-  - 8,356G
-  - 1,312G
-  - 2,06G
-  - 3,234G
-  - 5,077G
-  - 7,971G
-  - 1,251G
-  - 1,965G
-  - 3,085G
-  - 4,843G
-  - 7,603G
-  - 1,194T
-  - 1,874T
-  - 2,942T
+  - 7,07K
+  - 11,09K
+  - 17,41K
+  - 27,34K
+  - 42,93K
+  - 67,39K
+  - 105,81K
+  - 166,12K
+  - 260,8K
+  - 409,46K
+  - 642,85K
+  - 1,01M
+  - 1,58M
+  - 2,49M
+  - 3,91M
+  - 6,13M
+  - 9,63M
+  - 15,11M
+  - 23,73M
+  - 37,26M
+  - 58,49M
+  - 91,83M
+  - 144,18M
+  - 226,36M
+  - 355,39M
+  - 557,96M
+  - 876M
+  - 1,38B
+  - 2,16B
+  - 3,39B
+  - 5,32B
+  - 8,36B
+  - 13,12B
+  - 20,6B
+  - 32,34B
+  - 50,77B
+  - 79,71B
+  - 125,14B
+  - 196,47B
+  - 308,46B
+  - 484,28B
+  - 760,32B
+  - 1,19T
+  - 1,87T
+  - 2,94T
   - 4,62T
-  - 7,253T
-  - 1,139T
-  - 1,788T
-  - 6,615T
+  - 7,25T
+  - 11,39T
+  - 17,88T
+  - 66,15T
   backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: 5c9e86d8a77f0ae42a9e909dbdd7277c, type: 3}

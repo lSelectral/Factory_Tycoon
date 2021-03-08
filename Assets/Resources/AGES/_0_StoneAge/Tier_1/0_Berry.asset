@@ -16,9 +16,12 @@ MonoBehaviour:
     it would be your last meal.
   TranslatedName: Berry
   product: 0
+  prefferedWorkerType: 0
+  minimumWorker: 1
   foodAmount: 1
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 2.2
   outputValue: 1
   recipes:
@@ -37,7 +40,7 @@ MonoBehaviour:
   pricePerProduct:
     mantissa: 5
     exponent: 0
-  incomePerSecondText: 2.27272722346724
+  incomePerSecondText: 2
   incomePerSecond:
     mantissa: 2.272727223467237
     exponent: 0
@@ -45,65 +48,64 @@ MonoBehaviour:
   optimalPricePerProduct:
     mantissa: 0
     exponent: 0
-  optimalIncomePerSecondText: 9.54999983310699
+  optimalIncomePerSecondText: 9
   optimalPricePerSecond:
-    mantissa: 9.549999833106995
+    mantissa: 8.681817841923934
     exponent: 0
   isOptimal: 0
-  lockedByContracts: []
   unlockLevel: 0
   xpAmount: 2
   pricePerProductUntilLevel50:
-  - 7.85000026226044
-  - 12.3245008234978
-  - 19.3494669393373
-  - 30.3786641096795
-  - 47.6945042456212
-  - 74.8803741673016
-  - 117.562191370295
-  - 184.572646617746
-  - 289.779064871082
-  - 454.953147047116
-  - 714.276464727214
-  - 1,121K
-  - 1,761K
-  - 2,764K
+  - 8
+  - 12
+  - 19
+  - 30
+  - 48
+  - 75
+  - 118
+  - 185
+  - 290
+  - 455
+  - 714
+  - 1,12K
+  - 1,76K
+  - 2,76K
   - 4,34K
-  - 6,813K
-  - 10,697K
-  - 16,794K
-  - 26,367K
-  - 41,396K
-  - 64,992K
-  - 102,038K
+  - 6,81K
+  - 10,7K
+  - 16,79K
+  - 26,37K
+  - 41,4K
+  - 64,99K
+  - 102,04K
   - 160,2K
-  - 251,514K
-  - 394,877K
-  - 619,957K
-  - 973,332K
-  - 1,528M
-  - 2,399M
-  - 3,767M
-  - 5,914M
-  - 9,285M
-  - 14,577M
-  - 22,885M
+  - 251,51K
+  - 394,88K
+  - 619,96K
+  - 973,33K
+  - 1,53M
+  - 2,4M
+  - 3,77M
+  - 5,91M
+  - 9,28M
+  - 14,58M
+  - 22,89M
   - 35,93M
   - 56,41M
-  - 88,564M
-  - 139,046M
-  - 218,302M
-  - 342,734M
-  - 538,092M
-  - 844,804M
-  - 1,326B
-  - 2,082B
-  - 3,269B
-  - 5,133B
-  - 8,059B
-  - 12,652B
-  - 19,863B
-  - 73,495B
+  - 88,56M
+  - 139,05M
+  - 218,3M
+  - 342,73M
+  - 538,09M
+  - 844,8M
+  - 1,33B
+  - 2,08B
+  - 3,27B
+  - 5,13B
+  - 8,06B
+  - 12,65B
+  - 19,86B
+  - 73,49B
   backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: 28414171dc0d6994db0611c47ba1c07d, type: 3}

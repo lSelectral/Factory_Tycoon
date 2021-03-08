@@ -35,7 +35,7 @@ public class TutorialManager : Singleton<TutorialManager>
         //    new string[] { "HELLO WORLD", "KNEEL BEFORE ME. I'm your great lord. I came this world over eons ago. And now I will conquer all lands" });
     }
 
-    public void ShowTutorialForPanel(GameObject panel, string[] textArray)
+    public void ShowTutorialForPanel(GameObject panel, string[] textArray = null)
     {
         isTutorialActive = true;
 
@@ -46,6 +46,7 @@ public class TutorialManager : Singleton<TutorialManager>
         panel.transform.SetParent(canvas.transform);
         panel.transform.SetAsLastSibling();
 
+        if (textArray == null) return;
         ShowCharacter(textArray, () => 
         {
             isTutorialActive = true; // When character dissappear, it sets variable to false

@@ -60,7 +60,8 @@ public class CombatManager : Singleton<CombatManager>
     /// </summary>
     /// <param name="attacker">Attacker country</param>
     /// <param name="defender">Defender country</param>
-    /// <param name="attackedRegion">Chosen attack region, selected by attacker country, if defender country loses, region will lost a live, when all lives consumed only this region will be lost
+    /// <param name="attackedRegion">Chosen attack region, selected by attacker country, if defender country loses, 
+    /// region will lost a live, when all lives consumed only this region will be lost
     /// <param name="defenseBonus"/>Defense bonus as percentage for defender<param name="defenseBonus"/>
     /// <returns>Return Winner country</returns>
     public Map_Part[] AttackCountry(Map_Part[] attacker, Map_Part[] defender, Map_Part attackedRegion, float defenseBonus = 10f)

@@ -26,6 +26,13 @@ public class MapManager : Singleton<MapManager>
     // Variable that tracks down playerMap
     public Map_Part[] playerCurrentMapPart;
 
+    TextMeshProUGUI countryNameLevelText;
+    TextMeshProUGUI moneyText;
+    TextMeshProUGUI attackPowerText;
+    TextMeshProUGUI defensePowerText;
+    TextMeshProUGUI foodText;
+    TextMeshProUGUI countryLivesText;
+
     private void Awake()
     {
         allMaps = new List<Map_Part>();
@@ -38,6 +45,14 @@ public class MapManager : Singleton<MapManager>
 
         // TODO Remove or fix this part, this is just for debug
         clickedMapPart = playerStartMapPart;
+
+        countryNameLevelText = mapStatPanel.GetChild(0).GetComponentInChildren<TextMeshProUGUI>();
+        var infoPanel = mapStatPanel.Find("InfoPanel");
+        moneyText = infoPanel.Find("Top").Find("Money").GetChild(1).GetComponent<TextMeshProUGUI>();
+        attackPowerText = infoPanel.Find("Top").Find("AttackPower").GetChild(1).GetComponent<TextMeshProUGUI>();
+        defensePowerText = infoPanel.Find("Top").Find("DefensePower").GetChild(1).GetComponent<TextMeshProUGUI>();
+        foodText = infoPanel.Find("Bottom").Find("Food").GetChild(1).GetComponent<TextMeshProUGUI>();
+        countryLivesText = infoPanel.Find("Bottom").Find("CountryLives").GetChild(1).GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -115,13 +130,12 @@ public class MapManager : Singleton<MapManager>
     public void SetupInfoPanel(Map_Part newClickedMap)
     {
         // Setup Map Info Panel
-        mapStatPanel.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = newClickedMap.CountryName + " - LEVEL " + newClickedMap.CountryLevel;
-        var infoPanel = mapStatPanel.Find("InfoPanel");
-        infoPanel.Find("Top").Find("Money").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.MoneyAmount).ToString();
-        infoPanel.Find("Top").Find("AttackPower").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.AttackPower).ToString();
-        infoPanel.Find("Top").Find("DefensePower").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.DefensePower).ToString();
-        infoPanel.Find("Bottom").Find("Food").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.FoodAmount).ToString();
-        infoPanel.Find("Bottom").Find("CountryLives").GetComponentInChildren<TextMeshProUGUI>().text = (newClickedMap.CombatLives).ToString();
+        countryNameLevelText.text = newClickedMap.CountryName + " - LEVEL " + newClickedMap.CountryLevel;
+        moneyText.text = (newClickedMap.MoneyAmount).ToString();
+        attackPowerText.text = (newClickedMap.AttackPower).ToString();
+        defensePowerText.text = (newClickedMap.DefensePower).ToString();
+        foodText.text = (newClickedMap.FoodAmount).ToString();
+        countryLivesText.text = (newClickedMap.CombatLives).ToString();
     }
 
     public void SetupResourcePanel(Map_Part map)
@@ -146,6 +160,4 @@ public class MapManager : Singleton<MapManager>
             j += 2;
         }
     }
-
-    
 }

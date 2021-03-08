@@ -16,9 +16,12 @@ MonoBehaviour:
     and delicious.
   TranslatedName: Meat
   product: 7
+  prefferedWorkerType: 0
+  minimumWorker: 2
   foodAmount: 4
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 9
   outputValue: 2
   recipes:
@@ -33,77 +36,76 @@ MonoBehaviour:
     mantissa: 3.27
     exponent: 6
   pricePerProductExpText: 2.13952484216856E+7
-  pricePerProductText: 21,395M
+  pricePerProductText: 21,4M
   pricePerProduct:
     mantissa: 2.13952484216856
     exponent: 7
-  incomePerSecondText: 4,754M
+  incomePerSecondText: 4,75M
   incomePerSecond:
     mantissa: 4.754499649263466
     exponent: 6
-  optimalPricePerProductText: 18,125M
+  optimalPricePerProductText: 18,13M
   optimalPricePerProduct:
     mantissa: 1.8125248421685611
     exponent: 7
-  optimalIncomePerSecondText: 1,683M
+  optimalIncomePerSecondText: 1,68M
   optimalPricePerSecond:
     mantissa: 1.6834049394618933
     exponent: 6
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 6
   xpAmount: 40
   pricePerProductUntilLevel50:
-  - 33,591M
-  - 52,737M
-  - 82,797M
-  - 129,992M
-  - 204,087M
-  - 320,417M
-  - 503,054M
-  - 789,796M
+  - 33,59M
+  - 52,74M
+  - 82,8M
+  - 129,99M
+  - 204,09M
+  - 320,42M
+  - 503,05M
+  - 789,8M
   - 1,24B
-  - 1,947B
-  - 3,056B
-  - 4,799B
-  - 7,534B
-  - 11,828B
+  - 1,95B
+  - 3,06B
+  - 4,8B
+  - 7,53B
+  - 11,83B
   - 18,57B
-  - 29,155B
-  - 45,773B
-  - 71,864B
-  - 112,826B
-  - 177,138B
-  - 278,106B
-  - 436,626B
-  - 685,503B
-  - 1,076T
+  - 29,15B
+  - 45,77B
+  - 71,86B
+  - 112,83B
+  - 177,14B
+  - 278,11B
+  - 436,63B
+  - 685,5B
+  - 1,08T
   - 1,69T
-  - 2,653T
-  - 4,165T
-  - 6,539T
-  - 10,266T
-  - 16,118T
-  - 25,305T
-  - 39,729T
-  - 62,374T
-  - 97,928T
-  - 153,747T
-  - 241,382T
+  - 2,65T
+  - 4,16T
+  - 6,54T
+  - 10,27T
+  - 16,12T
+  - 25,31T
+  - 39,73T
+  - 62,37T
+  - 97,93T
+  - 153,75T
+  - 241,38T
   - 378,97T
-  - 594,983T
-  - 934,124T
-  - 1,467A
-  - 2,303A
-  - 3,615A
-  - 5,675A
-  - 8,911A
+  - 594,98T
+  - 934,12T
+  - 1,47A
+  - 2,3A
+  - 3,61A
+  - 5,68A
+  - 8,91A
   - 13,99A
-  - 21,964A
-  - 34,483A
-  - 54,138A
-  - 84,996A
-  - 314,487A
+  - 21,96A
+  - 34,48A
+  - 54,14A
+  - 85A
+  - 314,49A
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: fb8038f94cd8a2e4e8d6d60ef9d3d33b, type: 3}
   sourceImage: {fileID: 21300000, guid: 321f17e4f16ee474980645ed60d5a653, type: 3}
