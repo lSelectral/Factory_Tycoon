@@ -45,6 +45,8 @@ public class ContractManager : Singleton<ContractManager>
 
     public ContractBase stoneAgeLastStory, bronzeAgeLastStory, ironAgeLastStory, middleAgeLastStory;
 
+    public bool isCurrentAgeStoryCompleted;
+
     // This list purely for optimization. When new resources produced. If it is not needed don't fire methods for less CPU usage.
     // CheckAvailableResources method fire, when every resource collected. So its call should be minimized.
     List<BaseResources> requiredResourcesForContracts;
@@ -159,7 +161,8 @@ public class ContractManager : Singleton<ContractManager>
             ContractHolder contractHolder = activatedContracts[i];
             ContractBase contract = contractHolder.contract;
 
-            IEnumerable<(BaseResources Resource, BigDouble Amount)> inputs = contract.requiredResources.Zip(contract.requiredResourceAmounts, (resource, amount) => (Resource: resource, Amount: amount));
+            IEnumerable<(BaseResources Resource, BigDouble Amount)> inputs = 
+                contract.requiredResources.Zip(contract.requiredResourceAmounts, (resource, amount) => (Resource: resource, Amount: amount));
 
             BigDouble totalResource = 0;
             for (int j = 0; j < contract.requiredResourceAmounts.Length; j++)
@@ -183,16 +186,15 @@ public class ContractManager : Singleton<ContractManager>
     /// <see cref="CheckAvailableResources(BaseResources)"/>
     void GetAvaliableResource(IEnumerable<(BaseResources Resource, BigDouble Amount)> inputs, ContractHolder contractHolder, BigDouble totalResourceAmount)
     {
-        var contractObj = contractHolder;
         foreach ((BaseResources Resource, BigDouble Amount) in inputs)
         {
             if (contractHolder.requiredResources.Contains(Resource) && ResourceManager.Instance.GetResourceAmount(Resource) >= Amount)
             {
-                contractObj.transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount += (float)((Amount / totalResourceAmount).Mantissa);
-                contractObj.transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text =
-                    "Progress: %" + (contractObj.transform.Find("Outline")
+                contractHolder.transform.Find("Outline").Find("Fill").GetComponent<Image>().fillAmount += (float)((Amount / totalResourceAmount).Mantissa);
+                contractHolder.transform.Find("PercentageCompleted").GetComponent<TextMeshProUGUI>().text =
+                    "Progress: %" + (contractHolder.transform.Find("Outline")
                     .Find("Fill").GetComponent<Image>().fillAmount).ToString("F2");
-                contractObj.transform.GetChild(0)
+                contractHolder.transform.GetChild(0)
                     .GetChild(contractHolder.requiredResources.IndexOf(Resource))
                     .GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
 
@@ -215,7 +217,11 @@ public class ContractManager : Singleton<ContractManager>
 
         OnContractCompletedEvent?.Invoke(this, new OnContractCompletedEventArgs() { contract = contract });
         if (contract.contractType == ContractType.story)
+        {
             OnStoryCompletedEvent?.Invoke(this, new OnStoryCompletedEventArgs() { contract = contract });
+            if (contract.storyIndex == contract.totalStoryCount)
+                isCurrentAgeStoryCompleted = true;
+        }
 
         activatedContracts.Remove(contractHolder);
         completedContracts.Add(contractHolder);
@@ -266,57 +272,58 @@ public class ContractManager : Singleton<ContractManager>
     {
         var contract = contractHolder.contract;
         // Give reward according to contract reward type
+        UpgradeSystem.Instance.GrantReward(contract.contractRewardType, contract.contractReward, contract);
 
-        switch (contract.contractRewardType)
-        {
-            case ContractRewardType.Currency:
-                ResourceManager.Instance.Currency += contract.contractReward;
-                break;
-            case ContractRewardType.PremiumCurrency:
-                ResourceManager.Instance.PremiumCurrency += contract.contractReward;
-                break;
-            case ContractRewardType.miningSpeedUp:
-                UpgradeSystem.Instance.MiningSpeedMultiplier += contract.contractReward;
-                break;
-            case ContractRewardType.productionSpeedUp:
-                UpgradeSystem.Instance.ProductionSpeedMultiplier += contract.contractReward;
-                break;
-            case ContractRewardType.miningYieldUpgrade:
-                UpgradeSystem.Instance.MiningYieldMultiplier += contract.contractReward;
-                break;
-            case ContractRewardType.productionYieldUpgrade:
-                UpgradeSystem.Instance.ProductionYieldMultiplier += contract.contractReward;
-                break;
-            case ContractRewardType.productionEfficiencyUpgrade:
-                UpgradeSystem.Instance.ProductionEfficiencyMultiplier += contract.contractReward;
-                break;
-            case ContractRewardType.incresedCoinEarning:
-                UpgradeSystem.Instance.EarnedCoinMultiplier += contract.contractReward;
-                break;
-            case ContractRewardType.unlockProductionUnit:
-                {
-                    for (int j = 0; j < ProductionManager.Instance.instantiatedProductionUnits.Count; j++)
-                    {
-                        var unit = ProductionManager.Instance.instantiatedProductionUnits[j].GetComponent<ProductionBase>();
-                        if (contract.productsToUnlock != null && contract.productsToUnlock.Contains(unit.scriptableProductionBase))
-                        {
-                            unit.ContractStatueCheckDictionary[contract] = true;
-                            if (!unit.ContractStatueCheckDictionary.ContainsValue(false))
-                            {
-                                if (unit.transform.Find("Level_Lock(Clone)") != null)
-                                {
-                                    Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
-                                    unit.IsLockedByContract = false;
-                                }
-                            }
-                        }
-                    }
-                }
-                break;
-            case ContractRewardType.unitSpeedUp:
-                UpgradeSystem.Instance.SpeedUpDictionaryValue = new KeyValuePair<BaseResources, float>(contract.resourceToRewarded, contract.contractReward);
-                break;
-        }
+        //switch (contract.contractRewardType)
+        //{
+        //    case RewardType.Currency:
+        //        ResourceManager.Instance.Currency += contract.contractReward;
+        //        break;
+        //    case RewardType.PremiumCurrency:
+        //        ResourceManager.Instance.PremiumCurrency += contract.contractReward;
+        //        break;
+        //    case RewardType.miningSpeedUp:
+        //        UpgradeSystem.Instance.MiningSpeedMultiplier += contract.contractReward;
+        //        break;
+        //    case RewardType.productionSpeedUp:
+        //        UpgradeSystem.Instance.ProductionSpeedMultiplier += contract.contractReward;
+        //        break;
+        //    case RewardType.miningYieldUpgrade:
+        //        UpgradeSystem.Instance.MiningYieldMultiplier += contract.contractReward;
+        //        break;
+        //    case RewardType.productionYieldUpgrade:
+        //        UpgradeSystem.Instance.ProductionYieldMultiplier += contract.contractReward;
+        //        break;
+        //    case RewardType.productionEfficiencyUpgrade:
+        //        UpgradeSystem.Instance.ProductionEfficiencyMultiplier += contract.contractReward;
+        //        break;
+        //    case RewardType.incresedCoinEarning:
+        //        UpgradeSystem.Instance.EarnedCoinMultiplier += contract.contractReward;
+        //        break;
+        //    case RewardType.unlockProductionUnit:
+        //        {
+        //            for (int j = 0; j < ProductionManager.Instance.instantiatedProductionUnits.Length; j++)
+        //            {
+        //                var unit = ProductionManager.Instance.instantiatedProductionUnits[j].GetComponent<ProductionBase>();
+        //                if (contract.productsToUnlock != null && contract.productsToUnlock.Contains(unit.scriptableProductionBase))
+        //                {
+        //                    unit.ContractStatueCheckDictionary[contract] = true;
+        //                    if (!unit.ContractStatueCheckDictionary.ContainsValue(false))
+        //                    {
+        //                        if (unit.transform.Find("Level_Lock(Clone)") != null)
+        //                        {
+        //                            Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
+        //                            unit.IsLockedByContract = false;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        break;
+        //    case RewardType.unitSpeedUp:
+        //        UpgradeSystem.Instance.SpeedUpDictionaryValue = new KeyValuePair<BaseResources, float>(contract.resourceToRewarded, contract.contractReward);
+        //        break;
+        //}
     }
 
     void SetActiveContractCounter()
@@ -440,20 +447,6 @@ public enum AvailableMainPages
     Resource,
     Map,
     Shop,
-}
-
-public enum ContractRewardType
-{
-    Currency,
-    PremiumCurrency,
-    miningSpeedUp,
-    productionSpeedUp,
-    miningYieldUpgrade,
-    productionYieldUpgrade,
-    productionEfficiencyUpgrade,
-    incresedCoinEarning,
-    unlockProductionUnit,
-    unitSpeedUp,
 }
 
 public enum ContractActivationType

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 /* 
  * TODO add alternative way to create some products.
@@ -15,6 +16,10 @@ using UnityEngine.UI;
 /// </summary>
 public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 {
+    GameObject _icon;
+    LTDescr _iconMoveAnimation;
+    LTDescr _iconScaleAnimation;
+
     #region Class Variables
     public ScriptableProductionBase scriptableProductionBase;
     protected Dictionary<ContractBase, bool> contractStatueCheckDictionary;
@@ -25,6 +30,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     GameObject agePanel;
 
     protected bool isUpgradePanelActive;
+    bool isCompound;
 
     protected Recipe[] recipes;
     protected Recipe currentRecipe;
@@ -33,40 +39,39 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     // Scriptable object class variables
     [SerializeField] protected float collectTime;
-    protected string _name;
-
-    protected bool isLockedByContract;
-    protected bool isLockedByLevel;
-    protected bool isLockedByAge;
-    protected bool isUnlocked = true;
-
-    protected string resourceName;
-    protected BaseResources producedResource;
-    protected ItemType[] itemTypes;
+    private string _name;
+    private bool isLockedByContract;
+    private bool isLockedByLevel;
+    private bool isLockedByAge;
+    private bool isUnlocked = true;
+    private string resourceName;
+    private BaseResources producedResource;
+    private ItemType[] itemTypes;
 
     protected bool isRunning; // If there is no worker set it to false
-    protected WorkerType currentWorkerType = WorkerType.Standard;
-    protected WorkerType prefferedWorkerType;
-    protected BigDouble currentWorkerCount;
-    protected BigDouble maxWorkerCount;
-    protected sbyte minWorkerCount;
+    [SerializeField] protected WorkerType currentWorkerType = WorkerType.Standard;
+    [SerializeField] protected WorkerType currentWorkerMode;
+    private WorkerType prefferedWorkerType;
+    private BigDouble currentWorkerCount;
+    private BigDouble maxWorkerCount;
+    private sbyte minWorkerCount;
 
-    protected BigDouble foodAmount;
-    protected BigDouble attackAmount;
-    protected BigDouble defenseAmount;
-    protected float housingAmount;
-    [SerializeField] protected float remainedCollectTime;
-    protected bool isCharging;
-    protected BigDouble outputValue;
-    protected BigDouble outputValueWhenStart; // Set this value just when unit start to produce so upgrades take effect in next loop
-    protected BigDouble pricePerProduct;
-    protected int unlockLevel;
-    protected float xpAmount;
-    protected BigDouble outputPerSecond;
-    protected int level;
-    protected BigDouble upgradeCost;
-    protected BigDouble incomePerSecond;
-    protected WorkingMode workingMode;
+    private BigDouble foodAmount;
+    private BigDouble attackAmount;
+    private BigDouble defenseAmount;
+    private float housingAmount;
+    [SerializeField] private float remainedCollectTime;
+    private bool isCharging;
+    private BigDouble outputValue;
+    private BigDouble outputValueWhenStart; // Set this value just when unit start to produce so upgrades take effect in next loop
+    private BigDouble pricePerProduct;
+    private int unlockLevel;
+    private float xpAmount;
+    private BigDouble outputPerSecond;
+    private int level;
+    private BigDouble upgradeCost;
+    private BigDouble incomePerSecond;
+    private WorkingMode workingMode;
     protected LTDescr toolAnimation;
 
     // Attached gameobject transforms
@@ -185,7 +190,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     public BigDouble DefenseAmount { get => defenseAmount; set => defenseAmount = value; }
     public Dictionary<ContractBase, bool> ContractStatueCheckDictionary { get => contractStatueCheckDictionary; set => contractStatueCheckDictionary = value; }
     internal ContractBase[] Contracts { get => contracts; set => contracts = value; }
-    public bool IsUnlocked { get => isUnlocked; set { isUnlocked = value; } }
+    public bool IsUnlocked { get => isUnlocked; set { isUnlocked = value; if (value == true) PrestigeSystem.Instance.CheckProductionUnitUnlockingUI(this); } }
     public bool IsLockedByContract { get => isLockedByContract; set { isLockedByContract = value; CheckIfIsUnlocked(); } }
     public bool IsLockedByLevel { get => isLockedByLevel; set { isLockedByLevel = value; CheckIfIsUnlocked(); } }
     public bool IsLockedByAge { get => isLockedByAge; set { isLockedByAge = value; CheckIfIsUnlocked(); } }
@@ -193,23 +198,28 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     public BigDouble CurrentWorkerCount { get => currentWorkerCount; set => currentWorkerCount = value; }
     public WorkerType PrefferedWorkerType { get => prefferedWorkerType; set => prefferedWorkerType = value; }
     public bool IsRunning { get => isRunning; set => isRunning = value; }
-    public BigDouble MaxWorkerCount { get => maxWorkerCount; }
+    public BigDouble MaxWorkerCount { get => maxWorkerCount; set => maxWorkerCount = value; }
     public WorkerType CurrentWorkerType { get => currentWorkerType; set => currentWorkerType = value; }
     public float HousingAmount { get => housingAmount; set => housingAmount = value; }
-    public sbyte MinWorkerCount { get => minWorkerCount; set => minWorkerCount = value; }
+    public sbyte MinWorkerCount { get => minWorkerCount; }
+    public WorkerType CurrentWorkerMode { get => currentWorkerMode; set => currentWorkerMode = value; }
+    public bool IsCompound { get => isCompound; set => isCompound = value; }
 
     #endregion
 
     void CheckIfIsUnlocked()
     {
         if (!isLockedByAge && !isLockedByContract && !isLockedByLevel)
-            isUnlocked = true;
+            IsUnlocked = true;
         else
             isUnlocked = false;
     }
 
     protected virtual void Start()
     {
+        if (scriptableProductionBase as ScriptableMine == null)
+            isCompound = true;
+
         IsAutomated = true;
         mainProductionPanel = transform.parent.parent.parent.parent.parent.gameObject;
         agePanel = transform.parent.parent.parent.gameObject;
@@ -221,7 +231,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         UpgradeSystem.Instance.OnEarnedCoinMultiplierChanged += Instance_OnEarnedCoinMultiplierChanged;
         UpgradeSystem.Instance.OnEarnedXpMultiplierChanged += Instance_OnEarnedXpMultiplierChanged;
 
-        contracts = ContractManager.Instance.contracts.Where(c => c.contractRewardType == ContractRewardType.unlockProductionUnit 
+        contracts = ContractManager.Instance.contracts.Where(c => c.contractRewardType == RewardType.unlockProductionUnit 
         && c.productsToUnlock.Contains(scriptableProductionBase)).ToArray();
 
         contractStatueCheckDictionary = new Dictionary<ContractBase, bool>();
@@ -243,9 +253,9 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         _name = scriptableProductionBase.TranslatedName;
         resourceName = ResourceManager.Instance.GetValidNameForResource(scriptableProductionBase.product);
         producedResource = scriptableProductionBase.product;
-        prefferedWorkerType = scriptableProductionBase.prefferedWorkerType;
+        prefferedWorkerType = WorkerType.Gatherer; // TODO Change to scriptable object when setting
         minWorkerCount = scriptableProductionBase.minimumWorkerCount;
-        maxWorkerCount = minWorkerCount;
+        maxWorkerCount = 10;
         currentWorkerCount = scriptableProductionBase.minimumWorkerCount;
         foodAmount = scriptableProductionBase.foodAmount;
         housingAmount = scriptableProductionBase.housingAmount;
@@ -330,6 +340,9 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         workModeText = workModeBtn.GetComponentInChildren<TextMeshProUGUI>();
 
         SetWorkModeColor();
+
+        // Add minimum worker and assign it to this building.
+        UpgradeSystem.Instance.SetWorkerBonus(minWorkerCount, (int)WorkerType.Standard, this);
     }
 
     void SetNameLevelText(long level)
@@ -381,23 +394,119 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
 
     #endregion
 
-    protected virtual void Update()
+    void CreateIconObj()
     {
-        
+        GameObject obj = new GameObject(resourceName);
+        _icon = obj;
+        obj.transform.SetParent(sourceImage.transform);
+        var rect = obj.AddComponent<RectTransform>();
+        obj.transform.localPosition = Vector3.zero;
+        rect.offsetMax = Vector2.zero;
+        rect.offsetMin = Vector2.zero;
+        rect.sizeDelta = new Vector2(130, 130);
+        rect.localScale = Vector3.one;
+        obj.AddComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(producedResource);
+    }
+
+    public void CustomUpdate()
+    {
+        if (isAutomated) Produce();
+
+        if (isCharging)
+        {
+            if (remainedCollectTime > 0)
+            {
+                remainedCollectTime -= Time.deltaTime * UpgradeSystem.Instance.ProductionSpeedMultiplier * 2;
+
+                fillBar.fillAmount = ((collectTime - remainedCollectTime) / collectTime);
+
+                if (remainedCollectTime <= 0.6f && _icon == null)
+                {
+                    CreateIconObj();
+                    _iconScaleAnimation = LeanTween.size(_icon.GetComponent<RectTransform>(), new Vector2(290, 290), .7f).setOnComplete(() => _iconScaleAnimation = null) ;
+                    _iconMoveAnimation = LeanTween.move(_icon, icon.transform.position, .7f)
+                        .setOnUpdateObject((float value, object obj) =>
+                        {
+                            _icon.transform.position = new Vector3(_icon.transform.position.x, 
+                                Mathf.Clamp(_icon.transform.position.y+30, sourceImage.transform.position.y, icon.transform.position.y), 0);
+                        })
+                        .setOnComplete(() => { Destroy(_icon); _iconMoveAnimation = null; });
+                }
+            }
+            else if (isCompound)
+            {
+                isCharging = false;
+
+                if (workingMode == WorkingMode.production)
+                {
+                    ResourceManager.Instance.AddResource(producedResource, (outputValueWhenStart * UpgradeSystem.Instance.ProductionYieldMultiplier));
+                    if (CheckIfPanelActive())
+                        StatSystem.Instance.PopupText(transform, outputValueWhenStart, _name);
+                }
+                else if (workingMode == WorkingMode.sell)
+                {
+                    ResourceManager.Instance.AddResource(producedResource, outputValueWhenStart * UpgradeSystem.Instance.ProductionYieldMultiplier);
+                    SellResource();
+                    if (CheckIfPanelActive())
+                        StatSystem.Instance.PopupText(transform, PricePerProduct, "Gold");
+                }
+
+                tempResourceList = currentRecipe.inputResources.ToList();
+                GameManager.Instance.AddXP(scriptableProductionBase.xpAmount);
+                remainedCollectTime = 0;
+                fillBar.fillAmount = 0;
+            }
+            else
+            {
+                //float currency;
+                //float resource;
+                AddResourceAndMoney(/*out currency, out resource*/);
+
+                if (CheckIfPanelActive())
+                {
+                    if (workingMode == WorkingMode.production)
+                        StatSystem.Instance.PopupText(transform, outputValueWhenStart, resourceName);
+                    else if (workingMode == WorkingMode.sell)
+                        StatSystem.Instance.PopupText(transform, pricePerProduct, "Gold");
+                }
+
+                isCharging = false;
+                remainedCollectTime = 0;
+                fillBar.fillAmount = 0;
+                LeanTween.cancel(tool.gameObject);
+            }
+        }
+    }
+
+    void AddResourceAndMoney(/*out float currency, out float resourceAmount*/)
+    {
+        switch (workingMode)
+        {
+            case WorkingMode.production:
+                /*resourceAmount = */
+                ResourceManager.Instance.AddResource(producedResource, outputValueWhenStart * UpgradeSystem.Instance.MiningYieldMultiplier);
+                break;
+            case WorkingMode.sell:
+                ResourceManager.Instance.AddResource(producedResource, (outputValueWhenStart * UpgradeSystem.Instance.MiningYieldMultiplier));
+                SellResource();
+                break;
+        }
+        //resourceAmount = ResourceManager.Instance.AddResource(mine.baseResource, (long)(mine.outputValueWhenStart * UpgradeSystem.Instance.MiningYieldMultiplier));
+        //currency = incomeAmount;
+        //ResourceManager.Instance.Currency += incomeAmount;
+        GameManager.Instance.AddXP(XPAmount);
     }
 
     protected void Produce()
     {
-        if (!isCharging && isUnlocked && workingMode != WorkingMode.stopProduction)
+        if (isUnlocked && !isCharging && workingMode != WorkingMode.stopProduction)
         {
-            // If true it needs resource to start produce else it produce without input
-            if (currentRecipe.inputResources.Length > 0 && currentRecipe.inputAmounts[0] > 0 )
+            if (isCompound)
             {
                 for (int i = 0; i < currentRecipe.inputAmounts.Length; i++)
                 {
                     int inputAmount = currentRecipe.inputAmounts[i];
                     BaseResources inputResource = currentRecipe.inputResources[i];
-                    var q = ResourceManager.Instance.GetResourceAmount(inputResource);
                     if (ResourceManager.Instance.GetResourceAmount(inputResource) 
                         >= (inputAmount / UpgradeSystem.Instance.ProductionEfficiencyMultiplier) 
                         && tempResourceList.Contains(inputResource))
@@ -437,7 +546,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    protected virtual void SellResource()
+    protected void SellResource()
     {
         ResourceManager.Instance.Currency += (outputValue * 1f * (pricePerProduct * 1f));
         ResourceManager.Instance.ConsumeResource(producedResource, outputValue);
@@ -485,26 +594,37 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
             workModeBtn.GetComponent<Image>().color = Color.red;
     }
 
-    public virtual void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (isCharging) remainedCollectTime -= .35f;
-        Produce();
+        if (isCharging)
+        {
+            remainedCollectTime -= .35f;
+            if (!isCompound)
+            {
+                if (_iconMoveAnimation != null)
+                    _iconMoveAnimation.time -= .3f;
+                if (_iconScaleAnimation != null)
+                    _iconScaleAnimation.time -= .3f;
+            }
+        }
+        else
+            Produce();
     }
 
     // upgradeValues store values that returned from SetUpgradePanel. By storing values, don't need to recalculate same values.
-    (int level, BigDouble outputValue, float collectTime, BigDouble pricePerProduct, BigDouble upgradeCost) upgradeValues;
+    (int level, BigDouble outputValue, float collectTime, BigDouble pricePerProduct, BigDouble upgradeCost, BigDouble newMaxWorkerCount) upgradeValues;
 
-    protected virtual void ShowUpgradePanel()
+    protected void ShowUpgradePanel()
     {
         UpgradeSystem.Instance.ShowUpgradePanel(this, SetUpgradePanel, Upgrade, IsUpgradePanelActive, UpgradeCost, Level);
     }
 
     void SetUpgradePanel(int levelUpgradeMultiplier)
     {
-        upgradeValues = UpgradeSystem.Instance.SetUpgradePanel(levelUpgradeMultiplier, OutputValue, Level, CollectTime, PricePerProduct, UpgradeCost, _name);
+        upgradeValues = UpgradeSystem.Instance.SetUpgradePanel(levelUpgradeMultiplier, OutputValue, Level, CollectTime, PricePerProduct, UpgradeCost, currentWorkerCount ,maxWorkerCount, _name);
     }
 
-    protected virtual void Upgrade()
+    protected void Upgrade()
     {
         BigDouble newUpgradeCost = upgradeValues.upgradeCost;
 
@@ -516,24 +636,24 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
             OutputValue = upgradeValues.outputValue;
             CollectTime = upgradeValues.collectTime;
             PricePerProduct = upgradeValues.pricePerProduct;
+            MaxWorkerCount = upgradeValues.newMaxWorkerCount;
             ResourceManager.Instance.SetNewPricePerProduct(producedResource, pricePerProduct);
             UpgradeCost = UpgradeSystem.Instance.GetNewUpgradeCost(newUpgradeCost, Level);
             SetUpgradePanel(UpgradeSystem.Instance.upgradeMultiplier);
         }
     }
 
-    protected virtual void SetWorker()
+    protected void SetWorker()
     {
 
     }
 
-    protected virtual void OnWorkerTypeChanged(int index)
+    protected IEnumerator SpawnWorker()
     {
-        WorkerType workerType = (WorkerType)index;
-        if (prefferedWorkerType == workerType)
-        {
-
-        }
+        yield return new WaitForSeconds(3);
+        UpgradeSystem.Instance.totalWorkertypeDictionary[WorkerType.Standard]++;
+        UpgradeSystem.Instance.availableWorkerTypeDictionary[WorkerType.Standard]++;
+        UpgradeSystem.Instance.Population++;
     }
 
     /// <summary>
@@ -541,7 +661,7 @@ public abstract class ProductionBase : MonoBehaviour, IPointerClickHandler
     /// If not stop all animation on non visible elements
     /// </summary>
     /// <returns>True if parent panel is active</returns>
-    internal virtual bool CheckIfPanelActive()
+    internal bool CheckIfPanelActive()
     {
         if ( GameManager.Instance.VisiblePanelForPlayer == mainProductionPanel &&
                         GameManager.Instance.VisibleSubPanelForPlayer == agePanel)

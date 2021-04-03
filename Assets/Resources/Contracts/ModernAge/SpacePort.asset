@@ -14,18 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contractName: New Spaceport
   description: For new spaceport, national space counsil demand 100K ore ingot
+  contractType: 0
+  storyIndex: 0
+  totalStoryCount: 0
   contractReward: 5000
   contractRewardType: 0
   resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
   requiredResources: 0b000000010000000f000000
-  requiredResourceAmounts: 00127a00a086010064190000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
+  - mantissa: 0
+    exponent: 0
+  - mantissa: 0
+    exponent: 0
   unlockLevel: 75
   icon: {fileID: 21300000, guid: 01848b1b77996444b81cd6e7d9fa5f39, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 
+  mainPageToGo: 0
   pageNameToGo: 
+  isPageNameToGoValid: 0
   xpReward: 0
-  ageBelongsTo: 0
+  ageBelongsTo: 5
   history: 0

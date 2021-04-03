@@ -140,10 +140,11 @@ public class GameManager : Singleton<GameManager>
     {
         #if UNITY_ANDROID
             LocalisationSystem.currentLanguage = Application.systemLanguage;
-        #endif
         Input.multiTouchEnabled = false;
-        //Application.targetFrameRate = 60;
-
+        #endif
+        QualitySettings.vSyncCount = 0;
+        if (Screen.currentResolution.refreshRate > 60)
+            Application.targetFrameRate = 60;
 
         visiblePanelForPlayer = ProductionManager.Instance.mainPanel.transform.parent.gameObject;
         visibleSubPanelForPlayer = ProductionManager.Instance.mainPanel.transform.Find("_0_StoneAge").gameObject;

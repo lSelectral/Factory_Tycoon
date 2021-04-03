@@ -9,6 +9,7 @@ public class ScriptableCompoundEditorDrawer : Editor
     SerializedProperty _description;
     SerializedProperty _translatedName;
     SerializedProperty _product;
+    SerializedProperty _prefferedWorkerType;
     SerializedProperty _itemTypes;
     SerializedProperty _minimumWorker;
     SerializedProperty _foodAmount;
@@ -48,6 +49,7 @@ public class ScriptableCompoundEditorDrawer : Editor
         _description = serializedObject.FindProperty("Description");
         _translatedName = serializedObject.FindProperty("TranslatedName");
         _product = serializedObject.FindProperty("product");
+        _prefferedWorkerType = serializedObject.FindProperty("prefferedWorkerType");
         _itemTypes = serializedObject.FindProperty("itemTypes");
         _minimumWorker = serializedObject.FindProperty("minimumWorkerCount");
         _foodAmount = serializedObject.FindProperty("foodAmount");
@@ -86,6 +88,8 @@ public class ScriptableCompoundEditorDrawer : Editor
         EditorGUILayout.PropertyField(_translatedName, new GUIContent("Translated Name:"));
 
         EditorGUILayout.PropertyField(_product);
+        EditorGUILayout.PropertyField(_prefferedWorkerType);
+        EditorGUILayout.PropertyField(_minimumWorker);
         EditorGUILayout.PropertyField(_itemTypes);
 
         List<ItemType> itemList = new List<ItemType>();
@@ -94,7 +98,6 @@ public class ScriptableCompoundEditorDrawer : Editor
             var el = _itemTypes.GetArrayElementAtIndex(i);
             itemList.Add((ItemType)el.enumValueIndex);
         }
-        EditorGUILayout.PropertyField(_minimumWorker);
         if (itemList.Contains(ItemType.food))
             EditorGUILayout.PropertyField(_foodAmount);
         if (itemList.Contains(ItemType.warItem))

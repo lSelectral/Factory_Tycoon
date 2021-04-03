@@ -210,7 +210,7 @@ public class SaveSystem : Singleton<SaveSystem>
                 unit.IsAutomated = Save.isAutomated;
             }
 
-            for (int i = 0; i < ProductionManager.Instance.instantiatedProductionUnits.Count; i++)
+            for (int i = 0; i < ProductionManager.Instance.instantiatedProductionUnits.Length; i++)
             {
                 var unit = ProductionManager.Instance.instantiatedProductionUnits[i].GetComponent<ProductionBase>();
                 if (unit.GetComponent<Mine_Btn>() != null)

@@ -34,12 +34,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
     public event EventHandler<OnPricePerProductChangedEventArgs> OnPricePerProductChanged;
 
-    public class OnPopulationChangedEventArgs : EventArgs
-    {
-        public BigDouble population;
-    }
-
-    public event EventHandler<OnPopulationChangedEventArgs> OnPopulationChangedEvent;
+    
 
     #endregion
 
@@ -58,12 +53,9 @@ public class ResourceManager : Singleton<ResourceManager>
     public Dictionary<BaseResources, BigDouble> resourceNewPricePerProductDictionary;
     IEnumerable<BaseResources> resources;
 
-    public Dictionary<WorkerType, BigDouble> totalWorkertypeDictionary;
-    public Dictionary<WorkerType, BigDouble> availableWrokerTypeDictionary;
-
     // Player related variable and smoothing values
     [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText, populationText;
-    [SerializeField] BigDouble currency,totalResource, premiumCurrency, foodAmount, attackAmount, population = new BigDouble();
+    [SerializeField] BigDouble currency,totalResource, premiumCurrency, foodAmount, attackAmount = new BigDouble();
     [SerializeField] BigDouble smoothCurrency,smoothPremiumCurency = new BigDouble();
     [SerializeField] BigDouble smoothVelocityCurrency,smoothVelocityPremiumCurrency = new BigDouble();
     float premiumCurrencySmoothTime;
@@ -72,6 +64,7 @@ public class ResourceManager : Singleton<ResourceManager>
     #region Panels and Prefabs
     [SerializeField] private GameObject resourcePanel;
     [SerializeField] private GameObject resourcePrefab;
+    [SerializeField] GameObject resourcePanelAgePrefab;
     public GameObject resourceIconPrefab;
     public GameObject resourceAmountTextPrefab;
     public GameObject iconPrefab;
@@ -160,18 +153,6 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public BigDouble Population
-    {
-        get { return population; }
-        set
-        {
-            availableWrokerTypeDictionary[WorkerType.Standard] += value - population;
-            population = value;
-            OnPopulationChangedEvent?.Invoke(this, new OnPopulationChangedEventArgs() { population = this.population });
-            populationText.text = population.ToString();
-            totalWorkertypeDictionary[WorkerType.Standard] = value;
-        }
-    }
     #endregion
 
     #region Helper Functions
@@ -300,18 +281,6 @@ public class ResourceManager : Singleton<ResourceManager>
         {
             resourceTextDict.Add(res, new TextMeshProUGUI());
         }
-
-
-        totalWorkertypeDictionary = new Dictionary<WorkerType, BigDouble>();
-        availableWrokerTypeDictionary = new Dictionary<WorkerType, BigDouble>();
-        var workerTypes = Enum.GetValues(typeof(WorkerType)).Cast<WorkerType>();
-        foreach (WorkerType worker in workerTypes)
-        {
-            if (worker == WorkerType.None || worker == WorkerType.Fill) continue;
-            totalWorkertypeDictionary.Add(worker, 0);
-            availableWrokerTypeDictionary.Add(worker, 0);
-        }
-
         UpgradeSystem.Instance.OnCombatPowerMultiplierChanged += OnCombatPowerMultiplierChanged;
     }
 
@@ -320,15 +289,38 @@ public class ResourceManager : Singleton<ResourceManager>
         AttackAmount *= e.changeAmount;
     }
 
+    List<List<GameObject>> resourceObjects = new List<List<GameObject>>();
+    List<GameObject> gameObjects = new List<GameObject>();
     private void Start()
     {
         #region Add all resources to resource panel
+        var contentHolder = resourcePanel.transform.GetChild(0).GetChild(0);
         int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
+        int counter = 0;
+
         foreach (var resource in resources)
         {
             int arrayCounter = 0;
+            Age currentAge = ProductionManager.Instance.scriptableProductionUnitList[counter].ageBelongsTo;
 
-            var resourceInfo = Instantiate(resourcePrefab, resourcePanel.transform.GetChild(0));
+            GameObject ageObj = null;
+            if (contentHolder.Find(currentAge.ToString()) == null)
+            {
+                if (gameObjects.Count > 1)
+                    resourceObjects.Add(gameObjects);
+
+                gameObjects = new List<GameObject>();
+
+                ageObj = Instantiate(resourcePanelAgePrefab, contentHolder);
+                ageObj.name = currentAge.ToString();
+                ageObj.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = currentAge.ToString();
+                ageObj.transform.Find("Expand").GetComponent<Button>().onClick.AddListener(() => ExpandAllChilds(ageObj.transform, (int)currentAge));
+                ageObj.transform.Find("Collapse").GetComponent<Button>().onClick.AddListener(() => CollapseAllChilds(ageObj.transform, (int)currentAge));
+            }
+            else
+                ageObj = contentHolder.Find(currentAge.ToString()).gameObject;
+
+            var resourceInfo = Instantiate(resourcePrefab, contentHolder);
 
             var text = resourceInfo.transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();
             text.text = "1";
@@ -349,6 +341,11 @@ public class ResourceManager : Singleton<ResourceManager>
             { AddResource(resource, new BigDouble(resourceIncrementArray[arrayCounter], 0)); });
             resourceTextDict[resource] = resourceInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
             resourceTextDict[resource].text = (GetResourceAmount(resource)).ToString();
+
+            gameObjects.Add(resourceInfo);
+            counter++;
+            if (counter == ProductionManager.Instance.scriptableProductionUnitList.Length)
+                resourceObjects.Add(gameObjects);
         }
         #endregion
     }
@@ -361,6 +358,25 @@ public class ResourceManager : Singleton<ResourceManager>
 
         smoothPremiumCurency = SmoothStep(oldPremiumCurrencyValue, premiumCurrency, Time.time - startTimePremiumCurrency);
         premiumCurrencyText.text = smoothPremiumCurency.ToString();
+    }
+
+    void CollapseAllChilds(Transform _parent, int index)
+    {
+        _parent.Find("Expand").gameObject.SetActive(true);
+        _parent.Find("Collapse").gameObject.SetActive(false);
+        for (int i = 0; i < resourceObjects[index].Count; i++)
+        {
+            resourceObjects[index][i].SetActive(false);
+        }
+    }
+    void ExpandAllChilds(Transform _parent, int index)
+    {
+        _parent.Find("Expand").gameObject.SetActive(false);
+        _parent.Find("Collapse").gameObject.SetActive(true);
+        for (int i = 0; i < resourceObjects[index].Count; i++)
+        {
+            resourceObjects[index][i].SetActive(true);
+        }
     }
 
     public void SetNewPricePerProduct(BaseResources res, BigDouble newPrice)
@@ -381,7 +397,7 @@ public class ResourceManager : Singleton<ResourceManager>
         if (productionUnit.ItemTypes.Contains(ItemType.food))
             FoodAmount += productionUnit.FoodAmount * amount;
         if (productionUnit.ItemTypes.Contains(ItemType.housing))
-            Population += productionUnit.HousingAmount * amount;
+            UpgradeSystem.Instance.Population += productionUnit.HousingAmount * amount;
         if (productionUnit.ItemTypes.Contains(ItemType.warItem))
             AttackAmount += productionUnit.AttackAmount;
 
@@ -400,7 +416,7 @@ public class ResourceManager : Singleton<ResourceManager>
         if (productionUnit.ItemTypes.Contains(ItemType.food))
             FoodAmount -= productionUnit.FoodAmount * amount;
         if (productionUnit.ItemTypes.Contains(ItemType.housing))
-            Population -= productionUnit.HousingAmount * amount;
+            UpgradeSystem.Instance.Population -= productionUnit.HousingAmount * amount;
         if (productionUnit.ItemTypes.Contains(ItemType.warItem))
             AttackAmount -= productionUnit.AttackAmount;
     }
@@ -437,11 +453,6 @@ public class ResourceManager : Singleton<ResourceManager>
         }
     }
 
-    public BigDouble GetAvailableWorker(WorkerType workerType)
-    {
-        return availableWrokerTypeDictionary[workerType];
-    }
-
     // Interpolates between /min/ and /max/ with smoothing at the limits.
     public BigDouble SmoothStep(BigDouble from, BigDouble to, BigDouble t)
     {
@@ -462,6 +473,9 @@ public class ResourceManager : Singleton<ResourceManager>
     }
 }
 
+/// <summary>
+/// Artifact parts that can be placed in specific body parts
+/// </summary>
 public enum ArtifactPart
 {
     Head,
@@ -475,6 +489,10 @@ public enum ArtifactPart
     All,
 }
 
+/// <summary>
+/// Artifacts have tier between them higher the tier higher the bonus.
+/// With 3 same tier artifact sacrificing, 1 higher tier can be acquired.
+/// </summary>
 public enum ArtifactTier
 {
     common,
@@ -484,6 +502,9 @@ public enum ArtifactTier
     onlyYouHaveIt
 }
 
+/// <summary>
+/// Artifact sets when combined have a set bonus.
+/// </summary>
 public enum ArtifactSet
 {
     none,
@@ -521,6 +542,8 @@ public enum WorkerType
     None, // Production unit will be stopped
     Fill, // Production unit worker capacity will be fulled, if possible, with preffered worker type otherwise standard, if it is not possible to than what comes first.
     Standard, // Has no special talent
+    Crafter,
+    Hunter,
     Gatherer, // Grant more resource if chosen in gathering jobs
     Cook, // Cooking jobs grant tastier food (More food)
     Warrior, // Trained fearless soldiers have greater defense/attack stat

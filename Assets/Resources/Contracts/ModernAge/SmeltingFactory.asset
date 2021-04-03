@@ -14,19 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contractName: Smelting Factory
   description: Boss, we need to build a smelting factory for converting ores to ingots.
+  contractType: 0
+  storyIndex: 0
+  totalStoryCount: 0
   contractReward: 50000
   contractRewardType: 9
   resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
   requiredResources: 0100000002000000
-  requiredResourceAmounts: 9001000096000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
+  - mantissa: 0
+    exponent: 0
   unlockLevel: 75
   icon: {fileID: 21300000, guid: 3e655d82dd35e5d49a9cc168a9221764, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>You completed Assembler Contract.
   rewardPanelDescription: By completing this contract now you are able to produce
     ingots from ores.
+  mainPageToGo: 0
   pageNameToGo: Ores
+  isPageNameToGoValid: 0
   xpReward: 0
-  ageBelongsTo: 0
+  ageBelongsTo: 5
   history: 0

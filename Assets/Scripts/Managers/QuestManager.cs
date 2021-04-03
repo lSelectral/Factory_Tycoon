@@ -126,13 +126,13 @@ public class QuestManager : Singleton<QuestManager>
     {
         switch (quest.rewardType)
         {
-            case RewardType.Currency:
+            case QuestRewardType.Currency:
                 ResourceManager.Instance.Currency += quest.rewardAmounts[completedQuestInterval];
                 break;
-            case RewardType.PremiumCurrency:
+            case QuestRewardType.PremiumCurrency:
                 ResourceManager.Instance.PremiumCurrency += quest.rewardAmounts[completedQuestInterval];
                 break;
-            case RewardType.Multiplier:
+            case QuestRewardType.Multiplier:
                 UpgradeSystem.Instance.EarnedCoinMultiplier += quest.rewardAmounts[completedQuestInterval];
                 break;
         }
@@ -162,7 +162,7 @@ public enum QuestAchivementRequirement
     completeContract,
 }
 
-public enum RewardType
+public enum QuestRewardType
 {
     Currency = 1,
     PremiumCurrency = 2,

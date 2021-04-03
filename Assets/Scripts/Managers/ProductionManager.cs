@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class ProductionManager : Singleton<ProductionManager>
 {
     public ScriptableProductionBase[] scriptableProductionUnitList;
-    public List<GameObject> instantiatedProductionUnits;
+    public ProductionBase[] instantiatedProductionUnits;
 
     public GameObject mainPanel;
     // Hide objects on screen but still work on background
@@ -27,7 +27,7 @@ public class ProductionManager : Singleton<ProductionManager>
     // Add tier containers to this list for force layout refreshing.
     List<GameObject> tierSeperatedContainers = new List<GameObject>();
 
-    void InstantiateProductionUnit(ScriptableProductionBase unit)
+    ProductionBase InstantiateProductionUnit(ScriptableProductionBase unit)
     {
         // TODO Remove this if statement on release. This is just for quick testing
         //if (unit.ageBelongsTo != Age._0_StoneAge) return;
@@ -57,13 +57,11 @@ public class ProductionManager : Singleton<ProductionManager>
         {
             _unit = Instantiate(compoundPrefab, tierSeperatedContainer);
             _unit.GetComponent<Compounds>().scriptableCompound = unit as ScriptableCompound;
-            instantiatedProductionUnits.Add(_unit);
         }
         else if (unit as ScriptableMine != null)
         {
             _unit = Instantiate(minePrefab, tierSeperatedContainer);
             _unit.GetComponent<Mine_Btn>().scriptableMine = unit as ScriptableMine;
-            instantiatedProductionUnits.Add(_unit);
         }
         _unit.GetComponent<ProductionBase>().scriptableProductionBase = unit;
 
@@ -85,21 +83,36 @@ public class ProductionManager : Singleton<ProductionManager>
         {
             _contentHolder.transform.Find("container_" + unit.tier).SetParent(temporaryMovementPanel);
         });
+        return _unit.GetComponent<ProductionBase>();
     }
+
+    int unitCount;
 
     private void Awake()
     {
+        List<ProductionBase> tempUnitList = new List<ProductionBase>();
         for (int i = 0; i < scriptableProductionUnitList.Length; i++)
         {
-            InstantiateProductionUnit(scriptableProductionUnitList[i]);
+            tempUnitList.Add(InstantiateProductionUnit(scriptableProductionUnitList[i]));
         }
+        instantiatedProductionUnits = tempUnitList.ToArray();
+        unitCount = tempUnitList.Count;
+        tempUnitList.Clear();
 
         // UNITY UI don't refresh layout when add element sometimes. So we are forcing it to refresh.
         for (int i = 0; i < tierSeperatedContainers.Count; i++)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(tierSeperatedContainers[i].GetComponent<RectTransform>());
         }
+    }
 
+    private void Update()
+    {
+        if (Time.frameCount % 2 != 0) return;
+        for (int i = 0; i < unitCount; i++)
+        {
+            instantiatedProductionUnits[i].CustomUpdate();
+        }
     }
 
     #region Helper Functions
@@ -141,7 +154,7 @@ public class ProductionManager : Singleton<ProductionManager>
 
     public ProductionBase GetProductionUnitFromResource(BaseResources res)
     {
-        var q = instantiatedProductionUnits.Where(u => u.GetComponent<ProductionBase>().ProducedResource == res).FirstOrDefault();
+        var q = instantiatedProductionUnits.Where(u => u.ProducedResource == res).FirstOrDefault();
         return q.GetComponent<ProductionBase>();
     }
 
@@ -211,37 +224,3 @@ public enum Tier
     Tier_4,
     Tier_5,
 }
-
-
-
-
-//public class moneyScript : MonoBehaviour
-//{
-//    public class Money
-//    {
-//        public static float money = 0;
-//    }
-//    void Update()
-//    {
-//        Money.money = Money.money + 0.5f;
-//    }
-//}
-
-//public class Gui : MonoBehaviour
-//{
-//    public Text changingText;
-//    void Update()
-//    {
-//        changingText.text = moneyScript.Money.money.ToString();
-//    }
-//}
-//First, please don't get offended for what I will say, but you should first practice some basic C# skills. You don't know how class and instance works.If, you would have clear idea about basic C# skills you would get what I meant. 
-
-//Your problem is you are creatin** Money** class inside the** moneyScript** class but you are trying to reference **Money** class without referencing** moneyScript** class.
-
-//You can fix this problem by changing **GUI** class Update function like this:
-    
-
-//    changingText.text = moneyScript.Money.money.ToString();
-
-

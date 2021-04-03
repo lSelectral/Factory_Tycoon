@@ -86,7 +86,7 @@ public class ScriptableProductionBase : ScriptableObject
     /// </summary>
     public virtual void OnValidate()
     {
-        if (prefferedWorkerType == WorkerType.Fill || prefferedWorkerType == WorkerType.None)
+        if (prefferedWorkerType == WorkerType.Fill || prefferedWorkerType == WorkerType.None || prefferedWorkerType == WorkerType.Standard)
             prefferedWorkerType = WorkerType.Gatherer;
 
         if (ResourceManager.Instance == null) return;

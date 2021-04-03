@@ -92,7 +92,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 49.1
+  m_fontSize: 49.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2020,12 +2020,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+  m_Color: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 0.92941177}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 63d177c45a344c0419bb90d90fb613f5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a6de0e4f4aef07a4fa00da12b6a956ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2929,8 +2929,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptableProductionBase: {fileID: 0}
+  contracts: []
   isAutomated: 0
   collectTime: 0
+  currentWorkerType: 2
+  currentWorkerMode: 0
+  remainedCollectTime: 0
   scriptableCompound: {fileID: 0}
 --- !u!1 &2254166728472230095
 GameObject:

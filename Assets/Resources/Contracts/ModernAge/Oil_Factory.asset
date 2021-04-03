@@ -15,20 +15,29 @@ MonoBehaviour:
   contractName: Oil Refinery
   description: For new factory, construction manager needs 100 Iron screw and 100
     iron rod
+  contractType: 0
+  storyIndex: 0
+  totalStoryCount: 0
   contractReward: 350000
   contractRewardType: 9
   resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
   requiredResources: 0b00000009000000
-  requiredResourceAmounts: 6400000064000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
+  - mantissa: 0
+    exponent: 0
   unlockLevel: 75
   icon: {fileID: 21300000, guid: 4a66dfc24719f7a4391f5845cc10e80a, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color> for completing Oil Refinery
     Contract
   rewardPanelDescription: By completing this contract, now you are able to collect
     oil from oil refinery.
+  mainPageToGo: 0
   pageNameToGo: Ores
+  isPageNameToGoValid: 0
   xpReward: 12000
-  ageBelongsTo: 0
+  ageBelongsTo: 5
   history: 0

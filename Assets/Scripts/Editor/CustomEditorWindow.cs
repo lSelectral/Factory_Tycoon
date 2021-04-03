@@ -12,6 +12,7 @@ public class CustomEditorWindow : EditorWindow
     }
 
     [SearchableEnum] BaseResources resource = BaseResources._0_stone;
+    [SearchableEnum] WorkerType workerType = WorkerType.Standard;
 
     string resourceAmountString = "Add Resource Amount";
 
@@ -116,16 +117,6 @@ public class CustomEditorWindow : EditorWindow
         //UpgradeSystem.Instance.COMPOUND_PRICE_MULTIPLIER = c1;
         //UpgradeSystem.Instance.INCOME_PRICE_MULTIPLIER = c2;
 
-        if (GUILayout.Button("Create Multiple UI Image"))
-        {
-            CreateUiImage();
-        }
-
-        if (GUILayout.Button("Set Anchor"))
-        {
-            SetAnchor();
-        }
-
         //if (GUILayout.Button("Set Pixel Size of Maps"))
         //    SetPixelSizeAmount();
 
@@ -143,6 +134,20 @@ public class CustomEditorWindow : EditorWindow
         //    }
         //    HelperMethods.scriptableProductionBases = tempList.ToArray();
         //}
+        EditorGUILayout.BeginVertical();
+        workerType = (WorkerType)EditorGUI.EnumPopup(new Rect(5, 330, 380, 20), "Select Worker", workerType);
+        if (GUILayout.Button("ADD WORKER"))
+        {
+            UpgradeSystem.Instance.totalWorkertypeDictionary[workerType] += 5;
+            UpgradeSystem.Instance.availableWorkerTypeDictionary[workerType] += 5;
+        }
+
+        if (GUILayout.Button("Add Parent Node"))
+        {
+            ResearchManager.Instance.CreateNode(ResearchManager.Instance.testPosition);
+        }
+
+        EditorGUILayout.EndVertical();
     }
 
     void CreateUiImage()

@@ -9,9 +9,13 @@ using UnityEngine.UI;
 
 public class UpgradeSystem : Singleton<UpgradeSystem>
 {
-    //[Range(1, 10)] public float timeSlider = 1f;
     public Transform upgradePanel;
     private Dictionary<BaseResources, float> speedUpDictionary;
+    private BigDouble population;
+    [SerializeField] TextMeshProUGUI populationText;
+    public Dictionary<WorkerType, BigDouble> totalWorkertypeDictionary;
+    public Dictionary<WorkerType, BigDouble> availableWorkerTypeDictionary;
+    public List<ProductionBase> fillTypeProductionUnits; // Get list of fill type units for updating
 
     // Set production speed for specific unit
     public KeyValuePair<BaseResources,float> SpeedUpDictionaryValue
@@ -23,35 +27,46 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         }
     }
 
+    public BigDouble Population
+    {
+        get { return population; }
+        set
+        {
+            population = value;
+            populationText.text = population.ToString();
+            OnPopulationChangedEvent?.Invoke(this, new OnPopulationChangedEventArgs() { population = this.population });
+        }
+    }
+
     ProductionBase upgradePanelOwner;
 
     // Upgrade panel components
     TextMeshProUGUI headerText;
     //TextMeshProUGUI levelUpText;
-    Image fillBar;
     TextMeshProUGUI levelText;
     TextMeshProUGUI outputAmountText;
     TextMeshProUGUI collectTimeText;
     TextMeshProUGUI pricePerProductText;
+    TextMeshProUGUI maxWorkerText;
     Button buyBtn;
     TextMeshProUGUI buyBtnText;
     Button closeBtn;
-
-    
 
     Toggle multiplier1;
     Toggle multiplier5;
     Toggle multiplier20;
     Toggle multiplierMax;
 
-    //private void Update()
-    //{
-    //    Time.timeScale = timeSlider;
-    //}
-
     public int upgradeMultiplier;
 
     #region Events
+
+    public class OnPopulationChangedEventArgs : EventArgs
+    {
+        public BigDouble population;
+    }
+
+    public event EventHandler<OnPopulationChangedEventArgs> OnPopulationChangedEvent;
 
     public class OnMiningSpeedChangedEventArgs : EventArgs
     {
@@ -119,6 +134,8 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     [SerializeField] float combatPowerMultiplier = 1;
     [SerializeField] float defensePowerMultiplier = 1;
 
+    [SerializeField] float workerSpeedMultiplier = 1;
+
     // Set events
     public float MiningSpeedMultiplier { get => miningSpeedMultiplier;
         set { miningSpeedMultiplier = value;
@@ -156,6 +173,8 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     public float DefensePowerMultiplier { get => defensePowerMultiplier;
         set { defensePowerMultiplier = value;
             OnDefensePowerMultiplierChanged?.Invoke(this, EventArgs.Empty); } }
+
+    public float WorkerSpeedMultiplier { get => workerSpeedMultiplier; set => workerSpeedMultiplier = value; }
 
     public float contractRewardMultiplier;
     public float contractXPMultiplier;
@@ -239,6 +258,18 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         return newPricePerProduct;
     }
 
+    public BigDouble GetNewMaxWorkerCount(int levelUpgradeMultiplier, BigDouble oldMaxWorker, int currentLevel)
+    {
+        BigDouble maxWorker = oldMaxWorker;
+        int newLevel = currentLevel;
+        for (int i = 0; i < levelUpgradeMultiplier; i++)
+        {
+            maxWorker += newLevel;
+            newLevel++;
+        }
+        return maxWorker;
+    }
+
     public BigDouble GetNewOutputAmount(int upgradeCount, BigDouble oldOutputAmount, int currentLevel)
     {
         var newOutputAmount = oldOutputAmount;
@@ -318,31 +349,34 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
     #endregion
 
-
-    /*
-     * SET FILL as default value
-     * Set dropdown and 
-     * 
-     * 
-     */
-
     private void Awake()
     {
+        #region Variable Initialization and Finding
+        fillTypeProductionUnits = new List<ProductionBase>();
         speedUpDictionary = new Dictionary<BaseResources, float>();
         foreach (BaseResources res in Enum.GetValues(typeof(BaseResources)))
         {
             // Default value 1 indicates no change in default speed
             speedUpDictionary.Add(res, 1);
         }
+        totalWorkertypeDictionary = new Dictionary<WorkerType, BigDouble>();
+        availableWorkerTypeDictionary = new Dictionary<WorkerType, BigDouble>();
+        var workerTypes = Enum.GetValues(typeof(WorkerType)).Cast<WorkerType>();
+        foreach (WorkerType worker in workerTypes)
+        {
+            if (worker == WorkerType.None || worker == WorkerType.Fill) continue;
+            totalWorkertypeDictionary.Add(worker, 0);
+            availableWorkerTypeDictionary.Add(worker, 0);
+        }
 
         headerText = upgradePanel.Find("Header").GetComponent<TextMeshProUGUI>();
         //levelUpText = upgradePanel.Find("LevelUp_Text").GetComponent<TextMeshProUGUI>();
-        fillBar = upgradePanel.Find("Outline").GetChild(0).GetComponent<Image>();
         var propertiesPanel = upgradePanel.Find("Properties");
         levelText = propertiesPanel.Find("Level").GetChild(1).GetComponent<TextMeshProUGUI>();
         outputAmountText = propertiesPanel.Find("Output_Amount").GetChild(1).GetComponent<TextMeshProUGUI>();
         collectTimeText = propertiesPanel.Find("CollectTime").GetChild(1).GetComponent<TextMeshProUGUI>();
         pricePerProductText = propertiesPanel.Find("PricePerProduct").GetChild(1).GetComponent<TextMeshProUGUI>();
+        maxWorkerText = propertiesPanel.Find("MaxWorker").GetChild(1).GetComponent<TextMeshProUGUI>();
         buyBtn = upgradePanel.Find("BuyBtn").GetComponent<Button>();
         buyBtnText = buyBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         closeBtn = upgradePanel.Find("CloseBtn").GetComponent<Button>();
@@ -357,43 +391,45 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         workerSubstractBtn = workerPanel.Find("SubstractWorker").GetComponent<Button>();
         workerAddBtn = workerPanel.Find("AddWorker").GetComponent<Button>();
         workerMaxBtn = workerPanel.Find("MaxWorker").GetComponent<Button>();
+        workerCountText = workerPanel.Find("Background").GetChild(0).GetComponent<TextMeshProUGUI>();
         workerInputField = workerPanel.Find("WorkerInputField").GetComponent<TMP_InputField>();
         availableWorkerCountText = workerPanel.Find("AvailableWorkerCount").GetComponent<TextMeshProUGUI>();
         collectTimeBonusText = workerPanel.Find("CollectTimeChange").GetComponent<TextMeshProUGUI>();
         outputAmountBonusText = workerPanel.Find("OutputAmountChange").GetComponent<TextMeshProUGUI>();
         maxWorkerAmountText = workerPanel.Find("MaxWorker").GetComponent<TextMeshProUGUI>();
         workerTypeDropdown = workerPanel.Find("WorkerTypeDropdown").GetComponent<TMP_Dropdown>();
+        #endregion
 
-        workerTypeDropdown.value = (int)WorkerType.Standard;
-        workerInputField.text = "0";
-
+        #region Worker Numerical Buttons
         workerSubstractBtn.onClick.AddListener(() =>
         {
             workerInputField.text = (long.Parse(workerInputField.text) - 1).ToString();
             CheckConditionsForButtons();
         });
-        workerAddBtn.onClick.AddListener(() =>
-        {
+
+        workerAddBtn.onClick.AddListener(() => {
             workerInputField.text = (long.Parse(workerInputField.text) + 1).ToString();
             CheckConditionsForButtons();
         });
+
         workerMaxBtn.onClick.AddListener(() =>
         {
-            if (ResourceManager.Instance.availableWrokerTypeDictionary.ContainsKey(upgradePanelOwner.CurrentWorkerType) && 
-            upgradePanelOwner.MaxWorkerCount <= ResourceManager.Instance.availableWrokerTypeDictionary[upgradePanelOwner.CurrentWorkerType])
+            if (availableWorkerTypeDictionary.ContainsKey(upgradePanelOwner.CurrentWorkerType) &&
+            upgradePanelOwner.MaxWorkerCount <= availableWorkerTypeDictionary[upgradePanelOwner.CurrentWorkerType])
                 workerInputField.text = upgradePanelOwner.MaxWorkerCount.ToString();
             else
-                workerInputField.text = ResourceManager.Instance.availableWrokerTypeDictionary[upgradePanelOwner.CurrentWorkerType].ToString();
+                workerInputField.text = availableWorkerTypeDictionary[upgradePanelOwner.CurrentWorkerType].ToString();
             CheckConditionsForButtons();
         });
+        #endregion
 
         workerInputField.onValueChanged.AddListener((string value) => 
         {
             if (value == "")
                 value = "0";
-            if (ResourceManager.Instance.availableWrokerTypeDictionary.ContainsKey(upgradePanelOwner.CurrentWorkerType) &&
-            long.Parse(value) > ResourceManager.Instance.availableWrokerTypeDictionary[upgradePanelOwner.CurrentWorkerType])
-                workerInputField.text = ResourceManager.Instance.availableWrokerTypeDictionary[upgradePanelOwner.CurrentWorkerType].ToString();
+            //if (availableWorkerTypeDictionary.ContainsKey(upgradePanelOwner.CurrentWorkerType) &&
+            //long.Parse(value) > availableWorkerTypeDictionary[upgradePanelOwner.CurrentWorkerType])
+            //    workerInputField.text = availableWorkerTypeDictionary[upgradePanelOwner.CurrentWorkerType].ToString();
             CheckConditionsForButtons();
         });
 
@@ -402,6 +438,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
             SetWorkerBonus(long.Parse(value), workerTypeDropdown.value);
         });
 
+        // Add worker type options to the dropdown
         workerTypeDropdown.ClearOptions();
         foreach (var worker in Enum.GetNames(typeof(WorkerType)))
         {
@@ -410,21 +447,34 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
         workerTypeDropdown.onValueChanged.AddListener((int value) => 
         { 
-            OnWorkerTypeChanged(value); 
-            CheckConditionsForButtons(); 
             SetWorkerBonus(long.Parse(workerInputField.text), value); 
         });
     }
 
+    void AddWorker(WorkerType workerType, BigDouble amount)
+    {
+        availableWorkerTypeDictionary[workerType] += amount;
+        totalWorkertypeDictionary[workerType] += amount;
+        Population += amount;
+    }
+
+    void UpgradeWorker(WorkerType upgradeTo, BigDouble amount)
+    {
+
+    }
+
+    void SetWorker(WorkerType workerType, BigDouble amount)
+    {
+        availableWorkerTypeDictionary[workerType] -= amount;
+    }
+
+    void FreeWorker(WorkerType workerType, BigDouble amount)
+    {
+        availableWorkerTypeDictionary[workerType] += amount;
+    }
+
     public void OnInputFieldDeSelect() { if (workerInputField.text == "") workerInputField.text = "0"; }
     public void OnInputFieldEndEditing() { if (workerInputField.text == "") workerInputField.text = "0"; }
-
-    public void OnWorkerTypeChanged(int value)
-    {
-        Debug.Log("OnWorkerTypeChanged event called");
-        upgradePanelOwner.CurrentWorkerType = (WorkerType)value;
-        Debug.Log(upgradePanelOwner.ProducedResource + " worker type has been changed to " + (WorkerType)value);
-    }
 
     public void CheckConditionsForButtons()
     {
@@ -433,7 +483,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         workerMaxBtn.interactable = true;
         workerInputField.interactable = true;
 
-        if (upgradePanelOwner.CurrentWorkerType == WorkerType.Fill || upgradePanelOwner.CurrentWorkerType == WorkerType.None)
+        if (upgradePanelOwner.CurrentWorkerType == WorkerType.Fill || upgradePanelOwner.CurrentWorkerType == WorkerType.None || population == 0)
         {
             workerSubstractBtn.interactable = false;
             workerAddBtn.interactable = false;
@@ -444,7 +494,7 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
 
         if (workerInputField.text == "0")
             workerSubstractBtn.interactable = false;
-        if (workerInputField.text == ResourceManager.Instance.availableWrokerTypeDictionary[upgradePanelOwner.CurrentWorkerType].ToString())
+        if (workerInputField.text == availableWorkerTypeDictionary[upgradePanelOwner.CurrentWorkerType].ToString())
             workerAddBtn.interactable = false;
     }
 
@@ -455,14 +505,16 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
     TMP_InputField workerInputField;
     TMP_Dropdown workerTypeDropdown;
     TextMeshProUGUI availableWorkerCountText;
+    TextMeshProUGUI workerCountText;
     TextMeshProUGUI collectTimeBonusText; // Collect Time\t <color=green>+765</color>
     TextMeshProUGUI outputAmountBonusText; // Output Amount\t <color=green>+4856</color>
     TextMeshProUGUI maxWorkerAmountText; // Input Amount\t <color=red>-537%</color>
 
-    public (int newLevel, BigDouble newOutputValue, float newCollectTime, BigDouble newPricePerProduct, BigDouble newUpgradeCost) 
+    public (int newLevel, BigDouble newOutputValue, float newCollectTime, BigDouble newPricePerProduct, BigDouble newUpgradeCost, BigDouble newMaxWorkerCount) 
         SetUpgradePanel(int levelUpgradeMultiplier, BigDouble outputValue, int oldLevel, float collectTime, 
-        BigDouble pricePerProduct, BigDouble upgradeCost, string name)
+        BigDouble pricePerProduct, BigDouble upgradeCost, BigDouble workerCount, BigDouble maxWorkerCount, string name)
     {
+        BigDouble newMaxWorkerCount = GetNewMaxWorkerCount(levelUpgradeMultiplier, maxWorkerCount, oldLevel);
         int newLevel = oldLevel + levelUpgradeMultiplier;
         BigDouble newOutputValue = GetNewOutputAmount(levelUpgradeMultiplier, outputValue, oldLevel);
         float newCollectTime = GetNewCollectTime(levelUpgradeMultiplier, collectTime);
@@ -485,8 +537,9 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         if ((WorkerType)workerTypeDropdown.value == WorkerType.None)
             availableWorkerCountText.text = "0";
         else
-            availableWorkerCountText.text = ResourceManager.Instance.availableWrokerTypeDictionary[(WorkerType)workerTypeDropdown.value].ToString();
+            availableWorkerCountText.text = availableWorkerTypeDictionary[(WorkerType)workerTypeDropdown.value].ToString();
         CheckConditionsForButtons();
+        workerCountText.text = workerCount.ToString();
 
         levelText.text = string.Format("LEVEL\n{0} <color=green>--> {1}</color>", oldLevel, newLevel);
         outputAmountText.text = string.Format("Output\n{0} <color=green>--> {1}</color>", outputValue.ToString(), 
@@ -494,8 +547,9 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         collectTimeText.text = string.Format("Collect Time\n{0} <color=green>--> {1}</color>", ResourceManager.Instance.CurrencyToString(collectTime), 
             ResourceManager.Instance.CurrencyToString(newCollectTime));
         pricePerProductText.text = string.Format("Price Per Product\n{0} <color=green>--> {1}</color>", (pricePerProduct), (newPricePerProduct));
+        maxWorkerText.text = string.Format("Max Worker\n{0} <color=green>--> {1}</color>", maxWorkerCount, newMaxWorkerCount);
 
-        return (newLevel, newOutputValue, newCollectTime, newPricePerProduct, newUpgradeCost);
+        return (newLevel, newOutputValue, newCollectTime, newPricePerProduct, newUpgradeCost, newMaxWorkerCount);
     }
 
     /*
@@ -503,118 +557,167 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
      * None remove all workers and set workplace to passive. Disable change workmode button
      * Fill, if available fill unit with preffered workertype, else standard.
      * 
+     * Unit worker mode indicates occupied worker type. (WorkerType Enum but only worker types. Can't be Fill)
+     * Unit working mode indicates worker employing mode. (WorkerType Enum include everyting.)
+     * 
      */
 
-    public void SetWorkerBonus(BigDouble amount, int enumIndex)
+
+    /*
+     * When setting worker type
+     * if previous worker type is different than new one,
+     * add previous worker count to dictionary and substract the new one.
+     * If previous and new one is the same, just substract the difference from available worker dictionary.
+     * 
+     * 
+     */
+
+    void SetWorkerCount(ProductionBase unit, WorkerType workerType, BigDouble? amount = null)
     {
+        FreeWorker(unit.CurrentWorkerType, unit.CurrentWorkerCount);
+        var maxAvailable = availableWorkerTypeDictionary[workerType];
+        Debug.Log("Max available: " + maxAvailable);
+        unit.CurrentWorkerType = workerType;
+        if (amount != null)
+        {
+            if (amount.Value > unit.MaxWorkerCount) 
+                amount = unit.MaxWorkerCount;
+
+            if (amount.Value <= maxAvailable)
+                unit.CurrentWorkerCount = amount.Value;
+            else
+                unit.CurrentWorkerCount = maxAvailable;
+        }
+        else if (unit.MaxWorkerCount <= maxAvailable)
+            unit.CurrentWorkerCount = unit.MaxWorkerCount;
+        else
+            unit.CurrentWorkerCount = maxAvailable;
+        Debug.Log("Worker count is: " + unit.CurrentWorkerCount);
+        SetWorker(workerType, unit.CurrentWorkerCount);
+        workerCountText.text = unit.CurrentWorkerCount.ToString();
+    }
+
+    public void SetWorkerBonus(BigDouble amount, int enumIndex, ProductionBase productionBase = null)
+    {
+        if (productionBase != null)
+            upgradePanelOwner = productionBase;
         var unit = upgradePanelOwner;
-        WorkerType workerType = (WorkerType)enumIndex;
-        unit.IsRunning = true;
+
+        WorkerType workingMode = (WorkerType)enumIndex; // Get worker type from dropdown
+        //unit.IsRunning = true; // Set unit to working state
 
         var oldWorkerType = unit.CurrentWorkerType;
         var oldWorkerCount = unit.CurrentWorkerCount;
-        // Give back all workers in the units to available dictionary for true calculation
-        unit.CurrentWorkerType = WorkerType.None;
-        unit.CurrentWorkerCount = 0;
-        if (oldWorkerType != WorkerType.Fill && oldWorkerType != WorkerType.None)
-            ResourceManager.Instance.availableWrokerTypeDictionary[oldWorkerType] += oldWorkerCount;
 
-        var biggestWorkerType = ResourceManager.Instance.availableWrokerTypeDictionary
-            .First(w => w.Value == ResourceManager.Instance.availableWrokerTypeDictionary.Values.Max());
-
-        switch (workerType)
+        switch (workingMode)
         {
             case WorkerType.None:
-                unit.IsRunning = false;
+                unit.CurrentWorkerMode = WorkerType.None;
+                unit.CurrentWorkerType = WorkerType.Standard;
+                //unit.IsRunning = false;
                 unit.CurrentWorkerCount = 0;
                 workerInputField.text = "0";
-                workerTypeDropdown.value = 0;
+                //workerTypeDropdown.value = 0;
                 break;
 
             case WorkerType.Fill:
-                if (ResourceManager.Instance.availableWrokerTypeDictionary[unit.PrefferedWorkerType] >= unit.MaxWorkerCount)
+                unit.CurrentWorkerMode = WorkerType.Fill;
+                // Biggest worker count available across all worker types
+                var biggestWorkerType = availableWorkerTypeDictionary
+                 .First(w => w.Value == availableWorkerTypeDictionary.Values.Max());
+
+                if (availableWorkerTypeDictionary[unit.PrefferedWorkerType] >= unit.MaxWorkerCount)
                 {
+                    Debug.Log("Preffered worker type selected");
                     unit.CurrentWorkerType = unit.PrefferedWorkerType;
-                    unit.CurrentWorkerCount = unit.MaxWorkerCount;
-                    SetWorkerBonus(unit.MaxWorkerCount, (int)unit.PrefferedWorkerType);
                 }
 
-                else if (ResourceManager.Instance.availableWrokerTypeDictionary[WorkerType.Standard] >= unit.MaxWorkerCount)
+                else if (availableWorkerTypeDictionary[WorkerType.Standard] >= unit.MaxWorkerCount)
                 {
+                    Debug.Log("Standard worker type selected");
                     unit.CurrentWorkerType = WorkerType.Standard;
-                    unit.CurrentWorkerCount = unit.MaxWorkerCount;
                 }
 
                 else if (biggestWorkerType.Value >= unit.MaxWorkerCount)
                 {
+                    Debug.Log("Max worker type selected");
                     unit.CurrentWorkerType = biggestWorkerType.Key;
-                    unit.CurrentWorkerCount = biggestWorkerType.Value;
                 }
-                else if (ResourceManager.Instance.availableWrokerTypeDictionary[unit.PrefferedWorkerType] > 0)
+                else if (availableWorkerTypeDictionary[unit.PrefferedWorkerType] > 0)
                 {
+                    Debug.Log("Preffered worker type has more than 0 worker");
                     unit.CurrentWorkerType = unit.PrefferedWorkerType;
-                    unit.CurrentWorkerCount = ResourceManager.Instance.availableWrokerTypeDictionary[unit.PrefferedWorkerType];
                 }
                 else
                 {
+                    Debug.Log("Fill set to standard and have 0 worker");
                     unit.CurrentWorkerType = WorkerType.Standard;
-                    unit.CurrentWorkerCount = 0;
                 }
-                    
+                Debug.Log("Fill selection result is :" + unit.CurrentWorkerType);
+                SetWorkerCount(unit, unit.CurrentWorkerType);
                 break;
 
             case WorkerType.Standard:
-                unit.CurrentWorkerType = WorkerType.Standard;
-                unit.OutputValue += STANDARD_BONUS * amount;
+                SetWorkerCount(unit, WorkerType.Standard);
+                unit.OutputValue += STANDARD_BONUS * unit.CurrentWorkerCount;
                 break;
 
             case WorkerType.Gatherer:
                 unit.CurrentWorkerType = WorkerType.Gatherer;
+
                 break;
             case WorkerType.Cook:
-                unit.CurrentWorkerType = WorkerType.Cook;
-                unit.FoodAmount += COOK_BONUS * amount;
+                SetWorkerCount(unit, WorkerType.Cook);
+                unit.FoodAmount += COOK_BONUS * unit.CurrentWorkerCount;
                 break;
             case WorkerType.Warrior:
                 unit.CurrentWorkerType = WorkerType.Warrior;
+                SetWorkerCount(unit, WorkerType.Warrior);
                 break;
             case WorkerType.Miner:
                 unit.CurrentWorkerType = WorkerType.Miner;
-                unit.OutputValue += MINER_BONUS * amount;
+                SetWorkerCount(unit, WorkerType.Miner);
+                unit.OutputValue += MINER_BONUS * unit.CurrentWorkerCount;
                 break;
             case WorkerType.Blacksmith:
                 unit.CurrentWorkerType = WorkerType.Blacksmith;
+                SetWorkerCount(unit, WorkerType.Blacksmith);
                 if (unit.AttackAmount > 0)
-                    unit.AttackAmount += BLACKSMITH_BONUS * amount;
+                    unit.AttackAmount += BLACKSMITH_BONUS * unit.CurrentWorkerCount;
                 else if (unit.DefenseAmount > 0)
-                    unit.DefenseAmount += BLACKSMITH_BONUS * amount;
+                    unit.DefenseAmount += BLACKSMITH_BONUS * unit.CurrentWorkerCount;
                 break;
             case WorkerType.Artist:
                 unit.CurrentWorkerType = WorkerType.Artist;
+                SetWorkerCount(unit, unit.CurrentWorkerType, amount);
                 unit.PricePerProduct *= (1 + ARTIST_BONUS);
                 break;
             case WorkerType.Engineer:
                 unit.CurrentWorkerType = WorkerType.Engineer;
+                SetWorkerCount(unit, unit.CurrentWorkerType, amount);
                 break;
             case WorkerType.Chemist:
                 unit.CurrentWorkerType = WorkerType.Chemist;
+                SetWorkerCount(unit, unit.CurrentWorkerType, amount);
                 break;
             case WorkerType.Scientist:
                 unit.CurrentWorkerType = WorkerType.Scientist;
+                SetWorkerCount(unit, unit.CurrentWorkerType, amount);
                 break;
         }
+        if (unit.CurrentWorkerMode != WorkerType.Fill && unit.CurrentWorkerMode != WorkerType.None)
+            unit.CurrentWorkerMode = unit.CurrentWorkerType;
 
-        if (workerType != WorkerType.Fill && workerType != WorkerType.None)
-            unit.CurrentWorkerCount = amount;
-
-        if (unit.CurrentWorkerType != WorkerType.None)
-            ResourceManager.Instance.availableWrokerTypeDictionary[unit.CurrentWorkerType] -= unit.CurrentWorkerCount; // Setup available workers
-
-        if (unit.CurrentWorkerType != WorkerType.None)
-            availableWorkerCountText.text = ResourceManager.Instance.availableWrokerTypeDictionary[unit.CurrentWorkerType].ToString();
-
+        Debug.Log("Current worker count is: " + unit.CurrentWorkerCount);
         workerInputField.text = unit.CurrentWorkerCount.ToString(); // Set ui texts
-        workerTypeDropdown.value = (int)unit.CurrentWorkerType;
+        //workerTypeDropdown.value = (int)unit.CurrentWorkerMode;
+        availableWorkerCountText.text = availableWorkerTypeDictionary[unit.CurrentWorkerType].ToString();
+        CheckConditionsForButtons();
+        Debug.Log("Current worker count is: " + unit.CurrentWorkerCount);
+        if (unit.CurrentWorkerMode == WorkerType.Fill && !fillTypeProductionUnits.Contains(unit)) 
+            fillTypeProductionUnits.Add(unit);
+        else if (fillTypeProductionUnits.Contains(unit)) 
+            fillTypeProductionUnits.Remove(unit);
     }
 
     /*
@@ -623,8 +726,18 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
      * <seealso => https://www.desmos.com/calculator?lang=tr>
      */
 
+    public void UpgradeWorker(WorkerType upgradeType, long amount)
+    {
+        availableWorkerTypeDictionary[WorkerType.Standard] -= amount;
+        availableWorkerTypeDictionary[upgradeType] += amount;
+    }
+
+    //readonly Dictionary<WorkerType, (int, int)> workerUpgradeRequirementDict = new Dictionary<WorkerType, (int, int)>()
+    //{
+    //};
+
     // isUpgradePanelActive bool is used for updating upgrade panel when currency increased
-    public void ShowUpgradePanel(ProductionBase owner, UnityAction<int> SetUpgradePanel, UnityAction UpgradeMine, bool isUpgradePanelActive, BigDouble upgradeCost, int level)
+    public void ShowUpgradePanel(ProductionBase owner, UnityAction<int> SetUpgradePanel, UnityAction Upgrade, bool isUpgradePanelActive, BigDouble upgradeCost, int level)
     {
         upgradePanelOwner = owner;
         UnityAction<int> tempAction = SetUpgradePanel;
@@ -649,8 +762,82 @@ public class UpgradeSystem : Singleton<UpgradeSystem>
         buyBtn.onClick.RemoveAllListeners();
         buyBtn.onClick.AddListener(() =>
         {
-            UpgradeMine();
+            Upgrade();
             tempAction(upgradeMultiplier);
         });
     }
+
+    public void GrantReward(RewardType reward, BigDouble amount, ContractBase contract = null, BaseResources? resourceType = null)
+    {
+        switch (reward)
+        {
+            case RewardType.Currency:
+                ResourceManager.Instance.Currency += amount;
+                break;
+            case RewardType.PremiumCurrency:
+                ResourceManager.Instance.PremiumCurrency += amount;
+                break;
+            case RewardType.miningSpeedUp:
+                MiningSpeedMultiplier += (float)amount.ToDouble();
+                break;
+            case RewardType.productionSpeedUp:
+                ProductionSpeedMultiplier += (float)amount.ToDouble();
+                break;
+            case RewardType.miningYieldUpgrade:
+                MiningYieldMultiplier += (float)amount.ToDouble();
+                break;
+            case RewardType.productionYieldUpgrade:
+                ProductionYieldMultiplier += (float)amount.ToDouble();
+                break;
+            case RewardType.productionEfficiencyUpgrade:
+                ProductionEfficiencyMultiplier += (float)amount.ToDouble();
+                break;
+            case RewardType.incresedCoinEarning:
+                EarnedCoinMultiplier += (float)amount.ToDouble();
+                break;
+            case RewardType.unlockProductionUnit:
+                for (int j = 0; j < ProductionManager.Instance.instantiatedProductionUnits.Length; j++)
+                {
+                    var unit = ProductionManager.Instance.instantiatedProductionUnits[j].GetComponent<ProductionBase>();
+                    if (contract.productsToUnlock != null && contract.productsToUnlock.Contains(unit.scriptableProductionBase))
+                    {
+                        unit.ContractStatueCheckDictionary[contract] = true;
+                        if (!unit.ContractStatueCheckDictionary.ContainsValue(false))
+                        {
+                            if (unit.transform.Find("Level_Lock(Clone)") != null)
+                            {
+                                Destroy(unit.transform.Find("Level_Lock(Clone)").gameObject);
+                                unit.IsLockedByContract = false;
+                            }
+                        }
+                    }
+                }
+                break;
+            case RewardType.unitSpeedUp:
+                SpeedUpDictionaryValue = new KeyValuePair<BaseResources, float>(contract.resourceToRewarded, contract.contractReward);
+                break;
+            case RewardType.workerSpeed:
+                WorkerSpeedMultiplier += (float)amount.ToDouble();
+                break;
+            case RewardType.Resource:
+                ResourceManager.Instance.AddResource(resourceType.Value, amount);
+                break;
+        }
+    }
+}
+
+public enum RewardType
+{
+    Currency,
+    PremiumCurrency,
+    miningSpeedUp,
+    productionSpeedUp,
+    miningYieldUpgrade,
+    productionYieldUpgrade,
+    productionEfficiencyUpgrade,
+    incresedCoinEarning,
+    unlockProductionUnit, // Only for contracts
+    unitSpeedUp,
+    workerSpeed,
+    Resource,
 }

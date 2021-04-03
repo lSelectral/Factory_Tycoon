@@ -15,19 +15,28 @@ MonoBehaviour:
   contractName: Assembler
   description: We need to build an Assembler as soon as possible for producing more
     advanced materials.
+  contractType: 0
+  storyIndex: 0
+  totalStoryCount: 0
   contractReward: 15000
   contractRewardType: 8
   resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
   requiredResources: 0600000004000000
-  requiredResourceAmounts: b0040000f4010000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
+  - mantissa: 0
+    exponent: 0
   unlockLevel: 75
   icon: {fileID: 21300000, guid: 4fad2c15499c5cd4994e35041608263c, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>You completed Assembler Contract.
   rewardPanelDescription: By completing this contract, you unlocked the ways of producing
     more advanced materials. Now you can input 2 different material.
+  mainPageToGo: 0
   pageNameToGo: Primitives
+  isPageNameToGoValid: 0
   xpReward: 0
-  ageBelongsTo: 0
+  ageBelongsTo: 5
   history: 0

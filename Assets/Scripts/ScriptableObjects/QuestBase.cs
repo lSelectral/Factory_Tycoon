@@ -8,7 +8,7 @@ public class QuestBase : ScriptableObject
 
     public string description;
 
-    public RewardType rewardType;
+    public QuestRewardType rewardType;
 
     public QuestType questType;
 

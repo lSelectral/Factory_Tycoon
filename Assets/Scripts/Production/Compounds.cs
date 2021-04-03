@@ -1,7 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -42,58 +41,15 @@ public class Compounds : ProductionBase
 
     private void OnProductionYieldChanged(object sender, UpgradeSystem.OnProductionYieldChangedEventArgs e)
     {
-        throw new NotImplementedException();
     }
 
     private void OnProductionSpeedChanged(object sender, UpgradeSystem.OnProductionSpeedChangedEventArgs e)
     {
-        throw new NotImplementedException();
     }
 
     private void OnProductionEfficiencyChanged(object sender, UpgradeSystem.OnProductionEfficiencyChangedEventArgs e)
     {
-        throw new NotImplementedException();
     }
 
     #endregion
-
-    protected override void Update()
-    {
-        if (isAutomated)
-        {
-            Produce();
-        }
-
-        if (isCharging)
-        {
-            if (remainedCollectTime > 0)
-            {
-                remainedCollectTime -= Time.deltaTime * UpgradeSystem.Instance.ProductionSpeedMultiplier;
-                fillBar.fillAmount = ((collectTime - remainedCollectTime) / collectTime);
-            }
-            else
-            {
-                isCharging = false;
-
-                if (workingMode == WorkingMode.production)
-                {
-                    ResourceManager.Instance.AddResource(producedResource, (outputValueWhenStart * UpgradeSystem.Instance.ProductionYieldMultiplier));
-                    if (CheckIfPanelActive())
-                        StatSystem.Instance.PopupText(transform, outputValueWhenStart, _name);
-                }
-                else if (workingMode == WorkingMode.sell)
-                {
-                    ResourceManager.Instance.AddResource(producedResource, outputValueWhenStart * UpgradeSystem.Instance.ProductionYieldMultiplier);
-                    SellResource();
-                    if (CheckIfPanelActive())
-                        StatSystem.Instance.PopupText(transform, PricePerProduct, "Gold");
-                }
-
-                tempResourceList = currentRecipe.inputResources.ToList();
-                GameManager.Instance.AddXP(scriptableCompound.xpAmount);
-                remainedCollectTime = 0;
-                fillBar.fillAmount = 0;
-            }
-        }
-    }
 }

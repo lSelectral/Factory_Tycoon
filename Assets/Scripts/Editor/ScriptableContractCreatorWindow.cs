@@ -85,14 +85,14 @@ public class ScriptableContractCreatorWindow : Editor
 
         EditorGUILayout.PropertyField(contractReward);
         EditorGUILayout.PropertyField(contractRewardType);
-        var contractRewardTypeValue = (ContractRewardType)contractRewardType.enumValueIndex;
+        var contractRewardTypeValue = (RewardType)contractRewardType.enumValueIndex;
 
-        if (contractRewardTypeValue == ContractRewardType.unitSpeedUp)
+        if (contractRewardTypeValue == RewardType.unitSpeedUp)
             EditorGUILayout.PropertyField(resourceToRewarded);
 
         EditorGUILayout.PropertyField(dependentContracts, true);
 
-        if (contractRewardTypeValue == ContractRewardType.unlockProductionUnit)
+        if (contractRewardTypeValue == RewardType.unlockProductionUnit)
             EditorGUILayout.PropertyField(productsToUnlock, true);
 
         EditorGUILayout.PropertyField(requiredResources, true);

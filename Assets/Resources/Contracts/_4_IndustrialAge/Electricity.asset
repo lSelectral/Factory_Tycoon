@@ -14,18 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contractName: Electricity
   description: 
+  contractType: 0
+  storyIndex: 0
+  totalStoryCount: 0
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
-  requiredResources: 
-  requiredResourceAmounts: 
+  requiredResources: 02000000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
   unlockLevel: 40
   icon: {fileID: 0}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 
+  mainPageToGo: 0
   pageNameToGo: 
+  isPageNameToGoValid: 0
   xpReward: 0
-  ageBelongsTo: 0
+  ageBelongsTo: 4
   history: 0

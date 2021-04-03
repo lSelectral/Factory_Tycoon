@@ -15,18 +15,29 @@ MonoBehaviour:
   contractName: Iron Extraction Efficiency
   description: 'Providing support to this project, will increase iron mining efficiency
     significantly. '
+  contractType: 0
+  storyIndex: 0
+  totalStoryCount: 0
   contractReward: 0
   contractRewardType: 0
   resourceToRewarded: 0
   dependentContracts: []
   productsToUnlock: []
   requiredResources: 070000001000000015000000
-  requiredResourceAmounts: c80000009600000070170000
+  requiredResourceAmounts:
+  - mantissa: 1
+    exponent: 1
+  - mantissa: 0
+    exponent: 0
+  - mantissa: 0
+    exponent: 0
   unlockLevel: 75
   icon: {fileID: 21300000, guid: 6ed4ed1a59ab0684188e2dab63f7bf63, type: 3}
   rewardPanelHeader: <color=red>Congrulations</color>
   rewardPanelDescription: 
+  mainPageToGo: 0
   pageNameToGo: 
+  isPageNameToGoValid: 0
   xpReward: 0
-  ageBelongsTo: 0
+  ageBelongsTo: 5
   history: 0
