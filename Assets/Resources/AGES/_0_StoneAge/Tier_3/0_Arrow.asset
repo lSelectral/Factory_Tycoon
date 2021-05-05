@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: Used with bow and deadly tool for hunting and ranged fightining.
   TranslatedName: Arrow
   product: 11
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 9
   outputValue: 3
   recipes:
@@ -40,69 +43,68 @@ MonoBehaviour:
   incomePerSecond:
     mantissa: 6.5000082260003
     exponent: 9
-  optimalPricePerProductText: 24,678K
+  optimalPricePerProductText: 24,68K
   optimalPricePerProduct:
     mantissa: 2.4678000926971433
     exponent: 4
-  optimalIncomePerSecondText: 763.999986648559
+  optimalIncomePerSecondText: 764
   optimalPricePerSecond:
     mantissa: 7.639999866485594
     exponent: 2
   isOptimal: 1
-  lockedByContracts: []
-  unlockLevel: 6
+  unlockLevel: 10
   xpAmount: 120
   pricePerProductUntilLevel50:
-  - 30,615B
-  - 48,066B
-  - 75,463B
-  - 118,477B
-  - 186,009B
-  - 292,034B
-  - 458,493B
-  - 719,834B
+  - 30,62B
+  - 48,07B
+  - 75,46B
+  - 118,48B
+  - 186,01B
+  - 292,03B
+  - 458,49B
+  - 719,83B
   - 1,13T
-  - 1,774T
-  - 2,786T
-  - 4,374T
-  - 6,866T
+  - 1,77T
+  - 2,79T
+  - 4,37T
+  - 6,87T
   - 10,78T
-  - 16,925T
-  - 26,572T
-  - 41,719T
-  - 65,498T
-  - 102,832T
-  - 161,446T
-  - 253,471T
-  - 397,949T
-  - 624,781T
-  - 980,905T
+  - 16,93T
+  - 26,57T
+  - 41,72T
+  - 65,5T
+  - 102,83T
+  - 161,45T
+  - 253,47T
+  - 397,95T
+  - 624,78T
+  - 980,91T
   - 1,54A
-  - 2,418A
-  - 3,796A
+  - 2,42A
+  - 3,8A
   - 5,96A
-  - 9,357A
+  - 9,36A
   - 14,69A
-  - 23,063A
+  - 23,06A
   - 36,21A
-  - 56,849A
-  - 89,253A
-  - 140,128A
+  - 56,85A
+  - 89,25A
+  - 140,13A
   - 220A
   - 345,4A
-  - 542,279A
-  - 851,378A
-  - 1,337B
-  - 2,099B
-  - 3,295B
-  - 5,173B
-  - 8,121B
+  - 542,28A
+  - 851,38A
+  - 1,34B
+  - 2,1B
+  - 3,29B
+  - 5,17B
+  - 8,12B
   - 12,75B
-  - 20,018B
-  - 31,428B
-  - 49,342B
-  - 77,467B
-  - 286,629B
+  - 20,02B
+  - 31,43B
+  - 49,34B
+  - 77,47B
+  - 286,63B
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 07d042f517ba13442b3af063fe6fa374, type: 3}
   sourceImage: {fileID: 21300000, guid: 4f9bf3a93fb0cf74c8bb315b8a6787a8, type: 3}

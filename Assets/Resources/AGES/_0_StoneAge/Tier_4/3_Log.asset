@@ -15,8 +15,8 @@ MonoBehaviour:
   Description: 
   TranslatedName: Log
   product: 19
-  prefferedWorkerType: 0
-  minimumWorker: 4
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     mantissa: 9.984725184696755
     exponent: 7
   isOptimal: 1
-  unlockLevel: 0
+  unlockLevel: 17
   xpAmount: 10
   pricePerProductUntilLevel50:
   - 48,67A

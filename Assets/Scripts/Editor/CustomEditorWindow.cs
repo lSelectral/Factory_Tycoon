@@ -138,8 +138,7 @@ public class CustomEditorWindow : EditorWindow
         workerType = (WorkerType)EditorGUI.EnumPopup(new Rect(5, 330, 380, 20), "Select Worker", workerType);
         if (GUILayout.Button("ADD WORKER"))
         {
-            UpgradeSystem.Instance.totalWorkertypeDictionary[workerType] += 5;
-            UpgradeSystem.Instance.availableWorkerTypeDictionary[workerType] += 5;
+            UpgradeSystem.Instance.AddWorker(workerType, 10);
         }
 
         if (GUILayout.Button("Add Parent Node"))

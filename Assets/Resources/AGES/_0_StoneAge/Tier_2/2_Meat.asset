@@ -16,8 +16,8 @@ MonoBehaviour:
     and delicious.
   TranslatedName: Meat
   product: 7
-  prefferedWorkerType: 0
-  minimumWorker: 2
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 4
   housingAmount: 0
   attackAmount: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
     mantissa: 1.6834049394618933
     exponent: 6
   isOptimal: 1
-  unlockLevel: 6
+  unlockLevel: 7
   xpAmount: 40
   pricePerProductUntilLevel50:
   - 33,59M

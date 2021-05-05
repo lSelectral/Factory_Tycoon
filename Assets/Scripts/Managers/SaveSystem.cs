@@ -4,14 +4,6 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-/*
- * HOW QUESTS SHOULD BE SAVED.
- * 
- * 
- * 
- * 
- */
-
 /// --------------------------------------------------------
 ///        ---THINGS SHOULD BE SAVED---
 ///             -BaseResources ( DONE as List )
@@ -30,6 +22,7 @@ using UnityEngine;
 /// </summary>
 public class SaveSystem : Singleton<SaveSystem>
 {
+    // Total input and outputs
     public BigDouble totalEarnedCurrency;
     public BigDouble totalEarnedPremiumCurrency;
     public BigDouble totalProducedResource;
@@ -157,14 +150,11 @@ public class SaveSystem : Singleton<SaveSystem>
         {
             isLoading = true;
             string saveText = File.ReadAllText(Application.persistentDataPath + "/SAVES/save.txt");
-
             saveObject = JsonUtility.FromJson<SaveObject>(saveText);
 
             totalExitTime = (DateTime.Now - saveObject.lastExitTime).Seconds;
-            Debug.Log(string.Format("You were out of game for: {0} minutes and {1:00} seconds", (int)totalExitTime / 60, (int)totalExitTime % 60));
-
-            BigDouble idleEarnedCurrency = new BigDouble();
-            Dictionary<BaseResources, BigDouble> idleEarnedResourceDict = new Dictionary<BaseResources, BigDouble>();
+            Debug.Log(string.Format("You were out of game for: {0} minutes and {1:00} seconds", 
+                (int)totalExitTime / 60, (int)totalExitTime % 60));
 
             // Load all variables
             GameManager.Instance.CurrentLevel = saveObject.currentLevel;
@@ -175,24 +165,18 @@ public class SaveSystem : Singleton<SaveSystem>
             ResourceManager.Instance.PremiumCurrency = saveObject.premiumCurrency;
             ResourceManager.Instance.TotalResource = saveObject.totalResource;
 
-            var allResourceAndAmounts = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>().Zip(saveObject.resourceList, (res, amount) => (Res: res, Amount: amount));
+            var allResourceAndAmounts = Enum.GetValues(typeof(BaseResources)).Cast<BaseResources>()
+                .Zip(saveObject.resourceList, (res, amount) => (Res: res, Amount: amount));
             foreach (var (Res, Amount) in allResourceAndAmounts)
             {
                 ResourceManager.Instance.AddResource(Res, Amount);
             }
 
-            ContractManager.Instance.activatedContracts = saveObject.activatedContracts;
-            ContractManager.Instance.completedContracts = saveObject.completedContracts;
+            //ContractManager.Instance.activatedContracts = saveObject.activatedContracts;
+            //ContractManager.Instance.completedContracts = saveObject.completedContracts;
 
-            QuestManager.Instance.completedQuests = saveObject.completedQuestList;
-            QuestManager.Instance.instantiatedQuests = saveObject.instantiatedQuestList;
-
-            ResourceManager.Instance.Currency = saveObject.currency;
-            ResourceManager.Instance.PremiumCurrency = saveObject.premiumCurrency;
-
-            GameManager.Instance.CurrentXP = saveObject.currentXP;
-            GameManager.Instance.RequiredXPforNextLevel = saveObject.requiredXPforNextLevel;
-            GameManager.Instance.CurrentLevel = saveObject.currentLevel;
+            //QuestManager.Instance.completedQuests = saveObject.completedQuestList;
+            //QuestManager.Instance.instantiatedQuests = saveObject.instantiatedQuestList;
 
             var savedProductionUnitInfos = ProductionManager.Instance.instantiatedProductionUnits.Zip(
                 saveObject.instantiatedProductionUnits, (instance, save) => (Instance: instance, Save: save));
@@ -210,24 +194,27 @@ public class SaveSystem : Singleton<SaveSystem>
                 unit.IsAutomated = Save.isAutomated;
             }
 
-            for (int i = 0; i < ProductionManager.Instance.instantiatedProductionUnits.Length; i++)
-            {
-                var unit = ProductionManager.Instance.instantiatedProductionUnits[i].GetComponent<ProductionBase>();
-                if (unit.GetComponent<Mine_Btn>() != null)
-                {
-                    if (unit.WorkingMode == WorkingMode.sell)
-                        idleEarnedCurrency += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, true);
-                    else
-                        idleEarnedResourceDict[unit.ProducedResource] += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, false);
-                }
-                else   // Currently compounds, Idle production won't use any resource. But production rate is x10 slower
-                {
-                    if (unit.WorkingMode == WorkingMode.sell)
-                        idleEarnedCurrency += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, true, .1f);
-                    else
-                        idleEarnedResourceDict[unit.ProducedResource] += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, false, .1f);
-                }
-            }
+            //BigDouble idleEarnedCurrency = new BigDouble();
+            //Dictionary<BaseResources, BigDouble> idleEarnedResourceDict = new Dictionary<BaseResources, BigDouble>();
+            //for (int i = 0; i < ProductionManager.Instance.instantiatedProductionUnits.Length; i++)
+            //{
+            //    var unit = ProductionManager.Instance.instantiatedProductionUnits[i].GetComponent<ProductionBase>();
+            //    if (unit.GetComponent<Mine_Btn>() != null)
+            //    {
+            //        if (unit.WorkingMode == WorkingMode.sell)
+            //            idleEarnedCurrency += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, true);
+            //        else
+            //            idleEarnedResourceDict[unit.ProducedResource] += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, false);
+            //    }
+            //    else   // Currently compounds, Idle production won't use any resource. But production rate is x10 slower
+            //    {
+            //        if (unit.WorkingMode == WorkingMode.sell)
+            //            idleEarnedCurrency += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, true, .1f);
+            //        else
+            //            idleEarnedResourceDict[unit.ProducedResource] += unit.GetComponent<Mine_Btn>().IdleEarn(totalExitTime, false, .1f);
+            //    }
+            //}
+            //ResourceManager.Instance.Currency += idleEarnedCurrency;
 
             this.totalEarnedCurrency = saveObject.totalEarnedCurrency;
             this.totalConsumedResource = saveObject.totalConsumedResource;
@@ -235,8 +222,6 @@ public class SaveSystem : Singleton<SaveSystem>
             this.totalProducedResource = saveObject.totalProducedResource;
             this.totalSpendedCurrency = saveObject.totalSpendedCurrency;
             this.totalSpendedPremiumCurrency = saveObject.totalSpendedPremiumCurrency;
-
-            ResourceManager.Instance.Currency += idleEarnedCurrency;
 
             isLoading = false;
         }

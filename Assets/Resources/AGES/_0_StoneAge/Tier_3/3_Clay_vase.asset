@@ -15,8 +15,8 @@ MonoBehaviour:
   Description: Product of creativity. Multi purpose storage  tool.
   TranslatedName: Clay Vase
   product: 14
-  prefferedWorkerType: 0
-  minimumWorker: 2
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     mantissa: 3.274285657065254
     exponent: 9
   isOptimal: 1
-  unlockLevel: 8
+  unlockLevel: 12
   xpAmount: 25
   pricePerProductUntilLevel50:
   - 10,96T

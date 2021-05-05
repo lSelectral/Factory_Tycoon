@@ -38,7 +38,6 @@ public class QuestManager : Singleton<QuestManager>
             var _quest = Instantiate(questPrefab, questPanel.transform);
             _quest.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = quest.questName;
             _quest.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = quest.description;
-            _quest.AddComponent<QuestHolder>();
             _quest.GetComponent<QuestHolder>().questBase = quest;
             _quest.GetComponent<QuestHolder>().completedIntervals = new List<int>();
 

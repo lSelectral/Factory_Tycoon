@@ -15,8 +15,8 @@ MonoBehaviour:
   Description: Shelter for first humans
   TranslatedName: Hut
   product: 22
-  prefferedWorkerType: 0
-  minimumWorker: 3
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     mantissa: 1.2736638169873835
     exponent: 13
   isOptimal: 1
-  unlockLevel: 12
+  unlockLevel: 20
   xpAmount: 25
   pricePerProductUntilLevel50:
   - 188,4B

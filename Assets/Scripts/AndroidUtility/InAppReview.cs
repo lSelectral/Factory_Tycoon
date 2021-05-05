@@ -4,17 +4,13 @@ using Google.Play.Review;
 // TODO Use Review method at the end of stone age.
 public class InAppReview : Singleton<InAppReview>
 {
-    // Create instance of ReviewManager
-    private ReviewManager _reviewManager;
-    private PlayReviewInfo _playReviewInfo;
-
     /// <summary>
     /// Google Play Instant Review Function
     /// </summary>
     /// <returns></returns>
     IEnumerator Review()
     {
-        _reviewManager = new ReviewManager();
+        ReviewManager _reviewManager = new ReviewManager();
 
         var requestFlowOperation = _reviewManager.RequestReviewFlow();
         yield return requestFlowOperation;
@@ -23,7 +19,7 @@ public class InAppReview : Singleton<InAppReview>
             // Log error. For example, using requestFlowOperation.Error.ToString().
             yield break;
         }
-        _playReviewInfo = requestFlowOperation.GetResult();
+        PlayReviewInfo _playReviewInfo = requestFlowOperation.GetResult();
 
         var launchFlowOperation = _reviewManager.LaunchReviewFlow(_playReviewInfo);
         yield return launchFlowOperation;

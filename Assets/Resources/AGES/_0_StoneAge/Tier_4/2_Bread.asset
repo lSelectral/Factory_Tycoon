@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: 
   TranslatedName: Bread
   product: 18
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 50
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 10
   outputValue: 1
   recipes:
@@ -32,77 +35,76 @@ MonoBehaviour:
     mantissa: 6
     exponent: 15
   pricePerProductExpText: 1.22456669012706E+16
-  pricePerProductText: 12,246A
+  pricePerProductText: 12,25A
   pricePerProduct:
     mantissa: 1.224566690127055
     exponent: 16
-  incomePerSecondText: 1,225A
+  incomePerSecondText: 1,22A
   incomePerSecond:
     mantissa: 1.224566690127055
     exponent: 15
-  optimalPricePerProductText: 6,246A
+  optimalPricePerProductText: 6,25A
   optimalPricePerProduct:
     mantissa: 6.245666901270549
     exponent: 15
-  optimalIncomePerSecondText: 696,089T
+  optimalIncomePerSecondText: 696,09T
   optimalPricePerSecond:
     mantissa: 6.960888767242431
     exponent: 14
   isOptimal: 1
-  lockedByContracts: []
-  unlockLevel: 0
+  unlockLevel: 16
   xpAmount: 10
   pricePerProductUntilLevel50:
-  - 19,226A
-  - 30,184A
-  - 47,389A
-  - 74,401A
+  - 19,23A
+  - 30,18A
+  - 47,39A
+  - 74,4A
   - 116,81A
-  - 183,392A
-  - 287,925A
-  - 452,043A
-  - 709,708A
-  - 1,114B
-  - 1,749B
-  - 2,746B
-  - 4,312B
+  - 183,39A
+  - 287,93A
+  - 452,04A
+  - 709,71A
+  - 1,11B
+  - 1,75B
+  - 2,75B
+  - 4,31B
   - 6,77B
-  - 10,629B
-  - 16,687B
-  - 26,199B
-  - 41,132B
-  - 64,577B
-  - 101,385B
-  - 159,175B
-  - 249,905B
-  - 392,351B
-  - 615,991B
-  - 967,106B
-  - 1,518C
-  - 2,384C
-  - 3,743C
-  - 5,876C
-  - 9,225C
-  - 14,483C
-  - 22,739C
+  - 10,63B
+  - 16,69B
+  - 26,2B
+  - 41,13B
+  - 64,58B
+  - 101,39B
+  - 159,18B
+  - 249,91B
+  - 392,35B
+  - 615,99B
+  - 967,11B
+  - 1,52C
+  - 2,38C
+  - 3,74C
+  - 5,88C
+  - 9,23C
+  - 14,48C
+  - 22,74C
   - 35,7C
-  - 56,049C
-  - 87,998C
-  - 138,156C
-  - 216,905C
-  - 340,541C
+  - 56,05C
+  - 88C
+  - 138,16C
+  - 216,91C
+  - 340,54C
   - 534,65C
   - 839,4C
-  - 1,318D
-  - 2,069D
-  - 3,248D
+  - 1,32D
+  - 2,07D
+  - 3,25D
   - 5,1D
-  - 8,007D
-  - 12,571D
-  - 19,736D
-  - 30,986D
-  - 48,648D
-  - 179,998D
+  - 8,01D
+  - 12,57D
+  - 19,74D
+  - 30,99D
+  - 48,65D
+  - 180D
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: f25343c70cdf29549a28f4686a0ea4e4, type: 3}

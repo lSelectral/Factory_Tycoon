@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: 
   TranslatedName: Sand
   product: 20
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 5
   outputValue: 1
   recipes:
@@ -44,13 +47,12 @@ MonoBehaviour:
   optimalPricePerProduct:
     mantissa: 0
     exponent: 0
-  optimalIncomePerSecondText: 8.68181784192393
+  optimalIncomePerSecondText: 9
   optimalPricePerSecond:
     mantissa: 8.681817841923934
     exponent: 0
   isOptimal: 1
-  lockedByContracts: []
-  unlockLevel: 13
+  unlockLevel: 18
   xpAmount: 10
   pricePerProductUntilLevel50:
   - 392,5A

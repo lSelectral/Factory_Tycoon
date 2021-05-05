@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: 
   TranslatedName: Rope
   product: 5
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 5
   outputValue: 1
   recipes:
@@ -32,76 +35,75 @@ MonoBehaviour:
     mantissa: 4
     exponent: 5
   pricePerProductExpText: 4.00685500025749E+5
-  pricePerProductText: 400,686K
+  pricePerProductText: 400,69K
   pricePerProduct:
     mantissa: 4.00685500025749
     exponent: 5
-  incomePerSecondText: 80,137K
+  incomePerSecondText: 80,14K
   incomePerSecond:
     mantissa: 8.01371000051498
     exponent: 4
-  optimalPricePerProductText: 685.500025749206
+  optimalPricePerProductText: 686
   optimalPricePerProduct:
     mantissa: 6.8550002574920645
     exponent: 2
-  optimalIncomePerSecondText: 114.599997997284
+  optimalIncomePerSecondText: 115
   optimalPricePerSecond:
     mantissa: 1.145999979972839
     exponent: 2
   isOptimal: 1
-  lockedByContracts: []
-  unlockLevel: 0
+  unlockLevel: 6
   xpAmount: 10
   pricePerProductUntilLevel50:
-  - 629,076K
+  - 629,08K
   - 987,65K
-  - 1,551M
-  - 2,434M
-  - 3,822M
-  - 6,001M
-  - 9,421M
-  - 14,791M
-  - 23,222M
-  - 36,459M
+  - 1,55M
+  - 2,43M
+  - 3,82M
+  - 6M
+  - 9,42M
+  - 14,79M
+  - 23,22M
+  - 36,46M
   - 57,24M
-  - 89,867M
-  - 141,091M
-  - 221,513M
-  - 347,775M
-  - 546,007M
-  - 857,231M
-  - 1,346B
-  - 2,113B
-  - 3,317B
-  - 5,208B
-  - 8,177B
-  - 12,838B
-  - 20,156B
-  - 31,644B
-  - 49,682B
+  - 89,87M
+  - 141,09M
+  - 221,51M
+  - 347,78M
+  - 546,01M
+  - 857,23M
+  - 1,35B
+  - 2,11B
+  - 3,32B
+  - 5,21B
+  - 8,18B
+  - 12,84B
+  - 20,16B
+  - 31,64B
+  - 49,68B
   - 78B
   - 122,46B
-  - 192,262B
-  - 301,852B
-  - 473,907B
-  - 744,034B
-  - 1,168T
-  - 1,834T
-  - 2,879T
-  - 4,521T
-  - 7,097T
-  - 11,143T
-  - 17,494T
-  - 27,466T
-  - 43,121T
+  - 192,26B
+  - 301,85B
+  - 473,91B
+  - 744,03B
+  - 1,17T
+  - 1,83T
+  - 2,88T
+  - 4,52T
+  - 7,1T
+  - 11,14T
+  - 17,49T
+  - 27,47T
+  - 43,12T
   - 67,7T
-  - 106,289T
-  - 166,874T
-  - 261,992T
-  - 411,328T
-  - 645,785T
-  - 1,014A
-  - 1,592A
+  - 106,29T
+  - 166,87T
+  - 261,99T
+  - 411,33T
+  - 645,79T
+  - 1,01A
+  - 1,59A
   - 5,89A
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 0}

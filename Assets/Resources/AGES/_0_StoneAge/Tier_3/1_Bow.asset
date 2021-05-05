@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: In the good hands, can bring down foes from distance
   TranslatedName: Bow
   product: 12
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 300
+  defenseAmount: 0
   collectTime: 12
   outputValue: 1
   recipes:
@@ -29,18 +32,18 @@ MonoBehaviour:
   tier: 2
   itemTypes: 0400000002000000
   basePricePerProduct:
-    mantissa: 6
+    mantissa: 10
     exponent: 11
-  pricePerProductExpText: 9.5647367059565E+11
-  pricePerProductText: 956,474B
+  pricePerProductExpText: 1.35647367059565E+12
+  pricePerProductText: 1,36T
   pricePerProduct:
-    mantissa: 9.5647367059565
-    exponent: 11
-  incomePerSecondText: 79,706B
+    mantissa: 1.35647367059565
+    exponent: 12
+  incomePerSecondText: 113,04B
   incomePerSecond:
-    mantissa: 7.970613921630418
-    exponent: 10
-  optimalPricePerProductText: 356,474B
+    mantissa: 1.130394725496375
+    exponent: 11
+  optimalPricePerProductText: 356,47B
   optimalPricePerProduct:
     mantissa: 3.5647367059564976
     exponent: 11
@@ -49,60 +52,59 @@ MonoBehaviour:
     mantissa: 2.483033787711542
     exponent: 10
   isOptimal: 1
-  lockedByContracts: []
   unlockLevel: 7
   xpAmount: 120
   pricePerProductUntilLevel50:
-  - 1,502T
-  - 2,358T
-  - 3,701T
-  - 5,811T
-  - 9,124T
-  - 14,324T
-  - 22,489T
-  - 35,308T
-  - 55,433T
-  - 87,03T
-  - 136,637T
-  - 214,521T
-  - 336,797T
-  - 528,772T
-  - 830,172T
-  - 1,303A
-  - 2,046A
-  - 3,213A
-  - 5,044A
-  - 7,919A
-  - 12,433A
-  - 19,519A
-  - 30,645A
-  - 48,113A
-  - 75,538A
-  - 118,594A
-  - 186,193A
-  - 292,323A
-  - 458,948A
-  - 720,548A
-  - 1,131B
-  - 1,776B
-  - 2,788B
-  - 4,378B
-  - 6,873B
-  - 10,791B
-  - 16,942B
-  - 26,599B
-  - 41,76B
-  - 65,563B
-  - 102,934B
-  - 161,607B
-  - 253,722B
-  - 398,344B
-  - 625,4B
-  - 981,878B
-  - 1,542C
-  - 2,42C
-  - 3,8C
-  - 14,059C
+  - 2,13T
+  - 3,34T
+  - 5,25T
+  - 8,24T
+  - 12,94T
+  - 20,31T
+  - 31,89T
+  - 50,07T
+  - 78,62T
+  - 123,43T
+  - 193,78T
+  - 304,23T
+  - 477,65T
+  - 749,91T
+  - 1,18A
+  - 1,85A
+  - 2,9A
+  - 4,56A
+  - 7,15A
+  - 11,23A
+  - 17,63A
+  - 27,68A
+  - 43,46A
+  - 68,23A
+  - 107,13A
+  - 168,19A
+  - 264,06A
+  - 414,57A
+  - 650,88A
+  - 1,02B
+  - 1,6B
+  - 2,52B
+  - 3,95B
+  - 6,21B
+  - 9,75B
+  - 15,3B
+  - 24,03B
+  - 37,72B
+  - 59,22B
+  - 92,98B
+  - 145,98B
+  - 229,19B
+  - 359,83B
+  - 564,93B
+  - 886,94B
+  - 1,39C
+  - 2,19C
+  - 3,43C
+  - 5,39C
+  - 19,94C
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: e0424b7d313407542add7e350c708812, type: 3}
   sourceImage: {fileID: 21300000, guid: 1def90f1eb4941f4fbebffc2f8d1fbb2, type: 3}

@@ -15,14 +15,19 @@ MonoBehaviour:
   Description: 
   TranslatedName: Rice
   product: 28
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 100
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 10
   outputValue: 2
   recipes:
   - inputResources: 00000000
     inputAmounts: 00000000
+    collectTime: 10
+    outputAmount: 2
   ageBelongsTo: 1
   tier: 0
   itemTypes: 0000000003000000
@@ -30,11 +35,11 @@ MonoBehaviour:
     mantissa: 1.8
     exponent: 20
   pricePerProductExpText: 1.8E+20
-  pricePerProductText: 180AB
+  pricePerProductText: 180B
   pricePerProduct:
     mantissa: 1.8
     exponent: 20
-  incomePerSecondText: 36AB
+  incomePerSecondText: 36B
   incomePerSecond:
     mantissa: 3.6
     exponent: 19
@@ -42,65 +47,64 @@ MonoBehaviour:
   optimalPricePerProduct:
     mantissa: 0
     exponent: 0
-  optimalIncomePerSecondText: 8.68181784192393
+  optimalIncomePerSecondText: 9
   optimalPricePerSecond:
     mantissa: 8.681817841923934
     exponent: 0
   isOptimal: 1
-  lockedByContracts: []
-  unlockLevel: 8
+  unlockLevel: 26
   xpAmount: 10
   pricePerProductUntilLevel50:
-  - 282,6AB
-  - 443,682AB
-  - 696,581AB
-  - 1,094BA
-  - 1,717BA
-  - 2,696BA
-  - 4,232BA
-  - 6,645BA
-  - 10,432BA
-  - 16,378BA
-  - 25,714BA
-  - 40,371BA
-  - 63,382BA
-  - 99,51BA
-  - 156,231BA
-  - 245,283BA
-  - 385,094BA
-  - 604,598BA
-  - 949,218BA
-  - 1,49BB
-  - 2,34BB
-  - 3,673BB
-  - 5,767BB
-  - 9,055BB
-  - 14,216BB
-  - 22,318BB
-  - 35,04BB
-  - 55,013BB
-  - 86,37BB
-  - 135,601BB
-  - 212,893BB
-  - 334,243BB
-  - 524,761BB
-  - 823,875BB
-  - 1,293CA
-  - 2,031CA
-  - 3,188CA
-  - 5,006CA
-  - 7,859CA
-  - 12,338CA
-  - 19,371CA
-  - 30,413CA
-  - 47,748CA
-  - 74,965CA
-  - 117,695CA
-  - 184,781CA
-  - 290,106CA
-  - 455,467CA
-  - 715,083CA
-  - 2,646CB
+  - 282,6B
+  - 443,68B
+  - 696,58B
+  - 1,09C
+  - 1,72C
+  - 2,7C
+  - 4,23C
+  - 6,64C
+  - 10,43C
+  - 16,38C
+  - 25,71C
+  - 40,37C
+  - 63,38C
+  - 99,51C
+  - 156,23C
+  - 245,28C
+  - 385,09C
+  - 604,6C
+  - 949,22C
+  - 1,49D
+  - 2,34D
+  - 3,67D
+  - 5,77D
+  - 9,05D
+  - 14,22D
+  - 22,32D
+  - 35,04D
+  - 55,01D
+  - 86,37D
+  - 135,6D
+  - 212,89D
+  - 334,24D
+  - 524,76D
+  - 823,87D
+  - 1,29E
+  - 2,03E
+  - 3,19E
+  - 5,01E
+  - 7,86E
+  - 12,34E
+  - 19,37E
+  - 30,41E
+  - 47,75E
+  - 74,96E
+  - 117,69E
+  - 184,78E
+  - 290,11E
+  - 455,47E
+  - 715,08E
+  - 2,65F
   backgroundImage: {fileID: 21300000, guid: 5528c633bc9ee9b4e9c36a8619d02dd7, type: 3}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: 79e72b18f6eed43439a243f5f34fdf94, type: 3}

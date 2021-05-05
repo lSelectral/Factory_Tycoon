@@ -15,14 +15,19 @@ MonoBehaviour:
   Description: Beatiful, delicious apple. Root of all sins.
   TranslatedName: Apple
   product: 25
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 50
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 5
   outputValue: 1
   recipes:
   - inputResources: 00000000
     inputAmounts: 00000000
+    collectTime: 5
+    outputAmount: 1
   ageBelongsTo: 1
   tier: 0
   itemTypes: 03000000
@@ -30,11 +35,11 @@ MonoBehaviour:
     mantissa: 1
     exponent: 18
   pricePerProductExpText: 1E+18
-  pricePerProductText: 1AB
+  pricePerProductText: 1B
   pricePerProduct:
     mantissa: 1
     exponent: 18
-  incomePerSecondText: 200AA
+  incomePerSecondText: 200A
   incomePerSecond:
     mantissa: 2
     exponent: 17
@@ -42,65 +47,64 @@ MonoBehaviour:
   optimalPricePerProduct:
     mantissa: 0
     exponent: 0
-  optimalIncomePerSecondText: 8.68181784192393
+  optimalIncomePerSecondText: 9
   optimalPricePerSecond:
     mantissa: 8.681817841923934
     exponent: 0
   isOptimal: 1
-  lockedByContracts: []
-  unlockLevel: 8
+  unlockLevel: 23
   xpAmount: 10
   pricePerProductUntilLevel50:
-  - 1,57AB
-  - 2,465AB
-  - 3,87AB
-  - 6,076AB
-  - 9,539AB
-  - 14,976AB
-  - 23,512AB
-  - 36,915AB
-  - 57,956AB
-  - 90,991AB
-  - 142,855AB
-  - 224,283AB
-  - 352,124AB
-  - 552,835AB
-  - 867,951AB
-  - 1,363BA
-  - 2,139BA
-  - 3,359BA
-  - 5,273BA
-  - 8,279BA
-  - 12,998BA
-  - 20,408BA
-  - 32,04BA
-  - 50,303BA
-  - 78,975BA
-  - 123,991BA
-  - 194,666BA
-  - 305,626BA
-  - 479,833BA
-  - 753,338BA
-  - 1,183BB
-  - 1,857BB
-  - 2,915BB
-  - 4,577BB
-  - 7,186BB
-  - 11,282BB
-  - 17,713BB
-  - 27,809BB
-  - 43,66BB
-  - 68,547BB
-  - 107,618BB
-  - 168,961BB
-  - 265,268BB
-  - 416,472BB
-  - 653,86BB
-  - 1,027CA
-  - 1,612CA
-  - 2,53CA
-  - 3,973CA
-  - 14,699CA
+  - 1,57B
+  - 2,46B
+  - 3,87B
+  - 6,08B
+  - 9,54B
+  - 14,98B
+  - 23,51B
+  - 36,91B
+  - 57,96B
+  - 90,99B
+  - 142,86B
+  - 224,28B
+  - 352,12B
+  - 552,83B
+  - 867,95B
+  - 1,36C
+  - 2,14C
+  - 3,36C
+  - 5,27C
+  - 8,28C
+  - 13C
+  - 20,41C
+  - 32,04C
+  - 50,3C
+  - 78,98C
+  - 123,99C
+  - 194,67C
+  - 305,63C
+  - 479,83C
+  - 753,34C
+  - 1,18D
+  - 1,86D
+  - 2,92D
+  - 4,58D
+  - 7,19D
+  - 11,28D
+  - 17,71D
+  - 27,81D
+  - 43,66D
+  - 68,55D
+  - 107,62D
+  - 168,96D
+  - 265,27D
+  - 416,47D
+  - 653,86D
+  - 1,03E
+  - 1,61E
+  - 2,53E
+  - 3,97E
+  - 14,7E
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 5ede1604f32204c40b4e653a404b3554, type: 3}
   sourceImage: {fileID: 21300000, guid: 2acd216a01d7c334c95aee583c1d3de1, type: 3}

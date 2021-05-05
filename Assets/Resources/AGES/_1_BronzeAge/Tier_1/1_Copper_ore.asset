@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: One of the frist ore. Can be found  without need of any tool..
   TranslatedName: Copper Ore
   product: 26
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
+  defenseAmount: 0
   collectTime: 6
   outputValue: 2
   recipes:
@@ -40,69 +43,68 @@ MonoBehaviour:
   incomePerSecond:
     mantissa: 2.00000000000002
     exponent: 18
-  optimalPricePerProductText: 61,695K
+  optimalPricePerProductText: 61,7K
   optimalPricePerProduct:
     mantissa: 6.169500231742859
     exponent: 4
-  optimalIncomePerSecondText: 8,595K
+  optimalIncomePerSecondText: 8,59K
   optimalPricePerSecond:
     mantissa: 8.594999849796295
     exponent: 3
   isOptimal: 1
-  lockedByContracts: []
-  unlockLevel: 11
+  unlockLevel: 24
   xpAmount: 25
   pricePerProductUntilLevel50:
   - 9,42B
-  - 14,789B
-  - 23,219B
-  - 36,454B
-  - 57,233B
-  - 89,856B
-  - 141,075B
-  - 221,487B
-  - 347,735B
-  - 545,944B
-  - 857,132B
-  - 1,346C
-  - 2,113C
-  - 3,317C
-  - 5,208C
-  - 8,176C
-  - 12,836C
-  - 20,153C
-  - 31,641C
-  - 49,676C
-  - 77,991C
-  - 122,446C
+  - 14,79B
+  - 23,22B
+  - 36,45B
+  - 57,23B
+  - 89,86B
+  - 141,07B
+  - 221,49B
+  - 347,73B
+  - 545,94B
+  - 857,13B
+  - 1,35C
+  - 2,11C
+  - 3,32C
+  - 5,21C
+  - 8,18C
+  - 12,84C
+  - 20,15C
+  - 31,64C
+  - 49,68C
+  - 77,99C
+  - 122,45C
   - 192,24C
-  - 301,817C
-  - 473,852C
-  - 743,948C
-  - 1,168D
-  - 1,834D
-  - 2,879D
+  - 301,82C
+  - 473,85C
+  - 743,95C
+  - 1,17D
+  - 1,83D
+  - 2,88D
   - 4,52D
-  - 7,096D
-  - 11,141D
-  - 17,492D
-  - 27,462D
-  - 43,116D
-  - 67,692D
-  - 106,277D
-  - 166,855D
-  - 261,962D
+  - 7,1D
+  - 11,14D
+  - 17,49D
+  - 27,46D
+  - 43,12D
+  - 67,69D
+  - 106,28D
+  - 166,85D
+  - 261,96D
   - 411,28D
   - 645,71D
-  - 1,014E
-  - 1,592E
-  - 2,499E
-  - 3,923E
-  - 6,159E
+  - 1,01E
+  - 1,59E
+  - 2,5E
+  - 3,92E
+  - 6,16E
   - 9,67E
-  - 15,182E
-  - 23,836E
-  - 88,194E
+  - 15,18E
+  - 23,84E
+  - 88,19E
   backgroundImage: {fileID: 0}
   toolImage: {fileID: 21300000, guid: 444bd18958ae74c42bedd2d5a97aacae, type: 3}
   sourceImage: {fileID: 21300000, guid: 19cda5e5a9540f54b88c6a0ca2aeee80, type: 3}

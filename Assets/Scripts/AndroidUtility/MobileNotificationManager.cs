@@ -77,7 +77,7 @@ public class MobileNotificationManager : MonoBehaviour
             FireTime = DateTime.Now.AddSeconds(5),
             RepeatInterval = TimeSpan.FromSeconds(3),
             SortKey = "_a",
-            Group = "idle_farm"
+            Group = "main"
         };
         AndroidNotificationCenter.SendNotification(needLoveNotification, "important_channel");
 
@@ -90,7 +90,7 @@ public class MobileNotificationManager : MonoBehaviour
             FireTime = DateTime.Now.AddSeconds(30),
             RepeatInterval = TimeSpan.FromSeconds(10),
             SortKey = "_b",
-            Group = "idle_farm"
+            Group = "main"
         };
 
         AndroidNotificationCenter.NotificationReceivedCallback notificationReceivedCallback = delegate (AndroidNotificationIntentData data)

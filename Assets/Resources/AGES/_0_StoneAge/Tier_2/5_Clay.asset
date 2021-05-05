@@ -15,8 +15,8 @@ MonoBehaviour:
   Description: Everyone wants to play with mud and clay. All you need is creativity
   TranslatedName: Clay
   product: 10
-  prefferedWorkerType: 0
-  minimumWorker: 1
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     mantissa: 8.681817841923934
     exponent: 0
   isOptimal: 1
-  unlockLevel: 4
+  unlockLevel: 9
   xpAmount: 10
   pricePerProductUntilLevel50:
   - 3,14B

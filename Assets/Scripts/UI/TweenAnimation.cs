@@ -97,7 +97,8 @@ public class TweenAnimation : Singleton<TweenAnimation>
             time = collectTime / 8;
 
         LeanTween.rotate(obj, startAngle.Value, 0f);
-        var t = LeanTween.rotate(obj, endAngle.Value-startAngle.Value, time).setOnComplete(() => LeanTween.rotate(obj, startAngle.Value-endAngle.Value, 0f)).setLoopPingPong();
+        var t = LeanTween.rotate(obj, endAngle.Value-startAngle.Value, time).setOnComplete(() => 
+            LeanTween.rotate(obj, startAngle.Value-endAngle.Value, 0f)).setLoopPingPong();
         return t;
     }
 

@@ -119,7 +119,8 @@ public class ScriptableCompoundEditorDrawer : Editor
         var foldOutStyle = new GUIStyle() { fontStyle = FontStyle.Bold, richText = true, wordWrap = true };
         var richTextStyle = new GUIStyle() { richText = true, wordWrap = true };
 
-        foldoutForMoney = EditorGUILayout.Foldout(foldoutForMoney, "<color=red>MONEY</color>", foldOutStyle);
+        foldoutForMoney = EditorGUILayout.Foldout(foldoutForMoney, string.Format("<color=red>MONEY:</color> <color=lime>{0}</color>",
+            _pricePerProductText.stringValue), foldOutStyle);
         if (foldoutForMoney)
         {
             EditorGUILayout.PropertyField(_basePricePerProduct, true);

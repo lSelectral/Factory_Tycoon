@@ -22,7 +22,15 @@ public class Compounds : ProductionBase
         tempResourceList = currentRecipe.inputResources.ToList();
         if (resourceBoard != null)
         {
-            resourceIconListForCompounds = new List<GameObject>();
+            // Destroy unnecessary objs from prefab
+            if (resourceBoard.childCount > currentRecipe.inputResources.Length)
+            {
+                for (int i = 1; i < resourceBoard.childCount + 1 - currentRecipe.inputResources.Length; i++)
+                {
+                    Destroy(resourceBoard.GetChild(resourceBoard.childCount - i).gameObject);
+                }
+            }
+
             for (int i = 0; i < currentRecipe.inputResources.Length; i++)
             {
                 resourceBoard.GetChild(i).GetComponent<Image>().sprite = ResourceManager.Instance.GetSpriteFromResource(currentRecipe.inputResources[i]);

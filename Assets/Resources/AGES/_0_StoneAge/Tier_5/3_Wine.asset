@@ -15,8 +15,8 @@ MonoBehaviour:
   Description: Life was always stressful. Relax and chill.
   TranslatedName: Wine
   product: 23
-  prefferedWorkerType: 0
-  minimumWorker: 2
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 100
   housingAmount: 0
   attackAmount: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     mantissa: 1.6679211144584662
     exponent: 12
   isOptimal: 1
-  unlockLevel: 14
+  unlockLevel: 21
   xpAmount: 10000
   pricePerProductUntilLevel50:
   - 2,2C

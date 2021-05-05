@@ -15,8 +15,8 @@ MonoBehaviour:
   Description: 
   TranslatedName: Brick
   product: 13
-  prefferedWorkerType: 0
-  minimumWorker: 2
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     mantissa: 3.274285657065254
     exponent: 9
   isOptimal: 1
-  unlockLevel: 5
+  unlockLevel: 11
   xpAmount: 10
   pricePerProductUntilLevel50:
   - 338,6B

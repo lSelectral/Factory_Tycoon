@@ -15,9 +15,12 @@ MonoBehaviour:
   Description: Primal tool for cutting down trees and sometimes enemies
   TranslatedName: Axe
   product: 8
+  prefferedWorkerType: 5
+  minimumWorkerCount: 1
   foodAmount: 0
   housingAmount: 0
   attackAmount: 4
+  defenseAmount: 0
   collectTime: 8
   outputValue: 1
   recipes:
@@ -32,77 +35,76 @@ MonoBehaviour:
     mantissa: 2.09
     exponent: 8
   pricePerProductExpText: 2.09104196003914E+8
-  pricePerProductText: 209,104M
+  pricePerProductText: 209,1M
   pricePerProduct:
     mantissa: 2.09104196003914
     exponent: 8
-  incomePerSecondText: 26,138M
+  incomePerSecondText: 26,14M
   incomePerSecond:
     mantissa: 2.613802450048925
     exponent: 7
-  optimalPricePerProductText: 104,196K
+  optimalPricePerProductText: 104,2K
   optimalPricePerProduct:
     mantissa: 1.0419600391387938
     exponent: 5
-  optimalIncomePerSecondText: 9,359K
+  optimalIncomePerSecondText: 9,36K
   optimalPricePerSecond:
     mantissa: 9.358999836444855
     exponent: 3
   isOptimal: 1
-  lockedByContracts: []
-  unlockLevel: 5
+  unlockLevel: 8
   xpAmount: 500
   pricePerProductUntilLevel50:
-  - 328,294M
-  - 515,421M
-  - 809,211M
+  - 328,29M
+  - 515,42M
+  - 809,21M
   - 1,27B
-  - 1,995B
-  - 3,132B
-  - 4,917B
-  - 7,719B
-  - 12,119B
-  - 19,027B
-  - 29,872B
-  - 46,898B
-  - 73,631B
+  - 1,99B
+  - 3,13B
+  - 4,92B
+  - 7,72B
+  - 12,12B
+  - 19,03B
+  - 29,87B
+  - 46,9B
+  - 73,63B
   - 115,6B
-  - 181,492B
-  - 284,943B
+  - 181,49B
+  - 284,94B
   - 447,36B
-  - 702,355B
-  - 1,103T
-  - 1,731T
-  - 2,718T
-  - 4,267T
+  - 702,36B
+  - 1,1T
+  - 1,73T
+  - 2,72T
+  - 4,27T
   - 6,7T
-  - 10,519T
-  - 16,514T
-  - 25,927T
-  - 40,706T
-  - 63,908T
-  - 100,335T
-  - 157,526T
-  - 247,316T
-  - 388,286T
+  - 10,52T
+  - 16,51T
+  - 25,93T
+  - 40,71T
+  - 63,91T
+  - 100,34T
+  - 157,53T
+  - 247,32T
+  - 388,29T
   - 609,61T
-  - 957,087T
-  - 1,503A
-  - 2,359A
-  - 3,704A
-  - 5,815A
+  - 957,09T
+  - 1,5A
+  - 2,36A
+  - 3,7A
+  - 5,82A
   - 9,13A
-  - 14,333A
-  - 22,503A
+  - 14,33A
+  - 22,5A
   - 35,33A
-  - 55,469A
-  - 87,086A
-  - 136,725A
-  - 214,658A
-  - 337,013A
-  - 529,111A
-  - 830,704A
-  - 3,074B
+  - 55,47A
+  - 87,09A
+  - 136,72A
+  - 214,66A
+  - 337,01A
+  - 529,11A
+  - 830,7A
+  - 3,07B
   backgroundImage: {fileID: 21300000, guid: 77773afa9629acf49ac22d63eb81f5f1, type: 3}
   toolImage: {fileID: 21300000, guid: bf874fa32954aeb45ba4e1117e4145c3, type: 3}
   sourceImage: {fileID: 21300000, guid: 9356860188971a84083c3ea09531b0b1, type: 3}

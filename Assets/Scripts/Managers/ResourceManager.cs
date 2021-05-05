@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System;
@@ -54,7 +55,8 @@ public class ResourceManager : Singleton<ResourceManager>
     IEnumerable<BaseResources> resources;
 
     // Player related variable and smoothing values
-    [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, premiumCurrencyText, foodAmountText, attackAmountText, populationText;
+    [SerializeField] private TextMeshProUGUI /*totalResourceText,*/ currencyText, 
+        premiumCurrencyText, foodAmountText, attackAmountText, populationText, incomePerSecondText;
     [SerializeField] BigDouble currency,totalResource, premiumCurrency, foodAmount, attackAmount = new BigDouble();
     [SerializeField] BigDouble smoothCurrency,smoothPremiumCurency = new BigDouble();
     [SerializeField] BigDouble smoothVelocityCurrency,smoothVelocityPremiumCurrency = new BigDouble();
@@ -102,7 +104,7 @@ public class ResourceManager : Singleton<ResourceManager>
             startTimeCurrency = Time.time;
             BigDouble newValue = value - currency;
             currency = value * UpgradeSystem.Instance.EarnedCoinMultiplier;
-
+            incomePerSecondText.text = value.ToString();
             if (newValue > 0)
                 SaveSystem.Instance.totalEarnedCurrency += newValue * UpgradeSystem.Instance.EarnedCoinMultiplier;
             else if (newValue < 0)
@@ -282,6 +284,15 @@ public class ResourceManager : Singleton<ResourceManager>
             resourceTextDict.Add(res, new TextMeshProUGUI());
         }
         UpgradeSystem.Instance.OnCombatPowerMultiplierChanged += OnCombatPowerMultiplierChanged;
+        GameManager.Instance.OnMainPanelChanged += OnMainPanelChanged;
+    }
+
+    private void OnMainPanelChanged(object sender, GameManager.OnMainPanelChangedEventArgs e)
+    {
+        if (e.panel == resourcePanel)
+        {
+            UpdateAllOutputStats();
+        }
     }
 
     private void OnCombatPowerMultiplierChanged(object sender, UpgradeSystem.OnCombatPowerMultiplierChangedEventArgs e)
@@ -290,7 +301,6 @@ public class ResourceManager : Singleton<ResourceManager>
     }
 
     List<List<GameObject>> resourceObjects = new List<List<GameObject>>();
-    List<GameObject> gameObjects = new List<GameObject>();
     private void Start()
     {
         #region Add all resources to resource panel
@@ -298,6 +308,7 @@ public class ResourceManager : Singleton<ResourceManager>
         int[] resourceIncrementArray = { 1, 5, 10, 100, 1000, 10000, 100000 };
         int counter = 0;
 
+        List<GameObject> gameObjects = new List<GameObject>();
         foreach (var resource in resources)
         {
             int arrayCounter = 0;
@@ -360,6 +371,45 @@ public class ResourceManager : Singleton<ResourceManager>
         premiumCurrencyText.text = smoothPremiumCurency.ToString();
     }
 
+    public void UpdateOutputStats(Age age, BigDouble value)
+    {
+        for (int i = 0; i < resourceObjects[(int)age].Count; i++)
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            if (value > 0)
+                stringBuilder.Append("+");
+            else if (value < 0)
+                stringBuilder.Append("-");
+            stringBuilder.Append(value.ToString());
+            stringBuilder.Append("/sec");
+            resourceObjects[(int)age][i].transform.Find("OutputPerSecond").GetComponent<TextMeshProUGUI>().text =
+                stringBuilder.ToString();
+        }
+    }
+
+    void UpdateAllOutputStats()
+    {
+        int count = 0;
+        for (int i = 0; i < resourceObjects.Count; i++)
+        {
+            for (int j = 0; j < resourceObjects[i].Count; j++)
+            {
+                var value = ProductionManager.Instance.instantiatedProductionUnits[count].OutputPerSecond;
+                System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+                if (value > 0)
+                    stringBuilder.Append("+");
+                else if (value < 0)
+                    stringBuilder.Append("-");
+                stringBuilder.Append(value.ToString());
+                stringBuilder.Append("/sec");
+
+                resourceObjects[i][j].transform.Find("OutputPerSecond").GetComponent<TextMeshProUGUI>().text =
+                    stringBuilder.ToString();
+                count++;
+            }
+        }
+    }
+
     void CollapseAllChilds(Transform _parent, int index)
     {
         _parent.Find("Expand").gameObject.SetActive(true);
@@ -389,7 +439,9 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         resourceValueDict[resource] += amount;
         TotalResource += amount;
-        OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() { resource = resource, resourceAmount = resourceValueDict[resource], isConsumed = false });
+        if (!SaveSystem.Instance.isLoading)
+            OnResourceAmountChanged?.Invoke(this, new OnResourceAmountChangedEventArgs() 
+            { resource = resource, resourceAmount = resourceValueDict[resource], isConsumed = false });
         resourceTextDict[resource].text = resourceValueDict[resource].ToString();
 
         ProductionBase productionUnit = ProductionManager.Instance.GetProductionUnitFromResource(resource);
@@ -542,9 +594,8 @@ public enum WorkerType
     None, // Production unit will be stopped
     Fill, // Production unit worker capacity will be fulled, if possible, with preffered worker type otherwise standard, if it is not possible to than what comes first.
     Standard, // Has no special talent
-    Crafter,
-    Hunter,
     Gatherer, // Grant more resource if chosen in gathering jobs
+    Hunter,
     Cook, // Cooking jobs grant tastier food (More food)
     Warrior, // Trained fearless soldiers have greater defense/attack stat
     Miner, // Miner able to mine more resource than usual workers
